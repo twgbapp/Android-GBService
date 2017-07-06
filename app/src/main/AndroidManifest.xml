@@ -78,7 +78,8 @@
         <activity android:name=".activity.AddMedicalTreatmentCodeActivity" />
         <activity android:name=".activity.AddMedicalProcessStatusActivity" />
         <activity android:name=".activity.AddMedicalTrackProcessActivity" />
-        <activity android:name=".activity.AddMedicalFileUploadActivity"></activity>
+        <activity android:name=".activity.AddMedicalFileUploadActivity" />
+        <activity android:name=".activity.SignatureActivity"></activity>
     </application>
 
 </manifest>

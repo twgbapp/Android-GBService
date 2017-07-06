@@ -89,12 +89,12 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
             j.put("clubID", clubID);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("content", content);
+            j.put("url", URLHelper.HOST);
             JSONArray arr = new JSONArray();
             for (ClubPostMediaModel m : list_media) {
                 JSONObject o = new JSONObject();
                 o.put("type", m.getType());
                 o.put("position", m.getPosition());
-                o.put("url", URLHelper.HOST);
                 switch (m.getType()) {
                     case ClubPostMediaModel.IMAGE:
                         o.put("pic", m.getPic());

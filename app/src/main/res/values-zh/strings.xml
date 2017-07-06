@@ -160,7 +160,7 @@
     </string-array>
 
     <!-- Club -->
-    <string name="club_title">\@string/club</string>
+    <string name="club_title">@string/club</string>
     <string name="club_add_post">新增社團貼文</string>
     <string name="club_content">內容</string>
     <string name="club_video">影片</string>
