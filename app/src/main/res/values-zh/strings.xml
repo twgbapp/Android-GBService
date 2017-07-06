@@ -160,7 +160,7 @@
     </string-array>
 
     <!-- Club -->
-    <string name="club_club">社團</string>
+    <string name="club_title">\@string/club</string>
     <string name="club_add_post">新增社團貼文</string>
     <string name="club_content">內容</string>
     <string name="club_video">影片</string>
@@ -176,4 +176,5 @@
     <!-- Announcement -->
     <string name="ann_create_date">建立日期</string>
     <string name="ann_expiration_date">到期日期</string>
+    <string name="club">社團</string>
 </resources>

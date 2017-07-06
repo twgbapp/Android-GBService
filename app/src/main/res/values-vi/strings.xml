@@ -7,43 +7,43 @@
     <!-- Common -->
     <string name="account">Số tài khoản</string>
     <string name="password">Mật mã</string>
-    <string name="id_number">居留證號</string>
-    <string name="check">檢查</string>
-    <string name="name">名稱</string>
-    <string name="sex">性別</string>
-    <string name="male">男</string>
-    <string name="female">女</string>
-    <string name="birthday">密碼</string>
-    <string name="email">信箱</string>
-    <string name="phone">電話</string>
+    <string name="id_number">"Số thẻ cư trú "</string>
+    <string name="check">Kiểm tr a</string>
+    <string name="name">"Tên gọi "</string>
+    <string name="sex">"giới tính "</string>
+    <string name="male">"Nam "</string>
+    <string name="female">Nữ</string>
+    <string name="birthday">Ngày sinh</string>
+    <string name="email">Hòm thư</string>
+    <string name="phone">Số điện thoại</string>
     <string name="sign_up">Danh bạ</string>
-    <string name="confirm">確認</string>
-    <string name="cancel">取消</string>
-    <string name="loading">載入中</string>
-    <string name="success">成功</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="cancel">Hủy bỏ</string>
+    <string name="loading">Đang tải</string>
+    <string name="success">Thành công</string>
     <string name="fail">失敗</string>
-    <string name="search">搜尋</string>
+    <string name="search">"Tìm kiếm "</string>
     <string name="sending">訊息傳送中</string>
-    <string name="select">請選擇</string>
-    <string name="permission_denied">權限不足</string>
-    <string name="error_confirm_password">確認密碼不符</string>
-    <string name="press_again_to_exit">再按一次返回鍵離開</string>
+    <string name="select">"Hãy lựa chọn "</string>
+    <string name="permission_denied">"Không có quyền "</string>
+    <string name="error_confirm_password">"Xác nhận mật mã không phù hợp "</string>
+    <string name="press_again_to_exit">"Ấn lại 1 lần vào nút quay trở lại để thoát "</string>
     <string name="mobile_service_desk">行動服務台</string>
     <string name="event_list">事件列表</string>
     <string name="quick_repair">快速報修</string>
     <string name="repair_record">報修紀錄</string>
     <!-- Server -->
-    <string name="server_error">伺服器沒有回應</string>
-    <string name="no_network">沒有偵測到網路</string>
-    <string name="time_out">連線逾時</string>
-    <string name="parse_error_json">JSON剖析失敗</string>
+    <string name="server_error">Hệ thống máy chủ không phản ánh</string>
+    <string name="no_network">"Không liên kết với mạng "</string>
+    <string name="time_out">"Liên kết bị kéo dài "</string>
+    <string name="parse_error_json">"Phân tích JSON thất bại "</string>
     <!-- Common Array-->
     <string-array name="choose_picture">
         <item>從圖庫</item>
         <item>拍照</item>
     </string-array>
     <!-- Message -->
-    <string name="can_not_be_empty">不能是空的</string>
+    <string name="can_not_be_empty">"Không được để trống "</string>
     <string name="can_not_be_empty_account">帳號不能是空的</string>
     <string name="can_not_be_empty_password">密碼不能是空的</string>
 
@@ -52,15 +52,15 @@
     <string name="login_password">@string/password</string>
     <string name="login_login">Đăng nhập</string>
     <string name="login_sign_up">@string/sign_up</string>
-    <string name="login_error_account_or_password_not_exist">帳號或密碼不存在</string>
-    <string name="login_error_fcm">登入失敗(FCM)</string>
+    <string name="login_error_account_or_password_not_exist">"Số tài khoản hoặc mật mã không tồn tại "</string>
+    <string name="login_error_fcm">Đăng nhập thất(FCM)</string>
 
     <!-- SignUp -->
-    <string name="sign_up_create_account">新增帳號</string>
+    <string name="sign_up_create_account">"Đăng ký tài khoản mới "</string>
     <string name="sign_up_account">@string/account</string>
     <string name="sign_up_password">@string/password</string>
-    <string name="sign_up_confirm_password">確認密碼</string>
-    <string name="sign_up_nation">國籍</string>
+    <string name="sign_up_confirm_password">Xác nhận mật mã</string>
+    <string name="sign_up_nation">"Quốc tịch "</string>
     <string name="sign_up_id_number">@string/id_number</string>
     <string name="sign_up_check">@string/check</string>
     <string name="sign_up_name">@string/name</string>
@@ -89,10 +89,10 @@
         <item>033</item>
     </string-array>
     <!-- Main -->
-    <string name="main_drawer_event_list">事件列表</string>
+    <string name="main_drawer_event_list">"Biểu liệt kê sự việc "</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
     <string name="main_drawer_satisfaction_survey">滿意度調查</string>
-    <string name="main_drawer_announcement">公告</string>
+    <string name="main_drawer_announcement">Thông báo</string>
     <string name="main_drawer_club">社團</string>
     <string name="main_drawer_logout">登出</string>
     <string name="main_drawer_online_setting">上線設定</string>
@@ -100,7 +100,7 @@
     <string name="main_drawer_chart">報修圖表</string>
     <string name="main_drawer_repair_record">@string/repair_record</string>
     <string name="main_drawer_medical">醫療</string>
-    <string name="main_welcome">歡迎</string>
+    <string name="main_welcome">"Hoan nghênh "</string>
 
     <!-- Profile -->
     <string name="profile_name">@string/name</string>
@@ -161,20 +161,21 @@
     </string-array>
 
     <!-- Club -->
-    <string name="club_club">社團</string>
+    <string name="club_title">\@string/club</string>
     <string name="club_add_post">新增社團貼文</string>
     <string name="club_content">內容</string>
     <string name="club_video">影片</string>
     <string name="club_support_url">YouTube或FaceBook的連結</string>
 
     <!-- Add User -->
-    <string name="add_user_add_user">Add User</string>
+    <string name="add_user_add_user">"Thêm nhân viên "</string>
 
     <!-- Add Event -->
     <string name="add_event_add_event">Add Event</string>
-    <string name="add_event_message">你確定要新增事件?</string>
+    <string name="add_event_message">Bạn chắc chắn muốn thêm sự việc ?</string>
 
     <!-- Announcement -->
-    <string name="ann_create_date">建立日期</string>
+    <string name="ann_create_date">"Ngày lập "</string>
     <string name="ann_expiration_date">到期日期</string>
+    <string name="club">"Câu lạc bộ "</string>
 </resources>

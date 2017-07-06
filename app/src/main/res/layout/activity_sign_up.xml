@@ -30,7 +30,7 @@
                 android:layout_gravity="center"
                 android:text="@string/sign_up_create_account"
                 android:textColor="#ecd12c"
-                android:textSize="36sp" />
+                android:textSize="28sp" />
 
             <EditText
                 android:id="@+id/et_sign_up_account"
