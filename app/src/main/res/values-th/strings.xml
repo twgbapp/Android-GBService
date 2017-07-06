@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GB Take</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="login_login">เข้าสู่ระบบ</string>
+    <string name="sign_up">การลงทะเบียน</string>
+    <string name="account">ชื่อบัญชี</string>
+</resources>

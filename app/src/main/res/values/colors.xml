@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="theme_yellow0">#EFC74D</color>
+    <color name="theme_yellow1">#f4d376</color>
+    <color name="theme_yellow2">#F0D576</color>
+    <color name="theme_yellow3">#FEF5CE</color>
+    <color name="theme_yellow4">#F6EDD0</color>
+
+    <!-- Theme -->
+    <color name="colorPrimary">@color/theme_yellow0</color>
+    <color name="colorPrimaryDark">@color/theme_yellow0</color>
+    <color name="colorAccent">@color/theme_yellow0</color>
+    <!-- UI Bakground-->
+    <color name="background_ui_satisfaction_name">@color/theme_yellow1</color>
+    <!-- Background -->
+    <color name="background_layout">@color/theme_yellow3</color>
+    <!-- Status -->
+    <color name="status_green">#009944</color>
+    <color name="status_yellow">#ffae00</color>
+    <color name="status_red">#ff5050</color>
+    <!-- Rating Dialog -->
+    <color name="rating_dialog_title_background">@color/theme_yellow1</color>
+    <color name="rating_dialog_close_background">@color/theme_yellow4</color>
+    <color name="rating_dialog_close_text">@color/theme_yellow2</color>
+
+</resources>

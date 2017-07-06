@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_item_list_group_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_item_list_group_chat_left_picture"
+            android:layout_width="@dimen/imageview_picture_in_chat_width"
+            android:layout_height="@dimen/imageview_picture_in_chat_width"
+            android:layout_gravity="top"
+            android:layout_margin="@dimen/imageview_picture_in_chat_margin"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_list_group_chat_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_item_list_group_chat_left_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="5dp"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/iv_item_list_group_chat_qrcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_item_list_group_chat_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/textview_chat_self"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_item_list_group_chat_right_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_item_list_group_chat_right_picture"
+            android:layout_width="@dimen/imageview_picture_in_chat_width"
+            android:layout_height="@dimen/imageview_picture_in_chat_width"
+            android:layout_gravity="top"
+            android:layout_margin="@dimen/imageview_picture_in_chat_margin"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

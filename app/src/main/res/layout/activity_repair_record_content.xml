@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_repair_record_content_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF">
+
+        <ImageView
+            android:id="@+id/iv_repair_record_content_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/ic_camera_gray" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_layout">
+
+        <TextView
+            android:id="@+id/tv_repair_record_content_proc_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description..."
+            android:padding="16dp"
+            android:textSize="24sp" />
+    </ScrollView>
+</LinearLayout>

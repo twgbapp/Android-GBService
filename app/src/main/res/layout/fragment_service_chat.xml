@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_layout"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/lv_service_chat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:listSelector="#00FFFFFF"
+        android:divider="#00FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_service_chat_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_chat" />
+
+        <ImageView
+            android:id="@+id/iv_service_chat_send"
+            android:layout_width="@dimen/imageview_chat_send_width"
+            android:layout_height="@dimen/imageview_chat_send_width"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/imageview_chat_send_margin"
+            android:src="@drawable/ic_chat_send" />
+    </LinearLayout>
+</LinearLayout>

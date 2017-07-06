@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_labor_event_list"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_event_list" />
+    <item
+        android:id="@+id/nav_labor_quick_repair"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_quick_repair" />
+    <item
+        android:id="@+id/nav_labor_satisfaction_survey"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_satisfaction_survey" />
+    <item
+        android:id="@+id/nav_labor_announcement"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_announcement" />
+    <item
+        android:id="@+id/nav_labor_club"
+        android:icon="@drawable/ic_club"
+        android:title="@string/main_drawer_club" />
+    <item
+        android:id="@+id/nav_labor_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/main_drawer_logout" />
+
+</menu>

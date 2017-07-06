@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_premier"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/sign_up_create_account"
+                android:textColor="#ecd12c"
+                android:textSize="36sp" />
+
+            <EditText
+                android:id="@+id/et_sign_up_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_signup"
+                android:hint="@string/sign_up_account"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColorHint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/et_sign_up_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_signup"
+                android:hint="@string/sign_up_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColorHint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/et_sign_up_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_signup"
+                android:hint="@string/sign_up_confirm_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColorHint="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/sign_up_nation"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/sp_sign_up_national_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_sign_up_id_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_signup"
+                    android:hint="@string/sign_up_id_number"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColorHint="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_sign_up_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/edittext_signup_check"
+                    android:gravity="center"
+                    android:text="@string/sign_up_check"
+                    android:textColor="#FFF" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_sign_up_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_signup"
+                android:hint="@string/sign_up_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/sign_up_sex"
+                android:textSize="20sp" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_sign_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/sign_up_sex_male"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_sign_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_up_sex_female"
+                    android:textSize="20sp" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_sign_up_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_signup"
+                android:hint="@string/sign_up_birthday"
+                android:textColor="#000"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_sign_up_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_signup"
+                android:hint="@string/sign_up_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColorHint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/et_sign_up_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_signup"
+                android:hint="@string/sign_up_phone"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:textColorHint="@color/colorPrimary" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_sign_up_do_sign_up"
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffe184"
+        android:text="@string/sign_up_sign_up" />
+</LinearLayout>

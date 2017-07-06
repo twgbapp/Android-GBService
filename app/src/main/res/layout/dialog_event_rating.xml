@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rating_dialog_title_background"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="RATING"
+        android:textColor="#FFF"
+        android:textSize="24sp" />
+
+    <RatingBar
+        android:id="@+id/rb_dialog_event_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:stepSize="1"
+        android:theme="@style/AppTheme.RatingBar" />
+
+    <TextView
+        android:id="@+id/tv_dialog_event_rating_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rating_dialog_close_background"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="CLOSE"
+        android:textColor="@color/rating_dialog_close_text"
+        android:textSize="24sp" />
+</LinearLayout>

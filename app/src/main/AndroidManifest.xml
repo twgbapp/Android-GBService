@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="goldenbrother.gbmobile">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo_gb2"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.PermissionActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.MobileServiceActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.SignUpActivity" />
+        <activity
+            android:name=".activity.EventChatActivity"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!-- Receive InstanceID For First Time -->
+        <service android:name=".fcm.GBInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Receive Message -->
+        <service android:name=".fcm.GBFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".activity.AddEventUserActivity" />
+        <activity android:name=".activity.ServiceChatActivity" />
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.OnLineSettingActivity" />
+        <activity android:name=".activity.QuickRepairActivity" />
+        <activity android:name=".activity.SatisfactionIssueActivity" />
+        <activity android:name=".activity.AddEventActivity" />
+        <activity android:name=".activity.ClubListActivity" />
+        <activity android:name=".activity.ClubPostActivity" />
+        <activity android:name=".activity.AddClubPostActivity" />
+        <activity android:name=".activity.GalleryActivity" />
+        <activity android:name=".activity.AddClubPostMessageActivity" />
+        <activity android:name=".activity.ClubPostMediaActivity" />
+        <activity android:name=".activity.AnnouncementListActivity" />
+        <activity android:name=".activity.AnnouncementContentActivity" />
+        <activity android:name=".activity.PackageListActivity" />
+        <activity android:name=".activity.QRReaderActivity" />
+        <activity android:name=".activity.ChartActivity" />
+        <activity android:name=".activity.MedicalListActivity" />
+        <activity android:name=".activity.MedicalInfoActivity" />
+        <activity android:name=".activity.MedicalRecordActivity" />
+        <activity android:name=".activity.RepairRecordActivity" />
+        <activity android:name=".activity.RepairRecordContentActivity" />
+        <activity android:name=".activity.SatisfactionQuestionActivity" />
+        <activity android:name=".activity.AddMedicalTreatmentCodeActivity" />
+        <activity android:name=".activity.AddMedicalProcessStatusActivity" />
+        <activity android:name=".activity.AddMedicalTrackProcessActivity" />
+        <activity android:name=".activity.AddMedicalFileUploadActivity"></activity>
+    </application>
+
+</manifest>

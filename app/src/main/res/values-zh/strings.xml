@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GB Take</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Common -->
+    <string name="account">帳號</string>
+    <string name="password">密碼</string>
+    <string name="id_number">居留證號</string>
+    <string name="check">檢查</string>
+    <string name="name">名稱</string>
+    <string name="sex">性別</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="birthday">生日</string>
+    <string name="email">信箱</string>
+    <string name="phone">電話</string>
+    <string name="sign_up">註冊</string>
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="loading">載入中</string>
+    <string name="success">成功</string>
+    <string name="fail">失敗</string>
+    <string name="search">搜尋</string>
+    <string name="sending">訊息傳送中</string>
+    <string name="select">請選擇</string>
+    <string name="permission_denied">權限不足</string>
+    <string name="error_confirm_password">確認密碼不符</string>
+    <string name="press_again_to_exit">再按一次返回鍵離開</string>
+    <string name="mobile_service_desk">行動服務台</string>
+    <string name="event_list">事件列表</string>
+    <string name="quick_repair">快速報修</string>
+    <string name="repair_record">報修紀錄</string>
+    <!-- Server -->
+    <string name="server_error">伺服器沒有回應</string>
+    <string name="no_network">沒有偵測到網路</string>
+    <string name="time_out">連線逾時</string>
+    <string name="parse_error_json">JSON剖析失敗</string>
+    <!-- Common Array-->
+    <string-array name="choose_picture">
+        <item>從圖庫</item>
+        <item>拍照</item>
+    </string-array>
+    <!-- Message -->
+    <string name="can_not_be_empty">不能是空的</string>
+    <string name="can_not_be_empty_account">帳號不能是空的</string>
+    <string name="can_not_be_empty_password">密碼不能是空的</string>
+
+    <!-- Login -->
+    <string name="login_account">@string/account</string>
+    <string name="login_password">@string/password</string>
+    <string name="login_login">登入</string>
+    <string name="login_sign_up">@string/sign_up</string>
+    <string name="login_error_account_or_password_not_exist">帳號或密碼不存在</string>
+    <string name="login_error_fcm">登入失敗(FCM)</string>
+
+    <!-- SignUp -->
+    <string name="sign_up_create_account">新增帳號</string>
+    <string name="sign_up_account">@string/account</string>
+    <string name="sign_up_password">@string/password</string>
+    <string name="sign_up_confirm_password">確認密碼</string>
+    <string name="sign_up_nation">國籍</string>
+    <string name="sign_up_id_number">@string/id_number</string>
+    <string name="sign_up_check">@string/check</string>
+    <string name="sign_up_name">@string/name</string>
+    <string name="sign_up_sex">@string/sex</string>
+    <string name="sign_up_sex_male">@string/male</string>
+    <string name="sign_up_sex_female">@string/female</string>
+    <string name="sign_up_birthday">@string/birthday</string>
+    <string name="sign_up_email">@string/email</string>
+    <string name="sign_up_phone">@string/phone</string>
+    <string name="sign_up_sign_up">@string/sign_up</string>
+    <string name="sign_up_error_confirm_password">@string/error_confirm_password</string>
+    <string name="sign_up_id_number_can_sign_up">此居留證號能被註冊</string>
+    <string name="sign_up_id_number_can_not_sign_up">此居留證號不能被註冊</string>
+    <string-array name="nation_name">
+        <item>Taiwan</item>
+        <item>Indonesia</item>
+        <item>Philippines</item>
+        <item>Thailand</item>
+        <item>Vietnam</item>
+    </string-array>
+    <string-array name="nation_code">
+        <item>000</item>
+        <item>009</item>
+        <item>024</item>
+        <item>030</item>
+        <item>033</item>
+    </string-array>
+    <!-- Main -->
+    <string name="main_drawer_event_list">事件列表</string>
+    <string name="main_drawer_quick_repair">@string/quick_repair</string>
+    <string name="main_drawer_satisfaction_survey">滿意度調查</string>
+    <string name="main_drawer_announcement">公告</string>
+    <string name="main_drawer_club">社團</string>
+    <string name="main_drawer_logout">登出</string>
+    <string name="main_drawer_online_setting">上線設定</string>
+    <string name="main_drawer_package">包裹</string>
+    <string name="main_drawer_chart">報修圖表</string>
+    <string name="main_drawer_repair_record">@string/repair_record</string>
+    <string name="main_drawer_medical">醫療</string>
+    <string name="main_welcome">歡迎</string>
+
+    <!-- Profile -->
+    <string name="profile_name">@string/name</string>
+    <string name="profile_email">@string/email</string>
+    <string name="profile_change_password">修改密碼</string>
+    <string name="profile_old_password">舊密碼</string>
+    <string name="profile_new_password">新密碼</string>
+    <string name="profile_confirm_new_password">確認新密碼</string>
+
+    <!-- Mobile Service -->
+    <string name="mobile_service_tab_chat">服務台對話</string>
+    <string name="mobile_service_tab_event">事件</string>
+
+    <!-- Medical -->
+    <string name="medical_add_medical">新增醫療</string>
+    <string name="medical_patient_info">病人資訊</string>
+    <string name="medical_id_number">@string/id_number</string>
+    <string name="medical_check">@string/check</string>
+    <string name="medical_blood_type">血型</string>
+    <string name="medical_fill_out_date">就診日期</string>
+
+    <string name="medical_process_status_1">外勞自行就醫。</string>
+    <string name="medical_process_status_2">由宿舍管理中心送醫</string>
+    <string name="medical_process_status_3">通知雇主該名外勞生病</string>
+    <string name="medical_process_status_4">外勞是否需請假不上班。</string>
+
+    <string-array name="medical_process_status">
+        <item>@string/medical_process_status_1</item>
+        <item>@string/medical_process_status_2</item>
+        <item>@string/medical_process_status_3</item>
+        <item>@string/medical_process_status_4</item>
+    </string-array>
+
+    <string name="medical_track_process_1">複診</string>
+    <string name="medical_track_process_2">換藥</string>
+    <string name="medical_track_process_3">其他</string>
+    <string name="medical_track_process_4">痊癒</string>
+
+    <string-array name="medical_track_process">
+        <item>@string/medical_track_process_1</item>
+        <item>@string/medical_track_process_2</item>
+        <item>@string/medical_track_process_3</item>
+        <item>@string/medical_track_process_4</item>
+    </string-array>
+
+    <string-array name="blood_type_name">
+        <item>A</item>
+        <item>B</item>
+        <item>O</item>
+        <item>AB</item>
+    </string-array>
+    <string-array name="blood_type_code">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- Club -->
+    <string name="club_club">社團</string>
+    <string name="club_add_post">新增社團貼文</string>
+    <string name="club_content">內容</string>
+    <string name="club_video">影片</string>
+    <string name="club_support_url">YouTube或FaceBook的連結</string>
+
+    <!-- Add User -->
+    <string name="add_user_add_user">新增人員</string>
+
+    <!-- Add Event -->
+    <string name="add_event_add_event">新增事件</string>
+    <string name="add_event_message">你確定要新增事件?</string>
+
+    <!-- Announcement -->
+    <string name="ann_create_date">建立日期</string>
+    <string name="ann_expiration_date">到期日期</string>
+</resources>

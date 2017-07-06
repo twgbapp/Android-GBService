@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_manager_event_list"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_event_list" />
+    <item
+        android:id="@+id/nav_manager_on_line_setting"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_online_setting" />
+    <item
+        android:id="@+id/nav_manager_club"
+        android:icon="@drawable/ic_club"
+        android:title="@string/main_drawer_club" />
+    <item
+        android:id="@+id/nav_manager_package"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_package" />
+    <item
+        android:id="@+id/nav_manager_chart"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_chart" />
+    <item
+        android:id="@+id/nav_manager_repair_record"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_repair_record" />
+    <item
+        android:id="@+id/nav_manager_record"
+        android:icon="@drawable/ic_person_white"
+        android:title="@string/main_drawer_medical" />
+    <item
+        android:id="@+id/nav_manager_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/main_drawer_logout" />
+
+</menu>
