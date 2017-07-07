@@ -92,7 +92,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             JSONObject j = new JSONObject();
             j.put("action", "uploadImg");
             j.put("fileName", RoleInfo.getInstance().getUserID());
-            j.put("baseStr", BitmapHelper.getStringImage(bmp));
+            j.put("baseStr", BitmapHelper.bitmap2String(bmp));
             j.put("url",URLHelper.HOST);
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {

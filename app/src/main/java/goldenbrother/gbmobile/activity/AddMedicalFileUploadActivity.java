@@ -37,18 +37,17 @@ import goldenbrother.gbmobile.model.RoleInfo;
 public class AddMedicalFileUploadActivity extends CommonActivity implements View.OnClickListener {
 
     // request
+    public static final int REQUEST_SIGNATURE = 10;
     public static final int REQUEST_CHOOSE_PHOTO = 11;
     public static final int REQUEST_TAKE_PHOTO = 12;
     public static final int REQUEST_CROP_PHOTO = 13;
     // ui
-    private ImageView iv_1, iv_2, iv_3, iv_4;
+    private ImageView iv_signature, iv_medical, iv_diagnostic, iv_service;
     private ImageView iv_clicked;
-    // extra
-    private int MTRSNo;
     // take picture
     private File file;
     // data
-    private String path1, path2, path3, path4;
+    private String signaturePath="", medicalPath="", diagnosticPath="", servicePath="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,28 +56,26 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
 
         // ui reference
         findViewById(R.id.iv_add_medical_file_upload_done).setOnClickListener(this);
-        iv_1 = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_1);
-        iv_2 = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_2);
-        iv_3 = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_3);
-        iv_4 = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_4);
-        iv_1.setOnClickListener(this);
-        iv_2.setOnClickListener(this);
-        iv_3.setOnClickListener(this);
-        iv_4.setOnClickListener(this);
-        // extra
-        MTRSNo = getIntent().getExtras().getInt("MTRSNo");
+        iv_signature = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_signature);
+        iv_medical = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_medical);
+        iv_diagnostic = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_diagnostic);
+        iv_service = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_service);
+        iv_signature.setOnClickListener(this);
+        iv_medical.setOnClickListener(this);
+        iv_diagnostic.setOnClickListener(this);
+        iv_service.setOnClickListener(this);
     }
 
 
     private void showImage(final Bitmap bmp) {
         final ImageView iv = new ImageView(this);
         iv.setImageBitmap(bmp);
-        alertWithView(iv,new DialogInterface.OnClickListener() {
+        alertWithView(iv, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 uploadPicture(BitmapHelper.getLimitBitmap(bmp, 300, 300));
             }
-        },null);
+        }, null);
     }
 
     private void uploadPicture(Bitmap bmp) {
@@ -87,7 +84,7 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
             j.put("action", "uploadImg");
             j.put("fileName", BitmapHelper.getRandomName());
             j.put("url", URLHelper.HOST);
-            j.put("baseStr", BitmapHelper.getStringImage(bmp));
+            j.put("baseStr", BitmapHelper.bitmap2String(bmp));
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -110,55 +107,7 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.uploadPicture(response, map);
                     if (result == ApiResultHelper.SUCCESS) {
-                        TextView tv = new TextView(AddMedicalFileUploadActivity.this);
-                        tv.setText(map.get("path"));
-                        alertWithView(tv,null,null);
-//                        map.get("path")
-                    } else {
-                        t(R.string.fail);
-                    }
-                    break;
-            }
-        }
-    }
-
-    private void updatePicture(String path) {
-        try {
-            JSONObject j = new JSONObject();
-            j.put("action", "updatePicture");
-            j.put("userID", RoleInfo.getInstance().getUserID());
-            //j.put("DiagnosticCertificate", "DiagnosticCertificate");
-            j.put("path", path);
-            new UpdatePicture(this, j, URLHelper.HOST, path).execute();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private class UpdatePicture extends IAsyncTask {
-
-        private String path;
-
-        UpdatePicture(Context context, JSONObject json, String url, String path) {
-            super(context, json, url);
-            this.path = path;
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            super.onPostExecute(response);
-            switch (getResult()) {
-                case ApiResultHelper.SUCCESS:
-                case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.updatePicture(response);
-                    if (result == ApiResultHelper.SUCCESS) {
-                        if (iv_clicked != null) {
-                            // update ImageView
-                            int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-                            Picasso.with(AddMedicalFileUploadActivity.this).load(path).resize(w, w).centerCrop().into(iv_clicked);
-                            // set path
-                            savePath(iv_clicked,path);
-                        }
+                        savePath(iv_clicked, map.get("path"));
                     } else {
                         t(R.string.fail);
                     }
@@ -168,18 +117,23 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
     }
 
     private void savePath(View v, String path) {
+        if (v == null) return;
         switch (v.getId()) {
-            case R.id.iv_add_medical_file_upload_picture_1:
-                path1 = path;
+            case R.id.iv_add_medical_file_upload_picture_signature:
+                signaturePath = path;
+                Picasso.with(this).load(path).into(iv_signature);
                 break;
-            case R.id.iv_add_medical_file_upload_picture_2:
-                path2 = path;
+            case R.id.iv_add_medical_file_upload_picture_medical:
+                medicalPath = path;
+                Picasso.with(this).load(path).into(iv_medical);
                 break;
-            case R.id.iv_add_medical_file_upload_picture_3:
-                path3 = path;
+            case R.id.iv_add_medical_file_upload_picture_diagnostic:
+                diagnosticPath = path;
+                Picasso.with(this).load(path).into(iv_diagnostic);
                 break;
-            case R.id.iv_add_medical_file_upload_picture_4:
-                path4 = path;
+            case R.id.iv_add_medical_file_upload_picture_service:
+                servicePath = path;
+                Picasso.with(this).load(path).into(iv_service);
                 break;
         }
     }
@@ -208,14 +162,23 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_add_medical_file_upload_done:
+                Intent intent = new Intent();
+                intent.putExtra("signaturePath",signaturePath);
+                intent.putExtra("medicalPath",medicalPath);
+                intent.putExtra("diagnosticPath",diagnosticPath);
+                intent.putExtra("servicePath",servicePath);
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
-            case R.id.iv_add_medical_file_upload_picture_1:
-            case R.id.iv_add_medical_file_upload_picture_2:
-            case R.id.iv_add_medical_file_upload_picture_3:
-            case R.id.iv_add_medical_file_upload_picture_4:
-                choosePictureIntent();
+            case R.id.iv_add_medical_file_upload_picture_signature:
                 iv_clicked = (ImageView) v;
+                openActivityForResult(SignatureActivity.class, REQUEST_SIGNATURE);
+                break;
+            case R.id.iv_add_medical_file_upload_picture_medical:
+            case R.id.iv_add_medical_file_upload_picture_diagnostic:
+            case R.id.iv_add_medical_file_upload_picture_service:
+                iv_clicked = (ImageView) v;
+                choosePictureIntent();
                 break;
         }
     }
@@ -235,8 +198,7 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
         }
         // respond to users whose devices do not support the crop action
         catch (ActivityNotFoundException anfe) {
-            // display an error message
-            ToastHelper.t(this, "Your device does't support crop");
+            t("Your device does't support crop");
         }
     }
 
@@ -244,6 +206,11 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case REQUEST_SIGNATURE:
+                    Bitmap bitmap = BitmapHelper.byte2Bitmap(data.getByteArrayExtra("bitmap"));
+                    uploadPicture(bitmap);
+                    LogHelper.d(bitmap.getWidth() + " " + bitmap.getHeight());
+                    break;
                 case REQUEST_CHOOSE_PHOTO:
                     Uri uriChoosePhoto = data.getData();
                     doCrop(uriChoosePhoto);

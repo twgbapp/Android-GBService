@@ -32,14 +32,16 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     public static final int REQUEST_TREATMENT = 1;
     public static final int REQUEST_PROCESS_STATUS = 2;
     public static final int REQUEST_TRACK_PROCESS = 3;
+    public static final int REQUEST_FILE_UPLOAD = 4;
     // ui
     private TextView tv_name, tv_gender, tv_birthday, tv_date;
-    private TextView et_symptoms, et_processing_status, et_tracking_processing;
+    private TextView et_symptoms, et_processing_status, et_tracking_processing, tv_file_upload;
     // data
     private Patient patient;
     private ArrayList<MedicalTreatmentCodeModel> list_treatment_code;
     private ArrayList<MedicalProcessStatusModel> list_processing_status;
     private ArrayList<MedicalTrackProcessModel> list_track_process;
+    private String diagnosticCertificatePath, serviceRecordPath, medicalCertificatePath, signaturePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +56,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         et_symptoms = (TextView) findViewById(R.id.tv_medical_record_symptoms);
         et_processing_status = (TextView) findViewById(R.id.tv_medical_record_processing_status);
         et_tracking_processing = (TextView) findViewById(R.id.tv_medical_record_tracking_processing);
+        tv_file_upload = (TextView) findViewById(R.id.tv_medical_record_file_upload);
         findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
         findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
         findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);
         findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
         findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
 
         // init list
@@ -92,6 +96,10 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("centerDirectorID", patient.getCenterDirectorID()); //getDormUserInfo
             j.put("createId", RoleInfo.getInstance().getUserID());
             j.put("createTime", TimeHelper.getStandard());
+            j.put("diagnosticCertificate", diagnosticCertificatePath);
+            j.put("serviceRecord", serviceRecordPath);
+            j.put("medicalCertificate", medicalCertificatePath);
+            j.put("signature", signaturePath);
 
             JSONArray arrTreatment = new JSONArray();//症狀
             for (MedicalTreatmentCodeModel m : list_treatment_code) {
@@ -144,9 +152,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     int result = ApiResultHelper.addMedicalRecord(response, map);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
-                        Bundle b = new Bundle();
-                        b.putInt("MTRSNo", getData("MTRSNo"));
-                        openActivity(AddMedicalFileUploadActivity.class, b);
                         finish();
                     } else {
                         t(R.string.fail);
@@ -154,6 +159,19 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     break;
             }
         }
+    }
+
+    private void updateUploadFileString() {
+        StringBuilder sb = new StringBuilder("FilePath");
+        if (!signaturePath.isEmpty())
+            sb.append("\nSignature:").append(signaturePath);
+        if (!medicalCertificatePath.isEmpty())
+            sb.append("\nMedical:").append(medicalCertificatePath);
+        if (!diagnosticCertificatePath.isEmpty())
+            sb.append("\nDiagnostic:").append(diagnosticCertificatePath);
+        if (!serviceRecordPath.isEmpty())
+            sb.append("\nService:").append(serviceRecordPath);
+        tv_file_upload.setText(sb.toString());
     }
 
     @Override
@@ -177,6 +195,9 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 break;
             case R.id.iv_medical_record_tracking_processing: // 追蹤與處理
                 openActivityForResult(AddMedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS);
+                break;
+            case R.id.iv_medical_record_file_upload:
+                openActivityForResult(AddMedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD);
                 break;
             case R.id.tv_medical_record_save: // 新增醫療紀錄
                 if (patient == null) {
@@ -226,6 +247,13 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     str_track_process += (str_track_process.isEmpty() ? "" : "\n") + m.getName();
                 }
                 et_tracking_processing.setText(str_track_process);
+                break;
+            case REQUEST_FILE_UPLOAD:
+                signaturePath = data.getStringExtra("signaturePath");
+                medicalCertificatePath = data.getStringExtra("medicalPath");
+                diagnosticCertificatePath = data.getStringExtra("diagnosticPath");
+                serviceRecordPath = data.getStringExtra("servicePath");
+                updateUploadFileString();
                 break;
         }
     }

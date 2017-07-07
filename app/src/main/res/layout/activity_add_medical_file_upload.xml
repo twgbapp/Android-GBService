@@ -62,7 +62,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_1"
+                android:id="@+id/iv_add_medical_file_upload_picture_signature"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"
@@ -86,7 +86,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_2"
+                android:id="@+id/iv_add_medical_file_upload_picture_medical"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"
@@ -110,7 +110,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_3"
+                android:id="@+id/iv_add_medical_file_upload_picture_diagnostic"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"
@@ -134,7 +134,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_4"
+                android:id="@+id/iv_add_medical_file_upload_picture_service"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"

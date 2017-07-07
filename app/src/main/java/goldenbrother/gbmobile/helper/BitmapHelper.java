@@ -19,8 +19,8 @@ import java.util.UUID;
  */
 public class BitmapHelper {
 
-    private static final int MAX_WIDTH = 768;
-    private static final int MAX_HEIGHT = 1024;
+    public static final int MAX_WIDTH = 768;
+    public static final int MAX_HEIGHT = 1024;
 
     public static Bitmap resize(Bitmap bmp, int maxW, int maxH) {
         if (bmp == null)
@@ -47,11 +47,18 @@ public class BitmapHelper {
         return Bitmap.createBitmap(bmp, 0, 0, oldWidth, oldHeight, matrix, true);
     }
 
-    public static String getStringImage(Bitmap bmp) {
+    public static String bitmap2String(Bitmap bmp) {
+        return Base64.encodeToString(bitmap2Byte(bmp), Base64.DEFAULT);
+    }
+
+    public static byte[] bitmap2Byte(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return baos.toByteArray();
+    }
+
+    public static Bitmap byte2Bitmap(byte[] byteArray) {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
     public static Bitmap getUploadServerBitmap(Context context, Uri uri) throws IOException {
@@ -78,7 +85,7 @@ public class BitmapHelper {
     }
 
     public static String getUploadServerBitmapString(Context context, Uri uri) throws IOException {
-        return getStringImage(getUploadServerBitmap(context, uri));
+        return bitmap2String(getUploadServerBitmap(context, uri));
     }
 
     public static File convertBitmapToFile(Context context, Bitmap bitmap) {
