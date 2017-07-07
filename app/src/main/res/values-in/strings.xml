@@ -23,15 +23,15 @@
     <string name="success">Berhasil</string>
     <string name="fail">失敗</string>
     <string name="search">pencarian</string>
-    <string name="sending">訊息傳送中</string>
+    <string name="sending">Transmisi pesan</string>
     <string name="select">silakan pilih</string>
     <string name="permission_denied">bukan dalam kuasa</string>
     <string name="error_confirm_password">setelah dicocokin no pin salah</string>
     <string name="press_again_to_exit">Tekan ulangTombol</string>
-    <string name="mobile_service_desk">行動服務台</string>
-    <string name="event_list">事件列表</string>
-    <string name="quick_repair">快速報修</string>
-    <string name="repair_record">報修紀錄</string>
+    <string name="mobile_service_desk">pelayanan service</string>
+    <string name="event_list">informasi masalah</string>
+    <string name="quick_repair">Perbaikan cepat</string>
+    <string name="repair_record">Catatan perbaikan</string>
     <!-- Server -->
     <string name="server_error">Server tidak respon</string>
     <string name="no_network">Tidak terdeteksi jaringan</string>
@@ -72,8 +72,8 @@
     <string name="sign_up_phone">@string/phone</string>
     <string name="sign_up_sign_up">@string/sign_up</string>
     <string name="sign_up_error_confirm_password">@string/error_confirm_password</string>
-    <string name="sign_up_id_number_can_sign_up">此居留證號能被註冊</string>
-    <string name="sign_up_id_number_can_not_sign_up">此居留證號不能被註冊</string>
+    <string name="sign_up_id_number_can_sign_up">No A.R.C ini bisa didaftarkan</string>
+    <string name="sign_up_id_number_can_not_sign_up">No A.R.C ini tidak bisa didaftarkan</string>
     <string-array name="nation_name">
         <item>Taiwan</item>
         <item>Indonesia</item>
@@ -89,39 +89,39 @@
         <item>033</item>
     </string-array>
     <!-- Main -->
-    <string name="main_drawer_event_list">informasi masalah</string>
+    <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
-    <string name="main_drawer_satisfaction_survey">滿意度調查</string>
+    <string name="main_drawer_satisfaction_survey">Angket pertanyaan</string>
     <string name="main_drawer_announcement">Pengumuman</string>
-    <string name="main_drawer_club">社團</string>
-    <string name="main_drawer_logout">登出</string>
-    <string name="main_drawer_online_setting">上線設定</string>
-    <string name="main_drawer_package">包裹</string>
-    <string name="main_drawer_chart">報修圖表</string>
+    <string name="main_drawer_club">\@string/club</string>
+    <string name="main_drawer_logout">Keluar</string>
+    <string name="main_drawer_online_setting">Pengaturan on - line</string>
+    <string name="main_drawer_package">Paket</string>
+    <string name="main_drawer_chart">Grafik perbaikan</string>
     <string name="main_drawer_repair_record">@string/repair_record</string>
-    <string name="main_drawer_medical">醫療</string>
+    <string name="main_drawer_medical">Medis</string>
     <string name="main_welcome">selamat datang</string>
 
     <!-- Profile -->
     <string name="profile_name">@string/name</string>
     <string name="profile_email">@string/email</string>
-    <string name="profile_change_password">kembali untuk keluar\"</string>
-    <string name="profile_old_password">舊密碼</string>
+    <string name="profile_change_password">Rubah pin</string>
+    <string name="profile_old_password">No pin lama</string>
     <string name="profile_new_password">新密碼</string>
-    <string name="profile_confirm_new_password">確認新密碼</string>
+    <string name="profile_confirm_new_password">Pastikan pin baru</string>
     <string name="profile_error_confirm_password">error_confirm_password</string>
 
     <!-- Mobile Service -->
-    <string name="mobile_service_tab_chat">服務台對話</string>
-    <string name="mobile_service_tab_event">事件</string>
+    <string name="mobile_service_tab_chat">Pembicaraan pelayanan</string>
+    <string name="mobile_service_tab_event">masalah</string>
 
     <!-- Medical -->
-    <string name="medical_add_medical">新增醫療</string>
-    <string name="medical_patient_info">病人資訊</string>
+    <string name="medical_add_medical">Tambahan medis</string>
+    <string name="medical_patient_info">Keterang pasien</string>
     <string name="medical_id_number">@string/id_number</string>
     <string name="medical_check">@string/check</string>
-    <string name="medical_blood_type">血型</string>
-    <string name="medical_fill_out_date">就診日期</string>
+    <string name="medical_blood_type">Golongan darah</string>
+    <string name="medical_fill_out_date">Tgl berobat</string>
 
     <string name="medical_process_status_1">外勞自行就醫。</string>
     <string name="medical_process_status_2">由宿舍管理中心送醫</string>
@@ -135,10 +135,10 @@
         <item>@string/medical_process_status_4</item>
     </string-array>
 
-    <string name="medical_track_process_1">複診</string>
-    <string name="medical_track_process_2">換藥</string>
-    <string name="medical_track_process_3">其他</string>
-    <string name="medical_track_process_4">痊癒</string>
+    <string name="medical_track_process_1">Berobat balik</string>
+    <string name="medical_track_process_2">Ganti obat</string>
+    <string name="medical_track_process_3">Lain lain</string>
+    <string name="medical_track_process_4">telah sembuh</string>
 
     <string-array name="medical_track_process">
         <item>@string/medical_track_process_1</item>
@@ -162,20 +162,20 @@
 
     <!-- Club -->
     <string name="club_title">@string/club</string>
-    <string name="club_add_post">新增社團貼文</string>
-    <string name="club_content">內容</string>
-    <string name="club_video">影片</string>
-    <string name="club_support_url">YouTube或FaceBook的連結</string>
+    <string name="club_add_post">Pesan komunitas baru</string>
+    <string name="club_content">kadar</string>
+    <string name="club_video">film</string>
+    <string name="club_support_url">YouTube atau FaceBook link</string>
 
     <!-- Add User -->
     <string name="add_user_add_user">Anggota baru</string>
 
     <!-- Add Event -->
-    <string name="add_event_add_event">Add Event</string>
+    <string name="add_event_add_event">Masalah baru</string>
     <string name="add_event_message">pastikah anda adakan tambahan hal</string>
 
     <!-- Announcement -->
     <string name="ann_create_date">Tgl buat</string>
-    <string name="ann_expiration_date">到期日期</string>
+    <string name="ann_expiration_date">tanggal kadaluwarsa</string>
     <string name="club">Organisasi</string>
 </resources>

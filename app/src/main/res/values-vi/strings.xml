@@ -7,11 +7,11 @@
     <!-- Common -->
     <string name="account">Số tài khoản</string>
     <string name="password">Mật mã</string>
-    <string name="id_number">"Số thẻ cư trú "</string>
+    <string name="id_number">Số thẻ cư trú</string>
     <string name="check">Kiểm tr a</string>
-    <string name="name">"Tên gọi "</string>
-    <string name="sex">"giới tính "</string>
-    <string name="male">"Nam "</string>
+    <string name="name">Tên gọi</string>
+    <string name="sex">giới tính</string>
+    <string name="male">Nam</string>
     <string name="female">Nữ</string>
     <string name="birthday">Ngày sinh</string>
     <string name="email">Hòm thư</string>
@@ -22,28 +22,28 @@
     <string name="loading">Đang tải</string>
     <string name="success">Thành công</string>
     <string name="fail">失敗</string>
-    <string name="search">"Tìm kiếm "</string>
-    <string name="sending">訊息傳送中</string>
-    <string name="select">"Hãy lựa chọn "</string>
-    <string name="permission_denied">"Không có quyền "</string>
-    <string name="error_confirm_password">"Xác nhận mật mã không phù hợp "</string>
-    <string name="press_again_to_exit">"Ấn lại 1 lần vào nút quay trở lại để thoát "</string>
-    <string name="mobile_service_desk">行動服務台</string>
-    <string name="event_list">事件列表</string>
-    <string name="quick_repair">快速報修</string>
-    <string name="repair_record">報修紀錄</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="sending">Đang truyền thông tin</string>
+    <string name="select">Hãy lựa chọn</string>
+    <string name="permission_denied">Không có quyền</string>
+    <string name="error_confirm_password">Xác nhận mật mã không phù hợp</string>
+    <string name="press_again_to_exit">Ấn lại 1 lần vào nút quay trở lại để thoát</string>
+    <string name="mobile_service_desk">Quầy phục vụ lưu động</string>
+    <string name="event_list">Biểu liệt kê sự việc</string>
+    <string name="quick_repair">Báo sửa nhanh</string>
+    <string name="repair_record">Ghi chép báo sửa</string>
     <!-- Server -->
     <string name="server_error">Hệ thống máy chủ không phản ánh</string>
-    <string name="no_network">"Không liên kết với mạng "</string>
-    <string name="time_out">"Liên kết bị kéo dài "</string>
-    <string name="parse_error_json">"Phân tích JSON thất bại "</string>
+    <string name="no_network">Không liên kết với mạng</string>
+    <string name="time_out">Liên kết bị kéo dài</string>
+    <string name="parse_error_json">Phân tích JSON thất bại</string>
     <!-- Common Array-->
     <string-array name="choose_picture">
         <item>從圖庫</item>
         <item>拍照</item>
-    </string-array>
+   </string-array>
     <!-- Message -->
-    <string name="can_not_be_empty">"Không được để trống "</string>
+    <string name="can_not_be_empty">Không được để trống</string>
     <string name="can_not_be_empty_account">帳號不能是空的</string>
     <string name="can_not_be_empty_password">密碼不能是空的</string>
 
@@ -52,15 +52,15 @@
     <string name="login_password">@string/password</string>
     <string name="login_login">Đăng nhập</string>
     <string name="login_sign_up">@string/sign_up</string>
-    <string name="login_error_account_or_password_not_exist">"Số tài khoản hoặc mật mã không tồn tại "</string>
+    <string name="login_error_account_or_password_not_exist">Số tài khoản hoặc mật mã không tồn tại</string>
     <string name="login_error_fcm">Đăng nhập thất(FCM)</string>
 
     <!-- SignUp -->
-    <string name="sign_up_create_account">"Đăng ký tài khoản mới "</string>
+    <string name="sign_up_create_account">Đăng ký tài khoản mới</string>
     <string name="sign_up_account">@string/account</string>
     <string name="sign_up_password">@string/password</string>
     <string name="sign_up_confirm_password">Xác nhận mật mã</string>
-    <string name="sign_up_nation">"Quốc tịch "</string>
+    <string name="sign_up_nation">Quốc tịch</string>
     <string name="sign_up_id_number">@string/id_number</string>
     <string name="sign_up_check">@string/check</string>
     <string name="sign_up_name">@string/name</string>
@@ -72,56 +72,56 @@
     <string name="sign_up_phone">@string/phone</string>
     <string name="sign_up_sign_up">@string/sign_up</string>
     <string name="sign_up_error_confirm_password">@string/error_confirm_password</string>
-    <string name="sign_up_id_number_can_sign_up">此居留證號能被註冊</string>
-    <string name="sign_up_id_number_can_not_sign_up">此居留證號不能被註冊</string>
+    <string name="sign_up_id_number_can_sign_up">Số thẻ cư trú này có thể đăng ký</string>
+    <string name="sign_up_id_number_can_not_sign_up">Số thẻ cư trú này không  thể đăng ký</string>
     <string-array name="nation_name">
         <item>Taiwan</item>
         <item>Indonesia</item>
         <item>Philippines</item>
         <item>Thailand</item>
         <item>Vietnam</item>
-    </string-array>
+   </string-array>
     <string-array name="nation_code">
         <item>000</item>
         <item>009</item>
         <item>024</item>
         <item>030</item>
         <item>033</item>
-    </string-array>
+   </string-array>
     <!-- Main -->
-    <string name="main_drawer_event_list">"Biểu liệt kê sự việc "</string>
+    <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
-    <string name="main_drawer_satisfaction_survey">滿意度調查</string>
+    <string name="main_drawer_satisfaction_survey">Điểu tra độ hài lòng</string>
     <string name="main_drawer_announcement">Thông báo</string>
-    <string name="main_drawer_club">社團</string>
-    <string name="main_drawer_logout">登出</string>
-    <string name="main_drawer_online_setting">上線設定</string>
-    <string name="main_drawer_package">包裹</string>
-    <string name="main_drawer_chart">報修圖表</string>
+    <string name="main_drawer_club">\@string/club</string>
+    <string name="main_drawer_logout">Đăng xuất</string>
+    <string name="main_drawer_online_setting">Cài đặt lên mạng</string>
+    <string name="main_drawer_package">Đồ gửi</string>
+    <string name="main_drawer_chart">Biểu đồ báo sửa</string>
     <string name="main_drawer_repair_record">@string/repair_record</string>
-    <string name="main_drawer_medical">醫療</string>
-    <string name="main_welcome">"Hoan nghênh "</string>
+    <string name="main_drawer_medical">Chữa trị</string>
+    <string name="main_welcome">Hoan nghênh</string>
 
     <!-- Profile -->
     <string name="profile_name">@string/name</string>
     <string name="profile_email">@string/email</string>
-    <string name="profile_change_password">修改密碼</string>
-    <string name="profile_old_password">舊密碼</string>
+    <string name="profile_change_password">Thay đổi mật mã</string>
+    <string name="profile_old_password">Mật mã cũ</string>
     <string name="profile_new_password">新密碼</string>
-    <string name="profile_confirm_new_password">確認新密碼</string>
+    <string name="profile_confirm_new_password">Xác nhận mật mã mới</string>
     <string name="profile_error_confirm_password">error_confirm_password</string>
 
     <!-- Mobile Service -->
-    <string name="mobile_service_tab_chat">服務台對話</string>
-    <string name="mobile_service_tab_event">事件</string>
+    <string name="mobile_service_tab_chat">Đối thoại với quầy phục vụ</string>
+    <string name="mobile_service_tab_event">Sự việc</string>
 
     <!-- Medical -->
-    <string name="medical_add_medical">新增醫療</string>
-    <string name="medical_patient_info">病人資訊</string>
+    <string name="medical_add_medical">Thêm chữa trị</string>
+    <string name="medical_patient_info">"Thông tin người bệnh "</string>
     <string name="medical_id_number">@string/id_number</string>
     <string name="medical_check">@string/check</string>
-    <string name="medical_blood_type">血型</string>
-    <string name="medical_fill_out_date">就診日期</string>
+    <string name="medical_blood_type">Nhóm máu</string>
+    <string name="medical_fill_out_date">Ngày khám bệnh</string>
 
     <string name="medical_process_status_1">外勞自行就醫。</string>
     <string name="medical_process_status_2">由宿舍管理中心送醫</string>
@@ -133,49 +133,49 @@
         <item>@string/medical_process_status_2</item>
         <item>@string/medical_process_status_3</item>
         <item>@string/medical_process_status_4</item>
-    </string-array>
+   </string-array>
 
-    <string name="medical_track_process_1">複診</string>
-    <string name="medical_track_process_2">換藥</string>
-    <string name="medical_track_process_3">其他</string>
-    <string name="medical_track_process_4">痊癒</string>
+    <string name="medical_track_process_1">Tái khám</string>
+    <string name="medical_track_process_2">Thay thuốc</string>
+    <string name="medical_track_process_3">Khác</string>
+    <string name="medical_track_process_4">Đã khỏi</string>
 
     <string-array name="medical_track_process">
         <item>@string/medical_track_process_1</item>
         <item>@string/medical_track_process_2</item>
         <item>@string/medical_track_process_3</item>
         <item>@string/medical_track_process_4</item>
-    </string-array>
+   </string-array>
 
     <string-array name="blood_type_name">
         <item>A</item>
         <item>B</item>
         <item>O</item>
         <item>AB</item>
-    </string-array>
+   </string-array>
     <string-array name="blood_type_code">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
-    </string-array>
+   </string-array>
 
     <!-- Club -->
     <string name="club_title">@string/club</string>
-    <string name="club_add_post">新增社團貼文</string>
-    <string name="club_content">內容</string>
-    <string name="club_video">影片</string>
-    <string name="club_support_url">YouTube或FaceBook的連結</string>
+    <string name="club_add_post">Thêm bài viết của câu câu lạc bộ</string>
+    <string name="club_content">Nội dung</string>
+    <string name="club_video">Ảnh</string>
+    <string name="club_support_url">liên kết  YouTube Hoặc FaceBook</string>
 
     <!-- Add User -->
-    <string name="add_user_add_user">"Thêm nhân viên "</string>
+    <string name="add_user_add_user">Thêm nhân viên</string>
 
     <!-- Add Event -->
-    <string name="add_event_add_event">Add Event</string>
+    <string name="add_event_add_event">Thêm sự việc</string>
     <string name="add_event_message">Bạn chắc chắn muốn thêm sự việc ?</string>
 
     <!-- Announcement -->
-    <string name="ann_create_date">"Ngày lập "</string>
-    <string name="ann_expiration_date">到期日期</string>
-    <string name="club">"Câu lạc bộ "</string>
+    <string name="ann_create_date">Ngày lập</string>
+    <string name="ann_expiration_date">Ngày hết hạn</string>
+    <string name="club">Câu lạc bộ</string>
 </resources>
