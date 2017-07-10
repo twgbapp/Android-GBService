@@ -118,6 +118,11 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
                         patient.setCenterDirectorID(getData("centerDirectorID"));
                         // set name
                         tv_name.setText(getData("userName"));
+                        if (getData("userSex").equals("男")) {
+                            rb_male.setChecked(true);
+                        } else {
+                            rb_female.setChecked(true);
+                        }
                         tv_birthday.setText(getData("userBirthday"));
                     } else {
                         t("Fail(CheckARCIDNumber)");

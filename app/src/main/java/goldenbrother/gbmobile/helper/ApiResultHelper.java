@@ -380,31 +380,22 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_first, ArrayList<MedicalTreatmentCodeModel> list_second) {
+    public static int loadMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_medical_treatment_code) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                // first
-                JSONArray arr_first = j.getJSONArray("first");
-                list_first.clear();
-                for (int i = 0; i < arr_first.length(); i++) {
-                    JSONObject o = arr_first.getJSONObject(i);
-                    MedicalTreatmentCodeModel m = new MedicalTreatmentCodeModel();
-                    m.setCode(o.getString("code"));
-                    m.setValue(o.getString("value"));
-                    list_first.add(m);
+                ArrayList<MedicalTreatmentCodeModel> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("second");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    MedicalTreatmentCodeModel eu = new MedicalTreatmentCodeModel();
+                    eu.setCode(o.getString("code"));
+                    eu.setValue(o.getString("value"));
+                    list.add(eu);
                 }
-                // second
-                JSONArray arr_second = j.getJSONArray("second");
-                list_second.clear();
-                for (int i = 0; i < arr_second.length(); i++) {
-                    JSONObject o = arr_second.getJSONObject(i);
-                    MedicalTreatmentCodeModel m = new MedicalTreatmentCodeModel();
-                    m.setCode(o.getString("code"));
-                    m.setValue(o.getString("value"));
-                    list_second.add(m);
-                }
+                list_medical_treatment_code.clear();
+                list_medical_treatment_code.addAll(list);
             }
             return success;
         } catch (JSONException e) {
@@ -1048,6 +1039,7 @@ public class ApiResultHelper {
             int success = j.getInt("success");
             if (success == 1) {
                 map.put("userName", j.getString("userName"));
+                map.put("userSex", j.getString("userSex"));
                 map.put("userBirthday", j.getString("userBirthday"));
                 map.put("customerNo", j.getString("customerNo"));
                 map.put("workerNo", j.getString("workerNo"));

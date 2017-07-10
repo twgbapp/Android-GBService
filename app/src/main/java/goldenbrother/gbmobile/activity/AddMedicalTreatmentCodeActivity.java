@@ -27,9 +27,9 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
     // ui
     private RecyclerView rv;
     private EditText et_other;
-    private ImageView iv_check;
+    private View iv_check;
     // data
-    private ArrayList<MedicalTreatmentCodeModel> list_symptoms;
+    private ArrayList<MedicalTreatmentCodeModel> list_treatment_code;
     private boolean otherChecked = false;
 
     @Override
@@ -42,12 +42,12 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
         findViewById(R.id.ll_add_medical_treatment_code_other).setOnClickListener(this);
         rv = (RecyclerView) findViewById(R.id.rv_add_medical_treatment_code);
         et_other = (EditText) findViewById(R.id.et_add_medical_treatment_code_other);
-        iv_check = (ImageView) findViewById(R.id.iv_add_medical_treatment_code_check);
+        iv_check = findViewById(R.id.iv_add_medical_treatment_code_check);
 
         // init ListView
-        list_symptoms = new ArrayList<>();
+        if (list_treatment_code == null) list_treatment_code = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_symptoms));
+        rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_treatment_code));
 
         // loadMedicalTreatmentCodeList
         loadMedicalTreatmentCodeList();
@@ -66,24 +66,8 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
     private class LoadMedicalTreatmentCodeList extends IAsyncTask {
 
 
-        private ArrayList<MedicalTreatmentCodeModel> list_first;
-        private ArrayList<MedicalTreatmentCodeModel> list_second;
-
         LoadMedicalTreatmentCodeList(Context context, JSONObject json, String url) {
             super(context, json, url);
-        }
-
-        private void sortSymptoms() {
-            list_symptoms.clear();
-            for (MedicalTreatmentCodeModel m : list_first){
-                list_symptoms.add(m);
-                for(MedicalTreatmentCodeModel mm : list_second){
-                    if (mm.getCode().startsWith(m.getCode())){
-                        list_symptoms.add(mm);
-                    }
-                }
-
-            }
         }
 
         @Override
@@ -92,9 +76,8 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.loadMedicalTreatmentCode(response, list_first, list_second);
+                    int result = ApiResultHelper.loadMedicalTreatmentCode(response, list_treatment_code);
                     if (result == ApiResultHelper.SUCCESS) {
-                        sortSymptoms();
                         updateAdapter();
                     } else {
                         t(R.string.fail);
@@ -104,17 +87,12 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
         }
     }
 
-
     private void updateAdapter() {
         rv.getAdapter().notifyDataSetChanged();
     }
 
     private void updateOther() {
-        if (otherChecked) {
-            iv_check.setImageResource(R.drawable.ic_radio_button_checked_b);
-        } else {
-            iv_check.setImageResource(R.drawable.ic_radio_button_unchecked_b);
-        }
+        iv_check.setVisibility(otherChecked ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -127,7 +105,7 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
                 ArrayList<MedicalTreatmentCodeModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
-                if (otherChecked) {
+                if (otherChecked|| !et_other.getText().toString().isEmpty()) {
                     String other = et_other.getText().toString();
                     MedicalTreatmentCodeModel m = new MedicalTreatmentCodeModel();
                     m.setCode("425");
