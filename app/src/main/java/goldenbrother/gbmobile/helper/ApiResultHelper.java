@@ -380,22 +380,31 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_medical_treatment_code) {
+    public static int loadMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_first, ArrayList<MedicalTreatmentCodeModel> list_second) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                ArrayList<MedicalTreatmentCodeModel> list = new ArrayList<>();
-                JSONArray arr = j.getJSONArray("second");
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject o = arr.getJSONObject(i);
-                    MedicalTreatmentCodeModel eu = new MedicalTreatmentCodeModel();
-                    eu.setCode(o.getString("code"));
-                    eu.setValue(o.getString("value"));
-                    list.add(eu);
+                // first
+                JSONArray arr_first = j.getJSONArray("first");
+                list_first.clear();
+                for (int i = 0; i < arr_first.length(); i++) {
+                    JSONObject o = arr_first.getJSONObject(i);
+                    MedicalTreatmentCodeModel m = new MedicalTreatmentCodeModel();
+                    m.setCode(o.getString("code"));
+                    m.setValue(o.getString("value"));
+                    list_first.add(m);
                 }
-                list_medical_treatment_code.clear();
-                list_medical_treatment_code.addAll(list);
+                // second
+                JSONArray arr_second = j.getJSONArray("second");
+                list_second.clear();
+                for (int i = 0; i < arr_second.length(); i++) {
+                    JSONObject o = arr_second.getJSONObject(i);
+                    MedicalTreatmentCodeModel m = new MedicalTreatmentCodeModel();
+                    m.setCode(o.getString("code"));
+                    m.setValue(o.getString("value"));
+                    list_second.add(m);
+                }
             }
             return success;
         } catch (JSONException e) {

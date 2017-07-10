@@ -29,7 +29,7 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
     private EditText et_other;
     private ImageView iv_check;
     // data
-    private ArrayList<MedicalTreatmentCodeModel> list_treatment_code;
+    private ArrayList<MedicalTreatmentCodeModel> list_symptoms;
     private boolean otherChecked = false;
 
     @Override
@@ -45,9 +45,9 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
         iv_check = (ImageView) findViewById(R.id.iv_add_medical_treatment_code_check);
 
         // init ListView
-        if (list_treatment_code == null) list_treatment_code = new ArrayList<>();
+        list_symptoms = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_treatment_code));
+        rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_symptoms));
 
         // loadMedicalTreatmentCodeList
         loadMedicalTreatmentCodeList();
@@ -66,8 +66,24 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
     private class LoadMedicalTreatmentCodeList extends IAsyncTask {
 
 
+        private ArrayList<MedicalTreatmentCodeModel> list_first;
+        private ArrayList<MedicalTreatmentCodeModel> list_second;
+
         LoadMedicalTreatmentCodeList(Context context, JSONObject json, String url) {
             super(context, json, url);
+        }
+
+        private void sortSymptoms() {
+            list_symptoms.clear();
+            for (MedicalTreatmentCodeModel m : list_first){
+                list_symptoms.add(m);
+                for(MedicalTreatmentCodeModel mm : list_second){
+                    if (mm.getCode().startsWith(m.getCode())){
+                        list_symptoms.add(mm);
+                    }
+                }
+
+            }
         }
 
         @Override
@@ -76,8 +92,9 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.loadMedicalTreatmentCode(response, list_treatment_code);
+                    int result = ApiResultHelper.loadMedicalTreatmentCode(response, list_first, list_second);
                     if (result == ApiResultHelper.SUCCESS) {
+                        sortSymptoms();
                         updateAdapter();
                     } else {
                         t(R.string.fail);
@@ -87,14 +104,15 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
         }
     }
 
+
     private void updateAdapter() {
         rv.getAdapter().notifyDataSetChanged();
     }
 
     private void updateOther() {
-        if (otherChecked){
+        if (otherChecked) {
             iv_check.setImageResource(R.drawable.ic_radio_button_checked_b);
-        }else{
+        } else {
             iv_check.setImageResource(R.drawable.ic_radio_button_unchecked_b);
         }
     }
