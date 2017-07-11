@@ -12,6 +12,7 @@ import java.util.concurrent.Exchanger;
 
 public class TimeHelper {
     private static final SimpleDateFormat sdf_standard = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat YMD = new SimpleDateFormat("yyyy-MM-dd");
 
     private static final SimpleDateFormat sdf_ymd = new SimpleDateFormat("yyyy/MM/dd");
     private static final SimpleDateFormat sdf_content_date = new SimpleDateFormat("MM/dd");
@@ -20,9 +21,35 @@ public class TimeHelper {
         return sdf_standard.format(new Date());
     }
 
+    public static String getYMD() {
+        return YMD.format(new Date());
+    }
+
+    public static String getYMD2YMDT(String ymd) {
+        if (ymd == null) return "";
+        try {
+            return sdf_ymd.format(sdf_standard.parse(ymd));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static Date getYMD2Date(String ymd) {
+        try {
+            return YMD.parse(ymd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getDate2TMD(Date date) {
+        return YMD.format(date);
+    }
+
     public static String getYMDTime(String time) {
         if (time == null) return "";
-
         try {
             return sdf_ymd.format(sdf_standard.parse(time));
         } catch (ParseException e) {
@@ -121,4 +148,6 @@ public class TimeHelper {
             return 0;
         }
     }
+
+
 }

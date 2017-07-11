@@ -15,6 +15,7 @@ import goldenbrother.gbmobile.model.EventUserModel;
 import goldenbrother.gbmobile.model.HospitalModel;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.ManagerModel;
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
 import goldenbrother.gbmobile.model.OnCallManagerModel;
 import goldenbrother.gbmobile.model.PackageModel;
@@ -1082,6 +1083,35 @@ public class ApiResultHelper {
                 }
             }
             return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getMedicalFlaborList(String response, ArrayList<Medical> list_medical_flabor) {
+        try {
+            JSONObject j = new JSONObject(response);
+
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Medical> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("issues");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Medical m = new Medical();
+                    m.setMtrsno(o.getInt("mtrsno"));
+                    m.setCustomerNo(o.getString("customerNo"));
+                    m.setCustomerName(o.getString("customerName"));
+                    m.setFlaborNo(o.getString("flaborNo"));
+                    m.setFlaborName(o.getString("flaborName"));
+                    m.setRecordDate(o.getString("recordDate"));
+                    list.add(m);
+                }
+                list_medical_flabor.clear();
+                list_medical_flabor.addAll(list);
+            }
+            return result;
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;

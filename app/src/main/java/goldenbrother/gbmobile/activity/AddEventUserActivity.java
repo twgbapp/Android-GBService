@@ -142,20 +142,9 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
         int id = v.getId();
         switch (id) {
             case R.id.iv_event_add_user_done:
-                EventUserListAdapter adapter = (EventUserListAdapter) lv.getAdapter();
-                if (adapter != null) {
-                    HashSet<EventUserModel> set = adapter.getSelected();
-//                    int size = set.size();
-//                    String userID = "[";
-//                    int count = 0;
-//                    for (EventUserModel e : set) {
-//                        userID += (count == 0 ? "" : ",") + e.getUserID();
-//                        count++;
-//                    }
-//                    userID += "]";
-                    if (!set.isEmpty()) {
-                        addEventGroup(set);
-                    }
+                HashSet<EventUserModel> set = ((EventUserListAdapter) lv.getAdapter()).getSelected();
+                if (!set.isEmpty()) {
+                    addEventGroup(set);
                 }
                 break;
         }
