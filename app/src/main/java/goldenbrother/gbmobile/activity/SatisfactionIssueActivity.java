@@ -74,7 +74,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
             JSONObject j = new JSONObject();
             j.put("action", "getSatisfactionIssueList");
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
+            j.put("logStatus", true);
             new GetSatisfactionIssueList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

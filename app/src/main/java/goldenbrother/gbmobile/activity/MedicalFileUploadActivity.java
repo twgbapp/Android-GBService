@@ -184,10 +184,10 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(picUri, "image/*");
             cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            cropIntent.putExtra("outputX", 300);
-            cropIntent.putExtra("outputY", 300);
+//            cropIntent.putExtra("aspectX", 1);
+//            cropIntent.putExtra("aspectY", 1);
+//            cropIntent.putExtra("outputX", 300);
+//            cropIntent.putExtra("outputY", 300);
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, REQUEST_CROP_PHOTO);
         }

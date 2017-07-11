@@ -43,7 +43,7 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
             JSONObject j = new JSONObject();
             j.put("action", "getClubList");
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
+            j.put("logStatus", true);
             new LoadClubList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

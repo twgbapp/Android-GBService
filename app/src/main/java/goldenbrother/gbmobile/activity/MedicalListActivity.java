@@ -29,7 +29,6 @@ import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.RoleInfo;
 
-
 public class MedicalListActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
@@ -109,8 +108,8 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         alertWithView(v, "Search", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String startDate = TimeHelper.getYMD2YMDT(tv_start_date.getText().toString());
-                String endDate = TimeHelper.getYMD2YMDT(tv_end_date.getText().toString());
+                String startDate = tv_start_date.getText().toString();
+                String endDate = tv_end_date.getText().toString();
                 getMedicalFlaborList(startDate, endDate);
             }
         }, null);

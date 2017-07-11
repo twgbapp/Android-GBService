@@ -49,7 +49,7 @@ public class AnnouncementContentActivity extends CommonActivity {
             j.put("announcementId", announcement.getAnnouncementID());
             j.put("nationCode", announcement.getNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
+            j.put("logStatus", true);
             new LoadAnnouncement(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

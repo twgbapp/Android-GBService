@@ -117,7 +117,7 @@ public class ClubPostActivity extends CommonActivity {
             j.put("action", "getAllClubPostID");
             j.put("clubID", club.getClubID());
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
+            j.put("logStatus", true);
             new LoadAllClubPostID(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

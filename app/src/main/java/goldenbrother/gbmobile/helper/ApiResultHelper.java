@@ -1065,7 +1065,7 @@ public class ApiResultHelper {
             int result = j.getInt("success");
             if (result == 1) {
                 ArrayList<Medical> list = new ArrayList<>();
-                JSONArray arr = j.getJSONArray("issues");
+                JSONArray arr = j.getJSONArray("medicalFlabor");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
                     Medical m = new Medical();

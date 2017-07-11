@@ -28,7 +28,7 @@ public class TimeHelper {
     public static String getYMD2YMDT(String ymd) {
         if (ymd == null) return "";
         try {
-            return sdf_ymd.format(sdf_standard.parse(ymd));
+            return sdf_ymd.format(sdf_ymd.parse(ymd));
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -62,7 +62,7 @@ public class AnnouncementListActivity extends CommonActivity implements AdapterV
             j.put("flaborNo", flaborNo);
             j.put("nationCode", nationCode);
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
+            j.put("logStatus", true);
             new LoadAnnouncementList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
