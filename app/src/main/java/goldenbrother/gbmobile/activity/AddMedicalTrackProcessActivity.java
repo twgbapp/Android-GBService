@@ -9,6 +9,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.model.MedicalTrackProcessModel;
 
 public class AddMedicalTrackProcessActivity extends CommonActivity implements View.OnClickListener {
 

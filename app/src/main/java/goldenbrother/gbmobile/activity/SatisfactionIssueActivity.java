@@ -12,6 +12,7 @@ import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
+import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.SatisfactionIssueModel;
 
 import org.json.JSONException;
@@ -72,6 +73,8 @@ public class SatisfactionIssueActivity extends CommonActivity {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getSatisfactionIssueList");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetSatisfactionIssueList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

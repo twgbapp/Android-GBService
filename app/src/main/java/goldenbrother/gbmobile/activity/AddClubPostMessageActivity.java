@@ -122,6 +122,8 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
             JSONObject j = new JSONObject();
             j.put("action", "getClubPostMessage");
             j.put("clubPostID", clubPostID);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadClubPostMessage(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

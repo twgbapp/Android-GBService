@@ -178,6 +178,7 @@ public class ServiceListFragment extends CommonFragment {
             JSONObject j = new JSONObject();
             j.put("action", "getGroupList");
             j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadCloudGroupList(activity, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

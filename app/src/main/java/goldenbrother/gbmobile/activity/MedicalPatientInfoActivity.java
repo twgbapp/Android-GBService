@@ -16,12 +16,13 @@ import org.json.JSONObject;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalBloodTypeListAdapter;
-import goldenbrother.gbmobile.bean.Patient;
+import goldenbrother.gbmobile.model.Patient;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.BloodType;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class MedicalInfoActivity extends CommonActivity implements View.OnClickListener {
+public class MedicalPatientInfoActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private EditText et_arc_id_number;
@@ -43,19 +44,19 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medical_info);
+        setContentView(R.layout.activity_medical_patient_info);
 
         // ui reference
-        et_arc_id_number = (EditText) findViewById(R.id.et_medical_info_arc_id_number);
-        tv_name = (TextView) findViewById(R.id.tv_medical_info_name);
-        tv_birthday = (TextView) findViewById(R.id.tv_medical_info_birthday);
-        tv_date = (TextView) findViewById(R.id.tv_medical_info_date);
-        rb_male = (RadioButton) findViewById(R.id.rb_medical_info_male);
-        rb_female = (RadioButton) findViewById(R.id.rb_medical_info_female);
-        sp_blood_type = (Spinner) findViewById(R.id.sp_medical_info_blood_type);
-        findViewById(R.id.tv_medical_info_check).setOnClickListener(this);
-        findViewById(R.id.tv_medical_info_save).setOnClickListener(this);
-        findViewById(R.id.tv_medical_info_date).setOnClickListener(this);
+        et_arc_id_number = (EditText) findViewById(R.id.et_medical_patient_info_arc_id_number);
+        tv_name = (TextView) findViewById(R.id.tv_medical_patient_info_name);
+        tv_birthday = (TextView) findViewById(R.id.tv_medical_patient_info_birthday);
+        tv_date = (TextView) findViewById(R.id.tv_medical_patient_info_date);
+        rb_male = (RadioButton) findViewById(R.id.rb_medical_patient_info_male);
+        rb_female = (RadioButton) findViewById(R.id.rb_medical_patient_info_female);
+        sp_blood_type = (Spinner) findViewById(R.id.sp_medical_patient_info_blood_type);
+        findViewById(R.id.tv_medical_patient_info_check).setOnClickListener(this);
+        findViewById(R.id.tv_medical_patient_info_save).setOnClickListener(this);
+        findViewById(R.id.tv_medical_patient_info_date).setOnClickListener(this);
 
         // extra
         patient = getIntent().getExtras().getParcelable("patient");
@@ -80,6 +81,8 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
             JSONObject j = new JSONObject();
             j.put("action", "getDormUserInfo");
             j.put("arc", userIDNumber);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetDormUserInfo(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -110,9 +113,9 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getDormUserInfo(response, map);
                     if (result == ApiResultHelper.SUCCESS) {
-
                         patient.setCustomerNo(getData("customerNo"));
                         patient.setFlaborNo(getData("flaborNo"));
+                        patient.setCustomerNo(getData("customerNo"));
                         patient.setDormID(getData("dormID"));
                         patient.setRoomID(getData("roomID"));
                         patient.setCenterDirectorID(getData("centerDirectorID"));
@@ -131,12 +134,12 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
     public void onClick(View v) {
         EnvironmentHelper.hideKeyBoard(this, v);
         switch (v.getId()) {
-            case R.id.tv_medical_info_check:
+            case R.id.tv_medical_patient_info_check:
                 String idNumber = et_arc_id_number.getText().toString();
                 if (idNumber.isEmpty()) return;
                 getDormUserInfo(idNumber);
                 break;
-            case R.id.tv_medical_info_save:
+            case R.id.tv_medical_patient_info_save:
                 String name = tv_name.getText().toString();
                 boolean male = rb_male.isChecked();
                 String birthday = tv_birthday.getText().toString();
@@ -150,7 +153,7 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
                 }
                 saveInfo(name, male, birthday, bloodType, age, arcIdNumber, date);
                 break;
-            case R.id.tv_medical_info_date:
+            case R.id.tv_medical_patient_info_date:
                 showDatePicker();
                 break;
         }
@@ -197,7 +200,7 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         //初始化datePicker
-        DatePicker datePicker = new DatePicker(MedicalInfoActivity.this);
+        DatePicker datePicker = new DatePicker(MedicalPatientInfoActivity.this);
         datePicker.setCalendarViewShown(false);
         datePicker.init(currentCalendar.get(Calendar.YEAR),
                 currentCalendar.get(Calendar.MONTH),

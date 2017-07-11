@@ -22,7 +22,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/et_medical_info_arc_id_number"
+            android:id="@+id/et_medical_patient_info_arc_id_number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +34,7 @@
             android:textColorHint="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/tv_medical_info_check"
+            android:id="@+id/tv_medical_patient_info_check"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
@@ -46,7 +46,7 @@
 
 
     <TextView
-        android:id="@+id/tv_medical_info_name"
+        android:id="@+id/tv_medical_patient_info_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
@@ -59,20 +59,20 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb_medical_info_male"
+            android:id="@+id/rb_medical_patient_info_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/male" />
 
         <RadioButton
-            android:id="@+id/rb_medical_info_female"
+            android:id="@+id/rb_medical_patient_info_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/female" />
     </RadioGroup>
 
     <TextView
-        android:id="@+id/tv_medical_info_birthday"
+        android:id="@+id/tv_medical_patient_info_birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
@@ -88,13 +88,13 @@
         android:textSize="20sp" />
 
     <Spinner
-        android:id="@+id/sp_medical_info_blood_type"
+        android:id="@+id/sp_medical_patient_info_blood_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" />
 
     <TextView
-        android:id="@+id/tv_medical_info_date"
+        android:id="@+id/tv_medical_patient_info_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/medical_fill_out_date"
@@ -103,10 +103,9 @@
 
 
     <TextView
-        android:id="@+id/tv_medical_info_save"
+        android:id="@+id/tv_medical_patient_info_save"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
         android:background="#ffe184"
         android:gravity="center"
         android:text="@string/confirm"

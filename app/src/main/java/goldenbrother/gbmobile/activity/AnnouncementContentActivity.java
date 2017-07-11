@@ -12,6 +12,7 @@ import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.AnnouncementModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +48,8 @@ public class AnnouncementContentActivity extends CommonActivity {
             j.put("action", "getAnnouncement");
             j.put("announcementId", announcement.getAnnouncementID());
             j.put("nationCode", announcement.getNationCode());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadAnnouncement(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

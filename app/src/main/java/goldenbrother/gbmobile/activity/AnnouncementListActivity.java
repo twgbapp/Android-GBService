@@ -13,6 +13,7 @@ import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.AnnouncementModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +61,8 @@ public class AnnouncementListActivity extends CommonActivity implements AdapterV
             j.put("customerNo", customerNo);
             j.put("flaborNo", flaborNo);
             j.put("nationCode", nationCode);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadAnnouncementList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

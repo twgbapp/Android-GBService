@@ -18,7 +18,7 @@ import goldenbrother.gbmobile.model.ManagerModel;
 import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
 import goldenbrother.gbmobile.model.OnCallManagerModel;
 import goldenbrother.gbmobile.model.PackageModel;
-import goldenbrother.gbmobile.model.PersonnelPickUpModel;
+import goldenbrother.gbmobile.model.PersonalPickUpModel;
 import goldenbrother.gbmobile.model.RepairKindModel;
 import goldenbrother.gbmobile.model.RepairKindNumberModel;
 import goldenbrother.gbmobile.model.RepairModel;
@@ -1031,11 +1031,9 @@ public class ApiResultHelper {
         }
     }
 
-    public static int addMedicalRecord(String response, HashMap<String, Integer> map) {
+    public static int addMedicalRecord(String response) {
         try {
-            JSONObject j = new JSONObject(response);
-            int success = j.getInt("success");
-            return success;
+            return new JSONObject(response).getInt("success");
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;
@@ -1063,7 +1061,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getHospitalPickUp(String response, ArrayList<HospitalModel> list_hospital, ArrayList<PersonnelPickUpModel> list_personal_pick_up) {
+    public static int getHospitalPickUp(String response, ArrayList<HospitalModel> list_hospital, ArrayList<PersonalPickUpModel> list_personal_pick_up) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -1076,11 +1074,11 @@ public class ApiResultHelper {
                     list_hospital.add(new HospitalModel(o.getString("hospitalCode"), o.getString("hospitalName")));
                 }
                 list_personal_pick_up.clear();
-                list_personal_pick_up.add(new PersonnelPickUpModel("0", "Select..."));
+                list_personal_pick_up.add(new PersonalPickUpModel("0", "Select..."));
                 JSONArray arr_personal_pick_up = j.getJSONArray("personnelPickUp");
                 for (int i = 0; i < arr_personal_pick_up.length(); i++) {
                     JSONObject o = arr_personal_pick_up.getJSONObject(i);
-                    list_personal_pick_up.add(new PersonnelPickUpModel(o.getString("userID"), o.getString("userName")));
+                    list_personal_pick_up.add(new PersonalPickUpModel(o.getString("userID"), o.getString("userName")));
                 }
             }
             return success;

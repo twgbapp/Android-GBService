@@ -1,7 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +12,7 @@ import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ClubModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +42,8 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getClubList");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadClubList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

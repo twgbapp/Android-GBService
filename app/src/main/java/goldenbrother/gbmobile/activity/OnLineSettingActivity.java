@@ -61,6 +61,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             JSONObject j = new JSONObject();
             j.put("action", "getOnCallManage");
             j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadOnCallManager(this, j,URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

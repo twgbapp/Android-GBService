@@ -21,6 +21,7 @@ import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 public class AddMedicalTreatmentCodeActivity extends CommonActivity implements View.OnClickListener {
 
@@ -57,6 +58,8 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getMedicalTreatmentCode");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadMedicalTreatmentCodeList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

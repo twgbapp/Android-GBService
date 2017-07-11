@@ -14,7 +14,9 @@ import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.EventUserModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,6 +56,8 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
             JSONObject j = new JSONObject();
             j.put("action", "getEventUserList");
             j.put("serviceEventID", ServiceEventID);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadEventUserList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -85,12 +89,16 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
         }
     }
 
-    private void addEventGroup(String userID) {
+    private void addEventGroup(HashSet<EventUserModel> userIDs) {
         try {
             JSONObject j = new JSONObject();
-            j.put("action", "getEventUserList");
+            j.put("action", "addEventGroup");
             j.put("serviceEventID", ServiceEventID);
-            j.put("userID", userID);
+            JSONArray arr = new JSONArray();
+            for (EventUserModel eu : userIDs) {
+                arr.put(eu.getUserID());
+            }
+            j.put("userIDs", arr);
             j.put("logStatus", true);
             new AddEventGroup(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
@@ -137,16 +145,16 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
                 EventUserListAdapter adapter = (EventUserListAdapter) lv.getAdapter();
                 if (adapter != null) {
                     HashSet<EventUserModel> set = adapter.getSelected();
-                    int size = set.size();
-                    String userID = "[";
-                    int count = 0;
-                    for (EventUserModel e : set) {
-                        userID += (count == 0 ? "" : ",") + e.getUserID();
-                        count++;
-                    }
-                    userID += "]";
-                    if (size != 0) {
-                        addEventGroup(userID);
+//                    int size = set.size();
+//                    String userID = "[";
+//                    int count = 0;
+//                    for (EventUserModel e : set) {
+//                        userID += (count == 0 ? "" : ",") + e.getUserID();
+//                        count++;
+//                    }
+//                    userID += "]";
+                    if (!set.isEmpty()) {
+                        addEventGroup(set);
                     }
                 }
                 break;

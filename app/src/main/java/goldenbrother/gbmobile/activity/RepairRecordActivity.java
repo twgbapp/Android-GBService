@@ -45,6 +45,7 @@ public class RepairRecordActivity extends CommonActivity {
             JSONObject j = new JSONObject();
             j.put("action", "getRepairRecordList");
             j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetRepairRecordList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

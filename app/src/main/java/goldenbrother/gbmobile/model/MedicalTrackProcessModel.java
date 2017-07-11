@@ -1,4 +1,4 @@
-package goldenbrother.gbmobile.activity;
+package goldenbrother.gbmobile.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by haojun on 2017/6/27.
  */
 
-class MedicalTrackProcessModel implements Parcelable{
+public class MedicalTrackProcessModel implements Parcelable{
     private String name;
     private String data;
 

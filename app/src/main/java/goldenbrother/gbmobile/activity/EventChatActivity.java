@@ -178,6 +178,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             j.put("serviceEventID", serviceEventID);
             j.put("startChatDate", TimeHelper.addMinute(etp.getTimePoint(), -10));
             j.put("endChatDate", TimeHelper.addMinute(TimeHelper.getStandard(), 10));
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadCloudChat(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

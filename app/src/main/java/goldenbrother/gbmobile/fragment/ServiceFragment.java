@@ -191,6 +191,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             j.put("serviceGroupID", serviceGroupID);
             j.put("startChatDate", TimeHelper.addMinute(gtp.getTimePoint(), -10));
             j.put("endChatDate", TimeHelper.addMinute(TimeHelper.getStandard(), 10));
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadCloudChat(activity, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
