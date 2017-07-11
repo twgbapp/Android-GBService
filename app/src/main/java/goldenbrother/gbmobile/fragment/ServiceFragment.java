@@ -107,6 +107,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("content", content);
             j.put("chatDate", TimeHelper.getStandard());
+            j.put("logStatus", true);
             new AddServiceChat(activity, j, URLHelper.HOST, content).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -161,6 +162,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("serviceGroupID", serviceGroupID);
             j.put("content", content);
+            j.put("logStatus", true);
             new PushMessage(activity, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

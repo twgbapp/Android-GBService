@@ -13,6 +13,7 @@ import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.LaborModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.SatisfactionIssueModel;
 import goldenbrother.gbmobile.model.SatisfactionQuestionModel;
 
@@ -55,6 +56,8 @@ public class SatisfactionQuestionActivity extends CommonActivity {
             j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
             j.put("createDateStr", TimeHelper.getStandard());
             j.put("rating", rating);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new AddSatisfactionIssueRecord(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

@@ -61,7 +61,7 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
     }
 
 
-    class LoadEventUserList extends IAsyncTask {
+    private class LoadEventUserList extends IAsyncTask {
 
 
         LoadEventUserList(Context context, JSONObject json, String url) {
@@ -91,13 +91,14 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
             j.put("action", "getEventUserList");
             j.put("serviceEventID", ServiceEventID);
             j.put("userID", userID);
+            j.put("logStatus", true);
             new AddEventGroup(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    class AddEventGroup extends IAsyncTask {
+    private class AddEventGroup extends IAsyncTask {
 
         AddEventGroup(Context context, JSONObject json, String url) {
             super(context, json, url);

@@ -86,7 +86,6 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         if (content.isEmpty()) {
             return;
         }
-
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addEventChat");
@@ -94,6 +93,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("content", content);
             j.put("chatDate", TimeHelper.getStandard());
+            j.put("logStatus", true);
             new AddEventChat(this, j, URLHelper.HOST, content).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -145,9 +145,10 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         try {
             JSONObject j = new JSONObject();
             j.put("action", "pushEventMessage");
-            j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("serviceEventID", serviceEventID);
             j.put("content", content);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new PushEventMessage(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -244,6 +245,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             j.put("action", "scoreEvent");
             j.put("serviceEventID", serviceEventID);
             j.put("score", score);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new RatingEvent(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

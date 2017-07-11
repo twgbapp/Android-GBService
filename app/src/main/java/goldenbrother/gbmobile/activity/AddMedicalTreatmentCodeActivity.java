@@ -82,7 +82,6 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
                         list_symptoms.add(mm);
                     }
                 }
-
             }
         }
 

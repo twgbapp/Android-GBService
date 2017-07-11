@@ -121,6 +121,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             j.put("action", "login");
             j.put("userID", account);
             j.put("userPassword", EncryptHelper.md5(password));
+            j.put("logStatus", true);
             new DoLogin(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -157,6 +158,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("registerID", SPHelper.getInstance(this).getGCMID());
             j.put("status", 1);
+            j.put("logStatus", true);
             new RegisterGCMID(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

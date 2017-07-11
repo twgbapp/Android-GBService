@@ -108,6 +108,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                 arr.put(o);
             }
             j.put("media", arr.toString());
+            j.put("logStatus", true);
             new AddClubPost(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

@@ -67,7 +67,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
         }
     }
 
-    class LoadOnCallManager extends IAsyncTask {
+    private class LoadOnCallManager extends IAsyncTask {
 
         LoadOnCallManager(Context context, JSONObject json, String url) {
             super(context, json, url);
@@ -80,7 +80,6 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.loadOnCallManager(response, list_on_call_manager);
-                    Log.d("xxxOnLine",list_on_call_manager.size()+"");
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
@@ -94,7 +93,6 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
     private void updateAdapter() {
         OnCallManagerListAdapter adapter = (OnCallManagerListAdapter) lv_staff.getAdapter();
         if (adapter != null) {
-            Log.d("xxxOnLine","Noti");
             adapter.notifyDataSetChanged();
         }
     }
@@ -106,13 +104,14 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("staffID", staffID);
             j.put("onCallStatus", onCallStatus);
+            j.put("logStatus", true);
             new ChangeOnCallStatus(this, j,URLHelper.HOST,onCallStatus).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    class ChangeOnCallStatus extends IAsyncTask {
+    private class ChangeOnCallStatus extends IAsyncTask {
         private String onCallStatus;
 
         ChangeOnCallStatus(Context context, JSONObject json, String url,String onCallStatus) {

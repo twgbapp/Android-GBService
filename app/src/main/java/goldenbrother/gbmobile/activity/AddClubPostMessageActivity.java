@@ -82,6 +82,7 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
             j.put("clubPostID", clubPostID);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("message", message);
+            j.put("logStatus", true);
             if (!sending) {
                 sending = true;
                 new AddClubPostMessage(this, j, URLHelper.HOST).execute();

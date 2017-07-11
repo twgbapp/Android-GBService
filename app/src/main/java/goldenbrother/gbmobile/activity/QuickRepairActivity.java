@@ -192,10 +192,12 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("serviceEventID", "");
             j.put("writerID", RoleInfo.getInstance().getUserID());
             j.put("repairID", RoleInfo.getInstance().getUserID());
+            j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("eventKind", kind);
             j.put("place", place);
             j.put("description", description);
             j.put("areaNum", areaNum);
+            j.put("logStatus", true);
             new AddRepair(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

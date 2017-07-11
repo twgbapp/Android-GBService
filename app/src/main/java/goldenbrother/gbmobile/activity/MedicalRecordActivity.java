@@ -95,6 +95,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("age", patient.getAge());
             j.put("centerDirectorID", patient.getCenterDirectorID()); //getDormUserInfo
             j.put("createId", RoleInfo.getInstance().getUserID());
+            j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("createTime", TimeHelper.getStandard());
             j.put("diagnosticCertificate", diagnosticCertificatePath);
             j.put("serviceRecord", serviceRecordPath);
@@ -120,6 +121,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 arrTrack.put(m.getData());
             }
             j.put("medicalTreatmentProcessingRecord", arrTrack);
+            j.put("logStatus", true);
 
             new AddMedicalRecord(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {

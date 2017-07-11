@@ -278,6 +278,8 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
                 arr.put(jo);
             }
             j.put("events", arr.toString());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new AddEvent(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

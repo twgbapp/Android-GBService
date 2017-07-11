@@ -212,6 +212,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
             j.put("packageID", p.getPackageID());
             j.put("baseStr", p.getBaseStr());
             j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new ReceivePackage(this, j, URLHelper.HOST, p).execute();
         } catch (JSONException e) {
             e.printStackTrace();

@@ -85,6 +85,8 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
             j.put("fileName", BitmapHelper.getRandomName());
             j.put("url", URLHelper.HOST);
             j.put("baseStr", BitmapHelper.bitmap2String(bmp));
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
