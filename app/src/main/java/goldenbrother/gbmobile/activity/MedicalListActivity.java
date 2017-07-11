@@ -119,14 +119,14 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
     private View.OnClickListener showDatePickerListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showDatePicker((TextView) v, ((TextView) v).getText().toString());
+            showDatePicker((TextView) v);
         }
     };
 
-    private void showDatePicker(final TextView tv, String ymd) {
+    private void showDatePicker(final TextView tv) {
         final Calendar c = Calendar.getInstance();
         final Calendar c_result = Calendar.getInstance();
-        c.setTime(TimeHelper.getYMD2Date(ymd));
+        c.setTime(TimeHelper.getYMD2Date(tv.getText().toString()));
 
         DatePicker datePicker = new DatePicker(this);
         datePicker.init(c.get(Calendar.YEAR),
@@ -140,7 +140,6 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
                 });
 
 
-        //創建對話框
         alertWithView(datePicker, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

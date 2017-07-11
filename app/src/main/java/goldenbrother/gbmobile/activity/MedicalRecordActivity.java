@@ -175,7 +175,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(MedicalPatientInfoActivity.class, REQUEST_INFO, b);
                 break;
             case R.id.iv_medical_record_symptoms: // 症狀列表
-                openActivityForResult(AddMedicalTreatmentCodeActivity.class, REQUEST_TREATMENT);
+
+                openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT);
                 break;
             case R.id.iv_medical_record_processing_status: // 處理狀況
                 if (patient == null || patient.getDormID() == null || patient.getDormID().isEmpty()) {
@@ -183,13 +184,13 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     return;
                 }
                 b.putParcelable("patient", patient);
-                openActivityForResult(AddMedicalProcessStatusActivity.class, REQUEST_PROCESS_STATUS, b);
+                openActivityForResult(MedicalProcessStatusActivity.class, REQUEST_PROCESS_STATUS, b);
                 break;
             case R.id.iv_medical_record_tracking_processing: // 追蹤與處理
-                openActivityForResult(AddMedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS);
+                openActivityForResult(MedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS);
                 break;
             case R.id.iv_medical_record_file_upload:
-                openActivityForResult(AddMedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD);
+                openActivityForResult(MedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD);
                 break;
             case R.id.tv_medical_record_save: // 新增醫療紀錄
                 if (patient == null) {

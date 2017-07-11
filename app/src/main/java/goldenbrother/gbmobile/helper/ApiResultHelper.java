@@ -381,7 +381,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_first, ArrayList<MedicalTreatmentCodeModel> list_second) {
+    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_first, ArrayList<MedicalTreatmentCodeModel> list_second) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -1000,39 +1000,6 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_kind, ArrayList<MedicalTreatmentCodeModel> list_detail) {
-        try {
-            JSONObject j = new JSONObject(response);
-            int success = j.getInt("success");
-            if (success == 1) {
-                list_kind.clear();
-                JSONArray arr_first = j.getJSONArray("first");
-                for (int i = 0; i < arr_first.length(); i++) {
-                    JSONObject o = arr_first.getJSONObject(i);
-                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
-                    rm.setColumnName(o.getString("columnName"));
-                    rm.setCode(o.getString("code"));
-                    rm.setValue(o.getString("value"));
-                    list_kind.add(rm);
-                }
-                list_detail.clear();
-                JSONArray arr_second = j.getJSONArray("second");
-                for (int i = 0; i < arr_second.length(); i++) {
-                    JSONObject o = arr_second.getJSONObject(i);
-                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
-                    rm.setColumnName(o.getString("columnName"));
-                    rm.setCode(o.getString("code"));
-                    rm.setValue(o.getString("value"));
-                    list_detail.add(rm);
-                }
-            }
-            return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
     public static int addMedicalRecord(String response) {
         try {
             return new JSONObject(response).getInt("success");
@@ -1049,6 +1016,7 @@ public class ApiResultHelper {
             if (success == 1) {
                 map.put("userName", j.getString("userName"));
                 map.put("userBirthday", j.getString("userBirthday"));
+                map.put("userSex", j.getString("userSex"));
                 map.put("customerNo", j.getString("customerNo"));
                 map.put("workerNo", j.getString("workerNo"));
                 map.put("flaborNo", j.getString("flaborNo"));

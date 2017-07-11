@@ -75,10 +75,10 @@
         <activity android:name=".activity.RepairRecordActivity" />
         <activity android:name=".activity.RepairRecordContentActivity" />
         <activity android:name=".activity.SatisfactionQuestionActivity" />
-        <activity android:name=".activity.AddMedicalTreatmentCodeActivity" />
-        <activity android:name=".activity.AddMedicalProcessStatusActivity" />
-        <activity android:name=".activity.AddMedicalTrackProcessActivity" />
-        <activity android:name=".activity.AddMedicalFileUploadActivity" />
+        <activity android:name=".activity.MedicalSymptomActivity" />
+        <activity android:name=".activity.MedicalProcessStatusActivity" />
+        <activity android:name=".activity.MedicalTrackProcessActivity" />
+        <activity android:name=".activity.MedicalFileUploadActivity" />
         <activity android:name=".activity.SignatureActivity"></activity>
     </application>
 

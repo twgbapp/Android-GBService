@@ -31,7 +31,7 @@
                     android:textSize="24sp" />
 
                 <ImageView
-                    android:id="@+id/iv_add_medical_track_process_done"
+                    android:id="@+id/iv_medical_track_process_done"
                     android:layout_width="@dimen/imageview_toolbar_width"
                     android:layout_height="@dimen/imageview_toolbar_width"
                     android:layout_alignParentRight="true"
@@ -63,7 +63,7 @@
 
 
             <EditText
-                android:id="@+id/et_add_medical_track_process_1"
+                android:id="@+id/et_medical_track_process_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -71,7 +71,7 @@
                 android:maxLines="1" />
 
             <CheckBox
-                android:id="@+id/cb_add_medical_track_process_1"
+                android:id="@+id/cb_medical_track_process_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -90,7 +90,7 @@
 
 
             <EditText
-                android:id="@+id/et_add_medical_track_process_2"
+                android:id="@+id/et_medical_track_process_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -98,7 +98,7 @@
                 android:maxLines="1" />
 
             <CheckBox
-                android:id="@+id/cb_add_medical_track_process_2"
+                android:id="@+id/cb_medical_track_process_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -118,7 +118,7 @@
 
 
             <EditText
-                android:id="@+id/et_add_medical_track_process_3"
+                android:id="@+id/et_medical_track_process_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -126,7 +126,7 @@
                 android:maxLines="1" />
 
             <CheckBox
-                android:id="@+id/cb_add_medical_track_process_3"
+                android:id="@+id/cb_medical_track_process_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -146,7 +146,7 @@
                 android:textSize="20sp" />
 
             <CheckBox
-                android:id="@+id/cb_add_medical_track_process_4"
+                android:id="@+id/cb_medical_track_process_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

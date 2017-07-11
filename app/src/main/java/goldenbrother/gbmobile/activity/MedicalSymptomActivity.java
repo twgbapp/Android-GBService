@@ -23,7 +23,7 @@ import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
-public class AddMedicalTreatmentCodeActivity extends CommonActivity implements View.OnClickListener {
+public class MedicalSymptomActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private RecyclerView rv;
@@ -36,14 +36,14 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_medical_treatment_code);
+        setContentView(R.layout.activity_medical_symptom);
 
         // ui reference
-        findViewById(R.id.iv_event_add_medical_treatment_code_done).setOnClickListener(this);
-        findViewById(R.id.ll_add_medical_treatment_code_other).setOnClickListener(this);
-        rv = (RecyclerView) findViewById(R.id.rv_add_medical_treatment_code);
-        et_other = (EditText) findViewById(R.id.et_add_medical_treatment_code_other);
-        iv_check = (ImageView) findViewById(R.id.iv_add_medical_treatment_code_check);
+        findViewById(R.id.iv_event_medical_symptom_done).setOnClickListener(this);
+        findViewById(R.id.ll_medical_symptom_other).setOnClickListener(this);
+        rv = (RecyclerView) findViewById(R.id.rv_medical_symptom);
+        et_other = (EditText) findViewById(R.id.et_medical_symptom_other);
+        iv_check = (ImageView) findViewById(R.id.iv_medical_symptom_check);
 
         // init ListView
         list_symptoms = new ArrayList<>();
@@ -51,37 +51,39 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
         rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_symptoms));
 
         // loadMedicalTreatmentCodeList
-        loadMedicalTreatmentCodeList();
+        getMedicalTreatmentCode();
     }
 
-    private void loadMedicalTreatmentCodeList() {
+    private void getMedicalTreatmentCode() {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getMedicalTreatmentCode");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadMedicalTreatmentCodeList(this, j, URLHelper.HOST).execute();
+            new GetMedicalTreatmentCode(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private class LoadMedicalTreatmentCodeList extends IAsyncTask {
+    private class GetMedicalTreatmentCode extends IAsyncTask {
 
 
         private ArrayList<MedicalTreatmentCodeModel> list_first;
         private ArrayList<MedicalTreatmentCodeModel> list_second;
 
-        LoadMedicalTreatmentCodeList(Context context, JSONObject json, String url) {
+        GetMedicalTreatmentCode(Context context, JSONObject json, String url) {
             super(context, json, url);
+            list_first = new ArrayList<>();
+            list_second = new ArrayList<>();
         }
 
         private void sortSymptoms() {
             list_symptoms.clear();
-            for (MedicalTreatmentCodeModel m : list_first){
+            for (MedicalTreatmentCodeModel m : list_first) {
                 list_symptoms.add(m);
-                for(MedicalTreatmentCodeModel mm : list_second){
-                    if (mm.getCode().startsWith(m.getCode())){
+                for (MedicalTreatmentCodeModel mm : list_second) {
+                    if (mm.getCode().startsWith(m.getCode())) {
                         list_symptoms.add(mm);
                     }
                 }
@@ -94,7 +96,7 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.loadMedicalTreatmentCode(response, list_first, list_second);
+                    int result = ApiResultHelper.getMedicalTreatmentCode(response, list_first, list_second);
                     if (result == ApiResultHelper.SUCCESS) {
                         sortSymptoms();
                         updateAdapter();
@@ -112,18 +114,14 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
     }
 
     private void updateOther() {
-        if (otherChecked) {
-            iv_check.setImageResource(R.drawable.ic_radio_button_checked_b);
-        } else {
-            iv_check.setImageResource(R.drawable.ic_radio_button_unchecked_b);
-        }
+        iv_check.setImageResource(otherChecked ? R.drawable.ic_radio_button_checked_b : R.drawable.ic_radio_button_unchecked_b);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.iv_event_add_medical_treatment_code_done:
+            case R.id.iv_event_medical_symptom_done:
                 //
                 HashSet<MedicalTreatmentCodeModel> set = ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).getSelected();
                 ArrayList<MedicalTreatmentCodeModel> lists = new ArrayList<>();
@@ -143,7 +141,7 @@ public class AddMedicalTreatmentCodeActivity extends CommonActivity implements V
                 setResult(RESULT_OK, intent);
                 finish();
                 break;
-            case R.id.ll_add_medical_treatment_code_other:
+            case R.id.ll_medical_symptom_other:
                 otherChecked = !otherChecked;
                 updateOther();
                 break;

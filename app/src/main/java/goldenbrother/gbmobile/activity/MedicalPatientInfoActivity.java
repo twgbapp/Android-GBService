@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalBloodTypeListAdapter;
+import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.Patient;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
@@ -55,16 +56,17 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         rb_female = (RadioButton) findViewById(R.id.rb_medical_patient_info_female);
         sp_blood_type = (Spinner) findViewById(R.id.sp_medical_patient_info_blood_type);
         findViewById(R.id.tv_medical_patient_info_check).setOnClickListener(this);
-        findViewById(R.id.tv_medical_patient_info_save).setOnClickListener(this);
-        findViewById(R.id.tv_medical_patient_info_date).setOnClickListener(this);
+        findViewById(R.id.iv_medical_patient_info_done).setOnClickListener(this);
+        tv_date.setOnClickListener(this);
 
         // extra
         patient = getIntent().getExtras().getParcelable("patient");
         if (patient == null) patient = new Patient();
         setPatientInfo();
-
-        // initSpinner
+        // init Spinner
         sp_blood_type.setAdapter(new MedicalBloodTypeListAdapter(this));
+        // init Date
+        tv_date.setText(TimeHelper.getYMD());
     }
 
     private void setPatientInfo() {
@@ -113,6 +115,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getDormUserInfo(response, map);
                     if (result == ApiResultHelper.SUCCESS) {
+                        patient.setGender(getData("userSex").equals("男"));
                         patient.setCustomerNo(getData("customerNo"));
                         patient.setFlaborNo(getData("flaborNo"));
                         patient.setCustomerNo(getData("customerNo"));
@@ -122,6 +125,8 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                         // set name
                         tv_name.setText(getData("userName"));
                         tv_birthday.setText(getData("userBirthday"));
+                        rb_male.setChecked(patient.isGender());
+                        rb_female.setChecked(!patient.isGender());
                     } else {
                         t("Fail(CheckARCIDNumber)");
                     }
@@ -139,7 +144,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                 if (idNumber.isEmpty()) return;
                 getDormUserInfo(idNumber);
                 break;
-            case R.id.tv_medical_patient_info_save:
+            case R.id.iv_medical_patient_info_done:
                 String name = tv_name.getText().toString();
                 boolean male = rb_male.isChecked();
                 String birthday = tv_birthday.getText().toString();
@@ -154,7 +159,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                 saveInfo(name, male, birthday, bloodType, age, arcIdNumber, date);
                 break;
             case R.id.tv_medical_patient_info_date:
-                showDatePicker();
+                showDatePicker(tv_date);
                 break;
         }
     }
@@ -194,32 +199,27 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         finish();
     }
 
-    private void showDatePicker() {
-        final Calendar currentCalendar = Calendar.getInstance();
-        final Calendar DATE = Calendar.getInstance();
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private void showDatePicker(final TextView tv) {
+        final Calendar c = Calendar.getInstance();
+        final Calendar c_result = Calendar.getInstance();
+        c.setTime(TimeHelper.getYMD2Date(tv.getText().toString()));
 
-        //初始化datePicker
-        DatePicker datePicker = new DatePicker(MedicalPatientInfoActivity.this);
-        datePicker.setCalendarViewShown(false);
-        datePicker.init(currentCalendar.get(Calendar.YEAR),
-                currentCalendar.get(Calendar.MONTH),
-                currentCalendar.get(Calendar.DAY_OF_MONTH),
+        DatePicker datePicker = new DatePicker(this);
+        datePicker.init(c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH),
                 new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        DATE.set(year, monthOfYear, dayOfMonth);
+                        c_result.set(year, monthOfYear, dayOfMonth);
                     }
                 });
-        //設置datePicker的最大日期
-        datePicker.setMaxDate(currentCalendar.getTimeInMillis());
 
 
-        //創建對話框
         alertWithView(datePicker, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                tv_date.setText(simpleDateFormat.format(new Date(DATE.getTimeInMillis())));
+                tv.setText(TimeHelper.getDate2TMD(c_result.getTime()));
             }
         }, null);
     }
