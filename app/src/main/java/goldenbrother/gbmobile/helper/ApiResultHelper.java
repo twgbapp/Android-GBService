@@ -714,6 +714,7 @@ public class ApiResultHelper {
                     am.setAnnouncementID(o.getInt("announcementID"));
                     am.setTitle(o.getString("title"));
                     am.setCreateDate(o.getString("createDate"));
+                    am.setType(o.getInt("type"));
                     list.add(am);
                 }
                 list_announcement.clear();

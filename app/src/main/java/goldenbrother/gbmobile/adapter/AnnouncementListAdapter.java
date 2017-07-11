@@ -54,31 +54,31 @@ public class AnnouncementListAdapter extends SampleBaseAdapter {
         // set create date
         tag.createDate.setText(TimeHelper.getYMDTime(item.getCreateDate()));
         // set type
-//        changeType(tag.type, item.getType());
+        changeType(tag.type, item.getType());
         // set title
         tag.title.setText(item.getTitle());
         return v;
     }
 
-    private void changeType(TextView tv, String type) {
+    private void changeType(TextView tv, int type) {
         String name = "";
         int color = 0;
         switch (type) {
-            case "1":
+            case 1:
                 name = "Dorm";
                 color = Color.RED;
                 break;
-            case "2":
+            case 2:
                 name = "Company";
                 color = Color.GREEN;
                 break;
-            case "3":
+            case 3:
                 name = "Government";
                 color = Color.BLUE;
                 break;
         }
         tv.setText(name);
-        tv.setBackgroundColor(color);
+        tv.setTextColor(color);
     }
 
     private static class ViewHolder {
