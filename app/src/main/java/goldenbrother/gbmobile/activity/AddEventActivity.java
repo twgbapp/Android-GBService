@@ -75,6 +75,8 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getRepairArea");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetRepairArea(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -211,6 +213,8 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             j.put("action", "getRepairKind");
             j.put("areaNum", areaNum);
             j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetRepairKind(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -278,6 +282,8 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
                 arr.put(jo);
             }
             j.put("events", arr.toString());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new AddEvent(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

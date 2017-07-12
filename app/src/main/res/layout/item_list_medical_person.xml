@@ -6,8 +6,10 @@
 
     <TextView
         android:id="@+id/tv_item_list_medical_person_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:padding="5dp"
         android:textColor="#000"
         android:textSize="20sp" />

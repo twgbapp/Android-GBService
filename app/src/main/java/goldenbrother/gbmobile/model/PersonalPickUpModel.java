@@ -4,15 +4,15 @@ package goldenbrother.gbmobile.model;
  * Created by haojun on 2017/6/27.
  */
 
-public class PersonnelPickUpModel {
+public class PersonalPickUpModel {
     private String userId;
     private String name;
 
-    public PersonnelPickUpModel(){
+    public PersonalPickUpModel(){
 
     }
 
-    public PersonnelPickUpModel(String userId, String name) {
+    public PersonalPickUpModel(String userId, String name) {
         this.userId = userId;
         this.name = name;
     }

@@ -48,6 +48,8 @@ public class RepairRecordContentActivity extends CommonActivity {
             j.put("action", "getRepairRecord");
             j.put("rrsno", rrsno);
             j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetRepairRecord(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

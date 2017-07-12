@@ -22,9 +22,11 @@ import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.HospitalModel;
 import goldenbrother.gbmobile.model.MedicalProcessStatusModel;
-import goldenbrother.gbmobile.model.PersonnelPickUpModel;
+import goldenbrother.gbmobile.model.Patient;
+import goldenbrother.gbmobile.model.PersonalPickUpModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
-public class AddMedicalProcessStatusActivity extends CommonActivity implements View.OnClickListener {
+public class MedicalProcessStatusActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private EditText et_other;
@@ -32,41 +34,44 @@ public class AddMedicalProcessStatusActivity extends CommonActivity implements V
     private Spinner sp_hospital, sp_person;
     private RadioButton rb_yes, rb_no;
     // extra
-    private String dormID;
+    private Patient patient;
     // data
     private String[] array_process_status;
     private ArrayList<HospitalModel> list_hospital;
-    private ArrayList<PersonnelPickUpModel> list_personal_pick_up;
+    private ArrayList<PersonalPickUpModel> list_personal_pick_up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_medical_process_status);
+        setContentView(R.layout.activity_medical_process_status);
 
         // ui reference
-        findViewById(R.id.iv_add_medical_process_status_done).setOnClickListener(this);
-        cb_1 = (CheckBox) findViewById(R.id.cb_add_medical_process_status_1);
-        cb_2 = (CheckBox) findViewById(R.id.cb_add_medical_process_status_2);
-        cb_3 = (CheckBox) findViewById(R.id.cb_add_medical_process_status_3);
-        cb_4 = (CheckBox) findViewById(R.id.cb_add_medical_process_status_4);
-        cb_5 = (CheckBox) findViewById(R.id.cb_add_medical_process_status_5);
-        et_other = (EditText) findViewById(R.id.et_add_medical_process_status_other);
-        sp_hospital = (Spinner) findViewById(R.id.sp_add_medical_process_hospital);
-        sp_person = (Spinner) findViewById(R.id.sp_add_medical_process_person);
-        rb_yes = (RadioButton) findViewById(R.id.rb_add_medical_process_yes);
-        rb_no = (RadioButton) findViewById(R.id.rb_add_medical_process_no);
+        findViewById(R.id.iv_medical_process_status_done).setOnClickListener(this);
+        cb_1 = (CheckBox) findViewById(R.id.cb_medical_process_status_1);
+        cb_2 = (CheckBox) findViewById(R.id.cb_medical_process_status_2);
+        cb_3 = (CheckBox) findViewById(R.id.cb_medical_process_status_3);
+        cb_4 = (CheckBox) findViewById(R.id.cb_medical_process_status_4);
+        cb_5 = (CheckBox) findViewById(R.id.cb_medical_process_status_5);
+        et_other = (EditText) findViewById(R.id.et_medical_process_status_other);
+        sp_hospital = (Spinner) findViewById(R.id.sp_medical_process_hospital);
+        sp_person = (Spinner) findViewById(R.id.sp_medical_process_person);
+        rb_yes = (RadioButton) findViewById(R.id.rb_medical_process_yes);
+        rb_no = (RadioButton) findViewById(R.id.rb_medical_process_no);
 
         // extra
-        dormID = getIntent().getExtras().getString("dormID");
+        patient = getIntent().getExtras().getParcelable("patient");
+
         // init
         array_process_status = getResources().getStringArray(R.array.medical_process_status);
+
         // init Spinner
         list_hospital = new ArrayList<>();
         list_personal_pick_up = new ArrayList<>();
         list_hospital.add(new HospitalModel("0", getString(R.string.select)));
-        list_personal_pick_up.add(new PersonnelPickUpModel("0", getString(R.string.select)));
+        list_personal_pick_up.add(new PersonalPickUpModel("0", getString(R.string.select)));
         sp_hospital.setAdapter(new MedicalHospitalListAdapter(this, list_hospital));
         sp_person.setAdapter(new MedicalPersonListAdapter(this, list_personal_pick_up));
+
         // getHospitalPickUp
         getHospitalPickUp();
     }
@@ -80,7 +85,10 @@ public class AddMedicalProcessStatusActivity extends CommonActivity implements V
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getHospitalPickUp");
-            j.put("dormID", dormID);
+            j.put("dormID", patient.getDormID());
+            j.put("customerNo", patient.getCustomerNo());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetHospitalPickUp(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -103,7 +111,7 @@ public class AddMedicalProcessStatusActivity extends CommonActivity implements V
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
-                        t(String.format(getString(R.string.fail)+"(%s)","GetHospitalPickUp"));
+                        t(String.format(getString(R.string.fail) + "(%s)", "GetHospitalPickUp"));
                     }
                     break;
             }
@@ -113,7 +121,7 @@ public class AddMedicalProcessStatusActivity extends CommonActivity implements V
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_add_medical_process_status_done:
+            case R.id.iv_medical_process_status_done:
                 ArrayList<MedicalProcessStatusModel> list = new ArrayList<>();
                 if (cb_1.isChecked())
                     list.add(new MedicalProcessStatusModel(array_process_status[0], "0/null/null/null/null"));

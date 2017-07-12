@@ -16,12 +16,14 @@ import org.json.JSONObject;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalBloodTypeListAdapter;
-import goldenbrother.gbmobile.bean.Patient;
+import goldenbrother.gbmobile.helper.TimeHelper;
+import goldenbrother.gbmobile.model.Patient;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.BloodType;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class MedicalInfoActivity extends CommonActivity implements View.OnClickListener {
+public class MedicalPatientInfoActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private EditText et_arc_id_number;
@@ -43,27 +45,28 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medical_info);
+        setContentView(R.layout.activity_medical_patient_info);
 
         // ui reference
-        et_arc_id_number = (EditText) findViewById(R.id.et_medical_info_arc_id_number);
-        tv_name = (TextView) findViewById(R.id.tv_medical_info_name);
-        tv_birthday = (TextView) findViewById(R.id.tv_medical_info_birthday);
-        tv_date = (TextView) findViewById(R.id.tv_medical_info_date);
-        rb_male = (RadioButton) findViewById(R.id.rb_medical_info_male);
-        rb_female = (RadioButton) findViewById(R.id.rb_medical_info_female);
-        sp_blood_type = (Spinner) findViewById(R.id.sp_medical_info_blood_type);
-        findViewById(R.id.tv_medical_info_check).setOnClickListener(this);
-        findViewById(R.id.tv_medical_info_save).setOnClickListener(this);
-        findViewById(R.id.tv_medical_info_date).setOnClickListener(this);
+        et_arc_id_number = (EditText) findViewById(R.id.et_medical_patient_info_arc_id_number);
+        tv_name = (TextView) findViewById(R.id.tv_medical_patient_info_name);
+        tv_birthday = (TextView) findViewById(R.id.tv_medical_patient_info_birthday);
+        tv_date = (TextView) findViewById(R.id.tv_medical_patient_info_date);
+        rb_male = (RadioButton) findViewById(R.id.rb_medical_patient_info_male);
+        rb_female = (RadioButton) findViewById(R.id.rb_medical_patient_info_female);
+        sp_blood_type = (Spinner) findViewById(R.id.sp_medical_patient_info_blood_type);
+        findViewById(R.id.tv_medical_patient_info_check).setOnClickListener(this);
+        findViewById(R.id.iv_medical_patient_info_done).setOnClickListener(this);
+        tv_date.setOnClickListener(this);
 
         // extra
         patient = getIntent().getExtras().getParcelable("patient");
         if (patient == null) patient = new Patient();
         setPatientInfo();
-
-        // initSpinner
+        // init Spinner
         sp_blood_type.setAdapter(new MedicalBloodTypeListAdapter(this));
+        // init Date
+        tv_date.setText(TimeHelper.getYMD());
     }
 
     private void setPatientInfo() {
@@ -80,6 +83,8 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
             JSONObject j = new JSONObject();
             j.put("action", "getDormUserInfo");
             j.put("arc", userIDNumber);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new GetDormUserInfo(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -110,9 +115,10 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getDormUserInfo(response, map);
                     if (result == ApiResultHelper.SUCCESS) {
-
+                        patient.setGender(getData("userSex").equals("男"));
                         patient.setCustomerNo(getData("customerNo"));
                         patient.setFlaborNo(getData("flaborNo"));
+                        patient.setCustomerNo(getData("customerNo"));
                         patient.setDormID(getData("dormID"));
                         patient.setRoomID(getData("roomID"));
                         patient.setCenterDirectorID(getData("centerDirectorID"));
@@ -124,6 +130,8 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
                             rb_female.setChecked(true);
                         }
                         tv_birthday.setText(getData("userBirthday"));
+                        rb_male.setChecked(patient.isGender());
+                        rb_female.setChecked(!patient.isGender());
                     } else {
                         t("Fail(CheckARCIDNumber)");
                     }
@@ -136,12 +144,12 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
     public void onClick(View v) {
         EnvironmentHelper.hideKeyBoard(this, v);
         switch (v.getId()) {
-            case R.id.tv_medical_info_check:
+            case R.id.tv_medical_patient_info_check:
                 String idNumber = et_arc_id_number.getText().toString();
                 if (idNumber.isEmpty()) return;
                 getDormUserInfo(idNumber);
                 break;
-            case R.id.tv_medical_info_save:
+            case R.id.iv_medical_patient_info_done:
                 String name = tv_name.getText().toString();
                 boolean male = rb_male.isChecked();
                 String birthday = tv_birthday.getText().toString();
@@ -155,8 +163,8 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
                 }
                 saveInfo(name, male, birthday, bloodType, age, arcIdNumber, date);
                 break;
-            case R.id.tv_medical_info_date:
-                showDatePicker();
+            case R.id.tv_medical_patient_info_date:
+                showDatePicker(tv_date);
                 break;
         }
     }
@@ -196,32 +204,27 @@ public class MedicalInfoActivity extends CommonActivity implements View.OnClickL
         finish();
     }
 
-    private void showDatePicker() {
-        final Calendar currentCalendar = Calendar.getInstance();
-        final Calendar DATE = Calendar.getInstance();
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private void showDatePicker(final TextView tv) {
+        final Calendar c = Calendar.getInstance();
+        final Calendar c_result = Calendar.getInstance();
+        c.setTime(TimeHelper.getYMD2Date(tv.getText().toString()));
 
-        //初始化datePicker
-        DatePicker datePicker = new DatePicker(MedicalInfoActivity.this);
-        datePicker.setCalendarViewShown(false);
-        datePicker.init(currentCalendar.get(Calendar.YEAR),
-                currentCalendar.get(Calendar.MONTH),
-                currentCalendar.get(Calendar.DAY_OF_MONTH),
+        DatePicker datePicker = new DatePicker(this);
+        datePicker.init(c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH),
                 new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        DATE.set(year, monthOfYear, dayOfMonth);
+                        c_result.set(year, monthOfYear, dayOfMonth);
                     }
                 });
-        //設置datePicker的最大日期
-        datePicker.setMaxDate(currentCalendar.getTimeInMillis());
 
 
-        //創建對話框
         alertWithView(datePicker, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                tv_date.setText(simpleDateFormat.format(new Date(DATE.getTimeInMillis())));
+                tv.setText(TimeHelper.getDate2TMD(c_result.getTime()));
             }
         }, null);
     }

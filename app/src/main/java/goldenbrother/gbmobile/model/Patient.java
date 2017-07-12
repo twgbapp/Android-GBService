@@ -1,9 +1,7 @@
-package goldenbrother.gbmobile.bean;
+package goldenbrother.gbmobile.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 public class Patient implements  Parcelable {
     public int id;//xutil中使用

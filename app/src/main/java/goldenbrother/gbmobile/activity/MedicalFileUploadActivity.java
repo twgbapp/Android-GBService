@@ -7,14 +7,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -29,43 +25,40 @@ import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.LogHelper;
-import goldenbrother.gbmobile.helper.SPHelper;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 
-public class AddMedicalFileUploadActivity extends CommonActivity implements View.OnClickListener {
+public class MedicalFileUploadActivity extends CommonActivity implements View.OnClickListener {
 
     // request
-    public static final int REQUEST_SIGNATURE = 10;
-    public static final int REQUEST_CHOOSE_PHOTO = 11;
-    public static final int REQUEST_TAKE_PHOTO = 12;
-    public static final int REQUEST_CROP_PHOTO = 13;
+    public static final int REQUEST_SIGNATURE = 0;
+    public static final int REQUEST_CHOOSE_PHOTO = 1;
+    public static final int REQUEST_TAKE_PHOTO = 2;
+    public static final int REQUEST_CROP_PHOTO = 3;
     // ui
     private ImageView iv_signature, iv_medical, iv_diagnostic, iv_service;
     private ImageView iv_clicked;
     // take picture
     private File file;
     // data
-    private String signaturePath="", medicalPath="", diagnosticPath="", servicePath="";
+    private String signaturePath = "", medicalPath = "", diagnosticPath = "", servicePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_medical_file_upload);
+        setContentView(R.layout.activity_medical_file_upload);
 
         // ui reference
-        findViewById(R.id.iv_add_medical_file_upload_done).setOnClickListener(this);
-        iv_signature = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_signature);
-        iv_medical = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_medical);
-        iv_diagnostic = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_diagnostic);
-        iv_service = (ImageView) findViewById(R.id.iv_add_medical_file_upload_picture_service);
+        findViewById(R.id.iv_medical_file_upload_done).setOnClickListener(this);
+        iv_signature = (ImageView) findViewById(R.id.iv_medical_file_upload_picture_signature);
+        iv_medical = (ImageView) findViewById(R.id.iv_medical_file_upload_picture_medical);
+        iv_diagnostic = (ImageView) findViewById(R.id.iv_medical_file_upload_picture_diagnostic);
+        iv_service = (ImageView) findViewById(R.id.iv_medical_file_upload_picture_service);
         iv_signature.setOnClickListener(this);
         iv_medical.setOnClickListener(this);
         iv_diagnostic.setOnClickListener(this);
         iv_service.setOnClickListener(this);
     }
-
 
     private void showImage(final Bitmap bmp) {
         final ImageView iv = new ImageView(this);
@@ -85,6 +78,8 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
             j.put("fileName", BitmapHelper.getRandomName());
             j.put("url", URLHelper.HOST);
             j.put("baseStr", BitmapHelper.bitmap2String(bmp));
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -119,19 +114,19 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
     private void savePath(View v, String path) {
         if (v == null) return;
         switch (v.getId()) {
-            case R.id.iv_add_medical_file_upload_picture_signature:
+            case R.id.iv_medical_file_upload_picture_signature:
                 signaturePath = path;
                 Picasso.with(this).load(path).into(iv_signature);
                 break;
-            case R.id.iv_add_medical_file_upload_picture_medical:
+            case R.id.iv_medical_file_upload_picture_medical:
                 medicalPath = path;
                 Picasso.with(this).load(path).into(iv_medical);
                 break;
-            case R.id.iv_add_medical_file_upload_picture_diagnostic:
+            case R.id.iv_medical_file_upload_picture_diagnostic:
                 diagnosticPath = path;
                 Picasso.with(this).load(path).into(iv_diagnostic);
                 break;
-            case R.id.iv_add_medical_file_upload_picture_service:
+            case R.id.iv_medical_file_upload_picture_service:
                 servicePath = path;
                 Picasso.with(this).load(path).into(iv_service);
                 break;
@@ -149,7 +144,7 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
                     startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
                 } else {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    file = new File(FileHelper.getAppDir(AddMedicalFileUploadActivity.this) + "/medical.jpg");
+                    file = new File(FileHelper.getAppDir(MedicalFileUploadActivity.this) + "/medical.jpg");
                     // put Uri as extra in intent object
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO);
@@ -161,22 +156,22 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_add_medical_file_upload_done:
+            case R.id.iv_medical_file_upload_done:
                 Intent intent = new Intent();
-                intent.putExtra("signaturePath",signaturePath);
-                intent.putExtra("medicalPath",medicalPath);
-                intent.putExtra("diagnosticPath",diagnosticPath);
-                intent.putExtra("servicePath",servicePath);
-                setResult(RESULT_OK,intent);
+                intent.putExtra("signaturePath", signaturePath);
+                intent.putExtra("medicalPath", medicalPath);
+                intent.putExtra("diagnosticPath", diagnosticPath);
+                intent.putExtra("servicePath", servicePath);
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
-            case R.id.iv_add_medical_file_upload_picture_signature:
+            case R.id.iv_medical_file_upload_picture_signature:
                 iv_clicked = (ImageView) v;
                 openActivityForResult(SignatureActivity.class, REQUEST_SIGNATURE);
                 break;
-            case R.id.iv_add_medical_file_upload_picture_medical:
-            case R.id.iv_add_medical_file_upload_picture_diagnostic:
-            case R.id.iv_add_medical_file_upload_picture_service:
+            case R.id.iv_medical_file_upload_picture_medical:
+            case R.id.iv_medical_file_upload_picture_diagnostic:
+            case R.id.iv_medical_file_upload_picture_service:
                 iv_clicked = (ImageView) v;
                 choosePictureIntent();
                 break;
@@ -189,10 +184,10 @@ public class AddMedicalFileUploadActivity extends CommonActivity implements View
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(picUri, "image/*");
             cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            cropIntent.putExtra("outputX", 300);
-            cropIntent.putExtra("outputY", 300);
+//            cropIntent.putExtra("aspectX", 1);
+//            cropIntent.putExtra("aspectY", 1);
+//            cropIntent.putExtra("outputX", 300);
+//            cropIntent.putExtra("outputY", 300);
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, REQUEST_CROP_PHOTO);
         }

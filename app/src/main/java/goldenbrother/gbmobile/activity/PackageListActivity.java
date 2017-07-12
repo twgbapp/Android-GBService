@@ -109,6 +109,8 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
             j.put("action", "getPackageList");
             j.put("description", description);
             j.put("pickNumber", pickNumber);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadPackageList(this, j, URLHelper.HOST, !description.isEmpty()).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -212,6 +214,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
             j.put("packageID", p.getPackageID());
             j.put("baseStr", p.getBaseStr());
             j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new ReceivePackage(this, j, URLHelper.HOST, p).execute();
         } catch (JSONException e) {
             e.printStackTrace();

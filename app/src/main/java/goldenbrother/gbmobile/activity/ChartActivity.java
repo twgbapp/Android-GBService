@@ -13,6 +13,7 @@ import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ManagerModel;
 import goldenbrother.gbmobile.model.RepairKindNumberModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,8 @@ public class ChartActivity extends CommonActivity {
                 arr.put(id);
             }
             j.put("repairKindIDs", arr.toString());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadRepairList(this, j, URLHelper.HOST).execute();//t
         } catch (JSONException e) {
             e.printStackTrace();

@@ -15,10 +15,11 @@ import goldenbrother.gbmobile.model.EventUserModel;
 import goldenbrother.gbmobile.model.HospitalModel;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.ManagerModel;
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
 import goldenbrother.gbmobile.model.OnCallManagerModel;
 import goldenbrother.gbmobile.model.PackageModel;
-import goldenbrother.gbmobile.model.PersonnelPickUpModel;
+import goldenbrother.gbmobile.model.PersonalPickUpModel;
 import goldenbrother.gbmobile.model.RepairKindModel;
 import goldenbrother.gbmobile.model.RepairKindNumberModel;
 import goldenbrother.gbmobile.model.RepairModel;
@@ -380,7 +381,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_medical_treatment_code) {
+    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_first, ArrayList<MedicalTreatmentCodeModel> list_second) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -704,6 +705,7 @@ public class ApiResultHelper {
                     am.setAnnouncementID(o.getInt("announcementID"));
                     am.setTitle(o.getString("title"));
                     am.setCreateDate(o.getString("createDate"));
+                    am.setType(o.getInt("type"));
                     list.add(am);
                 }
                 list_announcement.clear();
@@ -989,44 +991,9 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_kind, ArrayList<MedicalTreatmentCodeModel> list_detail) {
+    public static int addMedicalRecord(String response) {
         try {
-            JSONObject j = new JSONObject(response);
-            int success = j.getInt("success");
-            if (success == 1) {
-                list_kind.clear();
-                JSONArray arr_first = j.getJSONArray("first");
-                for (int i = 0; i < arr_first.length(); i++) {
-                    JSONObject o = arr_first.getJSONObject(i);
-                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
-                    rm.setColumnName(o.getString("columnName"));
-                    rm.setCode(o.getString("code"));
-                    rm.setValue(o.getString("value"));
-                    list_kind.add(rm);
-                }
-                list_detail.clear();
-                JSONArray arr_second = j.getJSONArray("second");
-                for (int i = 0; i < arr_second.length(); i++) {
-                    JSONObject o = arr_second.getJSONObject(i);
-                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
-                    rm.setColumnName(o.getString("columnName"));
-                    rm.setCode(o.getString("code"));
-                    rm.setValue(o.getString("value"));
-                    list_detail.add(rm);
-                }
-            }
-            return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int addMedicalRecord(String response, HashMap<String, Integer> map) {
-        try {
-            JSONObject j = new JSONObject(response);
-            int success = j.getInt("success");
-            return success;
+            return new JSONObject(response).getInt("success");
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;
@@ -1041,6 +1008,7 @@ public class ApiResultHelper {
                 map.put("userName", j.getString("userName"));
                 map.put("userSex", j.getString("userSex"));
                 map.put("userBirthday", j.getString("userBirthday"));
+                map.put("userSex", j.getString("userSex"));
                 map.put("customerNo", j.getString("customerNo"));
                 map.put("workerNo", j.getString("workerNo"));
                 map.put("flaborNo", j.getString("flaborNo"));
@@ -1055,7 +1023,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getHospitalPickUp(String response, ArrayList<HospitalModel> list_hospital, ArrayList<PersonnelPickUpModel> list_personal_pick_up) {
+    public static int getHospitalPickUp(String response, ArrayList<HospitalModel> list_hospital, ArrayList<PersonalPickUpModel> list_personal_pick_up) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -1068,14 +1036,43 @@ public class ApiResultHelper {
                     list_hospital.add(new HospitalModel(o.getString("hospitalCode"), o.getString("hospitalName")));
                 }
                 list_personal_pick_up.clear();
-                list_personal_pick_up.add(new PersonnelPickUpModel("0", "Select..."));
+                list_personal_pick_up.add(new PersonalPickUpModel("0", "Select..."));
                 JSONArray arr_personal_pick_up = j.getJSONArray("personnelPickUp");
                 for (int i = 0; i < arr_personal_pick_up.length(); i++) {
                     JSONObject o = arr_personal_pick_up.getJSONObject(i);
-                    list_personal_pick_up.add(new PersonnelPickUpModel(o.getString("userID"), o.getString("userName")));
+                    list_personal_pick_up.add(new PersonalPickUpModel(o.getString("userID"), o.getString("userName")));
                 }
             }
             return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getMedicalFlaborList(String response, ArrayList<Medical> list_medical_flabor) {
+        try {
+            JSONObject j = new JSONObject(response);
+
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Medical> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("medicalFlabor");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Medical m = new Medical();
+                    m.setMtrsno(o.getInt("mtrsno"));
+                    m.setCustomerNo(o.getString("customerNo"));
+                    m.setCustomerName(o.getString("customerName"));
+                    m.setFlaborNo(o.getString("flaborNo"));
+                    m.setFlaborName(o.getString("flaborName"));
+                    m.setRecordDate(o.getString("recordDate"));
+                    list.add(m);
+                }
+                list_medical_flabor.clear();
+                list_medical_flabor.addAll(list);
+            }
+            return result;
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;

@@ -15,6 +15,7 @@ import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ClubModel;
 import goldenbrother.gbmobile.model.ClubPostMessageModel;
 import goldenbrother.gbmobile.model.ClubPostModel;
+import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,6 +116,8 @@ public class ClubPostActivity extends CommonActivity {
             JSONObject j = new JSONObject();
             j.put("action", "getAllClubPostID");
             j.put("clubID", club.getClubID());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new LoadAllClubPostID(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -165,6 +168,8 @@ public class ClubPostActivity extends CommonActivity {
                 arr.put(no);
             }
             j.put("clubPostIDs", arr.toString());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             if (!nos.isEmpty()) {
                 loading = true;
                 new LoadClubPostList(this, j, URLHelper.HOST).execute();

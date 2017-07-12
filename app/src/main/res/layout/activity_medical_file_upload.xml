@@ -30,7 +30,7 @@
                     android:textSize="24sp" />
 
                 <ImageView
-                    android:id="@+id/iv_add_medical_file_upload_done"
+                    android:id="@+id/iv_medical_file_upload_done"
                     android:layout_width="@dimen/imageview_toolbar_width"
                     android:layout_height="@dimen/imageview_toolbar_width"
                     android:layout_alignParentRight="true"
@@ -62,7 +62,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_signature"
+                android:id="@+id/iv_medical_file_upload_picture_signature"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"
@@ -86,7 +86,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_medical"
+                android:id="@+id/iv_medical_file_upload_picture_medical"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"
@@ -110,7 +110,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_diagnostic"
+                android:id="@+id/iv_medical_file_upload_picture_diagnostic"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"
@@ -134,7 +134,7 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_add_medical_file_upload_picture_service"
+                android:id="@+id/iv_medical_file_upload_picture_service"
                 android:layout_width="@dimen/imageview_profile_picture_width"
                 android:layout_height="@dimen/imageview_profile_picture_width"
                 android:layout_gravity="center"

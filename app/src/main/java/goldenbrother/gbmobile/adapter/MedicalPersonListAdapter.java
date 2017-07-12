@@ -8,8 +8,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.model.HospitalModel;
-import goldenbrother.gbmobile.model.PersonnelPickUpModel;
+import goldenbrother.gbmobile.model.PersonalPickUpModel;
 
 /**
  * Created by asus on 2016/11/16.
@@ -17,9 +16,9 @@ import goldenbrother.gbmobile.model.PersonnelPickUpModel;
 
 public class MedicalPersonListAdapter extends SampleBaseAdapter {
 
-    private ArrayList<PersonnelPickUpModel> list;
+    private ArrayList<PersonalPickUpModel> list;
 
-    public MedicalPersonListAdapter(Context context, ArrayList<PersonnelPickUpModel> list) {
+    public MedicalPersonListAdapter(Context context, ArrayList<PersonalPickUpModel> list) {
         super(context);
         this.list = list;
     }
@@ -49,7 +48,7 @@ public class MedicalPersonListAdapter extends SampleBaseAdapter {
         } else {
             tag = (ViewHolder) v.getTag();
         }
-        final PersonnelPickUpModel item = (PersonnelPickUpModel) getItem(position);
+        final PersonalPickUpModel item = (PersonalPickUpModel) getItem(position);
         tag.name.setText(item.getName());
         return v;
     }

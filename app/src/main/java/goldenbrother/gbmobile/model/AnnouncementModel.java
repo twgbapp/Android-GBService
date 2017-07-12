@@ -14,7 +14,7 @@ public class AnnouncementModel {
     * type == 2 >> 公司
     * type == 3 >> 政府
      */
-    private String type;
+    private int type;
     private String expirationDate;
     private String createDate;
     private String nationCode;
@@ -59,11 +59,11 @@ public class AnnouncementModel {
         this.createDate = createDate;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

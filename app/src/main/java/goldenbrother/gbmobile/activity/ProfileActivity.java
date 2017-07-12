@@ -94,6 +94,8 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             j.put("fileName", RoleInfo.getInstance().getUserID());
             j.put("baseStr", BitmapHelper.bitmap2String(bmp));
             j.put("url",URLHelper.HOST);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -131,6 +133,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             j.put("action", "updatePicture");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("path", path);
+            j.put("logStatus", true);
             new UpdatePicture(this, j, URLHelper.HOST, path).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -205,6 +208,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("oldUserPassword", EncryptHelper.md5(oldUserPassword));
             j.put("newUserPassword", EncryptHelper.md5(newUserPassword));
+            j.put("logStatus", true);
             new ChangePassword(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

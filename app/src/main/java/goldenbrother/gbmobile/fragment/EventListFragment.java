@@ -211,6 +211,7 @@ public class EventListFragment extends Fragment {
             JSONObject j = new JSONObject();
             j.put("action", "getEventList");
             j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
             new LoadCloudEventList(activity, j, URLHelper.HOST, serviceGroupID).execute();
         } catch (JSONException e) {
             e.printStackTrace();

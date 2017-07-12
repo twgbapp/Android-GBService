@@ -12,18 +12,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import goldenbrother.gbmobile.bean.Patient;
+import goldenbrother.gbmobile.model.Patient;
 
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.MedicalProcessStatusModel;
+import goldenbrother.gbmobile.model.MedicalTrackProcessModel;
 import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MedicalRecordActivity extends CommonActivity implements View.OnClickListener {
 
@@ -95,6 +95,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("age", patient.getAge());
             j.put("centerDirectorID", patient.getCenterDirectorID()); //getDormUserInfo
             j.put("createId", RoleInfo.getInstance().getUserID());
+            j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("createTime", TimeHelper.getStandard());
             j.put("diagnosticCertificate", diagnosticCertificatePath);
             j.put("serviceRecord", serviceRecordPath);
@@ -125,6 +126,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 arrTrack.put(m.getData());
             }
             j.put("medicalTreatmentProcessingRecord", arrTrack);
+            j.put("logStatus", true);
 
             new AddMedicalRecord(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
@@ -133,19 +135,9 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     }
 
     private class AddMedicalRecord extends IAsyncTask {
-        private HashMap<String, Integer> map;
 
         AddMedicalRecord(Context context, JSONObject json, String url) {
             super(context, json, url);
-            this.map = new HashMap<>();
-        }
-
-        private Integer getData(String key) {
-            if (map.containsKey(key)) {
-                return map.get(key);
-            } else {
-                return 0;
-            }
         }
 
         @Override
@@ -154,7 +146,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.addMedicalRecord(response, map);
+                    int result = ApiResultHelper.addMedicalRecord(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         finish();
@@ -185,24 +177,25 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.iv_medical_record_info: // 查詢外勞
                 b.putParcelable("patient", patient);
-                openActivityForResult(MedicalInfoActivity.class, REQUEST_INFO, b);
+                openActivityForResult(MedicalPatientInfoActivity.class, REQUEST_INFO, b);
                 break;
             case R.id.iv_medical_record_symptoms: // 症狀列表
-                openActivityForResult(AddMedicalTreatmentCodeActivity.class, REQUEST_TREATMENT);
+
+                openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT);
                 break;
             case R.id.iv_medical_record_processing_status: // 處理狀況
                 if (patient == null || patient.getDormID() == null || patient.getDormID().isEmpty()) {
                     t("Can't get dormID");
                     return;
                 }
-                b.putString("dormID", patient.getDormID());
-                openActivityForResult(AddMedicalProcessStatusActivity.class, REQUEST_PROCESS_STATUS, b);
+                b.putParcelable("patient", patient);
+                openActivityForResult(MedicalProcessStatusActivity.class, REQUEST_PROCESS_STATUS, b);
                 break;
             case R.id.iv_medical_record_tracking_processing: // 追蹤與處理
-                openActivityForResult(AddMedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS);
+                openActivityForResult(MedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS);
                 break;
             case R.id.iv_medical_record_file_upload:
-                openActivityForResult(AddMedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD);
+                openActivityForResult(MedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD);
                 break;
             case R.id.tv_medical_record_save: // 新增醫療紀錄
                 if (patient == null) {
