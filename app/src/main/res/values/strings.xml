@@ -59,6 +59,7 @@
     <!-- Login -->
     <string name="login_account">@string/account</string>
     <string name="login_password">@string/password</string>
+    <string name="login_forgot_password"><u>Forgot your password?</u></string>
     <string name="login_login">Log in</string>
     <string name="login_sign_up">@string/sign_up</string>
     <string name="login_error_account_or_password_not_exist">Invalid account or password</string>
@@ -98,9 +99,15 @@
         <item>033</item>
     </string-array>
     <!-- Main -->
+    <!-- Group -->
+    <string name="main_drawer_mobile_service">Mobile Service</string>
+    <string name="main_drawer_life_information">Life Information</string>
+    <string name="main_drawer_e_commerce">E-commerce</string>
+    <string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>
+    <!-- Child -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
-    <string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>
+    <!--<string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>-->
     <string name="main_drawer_announcement">Announcement</string>
     <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">Log out</string>

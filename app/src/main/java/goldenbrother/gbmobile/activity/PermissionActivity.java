@@ -25,7 +25,7 @@ public class PermissionActivity extends CommonActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION);
         } else {
             Bundle b = new Bundle();
-            openActivity(LoginActivity.class, b);
+            openActivity(SplashActivity.class,b);
             finish();
         }
     }
@@ -38,7 +38,7 @@ public class PermissionActivity extends CommonActivity {
                     grantResults[1] == PackageManager.PERMISSION_GRANTED &&
                     grantResults[2] == PackageManager.PERMISSION_GRANTED) {
                 Bundle b = new Bundle();
-                openActivity(LoginActivity.class, b);
+                openActivity(SplashActivity.class,b);
                 finish();
             } else {
                 t(R.string.permission_denied);

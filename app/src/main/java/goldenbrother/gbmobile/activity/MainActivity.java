@@ -8,6 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
+import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
@@ -33,8 +37,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     public static final int REQUEST_PROFILE = 0;
     public static final int REQUEST_QUICK_REPAIR = 1;
     // ui
-    private ImageView iv_banner;
-    private CircleImageView iv_user_picture;
+
     // banner
     private Handler handler;
     private ArrayList<Integer> list_banner;
@@ -45,56 +48,103 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // ui reference
-        iv_banner = (ImageView) findViewById(R.id.iv_main_banner);
-        findViewById(R.id.iv_main_service).setOnClickListener(this);
-        // init Navigation
+        findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);
+        // init Toolbar
+        initToolbar();
+        // init Drawer
         initDrawer();
         // initBanner
         initBanner();
     }
 
-    private void initDrawer() {
-        // initToolBar
+    private void initToolbar() {
+        // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-        // connect ToolBar & Navigation
+        // drawer connect
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.app_name, R.string.app_name);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        // init Navigation
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_main);
-        if (navigationView != null) {
-            // get role instances
-            RoleInfo r = RoleInfo.getInstance();
-            if (r.isLabor()) {
-                navigationView.inflateMenu(R.menu.main_drawer_labor);
-            } else {
-                navigationView.inflateMenu(R.menu.main_drawer_manager);
-            }
+    }
 
-            navigationView.setNavigationItemSelectedListener(this);
-            View nav = navigationView.getHeaderView(0);
-            // init Navigation Header
-            LinearLayout ll_header = (LinearLayout) nav.findViewById(R.id.ll_main_nav_header);
-            iv_user_picture = (CircleImageView) nav.findViewById(R.id.iv_main_user_picture);
-            TextView tv_user_name = (TextView) nav.findViewById(R.id.tv_main_user_name);
-            TextView tv_user_email = (TextView) nav.findViewById(R.id.tv_main_user_email);
-            // set listener
-            ll_header.setOnClickListener(this);
-            // set picture
-            if (r.getUserPicture() != null && r.getUserPicture().length() > 0) {
-                int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-                Picasso.with(this).load(r.getUserPicture()).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_user_picture);
-            } else {
-                iv_user_picture.setImageResource(R.drawable.ic_person_white);
-            }
-            // set name
-            tv_user_name.setText(r.getUserName());
-            // set email
-            tv_user_email.setText(r.getUserEmail());
+    private void initDrawer() {
+        RecyclerView rv = (RecyclerView) findViewById(R.id.rv_main_navigation);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        ArrayList<DrawerItem> list = new ArrayList<>();
+        RoleInfo r = RoleInfo.getInstance();
+        if (r.isLabor()) {
+            list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.main_drawer_mobile_service, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_quick_repair, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
+
+            list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
+
+            list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_satisfaction_survey, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
+        } else {
+//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_mobile_service, DrawerItem.GROUP));
+//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_life_information, DrawerItem.GROUP));
+//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
+//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_logout, DrawerItem.GROUP));
+
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_online_setting, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_medical, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_logout, DrawerItem.CHILD));
         }
+        rv.setAdapter(new MainDrawerRVAdapter(this, list));
+//        // initToolBar
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+//        setSupportActionBar(toolbar);
+//        // connect ToolBar & Navigation
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
+//        // init Navigation
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_main);
+//        if (navigationView != null) {
+//            // get role instances
+//            RoleInfo r = RoleInfo.getInstance();
+//            if (r.isLabor()) {
+//                navigationView.inflateMenu(R.menu.main_drawer_labor);
+//            } else {
+//                navigationView.inflateMenu(R.menu.main_drawer_manager);
+//            }
+//
+//            navigationView.setNavigationItemSelectedListener(this);
+//            View nav = navigationView.getHeaderView(0);
+//            // init Navigation Header
+//            LinearLayout ll_header = (LinearLayout) nav.findViewById(R.id.ll_main_nav_header);
+//            iv_user_picture = (CircleImageView) nav.findViewById(R.id.iv_main_user_picture);
+//            TextView tv_user_name = (TextView) nav.findViewById(R.id.tv_main_user_name);
+//            TextView tv_user_email = (TextView) nav.findViewById(R.id.tv_main_user_email);
+//            // set listener
+//            ll_header.setOnClickListener(this);
+//            // set picture
+//            if (r.getUserPicture() != null && r.getUserPicture().length() > 0) {
+//                int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
+//                Picasso.with(this).load(r.getUserPicture()).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_user_picture);
+//            } else {
+//                iv_user_picture.setImageResource(R.drawable.ic_person_white);
+//            }
+//            // set name
+//            tv_user_name.setText(r.getUserName());
+//            // set email
+//            tv_user_email.setText(r.getUserEmail());
+//        }
     }
 
     private void initBanner() {
@@ -118,7 +168,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             if (allowShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
                 int w = getResources().getDisplayMetrics().widthPixels;
                 int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
-                Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
+//                Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
                 indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
                 handler.postDelayed(r, REFRESH_BANNER_TIME);
             } else {
@@ -155,15 +205,19 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_main_service:
+            case R.id.cv_main_mobile_service:
                 Bundle b = new Bundle();
                 b.putInt("position", 0);
                 openActivity(MobileServiceActivity.class, b);
                 break;
             case R.id.ll_main_nav_header:
-                openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
+
                 break;
         }
+    }
+
+    public void openProfileActivity() {
+        openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
     }
 
 
@@ -228,13 +282,13 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             switch (requestCode) {
                 case REQUEST_PROFILE:
                     // get role instances
-                    RoleInfo r = RoleInfo.getInstance();
-                    if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
-                        int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-                        Picasso.with(this).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_user_picture);
-                    } else {
-                        Picasso.with(this).load(R.drawable.ic_person_white).into(iv_user_picture);
-                    }
+//                    RoleInfo r = RoleInfo.getInstance();
+//                    if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
+//                        int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
+//                        Picasso.with(this).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_user_picture);
+//                    } else {
+//                        Picasso.with(this).load(R.drawable.ic_person_white).into(iv_user_picture);
+//                    }
                     break;
             }
         }

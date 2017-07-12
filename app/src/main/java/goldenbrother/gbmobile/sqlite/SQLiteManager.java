@@ -11,7 +11,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "golfforgaming.db";
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
     private static SQLiteDatabase database;
 
