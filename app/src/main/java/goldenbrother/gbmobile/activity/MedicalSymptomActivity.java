@@ -28,9 +28,9 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     // ui
     private RecyclerView rv;
     private EditText et_other;
-    private ImageView iv_check;
+    private View iv_check;
     // data
-    private ArrayList<MedicalTreatmentCodeModel> list_symptoms;
+    private ArrayList<MedicalTreatmentCodeModel> list_treatment_code;
     private boolean otherChecked = false;
 
     @Override
@@ -46,9 +46,9 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
         iv_check = (ImageView) findViewById(R.id.iv_medical_symptom_check);
 
         // init ListView
-        list_symptoms = new ArrayList<>();
+        if (list_treatment_code == null) list_treatment_code = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_symptoms));
+        rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_treatment_code));
 
         // loadMedicalTreatmentCodeList
         getMedicalTreatmentCode();
@@ -98,7 +98,6 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getMedicalTreatmentCode(response, list_first, list_second);
                     if (result == ApiResultHelper.SUCCESS) {
-                        sortSymptoms();
                         updateAdapter();
                     } else {
                         t(R.string.fail);
@@ -107,7 +106,6 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
             }
         }
     }
-
 
     private void updateAdapter() {
         rv.getAdapter().notifyDataSetChanged();
@@ -127,7 +125,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                 ArrayList<MedicalTreatmentCodeModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
-                if (otherChecked) {
+                if (otherChecked|| !et_other.getText().toString().isEmpty()) {
                     String other = et_other.getText().toString();
                     MedicalTreatmentCodeModel m = new MedicalTreatmentCodeModel();
                     m.setCode("425");

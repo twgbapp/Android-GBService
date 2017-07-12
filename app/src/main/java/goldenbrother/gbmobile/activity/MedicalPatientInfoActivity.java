@@ -124,6 +124,11 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                         patient.setCenterDirectorID(getData("centerDirectorID"));
                         // set name
                         tv_name.setText(getData("userName"));
+                        if (getData("userSex").equals("男")) {
+                            rb_male.setChecked(true);
+                        } else {
+                            rb_female.setChecked(true);
+                        }
                         tv_birthday.setText(getData("userBirthday"));
                         rb_male.setChecked(patient.isGender());
                         rb_female.setChecked(!patient.isGender());

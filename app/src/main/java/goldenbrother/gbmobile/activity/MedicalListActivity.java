@@ -110,6 +110,10 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
             public void onClick(DialogInterface dialogInterface, int i) {
                 String startDate = tv_start_date.getText().toString();
                 String endDate = tv_end_date.getText().toString();
+                if (TimeHelper.getYMD2Date(startDate).after(TimeHelper.getYMD2Date(endDate))) {
+                    t("StartDate can't after EndDate");
+                    return;
+                }
                 getMedicalFlaborList(startDate, endDate);
             }
         }, null);
@@ -127,8 +131,8 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         final Calendar c_result = Calendar.getInstance();
         c.setTime(TimeHelper.getYMD2Date(tv.getText().toString()));
 
-        DatePicker datePicker = new DatePicker(this);
-        datePicker.init(c.get(Calendar.YEAR),
+        DatePicker dp = new DatePicker(this);
+        dp.init(c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH),
                 c.get(Calendar.DAY_OF_MONTH),
                 new DatePicker.OnDateChangedListener() {
@@ -137,9 +141,14 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
                         c_result.set(year, monthOfYear, dayOfMonth);
                     }
                 });
-
-
-        alertWithView(datePicker, new DialogInterface.OnClickListener() {
+        // set min date
+        c.add(Calendar.MONTH, -1);
+        dp.setMinDate(c.getTimeInMillis());
+        // set max date
+        c.add(Calendar.MONTH, 1);
+        dp.setMaxDate(c.getTimeInMillis());
+        // show
+        alertWithView(dp, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 tv.setText(TimeHelper.getDate2TMD(c_result.getTime()));

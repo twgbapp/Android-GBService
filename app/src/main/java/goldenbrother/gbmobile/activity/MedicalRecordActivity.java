@@ -104,7 +104,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
             JSONArray arrTreatment = new JSONArray();//症狀
             for (MedicalTreatmentCodeModel m : list_treatment_code) {
-                arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
+                //arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
+                if(m.getCode().equals("425")){
+                    arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/"+ m.getValue());
+                }else {
+                    arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
+                }
             }
             j.put("medicalTreatmentRecordDetail", arrTreatment);
 
