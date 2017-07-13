@@ -131,7 +131,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 break;
             case R.string.main_drawer_logout:
                 b.putBoolean("isLogout", true);
-                openActivity(LoginActivity.class, b);
+                openActivity(SplashActivity.class, b);
                 finish();
                 break;
             case R.string.main_drawer_online_setting:

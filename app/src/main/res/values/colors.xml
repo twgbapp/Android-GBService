@@ -10,6 +10,10 @@
     <color name="main_light_blue">#00B0FF</color>
     <color name="main_edit_background">#616776</color>
 
+    <color name="announcement_com">#F00</color>
+    <color name="announcement_gov">#0F0</color>
+    <color name="announcement_dorm">#00F</color>
+
     <color name="theme_yellow0">#EFC74D</color>
     <color name="theme_yellow1">#f4d376</color>
     <color name="theme_yellow2">#F0D576</color>

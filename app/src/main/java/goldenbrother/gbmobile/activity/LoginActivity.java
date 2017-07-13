@@ -44,7 +44,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         // listener
         findViewById(R.id.iv_login_change_language).setOnClickListener(this);
         findViewById(R.id.tv_login_dologn).setOnClickListener(this);
-        findViewById(R.id.tv_login_signup).setOnClickListener(this);
+        findViewById(R.id.cv_login_signup).setOnClickListener(this);
     }
 
     private void doLogin() {
@@ -178,8 +178,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
+        switch (v.getId()) {
             case R.id.iv_login_change_language:
                 showChangeLanguageDialog();
                 break;
@@ -187,7 +186,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                 UtilHelper.hideKeyBoard(this, v);
                 doLogin();
                 break;
-            case R.id.tv_login_signup:
+            case R.id.cv_login_signup:
                 openActivity(SignUpActivity.class);
                 break;
         }

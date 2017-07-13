@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 
@@ -26,8 +27,10 @@ public class SplashActivity extends CommonActivity {
         // ani
         Message msg = new Message();
         msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? LOG_OUT : LOG_IN;
+        LogHelper.d(msg.what + "");
         handler.sendMessageDelayed(msg, 1000);
     }
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -47,6 +50,7 @@ public class SplashActivity extends CommonActivity {
                             // open main screen
                             openActivity(MainActivity.class);
                             finish();
+                            LogHelper.d("A");
                         } catch (JSONException e) { // occur exception
                             e.printStackTrace();
                             // clear user info
@@ -54,11 +58,13 @@ public class SplashActivity extends CommonActivity {
                             // open Login
                             openActivity(LoginActivity.class);
                             finish();
+                            LogHelper.d("B");
                         }
                     } else { // first login
                         // open Login
                         openActivity(LoginActivity.class);
                         finish();
+                        LogHelper.d("C");
                     }
                     break;
                 case LOG_OUT: // log out
