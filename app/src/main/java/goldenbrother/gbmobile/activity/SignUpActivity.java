@@ -1,25 +1,19 @@
 package goldenbrother.gbmobile.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.adapter.NationListAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.helper.UtilHelper;
-import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,8 +24,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
 
     // ui
     private EditText et_account, et_password, et_confirm_password, et_id_number, et_name, et_email, et_phone;
-    private Spinner sp_national_code;
-    private RadioButton rb_male, rb_female;
+    private TextView tv_sex, tv_nation;
     private TextView tv_birthday;
     // data
     private String[] nation_name;
@@ -50,18 +43,37 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         et_name = (EditText) findViewById(R.id.et_sign_up_name);
         et_email = (EditText) findViewById(R.id.et_sign_up_email);
         et_phone = (EditText) findViewById(R.id.et_sign_up_phone);
-        sp_national_code = (Spinner) findViewById(R.id.sp_sign_up_national_code);
-        rb_male = (RadioButton) findViewById(R.id.rb_sign_male);
-        rb_female = (RadioButton) findViewById(R.id.rb_sign_female);
+        tv_sex = (TextView) findViewById(R.id.tv_sign_up_sex);
+        tv_nation = (TextView) findViewById(R.id.tv_sign_up_nation);
         tv_birthday = (TextView) findViewById(R.id.tv_sign_up_birthday);
         findViewById(R.id.tv_sign_up_do_sign_up).setOnClickListener(this);
         findViewById(R.id.tv_sign_up_check).setOnClickListener(this);
         // listener
+        tv_sex.setOnClickListener(this);
+        tv_nation.setOnClickListener(this);
         tv_birthday.setOnClickListener(this);
         // init Spinner
         nation_name = getResources().getStringArray(R.array.nation_name);
         nation_code = getResources().getStringArray(R.array.nation_code);
-        sp_national_code.setAdapter(new NationListAdapter(this, nation_name));
+    }
+
+    public void showSexDialog() {
+        final String[] items = {getString(R.string.male), getString(R.string.female)};
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_sex.setText(items[i]);
+            }
+        });
+    }
+
+    public void showNationDialog() {
+        alertWithItems(nation_name, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_nation.setText(nation_name[i]);
+            }
+        });
     }
 
     public void showDatePickerDialog() {
@@ -84,15 +96,24 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         }
     }
 
+    private String getNationCode(String name) {
+        for (int i = 0; i < nation_name.length; i++) {
+            if (nation_name[i].equals(name)) {
+                return nation_code[i];
+            }
+        }
+        return nation_code[0];
+    }
+
     private void doSignUp() {
         int userType = getUserData("userType").isEmpty() ? 1 : Integer.valueOf(getUserData("userType"));
         String account = et_account.getText().toString();
         String confirm_password = et_confirm_password.getText().toString();
         String password = et_password.getText().toString();
-        String nationCode = nation_code[sp_national_code.getSelectedItemPosition()];
+        String nationCode = getNationCode(tv_nation.getText().toString());
         String idNumber = et_id_number.getText().toString();
         String name = et_name.getText().toString();
-        String sex = rb_male.isChecked() ? "0" : "1";
+        String sex = tv_sex.getText().toString().equals(getString(R.string.male)) ? "0" : "1";
         String birthday = tv_birthday.getText().toString();
         String email = et_email.getText().toString();
         String phone = et_phone.getText().toString();
@@ -205,19 +226,14 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                                 int position = nation_code.length - 1;
                                 for (int i = 0; i < nation_code.length; i++) {
                                     if (userData.get("userNationCode").equals(nation_code[i])) {
-                                        position = i;
+                                        tv_nation.setText(nation_name[i]);
                                         break;
                                     }
                                 }
-                                sp_national_code.setSelection(position);
                                 // set name
                                 et_name.setText(userData.get("userName"));
                                 // set sex
-                                if (userData.get("userSex").equals("男")) {
-                                    rb_male.setChecked(true);
-                                } else {
-                                    rb_female.setChecked(true);
-                                }
+                                tv_sex.setText(userData.get("userSex").equals("男") ? getString(R.string.male) : getString(R.string.female));
                                 // set birthday
                                 tv_birthday.setText(userData.get("userBirthday"));
                                 // set email
@@ -244,6 +260,12 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                 } else {
                     t(R.string.can_not_be_empty);
                 }
+                break;
+            case R.id.tv_sign_up_sex:
+                showSexDialog();
+                break;
+            case R.id.tv_sign_up_nation:
+                showNationDialog();
                 break;
             case R.id.tv_sign_up_birthday:
                 showDatePickerDialog();

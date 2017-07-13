@@ -37,7 +37,7 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
     @Override
     public int getItemViewType(int position) {
         if (position == 0) return HEAD;
-        return list.get(position-1).getType() == DrawerItem.GROUP ? GROUP : CHILD;
+        return list.get(position - 1).getType() == DrawerItem.GROUP ? GROUP : CHILD;
     }
 
     @Override
@@ -70,12 +70,24 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
             GroupViewHolder h = (GroupViewHolder) holder;
             h.icon.setImageResource(item.getIcon());
             h.name.setText(item.getName());
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getContext()).onDrawerItemClick(item.getName());
+                }
+            });
         } else if (holder instanceof ChildViewHolder) {
             final DrawerItem item = list.get(position - 1);
             ChildViewHolder h = (ChildViewHolder) holder;
 //            h.icon.setImageResource(item.getIcon());
             h.icon.setBackgroundColor(Color.WHITE);
             h.name.setText(item.getName());
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getContext()).onDrawerItemClick(item.getName());
+                }
+            });
         }
     }
 

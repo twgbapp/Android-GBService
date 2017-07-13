@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends CommonActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends CommonActivity implements View.OnClickListener {
 
     // request
     public static final int REQUEST_PROFILE = 0;
@@ -104,47 +104,54 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_logout, DrawerItem.CHILD));
         }
         rv.setAdapter(new MainDrawerRVAdapter(this, list));
-//        // initToolBar
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-//        setSupportActionBar(toolbar);
-//        // connect ToolBar & Navigation
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//        // init Navigation
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_main);
-//        if (navigationView != null) {
-//            // get role instances
-//            RoleInfo r = RoleInfo.getInstance();
-//            if (r.isLabor()) {
-//                navigationView.inflateMenu(R.menu.main_drawer_labor);
-//            } else {
-//                navigationView.inflateMenu(R.menu.main_drawer_manager);
-//            }
-//
-//            navigationView.setNavigationItemSelectedListener(this);
-//            View nav = navigationView.getHeaderView(0);
-//            // init Navigation Header
-//            LinearLayout ll_header = (LinearLayout) nav.findViewById(R.id.ll_main_nav_header);
-//            iv_user_picture = (CircleImageView) nav.findViewById(R.id.iv_main_user_picture);
-//            TextView tv_user_name = (TextView) nav.findViewById(R.id.tv_main_user_name);
-//            TextView tv_user_email = (TextView) nav.findViewById(R.id.tv_main_user_email);
-//            // set listener
-//            ll_header.setOnClickListener(this);
-//            // set picture
-//            if (r.getUserPicture() != null && r.getUserPicture().length() > 0) {
-//                int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-//                Picasso.with(this).load(r.getUserPicture()).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_user_picture);
-//            } else {
-//                iv_user_picture.setImageResource(R.drawable.ic_person_white);
-//            }
-//            // set name
-//            tv_user_name.setText(r.getUserName());
-//            // set email
-//            tv_user_email.setText(r.getUserEmail());
-//        }
+    }
+
+    public void onDrawerItemClick(int strId) {
+        Bundle b = new Bundle();
+        switch (strId) {
+            case R.string.main_drawer_event_list:
+                b.putInt("position", 1);
+                openActivity(MobileServiceActivity.class, b);
+                break;
+            case R.string.main_drawer_quick_repair:
+                openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR);
+                break;
+            case R.string.main_drawer_satisfaction_survey:
+                openActivity(SatisfactionIssueActivity.class);
+                break;
+            case R.string.main_drawer_club:
+                openActivity(ClubListActivity.class);
+                break;
+            case R.string.main_drawer_announcement:
+                b.putInt("type", 0);
+                b.putString("customerNo", LaborModel.getInstance().getCustomerNo());
+                b.putString("flaborNo", LaborModel.getInstance().getFlaborNo());
+                b.putString("nationCode", LaborModel.getInstance().getUserNationCode());
+                openActivity(AnnouncementListActivity.class, b);
+                break;
+            case R.string.main_drawer_logout:
+                b.putBoolean("isLogout", true);
+                openActivity(LoginActivity.class, b);
+                finish();
+                break;
+            case R.string.main_drawer_online_setting:
+                openActivity(OnLineSettingActivity.class);
+                break;
+            case R.string.main_drawer_package:
+                openActivity(PackageListActivity.class);
+                break;
+            case R.string.main_drawer_chart:
+                openActivity(ChartActivity.class);
+                break;
+            case R.string.main_drawer_repair_record:
+                openActivity(RepairRecordActivity.class);
+                break;
+            case R.string.main_drawer_medical:
+                openActivity(MedicalListActivity.class);
+                break;
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     private void initBanner() {
@@ -220,60 +227,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
     }
 
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Bundle b = new Bundle();
-
-        switch (item.getItemId()) {
-            case R.id.nav_labor_event_list:
-            case R.id.nav_manager_event_list:
-                b.putInt("position", 1);
-                openActivity(MobileServiceActivity.class, b);
-                break;
-            case R.id.nav_labor_quick_repair:
-                openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR);
-                break;
-            case R.id.nav_labor_satisfaction_survey:
-                openActivity(SatisfactionIssueActivity.class);
-                break;
-            case R.id.nav_labor_club:
-            case R.id.nav_manager_club:
-                openActivity(ClubListActivity.class);
-                break;
-            case R.id.nav_labor_announcement:
-                b.putInt("type", 0);
-                b.putString("customerNo", LaborModel.getInstance().getCustomerNo());
-                b.putString("flaborNo", LaborModel.getInstance().getFlaborNo());
-                b.putString("nationCode", LaborModel.getInstance().getUserNationCode());
-                openActivity(AnnouncementListActivity.class, b);
-                break;
-            case R.id.nav_labor_logout:
-            case R.id.nav_manager_logout:
-                b.putBoolean("isLogout", true);
-                openActivity(LoginActivity.class, b);
-                finish();
-                break;
-            case R.id.nav_manager_on_line_setting:
-                openActivity(OnLineSettingActivity.class);
-                break;
-            case R.id.nav_manager_package:
-                openActivity(PackageListActivity.class);
-                break;
-            case R.id.nav_manager_chart:
-                openActivity(ChartActivity.class);
-                break;
-            case R.id.nav_manager_repair_record:
-                openActivity(RepairRecordActivity.class);
-                break;
-            case R.id.nav_manager_record:
-                openActivity(MedicalListActivity.class);
-                break;
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

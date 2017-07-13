@@ -1,197 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_premier"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/main_background"
+    android:orientation="vertical">
 
-    <ScrollView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/main_background2"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="5dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:background="@drawable/textview_corner_round"
+                android:gravity="center"
                 android:text="@string/sign_up_create_account"
-                android:textColor="#ecd12c"
-                android:textSize="28sp" />
+                android:textColor="#FFF"
+                android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/et_sign_up_account"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edittext_signup"
-                android:hint="@string/sign_up_account"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/et_sign_up_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edittext_signup"
-                android:hint="@string/sign_up_password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
-
-            <EditText
-                android:id="@+id/et_sign_up_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edittext_signup"
-                android:hint="@string/sign_up_confirm_password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/sign_up_nation"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/sp_sign_up_national_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/et_sign_up_id_number"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/edittext_signup"
-                    android:hint="@string/sign_up_id_number"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:textColorHint="@color/colorPrimary" />
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tv_sign_up_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/edittext_signup_check"
-                    android:gravity="center"
-                    android:text="@string/sign_up_check"
-                    android:textColor="#FFF" />
+                    <EditText
+                        android:id="@+id/et_sign_up_id_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_id_number"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_sign_up_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/main_light_blue"
+                        android:gravity="center"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="40dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/sign_up_check"
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/et_sign_up_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edittext_signup"
-                android:hint="@string/sign_up_name"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/main_edit_background" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/sign_up_sex"
-                android:textSize="20sp" />
+                    <EditText
+                        android:id="@+id/et_sign_up_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_name"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/et_sign_up_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_account"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
-                <RadioButton
-                    android:id="@+id/rb_sign_male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/sign_up_sex_male"
-                    android:textSize="20sp" />
+                    <EditText
+                        android:id="@+id/et_sign_up_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
-                <RadioButton
-                    android:id="@+id/rb_sign_female"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sign_up_sex_female"
-                    android:textSize="20sp" />
-            </RadioGroup>
+                    <EditText
+                        android:id="@+id/et_sign_up_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_confirm_password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
-            <TextView
-                android:id="@+id/tv_sign_up_birthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/edittext_signup"
-                android:hint="@string/sign_up_birthday"
-                android:textColor="#000"
-                android:textColorHint="@color/colorPrimary"
-                android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/sign_up_nation"
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/et_sign_up_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edittext_signup"
-                android:hint="@string/sign_up_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
+                    <TextView
+                        android:id="@+id/tv_sign_up_nation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:text="Taiwan"
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/et_sign_up_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edittext_signup"
-                android:hint="@string/sign_up_phone"
-                android:inputType="phone"
-                android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/sign_up_sex"
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
 
+                    <TextView
+                        android:id="@+id/tv_sign_up_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:text="Male"
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
 
+                    <TextView
+                        android:id="@+id/tv_sign_up_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_birthday"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_sign_up_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
+
+                    <EditText
+                        android:id="@+id/et_sign_up_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/sign_up_phone"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
+
+                    <TextView
+                        android:id="@+id/tv_sign_up_do_sign_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/main_light_blue"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/sign_up_sign_up"
+                        android:textColor="#FFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/tv_sign_up_do_sign_up"
-        style="@style/AppTheme.TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffe184"
-        android:text="@string/sign_up_sign_up" />
+
 </LinearLayout>

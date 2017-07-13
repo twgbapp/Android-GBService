@@ -23,6 +23,6 @@
             android:id="@+id/rv_main_navigation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/main_edit_background" />
+            android:background="#656A79" />
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

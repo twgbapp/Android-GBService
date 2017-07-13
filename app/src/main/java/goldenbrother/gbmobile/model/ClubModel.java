@@ -11,7 +11,6 @@ public class ClubModel implements Parcelable {
     private int ClubID;
     private String ClubName;
     private String ClubPicture;
-
     public ClubModel() {
 
     }

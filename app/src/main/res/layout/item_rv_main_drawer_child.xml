@@ -2,23 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_edit_background"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    android:background="#FF595E6C"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_marginLeft="32dp"
-        android:id="@+id/iv_item_rv_main_drawer_child_icon"
-        android:layout_width="5dp"
-        android:layout_height="5dp"
-        android:layout_gravity="center" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="#FFF" />
 
-    <TextView
-        android:layout_marginLeft="10dp"
-        android:id="@+id/tv_item_rv_main_drawer_child_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#EEEEEE"
-        android:textSize="20sp" />
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_item_rv_main_drawer_child_icon"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp" />
+
+        <TextView
+            android:id="@+id/tv_item_rv_main_drawer_child_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 </LinearLayout>
