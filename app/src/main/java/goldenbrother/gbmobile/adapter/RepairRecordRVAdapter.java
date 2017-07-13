@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.RepairRecordContentActivity;
+import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.RepairRecordModel;
 
 import java.util.ArrayList;
@@ -22,10 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class RepairRecordRVAdapter extends SampleRVAdapter {
 
-
-    // type
-    private static final int TYPE_HEAD = 0;
-    private static final int TYPE_BODY = 1;
     // data
     private ArrayList<RepairRecordModel> list;
 
@@ -34,28 +31,19 @@ public class RepairRecordRVAdapter extends SampleRVAdapter {
         this.list = list;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return position == 0 ? TYPE_HEAD : TYPE_BODY;
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_HEAD) {
-            return new HeadViewHolder(getInflater().inflate(R.layout.item_rv_repair_record_head, parent, false));
-        } else if (viewType == TYPE_BODY) {
-            return new BodyViewHolder(getInflater().inflate(R.layout.item_rv_repair_record_body, parent, false));
-        }
-        return null;
+        return new ViewHolder(getInflater().inflate(R.layout.item_rv_repair_record_body, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof BodyViewHolder) {
-            final RepairRecordModel item = list.get(position - 1);
-            BodyViewHolder h = (BodyViewHolder) holder;
+        if (holder instanceof ViewHolder) {
+            final RepairRecordModel item = list.get(position);
+            ViewHolder h = (ViewHolder) holder;
             // set date
-            h.date.setText(item.getHappenDate());
+            h.date.setText(TimeHelper.getY_M_D2YMD(item.getHappenDate()));
             // set item
             h.desc.setText(item.getEventDesc());
             // set status
@@ -67,14 +55,14 @@ public class RepairRecordRVAdapter extends SampleRVAdapter {
                 h.status.setImageResource(R.color.status_green);
             }
             // set background
-            h.itemView.setBackgroundColor(position % 2 != 0 ? ContextCompat.getColor(getContext(), R.color.background_layout) : Color.WHITE);
+//            h.itemView.setBackgroundColor(position % 2 != 0 ? ContextCompat.getColor(getContext(), R.color.background_layout) : Color.WHITE);
             // listener
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
                     intent.setClass(getContext(), RepairRecordContentActivity.class);
-                    intent.putExtra("rrsNo",list.get(position).getRrsNo());
+                    intent.putExtra("rrsNo", list.get(position).getRrsNo());
                     getContext().startActivity(intent);
                 }
             });
@@ -83,22 +71,15 @@ public class RepairRecordRVAdapter extends SampleRVAdapter {
 
     @Override
     public int getItemCount() {
-        return 1 + list.size();
+        return list.size();
     }
 
-    private class HeadViewHolder extends RecyclerView.ViewHolder {
-
-        HeadViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    private class BodyViewHolder extends RecyclerView.ViewHolder {
+    private class ViewHolder extends RecyclerView.ViewHolder {
         TextView date;
         TextView desc;
         CircleImageView status;
 
-        BodyViewHolder(View v) {
+        ViewHolder(View v) {
             super(v);
             date = (TextView) v.findViewById(R.id.tv_item_rv_repair_record_date);
             desc = (TextView) v.findViewById(R.id.tv_item_rv_repair_record_desc);
