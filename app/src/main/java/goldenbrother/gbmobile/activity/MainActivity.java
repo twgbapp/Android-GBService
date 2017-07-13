@@ -87,21 +87,20 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_satisfaction_survey, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         } else {
-//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_mobile_service, DrawerItem.GROUP));
-//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_life_information, DrawerItem.GROUP));
-//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
-//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
-//            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_logout, DrawerItem.GROUP));
-
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_online_setting, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_medical, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_logout, DrawerItem.CHILD));
+
+            list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
+
+            list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         }
         rv.setAdapter(new MainDrawerRVAdapter(this, list));
     }

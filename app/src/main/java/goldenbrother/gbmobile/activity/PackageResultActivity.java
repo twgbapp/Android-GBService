@@ -79,8 +79,8 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
             j.put("action", "receivePackage");
             j.put("url", URLHelper.HOST);
             j.put("packageID", p.getPackageID());
-            j.put("baseStr", p.getBaseStr());
             j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("baseStr", p.getBaseStr());
             j.put("logStatus", true);
             new ReceivePackage(this, j, URLHelper.HOST, p).execute();
         } catch (JSONException e) {
@@ -130,13 +130,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                     t("No Picture");
                     return;
                 }
-                try {
-                    String baseStr = BitmapHelper.getUploadServerBitmapString(this, tmp_uri);
-                    p.setBaseStr(baseStr);
-                    receivePackage(p);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                receivePackage(p);
                 break;
         }
     }
@@ -148,8 +142,10 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         switch (requestCode) {
             case REQUEST_TAKE_PHOTO:
                 try {
-                    Bitmap bmp = BitmapHelper.getUploadServerBitmap(this, tmp_uri);
+                    Bitmap bmp = BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, tmp_uri), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT);
+                    String baseStr = BitmapHelper.bitmap2String(bmp);
                     iv_picture.setImageBitmap(bmp);
+                    p.setBaseStr(baseStr);
                     rl_take_picture.setVisibility(View.GONE);
                     iv_picture.setVisibility(View.VISIBLE);
                 } catch (Exception e) {

@@ -193,7 +193,7 @@
     <string name="club_add_post">Write a post</string>
     <string name="club_content">Content</string>
     <string name="club_video">Video</string>
-    <string name="club_support_url">YouTube/Face book Link</string>
+    <string name="club_support_url">YouTube/Facebook Link</string>
 
     <!-- Add User -->
     <string name="add_user_add_user">Add Member</string>

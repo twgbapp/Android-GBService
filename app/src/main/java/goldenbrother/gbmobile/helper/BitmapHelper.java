@@ -61,7 +61,7 @@ public class BitmapHelper {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
-    public static Bitmap getUploadServerBitmap(Context context, Uri uri) throws IOException {
+    public static Bitmap uri2Bitmap(Context context, Uri uri) throws IOException {
         return BitmapHelper.getLimitBitmap(MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri), MAX_WIDTH, MAX_HEIGHT);
     }
 
@@ -82,10 +82,6 @@ public class BitmapHelper {
         }
 
         return Bitmap.createScaledBitmap(bmp, w, h, true);
-    }
-
-    public static String getUploadServerBitmapString(Context context, Uri uri) throws IOException {
-        return bitmap2String(getUploadServerBitmap(context, uri));
     }
 
     public static File convertBitmapToFile(Context context, Bitmap bitmap) {
