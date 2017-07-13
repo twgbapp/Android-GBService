@@ -99,7 +99,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
                         // refresh
                         updateAdapter();
                     } else {
-                        ToastHelper.t(SatisfactionIssueActivity.this, "empty");
+                        t(R.string.fail);
                     }
                     break;
             }

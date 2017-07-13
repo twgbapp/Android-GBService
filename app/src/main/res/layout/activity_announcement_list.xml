@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Company"
+                        android:text="@string/company"
                         android:textColor="#FFF"
                         android:textSize="16sp" />
 
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Government"
+                        android:text="@string/government"
                         android:textColor="#FFF"
                         android:textSize="16sp" />
 
@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:text="Dorm"
+                        android:text="@string/dorm"
                         android:textColor="#FFF"
                         android:textSize="16sp" />
                 </LinearLayout>

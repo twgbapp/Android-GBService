@@ -27,7 +27,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="SatisfactionQuestion"
+                    android:text="@string/main_drawer_satisfaction_survey"
                     android:textColor="#FFF"
                     android:textSize="24sp" />
             </RelativeLayout>

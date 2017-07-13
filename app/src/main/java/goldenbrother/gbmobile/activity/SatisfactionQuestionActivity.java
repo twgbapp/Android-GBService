@@ -47,7 +47,7 @@ public class SatisfactionQuestionActivity extends CommonActivity {
         rv.setAdapter(new SatisfactionQuestionRVAdapter(this, list_question));
     }
 
-    public void addSatisfactionIssueRecord(int siqNo,int rating){
+    public void addSatisfactionIssueRecord(int siqNo, int rating) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addSatisfactionIssueRecord");
@@ -78,9 +78,9 @@ public class SatisfactionQuestionActivity extends CommonActivity {
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.addSatisfactionIssueRecord(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        ToastHelper.t(SatisfactionQuestionActivity.this, "Rating Success");
+                        t(R.string.success);
                     } else {
-                        ToastHelper.t(SatisfactionQuestionActivity.this, "Rating Fail");
+                        t(R.string.fail);
                     }
                     break;
             }

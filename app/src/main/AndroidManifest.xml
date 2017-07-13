@@ -80,7 +80,8 @@
         <activity android:name=".activity.MedicalTrackProcessActivity" />
         <activity android:name=".activity.MedicalFileUploadActivity" />
         <activity android:name=".activity.SignatureActivity" />
-        <activity android:name=".activity.SplashActivity"></activity>
+        <activity android:name=".activity.SplashActivity" />
+        <activity android:name=".activity.PackageResultActivity"></activity>
     </application>
 
 </manifest>

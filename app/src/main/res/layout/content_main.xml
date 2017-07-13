@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
-                    android:text="@string/main_drawer_mobile_service"
+                    android:text="@string/mobile_service"
                     android:textColor="#FFF"
                     android:textSize="16sp" />
             </LinearLayout>

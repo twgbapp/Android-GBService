@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Applicant"
+                android:text="@string/quick_repair_applicant"
                 android:textSize="16sp" />
 
             <EditText
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Area"
+                android:text="@string/quick_repair_area"
                 android:textSize="16sp" />
 
             <Spinner
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Kind"
+                android:text="@string/quick_repair_kind"
                 android:textSize="16sp" />
 
             <Spinner
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Item"
+                android:text="@string/quick_repair_item"
                 android:textSize="16sp" />
 
             <Spinner
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Place"
+                android:text="@string/quick_repair_place"
                 android:textSize="16sp" />
 
             <EditText
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Description"
+                android:text="@string/quick_repair_description"
                 android:textSize="16sp" />
 
             <EditText
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Send" />
+                android:text="@string/confirm" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

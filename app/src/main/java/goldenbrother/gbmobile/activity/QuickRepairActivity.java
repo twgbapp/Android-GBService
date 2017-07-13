@@ -125,7 +125,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAreaAdapter();
                     } else {
-                        ToastHelper.t(QuickRepairActivity.this, "Failed to get area");
+                        t(R.string.fail);
                         finish();
                     }
                     break;
@@ -175,7 +175,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                         list_detail_show.add(0, getDefaultKind());
                         updateKindAdapter();
                     } else {
-                        ToastHelper.t(QuickRepairActivity.this, "Failed to get area");
+                        t(R.string.fail);
                         finish();
                     }
                     break;
@@ -222,10 +222,10 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.addRepair(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        ToastHelper.t(QuickRepairActivity.this, "Add Repair Success");
+                        t(R.string.success);
                         finish();
                     } else {
-                        ToastHelper.t(QuickRepairActivity.this, "Add Repair Fail");
+                        t(R.string.fail);
                     }
                     break;
             }
@@ -242,7 +242,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                 String place = et_place.getText().toString();
                 String description = et_description.getText().toString();
                 if (place.isEmpty() || description.isEmpty() || kind == -1) {
-                    ToastHelper.t(this, "Can't be empty");
+                    t(R.string.can_not_be_empty);
                     break;
                 }
                 // add repair

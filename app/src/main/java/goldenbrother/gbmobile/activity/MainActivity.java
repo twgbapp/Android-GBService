@@ -75,7 +75,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         ArrayList<DrawerItem> list = new ArrayList<>();
         RoleInfo r = RoleInfo.getInstance();
         if (r.isLabor()) {
-            list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.main_drawer_mobile_service, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_quick_repair, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
 
