@@ -381,22 +381,31 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_first, ArrayList<MedicalTreatmentCodeModel> list_second) {
+    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_kind, ArrayList<MedicalTreatmentCodeModel> list_detail) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                ArrayList<MedicalTreatmentCodeModel> list = new ArrayList<>();
-                JSONArray arr = j.getJSONArray("second");
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject o = arr.getJSONObject(i);
-                    MedicalTreatmentCodeModel eu = new MedicalTreatmentCodeModel();
-                    eu.setCode(o.getString("code"));
-                    eu.setValue(o.getString("value"));
-                    list.add(eu);
+                list_kind.clear();
+                JSONArray arr_first = j.getJSONArray("first");
+                for (int i = 0; i < arr_first.length(); i++) {
+                    JSONObject o = arr_first.getJSONObject(i);
+                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
+                    rm.setColumnName(o.getString("columnName"));
+                    rm.setCode(o.getString("code"));
+                    rm.setValue(o.getString("value"));
+                    list_kind.add(rm);
                 }
-                list_medical_treatment_code.clear();
-                list_medical_treatment_code.addAll(list);
+                list_detail.clear();
+                JSONArray arr_second = j.getJSONArray("second");
+                for (int i = 0; i < arr_second.length(); i++) {
+                    JSONObject o = arr_second.getJSONObject(i);
+                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
+                    rm.setColumnName(o.getString("columnName"));
+                    rm.setCode(o.getString("code"));
+                    rm.setValue(o.getString("value"));
+                    list_detail.add(rm);
+                }
             }
             return success;
         } catch (JSONException e) {
@@ -404,6 +413,7 @@ public class ApiResultHelper {
             return PARSER_ERROR;
         }
     }
+
 
     public static int addEventGroup(String response) {
         try {

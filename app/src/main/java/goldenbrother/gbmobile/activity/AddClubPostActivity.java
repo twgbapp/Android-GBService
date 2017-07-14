@@ -3,6 +3,7 @@ package goldenbrother.gbmobile.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -218,7 +219,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                         ClubPostMediaModel m = new ClubPostMediaModel();
                         m.setType(ClubPostMediaModel.IMAGE);
                         m.setUri(uri_from_gallery);
-                        m.setPic(BitmapHelper.getUploadServerBitmapString(this, uri_from_gallery));
+                        m.setPic(BitmapHelper.bitmap2String(BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, uri_from_gallery), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT)));
                         m.setName(BitmapHelper.getRandomName());
                         list_media.add(m);
                         updateAdapter();
@@ -235,7 +236,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                         ClubPostMediaModel m = new ClubPostMediaModel();
                         m.setType(ClubPostMediaModel.IMAGE);
                         m.setUri(tmp_uri);
-                        m.setPic(BitmapHelper.getUploadServerBitmapString(this, tmp_uri));
+                        m.setPic(BitmapHelper.bitmap2String(BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, tmp_uri), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT)));
                         m.setName(BitmapHelper.getRandomName());
                         list_media.add(m);
                         updateAdapter();

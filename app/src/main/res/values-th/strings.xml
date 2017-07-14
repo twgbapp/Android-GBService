@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GB Take</string>
+    <string name="app_name">GB TAKE</string>
     <string name="password">รหัสผ่าน</string>
     <string name="login_login">เข้าสู่ระบบ</string>
     <string name="sign_up">การลงทะเบียน</string>
@@ -64,7 +64,7 @@
     <string name="main_drawer_logout">ออกจากระบบ</string>
     <string name="main_drawer_medical">การรักษาพยาบาล</string>
     <string name="main_drawer_online_setting">ตั้งการขึ้นเน็ต</string>
-    <string name="main_drawer_club">\@string/club</string>
+    <string name="main_drawer_club">@string/club</string>
     <string name="event_list">เรื่องที่พิมพ์</string>
     <string name="club_video">ภาพยนต์</string>
     <string name="club_content">รายละเอียด</string>
@@ -93,9 +93,9 @@
     <string name="profile_change_password">เปลี่ยนรหัสผ่าน</string>
     <string name="profile_confirm_new_password">ยืนยันรหัสใหม่</string>
     <string name="medical_patient_info">ข้อมูลของผู้ป่วย</string>
-    <string name="main_drawer_quick_repair">\@string/quick_repair</string>
-    <string name="main_drawer_repair_record">\@string/repair_record</string>
+    <string name="main_drawer_quick_repair">@string/quick_repair</string>
+    <string name="main_drawer_repair_record">@string/repair_record</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="profile_email">\@string/email</string>
+    <string name="profile_email">@string/email</string>
 </resources>

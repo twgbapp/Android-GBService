@@ -17,7 +17,7 @@ import goldenbrother.gbmobile.model.RoleInfo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AnnouncementContentActivity extends CommonActivity {
+public class AnnouncementContentActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private TextView tv_title, tv_expiration_date, tv_create_date;
@@ -34,6 +34,8 @@ public class AnnouncementContentActivity extends CommonActivity {
         tv_create_date = (TextView) findViewById(R.id.tv_announcement_content_create_date);
         tv_expiration_date = (TextView) findViewById(R.id.tv_announcement_content_expiration_date);
         wv = (WebView) findViewById(R.id.wv_announcement_content);
+        // listener
+        tv_title.setOnClickListener(this);
         // extra && init announcement object
         announcement = new AnnouncementModel();
         announcement.setAnnouncementID(getIntent().getExtras().getInt("announcementID", -1));
@@ -56,6 +58,7 @@ public class AnnouncementContentActivity extends CommonActivity {
         }
     }
 
+
     private class LoadAnnouncement extends IAsyncTask {
 
         LoadAnnouncement(Context context, JSONObject json, String url) {
@@ -73,9 +76,9 @@ public class AnnouncementContentActivity extends CommonActivity {
                         // set title
                         tv_title.setText(announcement.getTitle());
                         // set create date
-                        tv_create_date.setText(String.format(getString(R.string.ann_create_date)+" : %s", announcement.getCreateDate()));
+                        tv_create_date.setText(String.format(getString(R.string.ann_create_date) + " : %s", announcement.getCreateDate()));
                         // set expiration date
-                        tv_expiration_date.setText(String.format(getString(R.string.ann_expiration_date)+" : %s", announcement.getExpirationDate()));
+                        tv_expiration_date.setText(String.format(getString(R.string.ann_expiration_date) + " : %s", announcement.getExpirationDate()));
                         // set content
                         wv.getSettings().setJavaScriptEnabled(true);
                         wv.getSettings().setBuiltInZoomControls(true);
@@ -94,6 +97,23 @@ public class AnnouncementContentActivity extends CommonActivity {
                     }
                     break;
             }
+        }
+    }
+
+    private void showTitleDialog() {
+        TextView tv = new TextView(this);
+        tv.setTextSize(24f);
+        tv.setPadding(20, 20, 20, 20);
+        tv.setText(announcement.getTitle());
+        alertWithView(tv, null, null);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_announcement_content_title:
+                showTitleDialog();
+                break;
         }
     }
 }

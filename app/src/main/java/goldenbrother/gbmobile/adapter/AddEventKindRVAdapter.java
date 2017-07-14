@@ -41,10 +41,10 @@ public class AddEventKindRVAdapter extends SampleRVAdapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final AddEventModel item = list.get(position);
         if (holder instanceof ViewHolder) {
-            ViewHolder h = (ViewHolder) holder;
+            final ViewHolder h = (ViewHolder) holder;
             // set kind
             h.kind.setText(item.getKindContent());
             // set description
@@ -59,6 +59,7 @@ public class AddEventKindRVAdapter extends SampleRVAdapter {
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    int position = h.getAdapterPosition();
                                     // remove
                                     list.remove(position);
                                     notifyItemRemoved(position);
@@ -78,7 +79,7 @@ public class AddEventKindRVAdapter extends SampleRVAdapter {
         return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    private class ViewHolder extends RecyclerView.ViewHolder {
         TextView kind;
         TextView description;
 

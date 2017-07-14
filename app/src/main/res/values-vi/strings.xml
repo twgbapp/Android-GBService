@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GB Take</string>
+    <string name="app_name">GB TAKE</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -93,7 +93,7 @@
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
     <string name="main_drawer_satisfaction_survey">Điểu tra độ hài lòng</string>
     <string name="main_drawer_announcement">Thông báo</string>
-    <string name="main_drawer_club">\@string/club</string>
+    <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">Đăng xuất</string>
     <string name="main_drawer_online_setting">Cài đặt lên mạng</string>
     <string name="main_drawer_package">Đồ gửi</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GB Take</string>
+    <string name="app_name">GB TAKE</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -37,10 +37,14 @@
     <string name="permission_denied">Permission denied</string>
     <string name="error_confirm_password">"Incorrect password "</string>
     <string name="press_again_to_exit">Press again to leave</string>
-    <string name="mobile_service_desk">Mobile Services</string>
+    <string name="mobile_service">Mobile Service</string>
     <string name="event_list">Menu</string>
     <string name="quick_repair">Report</string>
     <string name="repair_record">Repair records</string>
+    <string name="rating">Rating</string>
+    <string name="company">Company</string>
+    <string name="government">Government</string>
+    <string name="dorm">Dorm</string>
     <!-- Server -->
     <string name="server_error">Server no respond</string>
     <string name="no_network">No connection detected</string>
@@ -59,6 +63,7 @@
     <!-- Login -->
     <string name="login_account">@string/account</string>
     <string name="login_password">@string/password</string>
+    <string name="login_forgot_password"><u>Forgot your password?</u></string>
     <string name="login_login">Log in</string>
     <string name="login_sign_up">@string/sign_up</string>
     <string name="login_error_account_or_password_not_exist">Invalid account or password</string>
@@ -98,9 +103,15 @@
         <item>033</item>
     </string-array>
     <!-- Main -->
+    <!-- Group -->
+    <string name="main_drawer_mobile_service">@string/mobile_service</string>
+    <string name="main_drawer_life_information">Life Information</string>
+    <string name="main_drawer_e_commerce">E-commerce</string>
+    <string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>
+    <!-- Child -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
-    <string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>
+    <!--<string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>-->
     <string name="main_drawer_announcement">Announcement</string>
     <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">Log out</string>
@@ -182,7 +193,7 @@
     <string name="club_add_post">Write a post</string>
     <string name="club_content">Content</string>
     <string name="club_video">Video</string>
-    <string name="club_support_url">YouTube/Face book Link</string>
+    <string name="club_support_url">YouTube/Facebook Link</string>
 
     <!-- Add User -->
     <string name="add_user_add_user">Add Member</string>
@@ -194,4 +205,12 @@
     <!-- Announcement -->
     <string name="ann_create_date">Set up date</string>
     <string name="ann_expiration_date">Expire date</string>
+
+    <!-- Quick Repair-->
+    <string name="quick_repair_applicant">Applicant</string>
+    <string name="quick_repair_area">Area</string>
+    <string name="quick_repair_kind">Kind</string>
+    <string name="quick_repair_item">Item</string>
+    <string name="quick_repair_place">Place</string>
+    <string name="quick_repair_description">Description</string>
 </resources>

@@ -3,12 +3,15 @@ package goldenbrother.gbmobile.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.AnnouncementListAdapter;
+import goldenbrother.gbmobile.adapter.AnnouncementListRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -20,10 +23,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class AnnouncementListActivity extends CommonActivity implements AdapterView.OnItemClickListener {
+public class AnnouncementListActivity extends CommonActivity {
 
     // ui
-    private ListView lv;
+    private RecyclerView rv;
     // data
     private ArrayList<AnnouncementModel> list_announcement;
     // extra
@@ -37,12 +40,11 @@ public class AnnouncementListActivity extends CommonActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_list);
         // ui reference
-        lv = (ListView) findViewById(R.id.lv_announcement);
+        rv = (RecyclerView) findViewById(R.id.rv_announcement_list);
         // init ListView
         list_announcement = new ArrayList<>();
-        lv.setAdapter(new AnnouncementListAdapter(this, list_announcement));
-        // listener
-        lv.setOnItemClickListener(this);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(new AnnouncementListRVAdapter(this, list_announcement));
         // extra
         Intent intent = getIntent();
         type = intent.getIntExtra("type", -1);
@@ -95,13 +97,12 @@ public class AnnouncementListActivity extends CommonActivity implements AdapterV
     }
 
     private void updateAdapter() {
-        ((AnnouncementListAdapter) lv.getAdapter()).notifyDataSetChanged();
+        rv.getAdapter().notifyDataSetChanged();
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AnnouncementModel item) {
         Bundle b = new Bundle();
-        b.putInt("announcementID", list_announcement.get(position).getAnnouncementID());
+        b.putInt("announcementID", item.getAnnouncementID());
         b.putString("nationCode", nationCode);
         openActivity(AnnouncementContentActivity.class, b);
     }

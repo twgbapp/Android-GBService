@@ -30,11 +30,7 @@ import java.util.Locale;
 
 public class LoginActivity extends CommonActivity implements View.OnClickListener {
 
-    // request
-    public static final int TYPE_LOGIN = 1;
-    public static final int TYPE_LOGOUT = 2;
     // ui
-    private LinearLayout ll_input;
     private EditText et_account, et_password;
 
 
@@ -43,65 +39,12 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // ui reference
-        ll_input = (LinearLayout) findViewById(R.id.ll_login_input);
         et_account = (EditText) findViewById(R.id.et_login_account);
         et_password = (EditText) findViewById(R.id.et_login_password);
         // listener
         findViewById(R.id.iv_login_change_language).setOnClickListener(this);
         findViewById(R.id.tv_login_dologn).setOnClickListener(this);
-        findViewById(R.id.tv_login_signup).setOnClickListener(this);
-        // ani
-        Message msg = new Message();
-        msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? TYPE_LOGOUT : TYPE_LOGIN;
-        handler.sendMessageDelayed(msg, 1000);
-    }
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case TYPE_LOGIN:
-                    String info = SPHelper.getInstance(LoginActivity.this).getUserInfo();
-                    if (!info.isEmpty()) { // auto login
-                        try {
-                            JSONObject j = new JSONObject(info);
-                            // get roleID from local
-                            int roleID = j.getInt("roleID");
-                            // set roleID to Instance
-                            RoleInfo.getInstance().setRoleID(roleID);
-                            // set JSONObject to Labor or Manager Instance
-                            RoleInfo.getInstance().setJSONObject(j);
-                            // open main screen
-                            Intent intent = new Intent();
-                            intent.setClass(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } catch (JSONException e) { // occur exception
-                            e.printStackTrace();
-                            // clear user info
-                            SPHelper.getInstance(LoginActivity.this).clearUserInfo();
-                            // show input
-                            showInputUI();
-                        }
-                    } else { // first login
-                        showInputUI();
-                    }
-                    break;
-                case TYPE_LOGOUT: // log out
-                    // clear user info
-                    SPHelper.getInstance(LoginActivity.this).clearUserInfo();
-                    // show input
-                    showInputUI();
-                    break;
-            }
-        }
-    };
-
-    private void showInputUI() {
-        et_account.setText("");
-        et_password.setText("");
-        ll_input.setVisibility(View.VISIBLE);
+        findViewById(R.id.cv_login_signup).setOnClickListener(this);
     }
 
     private void doLogin() {
@@ -235,8 +178,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
+        switch (v.getId()) {
             case R.id.iv_login_change_language:
                 showChangeLanguageDialog();
                 break;
@@ -244,7 +186,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                 UtilHelper.hideKeyBoard(this, v);
                 doLogin();
                 break;
-            case R.id.tv_login_signup:
+            case R.id.cv_login_signup:
                 openActivity(SignUpActivity.class);
                 break;
         }

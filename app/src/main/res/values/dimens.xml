@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <!-- ImageView -->
-    <dimen name="imageview_login_logo_width">100dp</dimen>
+    <dimen name="imageview_login_logo_width">200dp</dimen>
 
     <dimen name="imageview_main_top_height">180dp</dimen>
     <dimen name="imageview_main_service_width">250dp</dimen>

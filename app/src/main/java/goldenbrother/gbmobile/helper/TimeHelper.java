@@ -25,10 +25,10 @@ public class TimeHelper {
         return YMD.format(new Date());
     }
 
-    public static String getYMD2YMDT(String ymd) {
+    public static String getY_M_D2YMD(String ymd) {
         if (ymd == null) return "";
         try {
-            return sdf_ymd.format(sdf_ymd.parse(ymd));
+            return sdf_ymd.format(YMD.parse(ymd));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -109,7 +109,7 @@ public class TimeHelper {
             Calendar date = Calendar.getInstance();
             date.setTime(sdf_standard.parse(time));
 
-            if (now.get(Calendar.YEAR) != date.get(Calendar.YEAR)) { // defferent
+            if (now.get(Calendar.YEAR) != date.get(Calendar.YEAR)) { // different
                 int y = date.get(Calendar.YEAR);
                 int m = date.get(Calendar.MONTH) + 1;
                 int d = date.get(Calendar.DAY_OF_MONTH);

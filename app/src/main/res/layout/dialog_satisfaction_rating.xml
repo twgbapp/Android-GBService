@@ -10,7 +10,7 @@
         android:background="@color/rating_dialog_title_background"
         android:gravity="center"
         android:padding="10dp"
-        android:text="RATING"
+        android:text="@string/rating"
         android:textColor="#FFF"
         android:textSize="24sp" />
 
@@ -37,7 +37,7 @@
             android:background="@color/rating_dialog_close_background"
             android:gravity="center"
             android:padding="10dp"
-            android:text="CANCEL"
+            android:text="@string/cancel"
             android:textColor="@color/rating_dialog_close_text"
             android:textSize="24sp" />
 
@@ -54,7 +54,7 @@
             android:background="@color/rating_dialog_close_background"
             android:gravity="center"
             android:padding="10dp"
-            android:text="OK"
+            android:text="@string/confirm"
             android:textColor="@color/rating_dialog_close_text"
             android:textSize="24sp" />
     </LinearLayout>
