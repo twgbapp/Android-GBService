@@ -50,12 +50,8 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     private void doLogin() {
         String account = et_account.getText().toString();
         String password = et_password.getText().toString();
-        if (account.isEmpty()) {
-            t(R.string.can_not_be_empty_account);
-            return;
-        }
-        if (password.isEmpty()) {
-            t(R.string.can_not_be_empty_password);
+        if (account.isEmpty() || password.isEmpty()) {
+            t(R.string.can_not_be_empty);
             return;
         }
 

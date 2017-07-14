@@ -84,12 +84,12 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
     private static class ViewHolder {
         CircleImageView picture;
         TextView name;
-        ImageView check;
+        View check;
 
         ViewHolder(View v) {
             picture = (CircleImageView) v.findViewById(R.id.iv_item_list_on_call_manager_picture);
             name = (TextView) v.findViewById(R.id.iv_item_list_on_call_manager_name);
-            check = (ImageView) v.findViewById(R.id.iv_item_list_on_call_manager_check);
+            check = v.findViewById(R.id.rl_item_list_on_call_manager_check);
         }
     }
 }

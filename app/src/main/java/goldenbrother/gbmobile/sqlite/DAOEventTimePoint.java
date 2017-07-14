@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DAOEventTimePoint {
     // table name
-    private static final String TABLENAME = "ServiceEventTimePoint";
+    public static final String TABLENAME = "ServiceEventTimePoint";
     // pk
     private static final String COL_ServiceEventID = "ServiceEventID";
     // other column

@@ -39,12 +39,12 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DAOService.createTable());
-        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceChat.createTable());
-        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceTimePoint.createTable());
-        db.execSQL("DROP TABLE IF EXISTS " + DAOEvent.createTable());
-        db.execSQL("DROP TABLE IF EXISTS " + DAOEventChat.createTable());
-        db.execSQL("DROP TABLE IF EXISTS " + DAOEventTimePoint.createTable());
+        db.execSQL("DROP TABLE IF EXISTS " + DAOService.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceChat.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceTimePoint.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOEvent.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOEventChat.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOEventTimePoint.TABLENAME);
         onCreate(db);
     }
 }

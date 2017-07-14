@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DAOService {
     // table name
-    private static final String TABLENAME = "ServiceGroup";
+    public static final String TABLENAME = "ServiceGroup";
     // pk
     private static final String COL_ServiceGroupID = "ServiceGroupID";
     // other column

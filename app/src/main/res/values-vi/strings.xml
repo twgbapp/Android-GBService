@@ -21,7 +21,7 @@
     <string name="cancel">Hủy bỏ</string>
     <string name="loading">Đang tải</string>
     <string name="success">Thành công</string>
-    <string name="fail">失敗</string>
+    <string name="fail">thất bại</string>
     <string name="search">Tìm kiếm</string>
     <string name="sending">Đang truyền thông tin</string>
     <string name="select">Hãy lựa chọn</string>
@@ -44,8 +44,6 @@
    </string-array>
     <!-- Message -->
     <string name="can_not_be_empty">Không được để trống</string>
-    <string name="can_not_be_empty_account">帳號不能是空的</string>
-    <string name="can_not_be_empty_password">密碼不能是空的</string>
 
     <!-- Login -->
     <string name="login_account">@string/account</string>
@@ -117,7 +115,7 @@
 
     <!-- Medical -->
     <string name="medical_add_medical">Thêm chữa trị</string>
-    <string name="medical_patient_info">"Thông tin người bệnh "</string>
+    <string name="medical_patient_info">Thông tin người bệnh </string>
     <string name="medical_id_number">@string/id_number</string>
     <string name="medical_check">@string/check</string>
     <string name="medical_blood_type">Nhóm máu</string>
@@ -178,4 +176,17 @@
     <string name="ann_create_date">Ngày lập</string>
     <string name="ann_expiration_date">Ngày hết hạn</string>
     <string name="club">Câu lạc bộ</string>
+    <string name="mobile_service">Quầy phục vụ lưu động</string>
+    <string name="main_drawer_life_information">thông tin quảng cáo</string>
+    <string name="main_drawer_e_commerce">trang cuộc sống</string>
+    <string name="quick_repair_applicant">người xin cấp</string>
+    <string name="quick_repair_area">thị thành</string>
+    <string name="quick_repair_kind">phân loại</string>
+    <string name="quick_repair_place">địa điểm</string>
+    <string name="quick_repair_item">hạng mục </string>
+    <string name="quick_repair_description">miêu tả</string>
+    <string name="rating">điểm</string>
+    <string name="company">công ty </string>
+    <string name="dorm">kí túc xá</string>
+    <string name="government">nhà nước</string>
 </resources>

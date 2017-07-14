@@ -30,21 +30,26 @@
     <string name="loading">Loading</string>
     <string name="success">Successful</string>
     <string name="club">Group</string>
-    <string name="fail">失敗</string>
+    <string name="fail">Failed</string>
     <string name="search">Searching</string>
     <string name="sending">Sending</string>
     <string name="select">Select</string>
     <string name="permission_denied">Permission denied</string>
-    <string name="error_confirm_password">"Incorrect password "</string>
+    <string name="error_confirm_password">Incorrect password</string>
     <string name="press_again_to_exit">Press again to leave</string>
     <string name="mobile_service">Mobile Service</string>
     <string name="event_list">Menu</string>
     <string name="quick_repair">Report</string>
     <string name="repair_record">Repair records</string>
-    <string name="rating">Rating</string>
+    <string name="rating">Score</string>
     <string name="company">Company</string>
     <string name="government">Government</string>
-    <string name="dorm">Dorm</string>
+    <string name="dorm">Dormitory</string>
+    <string name="online">OnLine</string>
+    <string name="choose_a_staff">Choose a staff</string>
+    <string name="all">All</string>
+    <string name="processing">Processing</string>
+    <string name="finish">Finish</string>
     <!-- Server -->
     <string name="server_error">Server no respond</string>
     <string name="no_network">No connection detected</string>
@@ -57,8 +62,6 @@
     </string-array>
     <!-- Message -->
     <string name="can_not_be_empty">Fill out the blank</string>
-    <string name="can_not_be_empty_account">帳號不能是空的</string>
-    <string name="can_not_be_empty_password">密碼不能是空的</string>
 
     <!-- Login -->
     <string name="login_account">@string/account</string>
@@ -208,9 +211,10 @@
 
     <!-- Quick Repair-->
     <string name="quick_repair_applicant">Applicant</string>
-    <string name="quick_repair_area">Area</string>
-    <string name="quick_repair_kind">Kind</string>
+    <string name="quick_repair_area">District</string>
+    <string name="quick_repair_kind">Type</string>
     <string name="quick_repair_item">Item</string>
-    <string name="quick_repair_place">Place</string>
-    <string name="quick_repair_description">Description</string>
+    <string name="quick_repair_place">Location</string>
+    <string name="quick_repair_description">Discription</string>
+    <string name="mobile_service_desk">Mobile Service</string>
 </resources>

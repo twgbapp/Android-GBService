@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DAOEventChat {
     // table name
-    private static final String TABLENAME = "ServiceEventChat";
+    public static final String TABLENAME = "ServiceEventChat";
     // pk
     private static final String COL_SECNo = "SECNo";
     // other column

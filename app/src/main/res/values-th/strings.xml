@@ -98,4 +98,18 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="profile_email">@string/email</string>
+    <string name="mobile_service">เคาน์เตอร์บริการเคลื่นที่</string>
+    <string name="main_drawer_life_information">เสนอข่าวสาร</string>
+    <string name="main_drawer_e_commerce">ซื้อของประจำวันทางเน็ต</string>
+    <string name="fail">ล้มเหลว</string>
+    <string name="quick_repair_applicant">ผู้ยื่นขอ</string>
+    <string name="quick_repair_area">เขต</string>
+    <string name="quick_repair_kind">ประเภท</string>
+    <string name="quick_repair_place">สถานที่</string>
+    <string name="quick_repair_item">รายการ</string>
+    <string name="quick_repair_description">บรรยาย</string>
+    <string name="rating">ให้คะแนน</string>
+    <string name="company">บริษัท</string>
+    <string name="dorm">หอพัก</string>
+    <string name="government">รัฐบาล</string>
 </resources>

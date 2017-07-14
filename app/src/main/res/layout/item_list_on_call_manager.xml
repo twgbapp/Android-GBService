@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_edit_background"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -12,28 +13,39 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_item_list_on_call_manager_picture"
-            android:layout_width="@dimen/imageview_picture_in_list_width"
-            android:layout_height="@dimen/imageview_picture_in_list_width"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/imageview_picture_in_list_margin" />
+            android:layout_margin="10dp" />
 
         <TextView
             android:id="@+id/iv_item_list_on_call_manager_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="NAME"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#FFF"
             android:textSize="18sp" />
 
-        <ImageView
-            android:id="@+id/iv_item_list_on_call_manager_check"
-            android:layout_width="@dimen/imageview_option_in_list_width"
-            android:layout_height="@dimen/imageview_option_in_list_width"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/imageview_option_in_list_margin"
-            android:src="@drawable/ic_done_blue" />
+        <RelativeLayout
+            android:id="@+id/rl_item_list_on_call_manager_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@color/main_light_blue" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_done_white" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 

@@ -4,7 +4,7 @@
     android:id="@+id/activity_medical_symptom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_layout"
+    android:background="@color/main_background"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout

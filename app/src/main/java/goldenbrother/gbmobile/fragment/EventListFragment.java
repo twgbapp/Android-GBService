@@ -4,17 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,15 +25,11 @@ import goldenbrother.gbmobile.activity.MobileServiceActivity;
 import goldenbrother.gbmobile.adapter.EventListAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.EventModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOEvent;
 import goldenbrother.gbmobile.sqlite.DAOEventChat;
-
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,18 +43,17 @@ import java.util.Comparator;
  * Created by asus on 2016/10/3.
  */
 
-public class EventListFragment extends Fragment {
+public class EventListFragment extends Fragment implements View.OnClickListener {
     // activity
     private MobileServiceActivity activity;
     public static EventListFragment f;
     // ui
     private SwipeRefreshLayout srl;
     private ListView lv_event;
-    private BottomBar bottomBar;
+    private LinearLayout ll_all, ll_processing, ll_finish;
     //
     private ArrayList<EventModel> list_event;
     private ArrayList<EventModel> list_event_show;
-    private boolean bottom_F = true;
 
     public static EventListFragment createInstance() {
         f = new EventListFragment();
@@ -78,7 +74,13 @@ public class EventListFragment extends Fragment {
         super.onViewCreated(v, savedInstanceState);
         srl = (SwipeRefreshLayout) v.findViewById(R.id.srl_event_list);
         lv_event = (ListView) v.findViewById(R.id.lv_service_event_list);
-        bottomBar = (BottomBar) v.findViewById(R.id.bb_service_event_list);
+        ll_all = (LinearLayout) v.findViewById(R.id.ll_service_event_list_all);
+        ll_processing = (LinearLayout) v.findViewById(R.id.ll_service_event_list_processing);
+        ll_finish = (LinearLayout) v.findViewById(R.id.ll_service_event_list_finish);
+
+        ll_all.setOnClickListener(this);
+        ll_processing.setOnClickListener(this);
+        ll_finish.setOnClickListener(this);
     }
 
     @Override
@@ -91,8 +93,6 @@ public class EventListFragment extends Fragment {
             @Override
             public void onRefresh() {
                 srl.setRefreshing(true);
-                // select tab
-                bottomBar.selectTabAtPosition(STATUS_ALL);
                 // clear
                 list_event.clear();
                 list_event_show.clear();
@@ -138,30 +138,6 @@ public class EventListFragment extends Fragment {
                 }
             }
         });
-        // initBottomBar
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                // return first time
-                if (bottom_F) {
-                    bottom_F = false;
-                    return;
-                }
-
-                // get statas
-                switch (tabId) {
-                    case R.id.tab_all:
-                        getStatusEventList(STATUS_ALL);
-                        break;
-                    case R.id.tab_ing:
-                        getStatusEventList(STATUS_ING);
-                        break;
-                    case R.id.tab_completed:
-                        getStatusEventList(STATUS_COMPLETED);
-                        break;
-                }
-            }
-        });
         // loadLocalEventList
         loadLocalEventList();
         // loadCloudEventList
@@ -169,29 +145,44 @@ public class EventListFragment extends Fragment {
     }
 
 
-    public static final int STATUS_ALL = 0;
-    public static final int STATUS_ING = 1;
-    public static final int STATUS_COMPLETED = 2;
+    public static final int ALL = 0;
+    public static final int PROCESSING = 1;
+    public static final int FINISH = 2;
 
     private void getStatusEventList(int status) {
         list_event_show.clear();
         switch (status) {
-            case STATUS_ALL:
+            case ALL:
+                // data
                 list_event_show.addAll(list_event);
+                // ui
+                ll_all.setBackgroundResource(R.drawable.layout_corner_round_left_selected);
+                ll_processing.setBackgroundColor(ContextCompat.getColor(activity, R.color.tab_not_selected));
+                ll_finish.setBackgroundResource(R.drawable.layout_corner_round_right_not_selected);
                 break;
-            case STATUS_ING:
+            case PROCESSING:
+                // data
                 for (EventModel em : list_event) {
                     if (em.getEventScore() == 0) {
                         list_event_show.add(em);
                     }
                 }
+                // ui
+                ll_all.setBackgroundResource(R.drawable.layout_corner_round_left_not_selected);
+                ll_processing.setBackgroundColor(ContextCompat.getColor(activity, R.color.tab_selected));
+                ll_finish.setBackgroundResource(R.drawable.layout_corner_round_right_not_selected);
                 break;
-            case STATUS_COMPLETED:
+            case FINISH:
+                // data
                 for (EventModel em : list_event) {
                     if (em.getEventScore() != 0) {
                         list_event_show.add(em);
                     }
                 }
+                // ui
+                ll_all.setBackgroundResource(R.drawable.layout_corner_round_left_not_selected);
+                ll_processing.setBackgroundColor(ContextCompat.getColor(activity, R.color.tab_not_selected));
+                ll_finish.setBackgroundResource(R.drawable.layout_corner_round_right_selected);
                 break;
         }
         updateAdapter();
@@ -257,9 +248,8 @@ public class EventListFragment extends Fragment {
                             countRead();
                             // refresh
                             updateAdapter();
-                            // reload local
-                            //loadLocalEventList();
-
+                            // to All
+                            getStatusEventList(ALL);
                             // auto open (for add event)
                             if (serviceGroupID != 0) {
                                 Intent intent = new Intent();
@@ -331,5 +321,22 @@ public class EventListFragment extends Fragment {
         list_event_show.clear();
         list_event_show.addAll(list_event);
         updateAdapter();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_service_event_list_all:
+                getStatusEventList(ALL);
+                break;
+            case R.id.ll_service_event_list_processing:
+                getStatusEventList(PROCESSING);
+                break;
+            case R.id.ll_service_event_list_finish:
+                getStatusEventList(FINISH);
+                break;
+
+        }
     }
 }

@@ -8,7 +8,7 @@
     <string name="account">No Rekening</string>
     <string name="password">No Pin</string>
     <string name="id_number">No A.R.C</string>
-    <string name="check">"Cek "</string>
+    <string name="check">Cek</string>
     <string name="name">Nama</string>
     <string name="sex">Jenis kelamin</string>
     <string name="male">Laki laki</string>
@@ -21,7 +21,7 @@
     <string name="cancel">Batal</string>
     <string name="loading">loading</string>
     <string name="success">Berhasil</string>
-    <string name="fail">失敗</string>
+    <string name="fail">Gagal</string>
     <string name="search">pencarian</string>
     <string name="sending">Transmisi pesan</string>
     <string name="select">silakan pilih</string>
@@ -44,8 +44,6 @@
     </string-array>
     <!-- Message -->
     <string name="can_not_be_empty">Jangan kosong</string>
-    <string name="can_not_be_empty_account">帳號不能是空的</string>
-    <string name="can_not_be_empty_password">密碼不能是空的</string>
 
     <!-- Login -->
     <string name="login_account">@string/account</string>
@@ -178,4 +176,17 @@
     <string name="ann_create_date">Tgl buat</string>
     <string name="ann_expiration_date">tanggal kadaluwarsa</string>
     <string name="club">Organisasi</string>
+    <string name="mobile_service">pelayanan service</string>
+    <string name="main_drawer_life_information">Informasi sponsor</string>
+    <string name="main_drawer_e_commerce">jaringan belanja Internet</string>
+    <string name="quick_repair_applicant">Pemohon</string>
+    <string name="quick_repair_area">Area</string>
+    <string name="quick_repair_kind">Jenis</string>
+    <string name="quick_repair_place">Lokasi</string>
+    <string name="quick_repair_item">Prihal</string>
+    <string name="quick_repair_description">deskripsi</string>
+    <string name="rating">Nilai</string>
+    <string name="company">Perusahaan</string>
+    <string name="dorm">Mess</string>
+    <string name="government">Pemerintah</string>
 </resources>

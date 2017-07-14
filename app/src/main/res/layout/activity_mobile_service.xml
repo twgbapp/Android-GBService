@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     android:orientation="vertical">
 
 
@@ -49,7 +50,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_servicen"
+        android:id="@+id/vp_service"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

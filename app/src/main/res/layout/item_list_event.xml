@@ -2,64 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background2"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFF"
+        android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_item_list_event_picture"
-            android:layout_width="@dimen/imageview_picture_in_list_width"
-            android:layout_height="@dimen/imageview_picture_in_list_width"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/imageview_picture_in_list_margin" />
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/main_light_blue" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:descendantFocusability="blocksDescendants"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_item_list_event_picture"
+                android:layout_width="@dimen/imageview_picture_in_list_width"
+                android:layout_height="@dimen/imageview_picture_in_list_width"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/imageview_picture_in_list_margin" />
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_item_list_event_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="NAME"
+                    android:textColor="#1A237E"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_item_list_event_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="NAME"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
-            </HorizontalScrollView>
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="CONTENT"
+                    android:textColor="#757575"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_item_list_event_description"
-                android:layout_width="match_parent"
+                android:id="@+id/tv_item_list_event_read"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="CONTENT"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:layout_gravity="center"
+                android:background="@drawable/textview_read"
+                android:textColor="#FFF" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_item_list_event_read"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/textview_read"
-            android:textColor="#FFF" />
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimary" />
 </LinearLayout>
