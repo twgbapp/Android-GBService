@@ -33,24 +33,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ServiceGroupChatListAdapter extends SampleBaseAdapter {
 
     private ArrayList<ServiceChatModel> list;
-    private String SelfUserID;
+    private String selfUserID;
 
     public ServiceGroupChatListAdapter(Context context, ArrayList<ServiceChatModel> list) {
         super(context);
         this.list = list;
-        initUserID();
-    }
-
-    private void initUserID() {
-        int roleID = RoleInfo.getInstance().getRoleID();
-        switch (roleID) {
-            case 0:
-                SelfUserID = LaborModel.getInstance().getUserID();
-                break;
-            case 1:
-                SelfUserID = ManagerModel.getInstance().getUserID();
-                break;
-        }
+        selfUserID = RoleInfo.getInstance().getUserID();
     }
 
     @Override

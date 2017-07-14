@@ -33,7 +33,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/layout_corner_round_left_not_selected"
+                    android:background="@drawable/layout_corner_round_left_selected"
                     android:orientation="vertical"
                     android:padding="10dp">
 

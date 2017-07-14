@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,9 +46,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     private FragmentActivity activity;
     public static ServiceFragment f;
     // ui
-    private ListView lv_chat;
+    private RecyclerView rv;
     private EditText et_content;
-    private ImageView iv_send;
     // data
     private int serviceGroupID;
     private ArrayList<ServiceChatModel> list_group_chat;
@@ -71,9 +72,9 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        lv_chat = (ListView) v.findViewById(R.id.lv_service_chat);
+        rv = (RecyclerView) v.findViewById(R.id.rv_service_chat);
         et_content = (EditText) v.findViewById(R.id.et_service_chat_content);
-        iv_send = (ImageView) v.findViewById(R.id.iv_service_chat_send);
+        v.findViewById(R.id.tv_service_chat_send);
     }
 
     @Override
@@ -85,9 +86,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
         activity = getActivity();
         // initListView
         list_group_chat = new ArrayList<>();
-        lv_chat.setAdapter(new ServiceGroupChatListAdapter(activity, list_group_chat));
-        // listener
-        iv_send.setOnClickListener(this);
+        rv.setLayoutManager(new LinearLayoutManager(activity));
+        rv.setAdapter(new ServiceGroupChatListAdapter(activity, list_group_chat));
         // get Local Chat
         loadLocalChat();
         // get Cloud Chat
@@ -268,12 +268,11 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
-            case R.id.iv_service_chat_send:
+    public void onClick(View v) {
+        EnvironmentHelper.hideKeyBoard(activity, v);
+        switch (v.getId()) {
+            case R.id.tv_service_chat_send:
                 if (!isSending) {
-                    EnvironmentHelper.hideKeyBoard(activity, view);
                     addGroupChat();
                 } else {
                     t("Sending...");
