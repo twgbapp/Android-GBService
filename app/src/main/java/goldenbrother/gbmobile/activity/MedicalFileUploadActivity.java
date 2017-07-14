@@ -77,11 +77,11 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
         try {
             JSONObject j = new JSONObject();
             j.put("action", "uploadImg");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
             j.put("fileName", BitmapHelper.getRandomName());
             j.put("url", URLHelper.HOST);
             j.put("baseStr", BitmapHelper.bitmap2String(bmp));
-            j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", true);
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
