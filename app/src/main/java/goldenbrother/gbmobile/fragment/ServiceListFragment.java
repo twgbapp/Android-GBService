@@ -136,6 +136,7 @@ public class ServiceListFragment extends CommonFragment {
     }
 
     public void updateChat(int serviceGroupID, String lastChat) {
+        if (list_service_chat_show == null) return;
         for (ServiceChatModel gc : list_service_chat_show) {
             if (gc.getServiceGroupID() == serviceGroupID) {
                 gc.setContent(lastChat);

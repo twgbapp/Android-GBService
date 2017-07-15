@@ -77,7 +77,7 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
         });
         Message msg = new Message();
         msg.what = getIntent().getExtras().getInt("position", 0);
-        handler.sendMessageDelayed(msg, 500);
+        handler.sendMessage(msg);
     }
 
     private Handler handler = new Handler() {

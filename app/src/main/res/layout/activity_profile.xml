@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_premier"
+    android:background="@color/main_background"
     android:padding="16dp">
 
     <ScrollView
@@ -32,7 +32,8 @@
                 android:hint="@string/profile_name"
                 android:inputType="text"
                 android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
+                android:textColor="#FFF"
+                android:textColorHint="#FFF" />
 
             <EditText
                 android:id="@+id/et_profile_email"
@@ -43,15 +44,20 @@
                 android:hint="@string/profile_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColorHint="@color/colorPrimary" />
+                android:textColor="#FFF"
+                android:textColorHint="#FFF" />
 
             <TextView
                 android:id="@+id/tv_profile_change_password"
-                style="@style/AppTheme.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/profile_change_password" />
+                android:background="@color/main_light_blue"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/profile_change_password"
+                android:textColor="#FFF"
+                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -63,7 +63,7 @@ public class TimeHelper {
             Calendar now = Calendar.getInstance();
             Calendar date = Calendar.getInstance();
             date.setTime(sdf_standard.parse(time));
-//            if (now.get(Calendar.YEAR) != date.get(Calendar.YEAR)) { // defferent
+//            if (now.get(Calendar.YEAR) != date.get(Calendar.YEAR)) { // different
 //                return time;
 //            } else { // same year
             if (now.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)) { // today
@@ -103,7 +103,7 @@ public class TimeHelper {
     }
 
     // 01/01 02:55 AM
-    public static String getTodayTime(String time) {
+    public static String getTodayTime(String time,String am,String pm) {
         try {
             Calendar now = Calendar.getInstance();
             Calendar date = Calendar.getInstance();
@@ -115,17 +115,17 @@ public class TimeHelper {
                 int d = date.get(Calendar.DAY_OF_MONTH);
                 return (y < 10 ? "0" + y : y) + "/" + (m < 10 ? "0" + m : m) + "/" + (d < 10 ? "0" + d : d);
             } else { // same year
-                if (now.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)) { // today
+//                if (now.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)) { // today
                     int h = date.get(Calendar.HOUR_OF_DAY);
                     int M = date.get(Calendar.MINUTE);
                     return (h < 10 ? "0" + h : h) + ":" + (M < 10 ? "0" + M : M) + (h < 12 ? " AM" : " PM");
-                } else {
-                    int m = date.get(Calendar.MONTH) + 1;
-                    int d = date.get(Calendar.DAY_OF_MONTH);
-                    int h = date.get(Calendar.HOUR_OF_DAY);
-                    int M = date.get(Calendar.MINUTE);
-                    return (m < 10 ? "0" + m : m) + "/" + (d < 10 ? "0" + d : d) + " " + (h < 10 ? "0" + h : h) + ":" + (M < 10 ? "0" + M : M) + (h < 12 ? " AM" : " PM");
-                }
+//                } else {
+//                    int m = date.get(Calendar.MONTH) + 1;
+//                    int d = date.get(Calendar.DAY_OF_MONTH);
+//                    int h = date.get(Calendar.HOUR_OF_DAY);
+//                    int M = date.get(Calendar.MINUTE);
+//                    return (m < 10 ? "0" + m : m) + "/" + (d < 10 ? "0" + d : d) + " " + (h < 10 ? "0" + h : h) + ":" + (M < 10 ? "0" + M : M) + (h < 12 ? " AM" : " PM");
+//                }
             }
         } catch (ParseException e) {
             e.printStackTrace();

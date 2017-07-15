@@ -217,4 +217,7 @@
     <string name="quick_repair_place">Location</string>
     <string name="quick_repair_description">Discription</string>
     <string name="mobile_service_desk">Mobile Service</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+    <string name="copy_to_clipboard">Already copy to clipboard</string>
 </resources>

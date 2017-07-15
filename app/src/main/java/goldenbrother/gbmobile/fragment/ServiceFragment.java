@@ -13,18 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.adapter.ServiceGroupChatListAdapter;
+import goldenbrother.gbmobile.adapter.ServiceChatRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
-import goldenbrother.gbmobile.helper.UtilHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 import goldenbrother.gbmobile.model.ServiceTimePointModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -74,7 +71,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
         super.onViewCreated(v, savedInstanceState);
         rv = (RecyclerView) v.findViewById(R.id.rv_service_chat);
         et_content = (EditText) v.findViewById(R.id.et_service_chat_content);
-        v.findViewById(R.id.tv_service_chat_send);
+        v.findViewById(R.id.tv_service_chat_send).setOnClickListener(this);
     }
 
     @Override
@@ -87,7 +84,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
         // initListView
         list_group_chat = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(activity));
-        rv.setAdapter(new ServiceGroupChatListAdapter(activity, list_group_chat));
+        rv.setAdapter(new ServiceChatRVAdapter(activity, list_group_chat));
         // get Local Chat
         loadLocalChat();
         // get Cloud Chat
@@ -172,7 +169,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     private class PushMessage extends IAsyncTask {
 
         PushMessage(Context context, JSONObject json, String url) {
-            super(context, json, url,false);
+            super(context, json, url, false);
             setShow(false);
         }
     }
@@ -260,11 +257,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
 
 
     private void updateAdapter() {
-        ServiceGroupChatListAdapter adapter = (ServiceGroupChatListAdapter) lv_chat.getAdapter();
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-            lv_chat.setSelection(list_group_chat.size() - 1);
-        }
+        rv.getAdapter().notifyDataSetChanged();
+        rv.scrollToPosition(list_group_chat.size() - 1);
     }
 
     @Override

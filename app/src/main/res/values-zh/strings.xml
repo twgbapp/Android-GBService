@@ -189,4 +189,7 @@
     <string name="company">公司</string>
     <string name="dorm">宿舍</string>
     <string name="government">政府</string>
+    <string name="am">上午</string>
+    <string name="pm">下午</string>
+    <string name="copy_to_clipboard">已複製到剪貼簿</string>
 </resources>

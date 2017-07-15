@@ -18,6 +18,7 @@ import goldenbrother.gbmobile.helper.Constant;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.RoleInfo;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class EventChatListAdapter extends SampleBaseAdapter {
             // set time
             tag.leftTime.setVisibility(View.VISIBLE);
             tag.rightTime.setVisibility(View.GONE);
-            tag.leftTime.setText(TimeHelper.getTodayTime(item.getChatDate()));
+            tag.leftTime.setText(TimeHelper.getTodayTime(item.getChatDate(), "AM", "PM"));
             tag.rightTime.setText("");
             // set picture
             tag.leftPicture.setVisibility(View.GONE);
@@ -90,7 +91,7 @@ public class EventChatListAdapter extends SampleBaseAdapter {
             tag.name.setLayoutParams(p);
             // set content
             tag.content.setText(item.getContent());
-            tag.content.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.textview_chat_self));
+            tag.content.setBackgroundResource(R.drawable.textview_chat_self);
             tag.content.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
         } else {
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -99,7 +100,7 @@ public class EventChatListAdapter extends SampleBaseAdapter {
             // set time
             tag.rightTime.setVisibility(View.VISIBLE);
             tag.leftTime.setVisibility(View.GONE);
-            tag.rightTime.setText(TimeHelper.getTodayTime(item.getChatDate()));
+            tag.rightTime.setText(TimeHelper.getTodayTime(item.getChatDate(), "AM", "PM"));
             tag.leftTime.setText("");
             // show picture
             tag.leftPicture.setVisibility(View.VISIBLE);
@@ -116,13 +117,12 @@ public class EventChatListAdapter extends SampleBaseAdapter {
             tag.name.setLayoutParams(p);
             // set content
             tag.content.setText(item.getContent());
-            tag.content.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.textview_chat_other));
+            tag.content.setBackgroundResource(R.drawable.textview_chat_other);
             tag.content.setTextColor(Color.WHITE);
         }
         // set name
         tag.name.setText(item.getWriterName());
         // rating
-        Log.d("rate", item.getContent());
         if (item.getContent().contains(Constant.RATING)) {
             tag.ll_message.setVisibility(View.GONE);
             tag.ll_rating.setVisibility(View.VISIBLE);
