@@ -5,21 +5,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.adapter.EventChatListAdapter;
+import goldenbrother.gbmobile.adapter.EventChatRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.Constant;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.TimeHelper;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.EventModel;
@@ -38,13 +37,12 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
     private static EventChatActivity instance;
     // ui
     private TextView tv_title;
-    private ImageView iv_send, iv_add_user, iv_rating;
-    private ListView lv_chat;
+    private RecyclerView rv;
     private EditText et_content;
     // extra
     private int serviceEventID;
     private EventModel event;
-    private ArrayList<EventChatModel> list_EventChat;
+    private ArrayList<EventChatModel> list_event_chat;
 
     public static EventChatActivity getInstance() {
         return instance;
@@ -57,24 +55,21 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         instance = this;
         // ui reference
         tv_title = (TextView) findViewById(R.id.tv_event_chat_title);
-        iv_add_user = (ImageView) findViewById(R.id.iv_event_add_user);
-        lv_chat = (ListView) findViewById(R.id.lv_event_chat);
-        et_content = (EditText) findViewById(R.id.et_event_content);
-        iv_rating = (ImageView) findViewById(R.id.iv_event_rating);
-        iv_send = (ImageView) findViewById(R.id.iv_event_send);
-        // get extra
+        rv = (RecyclerView) findViewById(R.id.rv_event_chat);
+        et_content = (EditText) findViewById(R.id.et_event_chat_content);
+        findViewById(R.id.iv_event_rating).setOnClickListener(this);
+        findViewById(R.id.iv_event_add_user).setOnClickListener(this);
+        findViewById(R.id.tv_event_chat_send).setOnClickListener(this);
+        // extra
         Intent intent = getIntent();
         serviceEventID = intent.getIntExtra("serviceEventID", -1);
-        // initImageView
-        iv_rating.setOnClickListener(this);
-        iv_add_user.setOnClickListener(this);
-        iv_rating.setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
-        iv_add_user.setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
+        // init
+        findViewById(R.id.iv_event_rating).setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
+        findViewById(R.id.iv_event_add_user).setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
         // initListView
-        list_EventChat = new ArrayList<>();
-        lv_chat.setAdapter(new EventChatListAdapter(this, list_EventChat));
-        // listener
-        iv_send.setOnClickListener(this);
+        list_event_chat = new ArrayList<>();
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(new EventChatRVAdapter(this, list_event_chat));
         // get Local Chat
         loadLocalChat();
         // get Cloud Chat
@@ -82,8 +77,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
     }
 
     private void addEventChat(String content) {
-        // empty
         if (content.isEmpty()) {
+            t(R.string.can_not_be_empty);
             return;
         }
         try {
@@ -134,7 +129,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
                         // pushEventMessage
                         pushEventMessage(content);
                     } else {
-                        ToastHelper.t(EventChatActivity.this, "Add Event Chat Fail");
+                        t(R.string.fail);
                     }
                     break;
             }
@@ -229,8 +224,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         DAOEvent daoEvent = new DAOEvent(this);
         event = daoEvent.get(serviceEventID);
         DAOEventChat daoEventChat = new DAOEventChat(this);
-        list_EventChat.clear();
-        list_EventChat.addAll(daoEventChat.get(serviceEventID));
+        list_event_chat.clear();
+        list_event_chat.addAll(daoEventChat.get(serviceEventID));
         // set title
         tv_title.setText(event.getUserName());
         // update local chat data to view
@@ -269,9 +264,9 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.ratingEvent(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        ToastHelper.t(EventChatActivity.this, "Rating Success.\nEvent is end.");
+                        t(R.string.success);
                     } else {
-                        ToastHelper.t(EventChatActivity.this, "Rating Fail");
+                        t(R.string.fail);
                     }
                     break;
             }
@@ -282,7 +277,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
 
     public void showRatingDialog() {
         if (!event.getUserID().equals(RoleInfo.getInstance().getUserID())) {
-            ToastHelper.t(this, "You can't do this.");
+            t(R.string.can_not_rating);
             return;
         }
 
@@ -290,22 +285,22 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         final View v = getLayoutInflater().inflate(R.layout.dialog_event_rating, null);
         final RatingBar rb = (RatingBar) v.findViewById(R.id.rb_dialog_event_rating);
         final View tv_close = v.findViewById(R.id.tv_dialog_event_rating_close);
-        // init ratingbar
+        // init RatingBar
         rb.setRating(event.getEventScore());
         // listener
         rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 new AlertDialog.Builder(EventChatActivity.this)
-                        .setTitle("Rating")
-                        .setMessage("Are you sure to rating ?")
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.rating)
+                        .setMessage(R.string.confirm_to_rating)
+                        .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ratingEvent((int) rb.getRating());
                             }
                         })
-                        .setNegativeButton("CANCEL", null)
+                        .setNegativeButton(R.string.cancel, null)
                         .show();
             }
         });
@@ -320,23 +315,20 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
     }
 
     private void updateAdapter() {
-        EventChatListAdapter adapter = (EventChatListAdapter) lv_chat.getAdapter();
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-            lv_chat.setSelection(list_EventChat.size() - 1);
-        }
+        rv.getAdapter().notifyDataSetChanged();
+        rv.scrollToPosition(list_event_chat.size() - 1);
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.iv_event_send:
+            case R.id.tv_event_chat_send:
                 if (!isSending) {
                     EnvironmentHelper.hideKeyBoard(this, view);
                     addEventChat(et_content.getText().toString());
                 } else {
-                    t("Sending...");
+                    t(R.string.sending);
                 }
                 break;
             case R.id.iv_event_add_user:

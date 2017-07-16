@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/main_background2"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="#FDFAEB"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFF"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -48,17 +48,12 @@
                         android:text="DATE" />
                 </LinearLayout>
             </RelativeLayout>
-
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_item_rv_club_post_body_content"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="CONTENT"
-            android:textColor="#000"
-            android:textSize="20sp" />
+            android:layout_height="5dp"
+            android:background="@color/main_light_blue" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -77,44 +72,49 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_video_play" />
+                android:src="@drawable/ic_video_play"
+                android:visibility="gone" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_item_rv_club_post_body_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:text="CONTENT"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_item_rv_club_post_body_messagecount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="10"
-                android:textColor="#616161"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_item_rv_club_post_body_comment"
-                android:textStyle="bold"
-                android:textColor="#000"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/tv_item_rv_club_post_body_messagecount"
-                android:layout_toStartOf="@+id/tv_item_rv_club_post_body_messagecount"
-                android:text="comment" />
-        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="#FFF" />
 
         <LinearLayout
-            android:id="@+id/ll_item_rv_club_post_body_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_forum_black" />
+
+            <TextView
+                android:id="@+id/tv_item_rv_club_post_body_message_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="10"
+                android:textColor="@color/main_light_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

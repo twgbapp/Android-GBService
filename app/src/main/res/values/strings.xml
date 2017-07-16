@@ -215,9 +215,15 @@
     <string name="quick_repair_kind">Type</string>
     <string name="quick_repair_item">Item</string>
     <string name="quick_repair_place">Location</string>
-    <string name="quick_repair_description">Discription</string>
+    <string name="quick_repair_description">Description</string>
     <string name="mobile_service_desk">Mobile Service</string>
     <string name="am">AM</string>
     <string name="pm">PM</string>
     <string name="copy_to_clipboard">Already copy to clipboard</string>
+    <string name="confirm_to_rating">Are you sure to score ?</string>
+    <string name="rating_request">You have a score request</string>
+    <string name="package_request">You have a package</string>
+    <string name="can_not_rating">You can\'t score</string>
+    <string name="already_rating">scored</string>
+    <string name="not_rating">not scored</string>
 </resources>

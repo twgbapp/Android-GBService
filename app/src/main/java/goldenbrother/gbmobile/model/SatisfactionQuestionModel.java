@@ -17,6 +17,9 @@ public class SatisfactionQuestionModel implements Parcelable{
     public SatisfactionQuestionModel(){
 
     }
+    public SatisfactionQuestionModel(String q){
+        question = q;
+    }
 
     protected SatisfactionQuestionModel(Parcel in) {
         siqNo = in.readInt();

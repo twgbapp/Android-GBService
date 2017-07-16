@@ -7,8 +7,10 @@
 
     <color name="main_background">#282e40</color>
     <color name="main_background2">#535866</color>
-    <color name="main_light_blue">#00B0FF</color>
     <color name="main_edit_background">#616776</color>
+    <color name="main_light_blue">#00B0FF</color>
+    <color name="main_light_yellow">#FFEA00</color>
+    <color name="main_light_gray">#E0E0E0</color>
 
     <color name="announcement_com">#F00</color>
     <color name="announcement_gov">#0F0</color>
@@ -16,6 +18,7 @@
 
     <color name="tab_selected">#616776</color>
     <color name="tab_not_selected">#535866</color>
+
 
     <!--<color name="background">#282e40</color>-->
     <!--<color name="light_blue">#16b1d0</color>-->

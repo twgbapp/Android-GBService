@@ -5,7 +5,8 @@ package goldenbrother.gbmobile.helper;
  */
 
 public class Constant {
-    public static final String RATING = "Problem solved, Please rate";
+    public static final String RATING = "-@R@ting@-";
+    public static final String RATING_MESSAGE = "Problem solved, Please rate";
     public static final String QR_MESSAGE = "you have a package!";
     public static final String QR = "-@qr@-:";
 }

@@ -14,6 +14,7 @@ import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.SatisfactionIssueModel;
+import goldenbrother.gbmobile.model.SatisfactionQuestionModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +51,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
                 android.R.color.holo_orange_light);
         // init RecyclerView
         list_issue = new ArrayList<>();
+        list_issue.addAll(getData());
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(new SatisfactionIssueRVAdapter(this, list_issue));
@@ -66,7 +68,19 @@ public class SatisfactionIssueActivity extends CommonActivity {
             }
         });
         // getSatisfactionIssueList
-        getSatisfactionIssueList();
+//        getSatisfactionIssueList();
+    }
+
+    private ArrayList<SatisfactionIssueModel> getData(){
+        ArrayList<SatisfactionIssueModel> list = new ArrayList<>();
+        SatisfactionIssueModel si = new SatisfactionIssueModel();
+        si.setName("Room");
+        si.setCreateDate("2017-01-01 00:00:00");
+        si.getQuestions().add(new SatisfactionQuestionModel("Light"));
+        si.getQuestions().add(new SatisfactionQuestionModel("Air"));
+        si.getQuestions().add(new SatisfactionQuestionModel("Bed"));
+        list.add(si);
+        return list;
     }
 
     private void getSatisfactionIssueList() {

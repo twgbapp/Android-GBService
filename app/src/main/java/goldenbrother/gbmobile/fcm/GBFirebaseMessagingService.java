@@ -18,6 +18,7 @@ import goldenbrother.gbmobile.fragment.ServiceListFragment;
 import goldenbrother.gbmobile.helper.Constant;
 import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -76,13 +77,13 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
         }
         String msg = message;
         if (message.equals(Constant.RATING)) {
-            msg = "you have a rating request.";
+            msg = getString(R.string.rating_request);
         } else if (message.contains(Constant.QR_MESSAGE)) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Hello ");
-            sb.append(RoleInfo.getInstance().getUserName());
-            sb.append(" , you have a package , Please claim your package at the reception.");
-            msg = sb.toString();
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("Hello ");
+//            sb.append(RoleInfo.getInstance().getUserName());
+//            sb.append(" , you have a package , Please claim your package at the reception.");
+            msg = getString(R.string.package_request);
         }
         SendNotification(getApplicationContext(), msg);
     }

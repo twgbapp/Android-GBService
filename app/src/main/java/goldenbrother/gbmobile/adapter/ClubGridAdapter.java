@@ -3,6 +3,7 @@ package goldenbrother.gbmobile.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
@@ -63,13 +64,13 @@ public class ClubGridAdapter extends SampleBaseAdapter {
         return v;
     }
 
-    class ViewHolder {
+    private static class ViewHolder {
 
-        CircleImageView picture;
+        ImageView picture;
         TextView name;
 
         ViewHolder(View v) {
-            picture = (CircleImageView) v.findViewById(R.id.iv_item_grid_club_picture);
+            picture = (ImageView) v.findViewById(R.id.iv_item_grid_club_picture);
             name = (TextView) v.findViewById(R.id.tv_item_grid_club_name);
         }
     }
