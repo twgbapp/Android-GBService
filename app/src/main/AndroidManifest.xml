@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -51,6 +52,19 @@
             </intent-filter>
         </service>
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="goldenbrother.gbmobile.helper.GenericFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
         <activity android:name=".activity.AddEventUserActivity" />
         <activity android:name=".activity.ServiceChatActivity" />
         <activity android:name=".activity.ProfileActivity" />
@@ -81,7 +95,8 @@
         <activity android:name=".activity.MedicalFileUploadActivity" />
         <activity android:name=".activity.SignatureActivity" />
         <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.PackageResultActivity"></activity>
+        <activity android:name=".activity.PackageResultActivity" />
+        <activity android:name=".activity.CropActivity"></activity>
     </application>
 
 </manifest>

@@ -1,15 +1,20 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +26,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
+import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -30,7 +36,8 @@ import goldenbrother.gbmobile.model.RoleInfo;
 public class PackageResultActivity extends CommonActivity implements View.OnClickListener {
 
     // request
-    public static final int REQUEST_TAKE_PHOTO = 0;
+    public static final int REQUEST_FROM_GALLERY = 11;
+    public static final int REQUEST_TAKE_PHOTO = 12;
     public static final int REQUEST_QR_CODE = 1;
     // ui
     private TextView tv_name, tv_arrive_date;
@@ -39,7 +46,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
     // extra
     private PackageModel p;
     // take picture
-    private Uri tmp_uri;
+    private Uri uriTakePicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +70,6 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
             tv_arrive_date.setText(p.getArriveDate());
         }
 
-    }
-
-    private void takePicture() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = new File(FileHelper.getAppDir(PackageResultActivity.this) + "/package.jpg");
-        tmp_uri = Uri.fromFile(file);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, tmp_uri);
-        startActivityForResult(intent, REQUEST_TAKE_PHOTO);
     }
 
     private void receivePackage(PackageModel p) {
@@ -115,18 +114,38 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         }
     }
 
+    private void chooseImage() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, REQUEST_FROM_GALLERY);
+                } else {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    uriTakePicture = FileProvider.getUriForFile(PackageResultActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getAppDir(PackageResultActivity.this) + "/take_picture.jpg"));
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
+                    startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+                }
+            }
+        });
+        b.show();
+    }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_package_result_picture:
-                takePicture();
+                chooseImage();
                 break;
             case R.id.rl_package_result_take_picture:
-                takePicture();
+                chooseImage();
                 break;
             case R.id.tv_package_result_receive:
-                if (tmp_uri == null) {
+                if (uriTakePicture == null) {
                     t("No Picture");
                     return;
                 }
@@ -140,15 +159,26 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
+            case REQUEST_FROM_GALLERY:
+                Uri uriChoosePhoto = data.getData();
+                CropImage.activity(uriChoosePhoto)
+                        .setAspectRatio(1, 1)
+                        .start(this);
+                break;
             case REQUEST_TAKE_PHOTO:
+                CropImage.activity(uriTakePicture)
+                        .setAspectRatio(1, 1)
+                        .start(this);
+                break;
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
                 try {
-                    Bitmap bmp = BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, tmp_uri), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT);
-                    String baseStr = BitmapHelper.bitmap2String(bmp);
+                    Bitmap bmp = BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri()), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT);
                     iv_picture.setImageBitmap(bmp);
+                    String baseStr = BitmapHelper.bitmap2String(bmp);
                     p.setBaseStr(baseStr);
                     rl_take_picture.setVisibility(View.GONE);
                     iv_picture.setVisibility(View.VISIBLE);
-                } catch (Exception e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;

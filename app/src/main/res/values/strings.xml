@@ -8,9 +8,9 @@
     <string-array name="language">
         <item>English</item>
         <item>中文(繁體)</item>
-        <item>bahasa indonesia</item>
-        <item>tiếng việt</item>
-        <item>Thai</item>
+        <item>Bahasa Indonesia</item>
+        <item>Tiếng Việt</item>
+        <item>ไทย</item>
     </string-array>
     <!-- Common -->
     <string name="account">Account</string>
@@ -45,11 +45,11 @@
     <string name="company">Company</string>
     <string name="government">Government</string>
     <string name="dorm">Dormitory</string>
-    <string name="online">OnLine</string>
-    <string name="choose_a_staff">Choose a staff</string>
+    <string name="online">Online</string>
+    <string name="choose_a_staff">Choose an employee</string>
     <string name="all">All</string>
     <string name="processing">Processing</string>
-    <string name="finish">Finish</string>
+    <string name="finish">Complete</string>
     <!-- Server -->
     <string name="server_error">Server no respond</string>
     <string name="no_network">No connection detected</string>
@@ -66,7 +66,7 @@
     <!-- Login -->
     <string name="login_account">@string/account</string>
     <string name="login_password">@string/password</string>
-    <string name="login_forgot_password"><u>Forgot your password?</u></string>
+    <string name="login_forgot_password">Forget your pass word?</string>
     <string name="login_login">Log in</string>
     <string name="login_sign_up">@string/sign_up</string>
     <string name="login_error_account_or_password_not_exist">Invalid account or password</string>
@@ -130,7 +130,7 @@
     <string name="profile_email">@string/email</string>
     <string name="profile_change_password">Change my password</string>
     <string name="profile_old_password">Previous Password</string>
-    <string name="profile_new_password">新密碼</string>
+    <string name="profile_new_password">New Password</string>
     <string name="profile_confirm_new_password">Confirm new password</string>
     <string name="profile_error_confirm_password">error_confirm_password</string>
 
@@ -219,11 +219,16 @@
     <string name="mobile_service_desk">Mobile Service</string>
     <string name="am">AM</string>
     <string name="pm">PM</string>
-    <string name="copy_to_clipboard">Already copy to clipboard</string>
-    <string name="confirm_to_rating">Are you sure to score ?</string>
-    <string name="rating_request">You have a score request</string>
-    <string name="package_request">You have a package</string>
-    <string name="can_not_rating">You can\'t score</string>
-    <string name="already_rating">scored</string>
-    <string name="not_rating">not scored</string>
+    <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="confirm_to_rating">Sure to score?</string>
+    <string name="rating_request">You have a scoring request</string>
+    <string name="package_request">One unclaim package. Please go to service center</string>
+    <string name="can_not_rating">Cannot be scored</string>
+    <string name="already_rating">Scored</string>
+    <string name="not_rating">Unscored</string>
+    <string name="taiwan">Taiwan</string>
+    <string name="philippine">Philippine</string>
+    <string name="vietnam">Vietnam</string>
+    <string name="tailand">Tailand</string>
+    <string name="indonesia">Indonesia</string>
 </resources>

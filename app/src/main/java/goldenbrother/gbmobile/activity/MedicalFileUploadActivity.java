@@ -1,6 +1,5 @@
 package goldenbrother.gbmobile.activity;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,38 +7,41 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
+import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 public class MedicalFileUploadActivity extends CommonActivity implements View.OnClickListener {
 
     // request
-    public static final int REQUEST_SIGNATURE = 0;
-    public static final int REQUEST_CHOOSE_PHOTO = 1;
-    public static final int REQUEST_TAKE_PHOTO = 2;
-    public static final int REQUEST_CROP_PHOTO = 3;
+    public static final int REQUEST_SIGNATURE = 10;
+    public static final int REQUEST_FROM_GALLERY = 11;
+    public static final int REQUEST_TAKE_PHOTO = 12;
     // ui
     private ImageView iv_signature, iv_medical, iv_diagnostic, iv_service;
     private ImageView iv_clicked;
     // take picture
-    private File file;
+    private Uri uriTakePicture;
     // data
     private String signaturePath = "", medicalPath = "", diagnosticPath = "", servicePath = "";
 
@@ -134,23 +136,23 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
     }
 
     private void choosePictureIntent() {
-        final String[] items = getResources().getStringArray(R.array.choose_picture);
-        alertWithItems(items, new DialogInterface.OnClickListener() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
-                    startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
+                    startActivityForResult(intent, REQUEST_FROM_GALLERY);
                 } else {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    file = new File(FileHelper.getAppDir(MedicalFileUploadActivity.this) + "/medical.jpg");
-                    // put Uri as extra in intent object
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                    uriTakePicture = FileProvider.getUriForFile(MedicalFileUploadActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getAppDir(MedicalFileUploadActivity.this) + "/take_picture.jpg"));
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO);
                 }
             }
         });
+        b.show();
     }
 
     @Override
@@ -178,51 +180,34 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
         }
     }
 
-
-    private void doCrop(Uri picUri) {
-        try {
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            cropIntent.setDataAndType(picUri, "image/*");
-            cropIntent.putExtra("crop", "true");
-//            cropIntent.putExtra("aspectX", 1);
-//            cropIntent.putExtra("aspectY", 1);
-//            cropIntent.putExtra("outputX", 300);
-//            cropIntent.putExtra("outputY", 300);
-            cropIntent.putExtra("return-data", true);
-            startActivityForResult(cropIntent, REQUEST_CROP_PHOTO);
-        }
-        // respond to users whose devices do not support the crop action
-        catch (ActivityNotFoundException anfe) {
-            t("Your device does't support crop");
-        }
-    }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_SIGNATURE:
-                    Bitmap bitmap = BitmapHelper.byte2Bitmap(data.getByteArrayExtra("bitmap"));
-                    uploadPicture(bitmap);
-                    LogHelper.d(bitmap.getWidth() + " " + bitmap.getHeight());
-                    break;
-                case REQUEST_CHOOSE_PHOTO:
-                    Uri uriChoosePhoto = data.getData();
-                    doCrop(uriChoosePhoto);
-                    break;
-                case REQUEST_TAKE_PHOTO:
-                    Uri uriTakePhoto = Uri.fromFile(file);
-                    doCrop(uriTakePhoto);
-                    break;
-                case REQUEST_CROP_PHOTO:
-                    // get the returned data
-                    Bundle extras = data.getExtras();
-                    // get the cropped bitmap
-                    Bitmap bmp = extras.getParcelable("data");
-                    // show
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_SIGNATURE:
+                Bitmap bitmap = BitmapHelper.byte2Bitmap(data.getByteArrayExtra("bitmap"));
+                uploadPicture(bitmap);
+                break;
+            case REQUEST_FROM_GALLERY:
+                Uri uriChoosePhoto = data.getData();
+                CropImage.activity(uriChoosePhoto)
+                        .setAspectRatio(1, 1)
+                        .start(this);
+                break;
+            case REQUEST_TAKE_PHOTO:
+                CropImage.activity(uriTakePicture)
+                        .setAspectRatio(1, 1)
+                        .start(this);
+                break;
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                try {
+                    Bitmap bmp = BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri());
                     showImage(bmp);
-                    break;
-            }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
+
     }
 }

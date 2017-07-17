@@ -192,4 +192,21 @@
     <string name="am">上午</string>
     <string name="pm">下午</string>
     <string name="copy_to_clipboard">已複製到剪貼簿</string>
+    <string name="all">所有</string>
+    <string name="already_rating">已評分</string>
+    <string name="can_not_rating">您無法評分</string>
+    <string name="choose_a_staff">選擇一位員工</string>
+    <string name="confirm_to_rating">你確定要評分？</string>
+    <string name="finish">已完成</string>
+    <string name="login_forgot_password">忘記你的密碼？</string>
+    <string name="not_rating">未評分</string>
+    <string name="online">上線</string>
+    <string name="package_request">您有一個包裹，請在接待處索取您的包裹</string>
+    <string name="processing">處理中</string>
+    <string name="rating_request">你有一個評分請求</string>
+    <string name="taiwan">台灣</string>
+    <string name="philippine">菲律賓</string>
+    <string name="vietnam">越南</string>
+    <string name="tailand">泰國</string>
+    <string name="indonesia">印尼</string>
 </resources>

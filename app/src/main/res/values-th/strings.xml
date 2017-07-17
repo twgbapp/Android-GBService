@@ -112,4 +112,25 @@
     <string name="company">บริษัท</string>
     <string name="dorm">หอพัก</string>
     <string name="government">รัฐบาล</string>
+    <string name="all">ทั้งหมด</string>
+    <string name="already_rating">ลงคะแนนแล้ว</string>
+    <string name="am">ตอนเช้า</string>
+    <string name="can_not_rating">คุณไม่สามารถลงคะแนนได้</string>
+    <string name="choose_a_staff">เลือกพนักงาน 1 ท่าน</string>
+    <string name="confirm_to_rating">คุณแน่ใจจะลงคะแนนหรือไม่？</string>
+    <string name="copy_to_clipboard">คัดลอกไปที่คลิปบอร์ด</string>
+    <string name="finish">เสร็จเรียบร้อย</string>
+    <string name="login_forgot_password">ลืมรหัสผ่านของคุณหรือไม่？</string>
+    <string name="not_rating">ยังไม่ได้ลงคะแนน</string>
+    <string name="online">ขึ้นเน็ต</string>
+    <string name="package_request">คุณมีพัสดุ1ชิ้น ขอให้คุณไปรับได้ที่แผนกต้อนรับ</string>
+    <string name="pm">ตอนบ่าย</string>
+    <string name="processing">ดำเนินการอยู่</string>
+    <string name="profile_new_password">รหัสใหม่</string>
+    <string name="rating_request">มีคำขอให้คุณลงคะแนน</string>
+    <string name="taiwan">ไต้หวัน</string>
+    <string name="philippine">ฟิลิปปินส์</string>
+    <string name="vietnam">เวียดนาม</string>
+    <string name="tailand">ไทย</string>
+    <string name="indonesia">อินโดนีเซีย</string>
 </resources>

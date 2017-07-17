@@ -105,7 +105,7 @@
     <string name="profile_email">@string/email</string>
     <string name="profile_change_password">Rubah pin</string>
     <string name="profile_old_password">No pin lama</string>
-    <string name="profile_new_password">新密碼</string>
+    <string name="profile_new_password">Pin baru</string>
     <string name="profile_confirm_new_password">Pastikan pin baru</string>
     <string name="profile_error_confirm_password">error_confirm_password</string>
 
@@ -189,4 +189,24 @@
     <string name="company">Perusahaan</string>
     <string name="dorm">Mess</string>
     <string name="government">Pemerintah</string>
+    <string name="all">semuanya</string>
+    <string name="already_rating">Telah diNilai</string>
+    <string name="am">Pagi hari</string>
+    <string name="can_not_rating">Anda tidak bisa menilai</string>
+    <string name="choose_a_staff">Pilih satu karyawan</string>
+    <string name="confirm_to_rating">Pastikah anda mau menilai</string>
+    <string name="copy_to_clipboard">Disalin ke clipboard</string>
+    <string name="finish">telah selesai</string>
+    <string name="login_forgot_password">Lupa pin anda?</string>
+    <string name="not_rating">Belum diNilai</string>
+    <string name="online">On Line</string>
+    <string name="package_request">Kamu ada kiriman paket silahkan ambil diresepsi</string>
+    <string name="pm">sore hari</string>
+    <string name="processing">dalam penanganan</string>
+    <string name="rating_request">Anda memiliki satu pemohonan penilaian</string>
+    <string name="taiwan">Taiwan</string>
+    <string name="philippine">Filipin</string>
+    <string name="vietnam">Vietnam</string>
+    <string name="tailand">Thailand</string>
+    <string name="indonesia">Indonesia</string>
 </resources>

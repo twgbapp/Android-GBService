@@ -41,7 +41,7 @@
     <string-array name="choose_picture">
         <item>從圖庫</item>
         <item>拍照</item>
-   </string-array>
+    </string-array>
     <!-- Message -->
     <string name="can_not_be_empty">Không được để trống</string>
 
@@ -78,14 +78,14 @@
         <item>Philippines</item>
         <item>Thailand</item>
         <item>Vietnam</item>
-   </string-array>
+    </string-array>
     <string-array name="nation_code">
         <item>000</item>
         <item>009</item>
         <item>024</item>
         <item>030</item>
         <item>033</item>
-   </string-array>
+    </string-array>
     <!-- Main -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
@@ -105,7 +105,7 @@
     <string name="profile_email">@string/email</string>
     <string name="profile_change_password">Thay đổi mật mã</string>
     <string name="profile_old_password">Mật mã cũ</string>
-    <string name="profile_new_password">新密碼</string>
+    <string name="profile_new_password">mật mã mới</string>
     <string name="profile_confirm_new_password">Xác nhận mật mã mới</string>
     <string name="profile_error_confirm_password">error_confirm_password</string>
 
@@ -131,7 +131,7 @@
         <item>@string/medical_process_status_2</item>
         <item>@string/medical_process_status_3</item>
         <item>@string/medical_process_status_4</item>
-   </string-array>
+    </string-array>
 
     <string name="medical_track_process_1">Tái khám</string>
     <string name="medical_track_process_2">Thay thuốc</string>
@@ -143,20 +143,20 @@
         <item>@string/medical_track_process_2</item>
         <item>@string/medical_track_process_3</item>
         <item>@string/medical_track_process_4</item>
-   </string-array>
+    </string-array>
 
     <string-array name="blood_type_name">
         <item>A</item>
         <item>B</item>
         <item>O</item>
         <item>AB</item>
-   </string-array>
+    </string-array>
     <string-array name="blood_type_code">
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
-   </string-array>
+    </string-array>
 
     <!-- Club -->
     <string name="club_title">@string/club</string>
@@ -189,4 +189,24 @@
     <string name="company">công ty </string>
     <string name="dorm">kí túc xá</string>
     <string name="government">nhà nước</string>
+    <string name="all">tất cả</string>
+    <string name="already_rating">đã tính điểm</string>
+    <string name="am">sáng</string>
+    <string name="can_not_rating">bạn không thể tính điểm</string>
+    <string name="choose_a_staff">chọn một nhân viên</string>
+    <string name="confirm_to_rating">bạn đồng ý tính điểm</string>
+    <string name="copy_to_clipboard">đã coppy đến trang cắt dán</string>
+    <string name="finish">đã thành công</string>
+    <string name="login_forgot_password">bạn quên mật mã?</string>
+    <string name="not_rating">chưa tính điểm</string>
+    <string name="online">lên mạng</string>
+    <string name="package_request">bạn có bưu phẩm đề nghị tới khu vực tiếp nhận lấy</string>
+    <string name="pm">chiều</string>
+    <string name="processing">đang xử lý</string>
+    <string name="rating_request">bạn có 1 yêu cầu tính điểm</string>
+    <string name="taiwan">đài loan</string>
+    <string name="philippine">philippin</string>
+    <string name="vietnam">việt nam</string>
+    <string name="tailand">thái lan</string>
+    <string name="indonesia">in đô</string>
 </resources>
