@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -58,8 +59,15 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
             HeadViewHolder h = (HeadViewHolder) holder;
             h.name.setText(RoleInfo.getInstance().getUserName());
             h.email.setText(RoleInfo.getInstance().getUserEmail());
-            Picasso.with(getContext()).load(RoleInfo.getInstance().getUserPicture()).into(h.picture);
-            h.edit.setOnClickListener(new View.OnClickListener() {
+            // set picture
+            RoleInfo r = RoleInfo.getInstance();
+            if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
+                int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
+                Picasso.with(getContext()).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(h.picture);
+            } else {
+                Picasso.with(getContext()).load(R.drawable.ic_person_white).into(h.picture);
+            }
+            h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ((MainActivity) getContext()).openProfileActivity();

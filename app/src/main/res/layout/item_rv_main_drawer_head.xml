@@ -90,7 +90,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="edit"
+                android:text="@string/edit"
                 android:textColor="#FFF"
                 android:textSize="14sp" />
         </LinearLayout>

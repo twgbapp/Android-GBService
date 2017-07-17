@@ -64,7 +64,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         // set picture
         if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
             int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-            Picasso.with(this).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).resize(w, w).centerCrop().into(iv_picture);
+            Picasso.with(this).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_picture);
         } else {
             iv_picture.setImageResource(R.drawable.ic_person_white);
         }

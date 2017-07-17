@@ -2,8 +2,6 @@ package goldenbrother.gbmobile.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,11 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
@@ -23,13 +17,7 @@ import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
-
-
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends CommonActivity implements View.OnClickListener {
 
@@ -37,7 +25,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     public static final int REQUEST_PROFILE = 0;
     public static final int REQUEST_QUICK_REPAIR = 1;
     // ui
-
+    private RecyclerView rv_drawer;
     // banner
     private Handler handler;
     private ArrayList<Integer> list_banner;
@@ -49,6 +37,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         setContentView(R.layout.activity_main);
         // ui reference
         findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);
+        findViewById(R.id.cv_main_life_information).setOnClickListener(this);
+        findViewById(R.id.cv_main_e_commerce).setOnClickListener(this);
+        findViewById(R.id.cv_main_satisfaction_survey).setOnClickListener(this);
         // init Toolbar
         initToolbar();
         // init Drawer
@@ -70,8 +61,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void initDrawer() {
-        RecyclerView rv = (RecyclerView) findViewById(R.id.rv_main_navigation);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv_drawer = (RecyclerView) findViewById(R.id.rv_main_navigation);
+        rv_drawer.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<DrawerItem> list = new ArrayList<>();
         RoleInfo r = RoleInfo.getInstance();
         if (r.isLabor()) {
@@ -101,7 +92,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         }
-        rv.setAdapter(new MainDrawerRVAdapter(this, list));
+        rv_drawer.setAdapter(new MainDrawerRVAdapter(this, list));
     }
 
     public void onDrawerItemClick(int strId) {
@@ -148,6 +139,10 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 openActivity(MedicalListActivity.class);
                 break;
         }
+        closeDrawer();
+    }
+
+    public void closeDrawer() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawer.closeDrawer(GravityCompat.START);
     }
@@ -170,15 +165,15 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     final Runnable r = new Runnable() {
         @Override
         public void run() {
-            if (allowShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
-                int w = getResources().getDisplayMetrics().widthPixels;
-                int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
-//                Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
-                indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
-                handler.postDelayed(r, REFRESH_BANNER_TIME);
-            } else {
-                indexOfBanner = 0;
-            }
+//            if (allowShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
+//                int w = getResources().getDisplayMetrics().widthPixels;
+//                int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
+////                Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
+//                indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
+//                handler.postDelayed(r, REFRESH_BANNER_TIME);
+//            } else {
+//                indexOfBanner = 0;
+//            }
         }
     };
 
@@ -215,13 +210,20 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 b.putInt("position", 0);
                 openActivity(MobileServiceActivity.class, b);
                 break;
-            case R.id.ll_main_nav_header:
-
+            case R.id.cv_main_life_information:
+                t(R.string.main_drawer_life_information);
+                break;
+            case R.id.cv_main_e_commerce:
+                t(R.string.main_drawer_e_commerce);
+                break;
+            case R.id.cv_main_satisfaction_survey:
+                t(R.string.main_drawer_satisfaction_survey);
                 break;
         }
     }
 
     public void openProfileActivity() {
+        closeDrawer();
         openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
     }
 
@@ -229,20 +231,13 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_PROFILE:
-                    // get role instances
-//                    RoleInfo r = RoleInfo.getInstance();
-//                    if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
-//                        int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-//                        Picasso.with(this).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_user_picture);
-//                    } else {
-//                        Picasso.with(this).load(R.drawable.ic_person_white).into(iv_user_picture);
-//                    }
-                    break;
-            }
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_PROFILE:
+                rv_drawer.getAdapter().notifyItemChanged(0);
+                break;
         }
+
     }
 
     public static final long DELAY_TIME = 2000L;
