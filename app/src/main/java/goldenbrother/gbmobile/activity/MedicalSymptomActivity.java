@@ -113,7 +113,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     }
 
     private void updateOther() {
-        iv_check.setImageResource(otherChecked ? R.drawable.ic_radio_button_checked_b : R.drawable.ic_radio_button_unchecked_b);
+        iv_check.setImageResource(otherChecked ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
     }
 
     @Override

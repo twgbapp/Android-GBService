@@ -121,10 +121,10 @@
     <string name="medical_blood_type">Nhóm máu</string>
     <string name="medical_fill_out_date">Ngày khám bệnh</string>
 
-    <string name="medical_process_status_1">外勞自行就醫。</string>
-    <string name="medical_process_status_2">由宿舍管理中心送醫</string>
-    <string name="medical_process_status_3">通知雇主該名外勞生病</string>
-    <string name="medical_process_status_4">外勞是否需請假不上班。</string>
+    <string name="medical_process_status_1">"Lao động tự đi khám bệnh "</string>
+    <string name="medical_process_status_2">"Do trung tâm quản lý ký túc xá đưa đi khám "</string>
+    <string name="medical_process_status_3">"Thông báo bệnh tình của lao động cho chủ sử dụng "</string>
+    <string name="medical_process_status_4">"Lao động có cần xin nghỉ không đi làm "</string>
 
     <string-array name="medical_process_status">
         <item>@string/medical_process_status_1</item>
@@ -209,4 +209,5 @@
     <string name="vietnam">việt nam</string>
     <string name="tailand">thái lan</string>
     <string name="indonesia">in đô</string>
+    <string name="other">"Khác "</string>
 </resources>

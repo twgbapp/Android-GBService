@@ -121,10 +121,10 @@
     <string name="medical_blood_type">Golongan darah</string>
     <string name="medical_fill_out_date">Tgl berobat</string>
 
-    <string name="medical_process_status_1">外勞自行就醫。</string>
-    <string name="medical_process_status_2">由宿舍管理中心送醫</string>
-    <string name="medical_process_status_3">通知雇主該名外勞生病</string>
-    <string name="medical_process_status_4">外勞是否需請假不上班。</string>
+    <string name="medical_process_status_1">TKA berobat sendiri</string>
+    <string name="medical_process_status_2">Diantarkan berobat oleh pengurus mess</string>
+    <string name="medical_process_status_3">Beritahu ke majikan TKA yang sakit</string>
+    <string name="medical_process_status_4">"Perlukah TKA ijin tidak kerja "</string>
 
     <string-array name="medical_process_status">
         <item>@string/medical_process_status_1</item>
@@ -209,4 +209,5 @@
     <string name="vietnam">Vietnam</string>
     <string name="tailand">Thailand</string>
     <string name="indonesia">Indonesia</string>
+    <string name="other">Lain lain</string>
 </resources>

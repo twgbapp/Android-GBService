@@ -31,7 +31,7 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
         et_1 = (EditText) findViewById(R.id.et_medical_track_process_1);
         et_2 = (EditText) findViewById(R.id.et_medical_track_process_2);
         et_3 = (EditText) findViewById(R.id.et_medical_track_process_3);
-        findViewById(R.id.iv_medical_track_process_done).setOnClickListener(this);
+        findViewById(R.id.tv_medical_track_process_done).setOnClickListener(this);
 
         // init
         array_track_process = getResources().getStringArray(R.array.medical_track_process);
@@ -45,7 +45,7 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.iv_medical_track_process_done:
+            case R.id.tv_medical_track_process_done:
                 ArrayList<MedicalTrackProcessModel> list = new ArrayList<>();
                 if (cb_1.isChecked()) {
                     String str = et_1.getText().toString();

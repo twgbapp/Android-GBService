@@ -58,7 +58,7 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
         } else if (holder instanceof ChildViewHolder) {
             final ChildViewHolder h = (ChildViewHolder) holder;
             h.name.setText(item.getValue());
-            h.check.setImageResource(set.contains(item) ? R.drawable.ic_radio_button_checked_b : R.drawable.ic_radio_button_unchecked_b);
+            h.check.setImageResource(set.contains(item) ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
             h.check.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

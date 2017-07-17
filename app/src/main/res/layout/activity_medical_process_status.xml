@@ -6,205 +6,215 @@
     android:background="@color/main_background"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/main_background2"
+        app:cardCornerRadius="20dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_service"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_corner_round_light_blue"
+                android:gravity="center"
+                android:text="@string/medical_process"
+                android:textColor="#FFF"
+                android:textSize="24sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/list_process_status_label_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/medical_process_status_1"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#FFF"
+                        android:textSize="17sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_medical_process_status_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/list_process_status_label_name_second"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/medical_process_status_2"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_medical_process_status_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="處理狀況"
+                    android:text="@string/hospital"
                     android:textColor="#FFF"
-                    android:textSize="24sp" />
+                    android:textSize="16sp" />
 
-                <ImageView
-                    android:id="@+id/iv_medical_process_status_done"
-                    android:layout_width="@dimen/imageview_toolbar_width"
-                    android:layout_height="@dimen/imageview_toolbar_width"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/imageview_toolbar_margin"
-                    android:src="@drawable/ic_done_white" />
-            </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+                <Spinner
+                    android:id="@+id/sp_medical_process_hospital"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/staff"
+                    android:textColor="#FFF"
+                    android:textSize="16sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <Spinner
+                    android:id="@+id/sp_medical_process_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/list_process_status_label_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="@string/medical_process_status_1"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/cb_medical_process_status_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/list_process_status_label_name_third"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/medical_process_status_3"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
 
+                    <CheckBox
+                        android:id="@+id/cb_medical_process_status_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/list_process_status_label_name_fourth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/medical_process_status_4"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_medical_process_status_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/medical_file_upload_3"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_medical_process_yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_medical_process_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/list_label_name_fifth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/other"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+
+                    <EditText
+                        android:id="@+id/et_medical_process_status_other"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_signup"
+                        android:ems="10"
+                        android:maxLines="1" />
+
+                    <CheckBox
+                        android:id="@+id/cb_medical_process_status_5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_medical_process_status_done"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/main_light_blue"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/confirm"
+                    android:textColor="#FFF"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/list_process_status_label_name_second"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/medical_process_status_2"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
-
-            <CheckBox
-                android:id="@+id/cb_medical_process_status_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="醫院" />
-
-        <Spinner
-            android:id="@+id/sp_medical_process_hospital"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="人員" />
-
-        <Spinner
-            android:id="@+id/sp_medical_process_person"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/list_process_status_label_name_third"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/medical_process_status_3"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
-
-            <CheckBox
-                android:id="@+id/cb_medical_process_status_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/list_process_status_label_name_fourth"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/medical_process_status_4"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
-
-            <CheckBox
-                android:id="@+id/cb_medical_process_status_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_medical_process_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="是" />
-
-            <RadioButton
-                android:id="@+id/rb_medical_process_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="否" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text=": 診斷證明書"
-                android:textSize="20sp" />
-        </RadioGroup>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/list_label_name_fifth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="其他："
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="17sp" />
-
-
-            <EditText
-                android:id="@+id/et_medical_process_status_other"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:maxLines="1" />
-
-            <CheckBox
-                android:id="@+id/cb_medical_process_status_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -73,12 +73,10 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     // 顯示病人資訊(如果有的話)
     private void setPatientText() {
         if (patient != null) {
-            tv_name.setText(patient.getName());
-            tv_gender.setText(patient.isGender() ? "Male男" : "Female女");
-            tv_date.setText(patient.getJiuZhen_date());
-            tv_birthday.setText(patient.getDate());
-        } else {
-            t("No patient");
+            tv_name.setText(String.format(getString(R.string.name) + " : %s", patient.getName()));
+            tv_gender.setText(String.format(getString(R.string.sex) + " : %s", getString(patient.isGender() ? R.string.male : R.string.female)));
+            tv_date.setText(String.format(getString(R.string.medical_fill_out_date) + " : %s", patient.getJiuZhen_date()));
+            tv_birthday.setText(String.format(getString(R.string.birthday) + " : %s", patient.getDate()));
         }
     }
 
@@ -105,9 +103,9 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             JSONArray arrTreatment = new JSONArray();//症狀
             for (MedicalTreatmentCodeModel m : list_treatment_code) {
                 //arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
-                if(m.getCode().equals("425")){
-                    arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/"+ m.getValue());
-                }else {
+                if (m.getCode().equals("425")) {
+                    arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/" + m.getValue());
+                } else {
                     arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
                 }
             }

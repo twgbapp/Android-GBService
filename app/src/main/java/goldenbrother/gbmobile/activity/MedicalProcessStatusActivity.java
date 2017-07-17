@@ -46,7 +46,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
         setContentView(R.layout.activity_medical_process_status);
 
         // ui reference
-        findViewById(R.id.iv_medical_process_status_done).setOnClickListener(this);
+        findViewById(R.id.tv_medical_process_status_done).setOnClickListener(this);
         cb_1 = (CheckBox) findViewById(R.id.cb_medical_process_status_1);
         cb_2 = (CheckBox) findViewById(R.id.cb_medical_process_status_2);
         cb_3 = (CheckBox) findViewById(R.id.cb_medical_process_status_3);
@@ -121,7 +121,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_medical_process_status_done:
+            case R.id.tv_medical_process_status_done:
                 ArrayList<MedicalProcessStatusModel> list = new ArrayList<>();
                 if (cb_1.isChecked())
                     list.add(new MedicalProcessStatusModel(array_process_status[0], "0/null/null/null/null"));

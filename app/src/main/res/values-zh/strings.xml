@@ -121,7 +121,7 @@
     <string name="medical_blood_type">血型</string>
     <string name="medical_fill_out_date">就診日期</string>
 
-    <string name="medical_process_status_1">外勞自行就醫。</string>
+    <string name="medical_process_status_1">外勞自行就醫</string>
     <string name="medical_process_status_2">由宿舍管理中心送醫</string>
     <string name="medical_process_status_3">通知雇主該名外勞生病</string>
     <string name="medical_process_status_4">外勞是否需請假不上班。</string>
@@ -209,4 +209,5 @@
     <string name="vietnam">越南</string>
     <string name="tailand">泰國</string>
     <string name="indonesia">印尼</string>
+    <string name="other">其他</string>
 </resources>

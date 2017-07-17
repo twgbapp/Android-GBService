@@ -133,4 +133,9 @@
     <string name="vietnam">เวียดนาม</string>
     <string name="tailand">ไทย</string>
     <string name="indonesia">อินโดนีเซีย</string>
+    <string name="other">อื่นๆ</string>
+    <string name="medical_process_status_1">คนงานไปหาหมอเอง</string>
+    <string name="medical_process_status_2">ผู้ควบคุมหอพักส่งไปหาหมอ</string>
+    <string name="medical_process_status_3">แจ้งนายจ้างคนงานดังกล่าวป่วย</string>
+    <string name="medical_process_status_4">คนงานต้องการลางานหยุดงานหรือไม่</string>
 </resources>

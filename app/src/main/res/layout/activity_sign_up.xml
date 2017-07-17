@@ -155,10 +155,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edittext_signup"
-                        android:text="Male"
+                        android:text="@string/male"
                         android:textColor="#FFF"
                         android:textSize="20sp" />
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/birthday"
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
                     <TextView
                         android:id="@+id/tv_sign_up_birthday"
                         android:layout_width="match_parent"

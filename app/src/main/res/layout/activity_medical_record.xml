@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -35,148 +34,295 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:orientation="vertical">
+                        android:background="#FFF"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/iv_medical_record_info"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ic_medical_record_add" />
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/main_light_yellow" />
 
                         <TextView
-                            android:id="@+id/tv_medical_record_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="@string/medical_profile"
+                            android:textColor="@color/main_light_blue"
+                            android:textSize="20sp" />
+
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="(姓名Name[English])" />
+                            android:layout_gravity="center">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/iv_medical_record_info"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                android:src="@color/main_light_blue" />
 
-                            <TextView
-                                android:id="@+id/tv_medical_record_gender"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="(性別gender)" />
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_edit_w" />
+                        </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/tv_medical_record_birthday"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:text="(生日Birthday)" />
+                    </LinearLayout>
 
-                        </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_medical_record_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/name"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_medical_record_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/sex"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_medical_record_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/birthday"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_medical_record_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/medical_fill_out_date"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFF"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/main_light_yellow" />
 
                         <TextView
-                            android:id="@+id/tv_medical_record_date"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="@string/medical_symptoms"
+                            android:textColor="@color/main_light_blue"
+                            android:textSize="20sp" />
+
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="(就診時間Fill Out Date)" />
+                            android:layout_gravity="center">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/iv_medical_record_symptoms"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                android:src="@color/main_light_blue" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_edit_w" />
+                        </RelativeLayout>
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_medical_record_symptoms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/medical_symptoms"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:clickable="true"
-                        android:orientation="vertical">
+                        android:background="#FFF"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/iv_medical_record_symptoms"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ic_medical_record_add" />
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/main_light_yellow" />
 
                         <TextView
-                            android:id="@+id/tv_medical_record_symptoms"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:focusableInTouchMode="false"
-                            android:hint="(症狀Symptoms)"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="@string/medical_process"
+                            android:textColor="@color/main_light_blue"
                             android:textSize="20sp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/iv_medical_record_processing_status"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                android:src="@color/main_light_blue" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_edit_w" />
+                        </RelativeLayout>
+
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_medical_record_processing_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/medical_process"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:clickable="true"
-                        android:orientation="vertical">
+                        android:background="#FFF"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/iv_medical_record_processing_status"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ic_medical_record_add" />
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/main_light_yellow" />
 
                         <TextView
-                            android:id="@+id/tv_medical_record_processing_status"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:hint="(處理狀況Processing status)"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="@string/medical_track"
+                            android:textColor="@color/main_light_blue"
                             android:textSize="20sp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/iv_medical_record_tracking_processing"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                android:src="@color/main_light_blue" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_edit_w" />
+                        </RelativeLayout>
+
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_medical_record_tracking_processing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="@string/medical_track"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:clickable="true"
-                        android:orientation="vertical">
+                        android:background="#FFF"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/iv_medical_record_tracking_processing"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ic_medical_record_add" />
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/main_light_yellow" />
 
                         <TextView
-                            android:id="@+id/tv_medical_record_tracking_processing"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:hint="(追蹤與處理Tracking and processing)"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="@string/medical_file_upload"
+                            android:textColor="@color/main_light_blue"
                             android:textSize="20sp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/iv_medical_record_file_upload"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                android:src="@color/main_light_blue" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_edit_w" />
+                        </RelativeLayout>
+
                     </LinearLayout>
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tv_medical_record_file_upload"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:clickable="true"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/iv_medical_record_file_upload"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ic_medical_record_add" />
-
-                        <TextView
-                            android:id="@+id/tv_medical_record_file_upload"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="(上傳附件File Upload)"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                        android:padding="5dp"
+                        android:text="@string/medical_file_upload"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_medical_record_save"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:background="@color/main_light_blue"
                         android:gravity="center"
                         android:padding="10dp"
+                        android:layout_margin="10dp"
                         android:text="@string/confirm"
                         android:textColor="#FFF"
                         android:textSize="20sp" />

@@ -35,9 +35,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
 
     // ui
     private EditText et_arc_id_number;
-    private TextView tv_name, tv_birthday, tv_date;
-    private RadioButton rb_male, rb_female;
-    private Spinner sp_blood_type;
+    private TextView tv_name, tv_gender, tv_birthday, tv_date, tv_blood_type;
     // extra
     private Patient patient;
     // data
@@ -46,33 +44,30 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_patient_info);
-
         // ui reference
         et_arc_id_number = (EditText) findViewById(R.id.et_medical_patient_info_arc_id_number);
         tv_name = (TextView) findViewById(R.id.tv_medical_patient_info_name);
+        tv_gender = (TextView) findViewById(R.id.tv_medical_patient_info_sex);
         tv_birthday = (TextView) findViewById(R.id.tv_medical_patient_info_birthday);
         tv_date = (TextView) findViewById(R.id.tv_medical_patient_info_date);
-        rb_male = (RadioButton) findViewById(R.id.rb_medical_patient_info_male);
-        rb_female = (RadioButton) findViewById(R.id.rb_medical_patient_info_female);
-        sp_blood_type = (Spinner) findViewById(R.id.sp_medical_patient_info_blood_type);
+        tv_blood_type = (TextView) findViewById(R.id.tv_medical_patient_info_blood_type);
         findViewById(R.id.tv_medical_patient_info_check).setOnClickListener(this);
         findViewById(R.id.iv_medical_patient_info_done).setOnClickListener(this);
         tv_date.setOnClickListener(this);
-
+        tv_gender.setOnClickListener(this);
+        tv_blood_type.setOnClickListener(this);
         // extra
         patient = getIntent().getExtras().getParcelable("patient");
         if (patient == null) patient = new Patient();
         setPatientInfo();
-        // init Spinner
-        sp_blood_type.setAdapter(new MedicalBloodTypeListAdapter(this));
         // init Date
+        tv_birthday.setText(TimeHelper.getYMD());
         tv_date.setText(TimeHelper.getYMD());
     }
 
     private void setPatientInfo() {
         tv_name.setText(patient.getName());
-        rb_male.setChecked(patient.isGender());
-        rb_female.setChecked(!patient.isGender());
+        tv_gender.setText(getString(patient.isGender() ? R.string.male : R.string.female));
         tv_birthday.setText(patient.getDate());
         tv_date.setText(patient.getJiuZhen_date());
         et_arc_id_number.setText(patient.getId1());
@@ -122,22 +117,36 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                         patient.setDormID(getData("dormID"));
                         patient.setRoomID(getData("roomID"));
                         patient.setCenterDirectorID(getData("centerDirectorID"));
-                        // set name
+
                         tv_name.setText(getData("userName"));
-                        if (getData("userSex").equals("男")) {
-                            rb_male.setChecked(true);
-                        } else {
-                            rb_female.setChecked(true);
-                        }
+                        tv_gender.setText(getString(getData("userSex").equals("男") ? R.string.male : R.string.female));
                         tv_birthday.setText(getData("userBirthday"));
-                        rb_male.setChecked(patient.isGender());
-                        rb_female.setChecked(!patient.isGender());
                     } else {
-                        t("Fail(CheckARCIDNumber)");
+                        t(R.string.fail);
                     }
                     break;
             }
         }
+    }
+
+    private void showGenderDialog() {
+        final String[] items = {getString(R.string.male), getString(R.string.female)};
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                tv_gender.setText(items[which]);
+            }
+        });
+    }
+
+    private void showBloodTypeDialog() {
+        final String[] items = getResources().getStringArray(R.array.blood_type_name);
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                tv_blood_type.setText(items[which]);
+            }
+        });
     }
 
     @Override
@@ -149,19 +158,27 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                 if (idNumber.isEmpty()) return;
                 getDormUserInfo(idNumber);
                 break;
+            case R.id.tv_medical_patient_info_sex:
+                showGenderDialog();
+                break;
+            case R.id.tv_medical_patient_info_blood_type:
+                showBloodTypeDialog();
+                break;
             case R.id.iv_medical_patient_info_done:
                 String name = tv_name.getText().toString();
-                boolean male = rb_male.isChecked();
+                boolean male = tv_gender.getText().toString().equals(getString(R.string.male));
                 String birthday = tv_birthday.getText().toString();
-                String bloodType = ((BloodType) sp_blood_type.getAdapter().getItem(sp_blood_type.getSelectedItemPosition())).getCode();
-                int age = getAge(birthday);
+                String bloodType = tv_blood_type.getText().toString();
                 String arcIdNumber = et_arc_id_number.getText().toString();
                 String date = tv_date.getText().toString();
+
+                int age = getAge(birthday);
+                String bloodTypeCode = getBloodTypeCode(bloodType);
                 if (name.isEmpty() || birthday.isEmpty() || date.isEmpty()) {
                     t(R.string.can_not_be_empty);
                     return;
                 }
-                saveInfo(name, male, birthday, bloodType, age, arcIdNumber, date);
+                saveInfo(name, male, birthday, bloodTypeCode, age, arcIdNumber, date);
                 break;
             case R.id.tv_medical_patient_info_date:
                 showDatePicker(tv_date);
@@ -186,6 +203,17 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private String getBloodTypeCode(String bloodType) {
+        String[] codes = getResources().getStringArray(R.array.blood_type_code);
+        String[] names = getResources().getStringArray(R.array.blood_type_name);
+        for (int i = 0; i < names.length; i++) {
+            if (names[i].equals(bloodType)) {
+                return codes[i];
+            }
+        }
+        return "";
     }
 
     private void saveInfo(String name, boolean male, String birthday, String bloodType, int age, String arcIdNumber, String date) {
