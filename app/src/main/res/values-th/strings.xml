@@ -138,4 +138,20 @@
     <string name="medical_process_status_2">ผู้ควบคุมหอพักส่งไปหาหมอ</string>
     <string name="medical_process_status_3">แจ้งนายจ้างคนงานดังกล่าวป่วย</string>
     <string name="medical_process_status_4">คนงานต้องการลางานหยุดงานหรือไม่</string>
+    <string name="from_gallery">จากแกลเลอรี</string>
+    <string name="camera">ถ่ายภาพ</string>
+    <string name="medical_profile">ข้อมูลพื่นฐาน</string>
+    <string name="medical_symptoms">อาการ</string>
+    <string name="medical_process">เหตุการแก้ไข</string>
+    <string name="medical_track">ติดตามและการจัดการ</string>
+    <string name="medical_file_upload_1">เซ็นชื่อ</string>
+    <string name="medical_file_upload_2">หลักฐานการรักษา</string>
+    <string name="medical_file_upload_3">ใบรับรองแพทย์</string>
+    <string name="medical_file_upload_4">แบบฟอร์มบริหารในการบันทึกบริการ</string>
+    <string name="medical_file_upload">อัพโหลดไฟล์แนบ</string>
+    <string name="yes">ใช่</string>
+    <string name="no">ไม่ใช่</string>
+    <string name="hospital">โรงบาล</string>
+    <string name="staff">พนักงาน</string>
+    <string name="edit">การตัดต่อ</string>
 </resources>

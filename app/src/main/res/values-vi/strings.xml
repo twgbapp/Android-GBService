@@ -210,4 +210,20 @@
     <string name="tailand">thái lan</string>
     <string name="indonesia">in đô</string>
     <string name="other">"Khác "</string>
+    <string name="from_gallery">từ album ảnh</string>
+    <string name="camera">chụp ảnh</string>
+    <string name="medical_profile">thông tin cơ bản</string>
+    <string name="medical_symptoms">tình trạng</string>
+    <string name="medical_process">xử lý vấn đề</string>
+    <string name="medical_track">theo dõi và xử lý</string>
+    <string name="medical_file_upload_1">ký tên</string>
+    <string name="medical_file_upload_2">giấy chứng nhận bác sỹ</string>
+    <string name="medical_file_upload_3">giấy chứng nhận chẩn đoán của bác sỹ</string>
+    <string name="medical_file_upload_4">bảng ghi chép hành chính</string>
+    <string name="medical_file_upload">phụ kiện tải lên</string>
+    <string name="yes">có</string>
+    <string name="no">không</string>
+    <string name="hospital">bệnh viện</string>
+    <string name="staff">nhân viên</string>
+    <string name="edit">chỉnh sửa</string>
 </resources>

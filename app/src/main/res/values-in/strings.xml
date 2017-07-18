@@ -210,4 +210,20 @@
     <string name="tailand">Thailand</string>
     <string name="indonesia">Indonesia</string>
     <string name="other">Lain lain</string>
+    <string name="from_gallery">dari Gallery</string>
+    <string name="camera">Foto</string>
+    <string name="medical_profile">Data pribadi</string>
+    <string name="medical_symptoms">Gejala</string>
+    <string name="medical_process">proses penanganan</string>
+    <string name="medical_track">Lanjutan dan penanganan</string>
+    <string name="medical_file_upload_1">Tanda tangan</string>
+    <string name="medical_file_upload_2">sertifikat kesehatan</string>
+    <string name="medical_file_upload_3">sertifikat diagnosis</string>
+    <string name="medical_file_upload_4">Catatan Pelayanan Administrasi</string>
+    <string name="medical_file_upload">Upload lampiran</string>
+    <string name="yes">iya</string>
+    <string name="no">tidak</string>
+    <string name="hospital">Rumah sakit</string>
+    <string name="staff">personil</string>
+    <string name="edit">Edit</string>
 </resources>

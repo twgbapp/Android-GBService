@@ -210,4 +210,20 @@
     <string name="tailand">泰國</string>
     <string name="indonesia">印尼</string>
     <string name="other">其他</string>
+    <string name="from_gallery">從圖庫</string>
+    <string name="camera">拍照</string>
+    <string name="medical_profile">基本資料</string>
+    <string name="medical_symptoms">症狀</string>
+    <string name="medical_process">處理狀況</string>
+    <string name="medical_track">追蹤與處理</string>
+    <string name="medical_file_upload_1">簽名</string>
+    <string name="medical_file_upload_2">就醫證明書</string>
+    <string name="medical_file_upload_3">診斷證明書</string>
+    <string name="medical_file_upload_4">行政服務紀錄表</string>
+    <string name="medical_file_upload">附件上傳</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="hospital">醫院</string>
+    <string name="staff">人員</string>
+    <string name="edit">編輯</string>
 </resources>

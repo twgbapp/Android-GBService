@@ -57,8 +57,8 @@
     <string name="parse_error_json">JSON analysis failed</string>
     <!-- Common Array-->
     <string-array name="choose_picture">
-        <item>從圖庫</item>
-        <item>拍照</item>
+        <item>@string/from_gallery</item>
+        <item>@string/camera</item>
     </string-array>
     <!-- Message -->
     <string name="can_not_be_empty">Fill out the blank</string>
@@ -185,10 +185,10 @@
     </string-array>
 
 
-    <string name="medical_file_upload_1">簽名</string>
-    <string name="medical_file_upload_2">就醫證明書</string>
-    <string name="medical_file_upload_3">診斷證明書</string>
-    <string name="medical_file_upload_4">行政服務紀錄表</string>
+    <string name="medical_file_upload_1">Signature</string>
+    <string name="medical_file_upload_2">Medical Certificate</string>
+    <string name="medical_file_upload_3">Diagnosis Certificate</string>
+    <string name="medical_file_upload_4">Service Record</string>
 
     <!-- Club -->
     <string name="club_title">@string/club</string>
@@ -231,14 +231,16 @@
     <string name="tailand">Tailand</string>
     <string name="indonesia">Indonesia</string>
     <string name="medical_profile">Profile</string>
-    <string name="medical_symptoms">Symptoms</string>
-    <string name="medical_track">Track Process</string>
-    <string name="medical_file_upload">File Upload</string>
-    <string name="medical_process">Process Status</string>
+    <string name="medical_symptoms">Symptom</string>
+    <string name="medical_track">Follow-up and result</string>
+    <string name="medical_file_upload">Upload file</string>
+    <string name="medical_process">Situation</string>
     <string name="other">Other</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="staff">Staff</string>
+    <string name="staff">Member</string>
     <string name="hospital">Hospital</string>
     <string name="edit">Edit</string>
+    <string name="from_gallery">Choose from photos</string>
+    <string name="camera">Camera</string>
 </resources>
