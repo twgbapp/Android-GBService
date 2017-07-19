@@ -73,11 +73,11 @@
     <string name="sign_up_id_number_can_sign_up">Số thẻ cư trú này có thể đăng ký</string>
     <string name="sign_up_id_number_can_not_sign_up">Số thẻ cư trú này không  thể đăng ký</string>
     <string-array name="nation_name">
-        <item>Taiwan</item>
-        <item>Indonesia</item>
-        <item>Philippines</item>
-        <item>Thailand</item>
-        <item>Vietnam</item>
+        <item>@string/taiwan</item>
+        <item>@string/indonesia</item>
+        <item>@string/philippine</item>
+        <item>@string/thailand</item>
+        <item>@string/vietnam</item>
     </string-array>
     <string-array name="nation_code">
         <item>000</item>
@@ -107,7 +107,6 @@
     <string name="profile_old_password">Mật mã cũ</string>
     <string name="profile_new_password">mật mã mới</string>
     <string name="profile_confirm_new_password">Xác nhận mật mã mới</string>
-    <string name="profile_error_confirm_password">error_confirm_password</string>
 
     <!-- Mobile Service -->
     <string name="mobile_service_tab_chat">Đối thoại với quầy phục vụ</string>
@@ -207,7 +206,6 @@
     <string name="taiwan">đài loan</string>
     <string name="philippine">philippin</string>
     <string name="vietnam">việt nam</string>
-    <string name="tailand">thái lan</string>
     <string name="indonesia">in đô</string>
     <string name="other">"Khác "</string>
     <string name="from_gallery">từ album ảnh</string>
@@ -226,4 +224,5 @@
     <string name="hospital">bệnh viện</string>
     <string name="staff">nhân viên</string>
     <string name="edit">chỉnh sửa</string>
+    <string name="thailand">thái lan</string>
 </resources>

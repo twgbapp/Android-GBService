@@ -117,10 +117,10 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         String birthday = tv_birthday.getText().toString();
         String email = et_email.getText().toString();
         String phone = et_phone.getText().toString();
-
+//        idNumber.isEmpty() ||
         // check empty
         if (account.isEmpty() || confirm_password.isEmpty() || password.isEmpty() ||
-                nationCode.isEmpty() || idNumber.isEmpty() || name.isEmpty() ||
+                nationCode.isEmpty() || name.isEmpty() ||
                 sex.isEmpty() || birthday.isEmpty() || email.isEmpty() || phone.isEmpty()) {
             t(R.string.can_not_be_empty);
             return;
@@ -128,7 +128,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
 
         // check password
         if (!confirm_password.equals(password)) {
-            t(R.string.sign_up_error_confirm_password);
+            t(R.string.error_confirm_password);
             return;
         }
 

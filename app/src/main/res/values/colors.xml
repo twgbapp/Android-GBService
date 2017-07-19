@@ -12,9 +12,9 @@
     <color name="main_light_yellow">#FFEA00</color>
     <color name="main_light_gray">#E0E0E0</color>
 
-    <color name="announcement_com">#F00</color>
-    <color name="announcement_gov">#0F0</color>
-    <color name="announcement_dorm">#00F</color>
+    <color name="announcement_com">#F8EC00</color>
+    <color name="announcement_gov">#D979B1</color>
+    <color name="announcement_dorm">#65C8D0</color>
 
     <color name="tab_selected">#616776</color>
     <color name="tab_not_selected">#535866</color>
@@ -27,7 +27,7 @@
 
     <color name="main_right_top">#40b5c9</color>
     <color name="main_left_bottom">#b1ce1c</color>
-    
+
     <!-- Status -->
     <color name="status_green">#009944</color>
     <color name="status_yellow">#ffae00</color>

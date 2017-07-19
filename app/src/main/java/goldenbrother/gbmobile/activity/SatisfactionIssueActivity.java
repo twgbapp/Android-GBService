@@ -51,7 +51,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
                 android.R.color.holo_orange_light);
         // init RecyclerView
         list_issue = new ArrayList<>();
-        list_issue.addAll(getData());
+//        list_issue.addAll(getData());
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(new SatisfactionIssueRVAdapter(this, list_issue));
@@ -68,7 +68,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
             }
         });
         // getSatisfactionIssueList
-//        getSatisfactionIssueList();
+        getSatisfactionIssueList();
     }
 
     private ArrayList<SatisfactionIssueModel> getData(){

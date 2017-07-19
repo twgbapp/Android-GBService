@@ -58,7 +58,7 @@ public class MedicalListRVAdapter extends SampleRVAdapter {
         return list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    private static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView date;
 

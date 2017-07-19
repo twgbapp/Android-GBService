@@ -249,7 +249,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                 String pwd_confirm = et_confirm.getText().toString();
                 // check
                 if (!pwd_new.equals(pwd_confirm)) {
-                    t(R.string.profile_error_confirm_password);
+                    t(R.string.error_confirm_password);
                     return;
                 }
                 // changePassword

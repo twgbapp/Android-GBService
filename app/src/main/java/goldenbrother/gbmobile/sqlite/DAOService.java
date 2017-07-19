@@ -69,12 +69,13 @@ public class DAOService {
 
 
     public boolean delete(int id) {
-
         String where = COL_ServiceGroupID + "=" + id;
-
         return db.delete(TABLENAME, where, null) > 0;
     }
-
+    public boolean deleteAll() {
+        String where = COL_ServiceGroupID + ">" + 0;
+        return db.delete(TABLENAME, where, null) > 0;
+    }
 
     public List<ServiceModel> getAll() {
         List<ServiceModel> result = new ArrayList<>();

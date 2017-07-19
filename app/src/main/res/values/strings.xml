@@ -92,11 +92,11 @@
     <string name="sign_up_id_number_can_sign_up">Effective ARC No.</string>
     <string name="sign_up_id_number_can_not_sign_up">Ineffective ARC No.</string>
     <string-array name="nation_name">
-        <item>Taiwan</item>
-        <item>Indonesia</item>
-        <item>Philippines</item>
-        <item>Thailand</item>
-        <item>Vietnam</item>
+        <item>@string/taiwan</item>
+        <item>@string/indonesia</item>
+        <item>@string/philippine</item>
+        <item>@string/thailand</item>
+        <item>@string/vietnam</item>
     </string-array>
     <string-array name="nation_code">
         <item>000</item>
@@ -107,14 +107,14 @@
     </string-array>
     <!-- Main -->
     <!-- Group -->
-    <string name="main_drawer_mobile_service">@string/mobile_service</string>
     <string name="main_drawer_life_information">Life Information</string>
     <string name="main_drawer_e_commerce">E-commerce</string>
     <string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>
     <!-- Child -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
-    <!--<string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>-->
+    <string name="main_drawer_chat">@string/chat</string>
+
     <string name="main_drawer_announcement">Announcement</string>
     <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">Log out</string>
@@ -132,7 +132,6 @@
     <string name="profile_old_password">Previous Password</string>
     <string name="profile_new_password">New Password</string>
     <string name="profile_confirm_new_password">Confirm new password</string>
-    <string name="profile_error_confirm_password">error_confirm_password</string>
 
     <!-- Mobile Service -->
     <string name="mobile_service_tab_chat">Call service center</string>
@@ -228,7 +227,6 @@
     <string name="taiwan">Taiwan</string>
     <string name="philippine">Philippine</string>
     <string name="vietnam">Vietnam</string>
-    <string name="tailand">Tailand</string>
     <string name="indonesia">Indonesia</string>
     <string name="medical_profile">Profile</string>
     <string name="medical_symptoms">Symptom</string>
@@ -243,4 +241,7 @@
     <string name="edit">Edit</string>
     <string name="from_gallery">Choose from photos</string>
     <string name="camera">Camera</string>
+    <string name="thailand">Thailand</string>
+    <string name="title">Title</string>
+    <string name="chat">Chat</string>
 </resources>

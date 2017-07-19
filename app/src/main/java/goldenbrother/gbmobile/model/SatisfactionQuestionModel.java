@@ -13,6 +13,7 @@ public class SatisfactionQuestionModel implements Parcelable{
     private String question;
     private String createDate;
     private String createID;
+    private int rating;
 
     public SatisfactionQuestionModel(){
 
@@ -27,6 +28,7 @@ public class SatisfactionQuestionModel implements Parcelable{
         question = in.readString();
         createDate = in.readString();
         createID = in.readString();
+        rating = in.readInt();
     }
 
     public static final Creator<SatisfactionQuestionModel> CREATOR = new Creator<SatisfactionQuestionModel>() {
@@ -81,6 +83,14 @@ public class SatisfactionQuestionModel implements Parcelable{
         this.createID = createID;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -93,5 +103,6 @@ public class SatisfactionQuestionModel implements Parcelable{
         dest.writeString(question);
         dest.writeString(createDate);
         dest.writeString(createID);
+        dest.writeInt(rating);
     }
 }

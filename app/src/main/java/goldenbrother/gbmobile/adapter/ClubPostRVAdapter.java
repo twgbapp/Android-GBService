@@ -75,7 +75,7 @@ public class ClubPostRVAdapter extends SampleRVAdapter {
             // set club picture
             int width = getResources().getDisplayMetrics().widthPixels;
             int height = (int) getResources().getDimension(R.dimen.imageview_club_post_head_height);
-            Picasso.with(getContext()).load(club.getClubPicture()).resize(width, height).centerCrop().into(h.clubPicture);
+            Picasso.with(getContext()).load(club.getClubPicture()).into(h.clubPicture);
             // set club name
             h.clubName.setText(club.getClubName());
             // set user picture

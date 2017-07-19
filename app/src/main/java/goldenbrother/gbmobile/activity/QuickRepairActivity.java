@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class QuickRepairActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
-    private EditText et_applicant, et_place, et_description;
+    private EditText et_applicant,et_title, et_place, et_description;
     private Spinner sp_area, sp_kind, sp_detail;
     private TextView tv_send;
     // data
@@ -37,6 +37,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         setContentView(R.layout.activity_quick_repair);
         // ui reference
         et_applicant = (EditText) findViewById(R.id.et_quick_repair_applicant);
+        et_title = (EditText) findViewById(R.id.et_quick_repair_title);
         et_place = (EditText) findViewById(R.id.et_quick_repair_place);
         et_description = (EditText) findViewById(R.id.et_quick_repair_description);
         sp_area = (Spinner) findViewById(R.id.sp_quick_repair_area);
@@ -188,7 +189,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         ((RepairKindListAdapter) sp_detail.getAdapter()).notifyDataSetChanged();
     }
 
-    private void addRepair(int kind, String place, String description, int areaNum) {
+    private void addRepair(int kind, String place,String title, String description, int areaNum) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addRepair");
@@ -199,6 +200,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("eventKind", kind);
             j.put("place", place);
+            j.put("title", title);
             j.put("description", description);
             j.put("areaNum", areaNum);
             j.put("logStatus", true);
@@ -240,13 +242,14 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                 int areaNum = list_area.get(sp_area.getSelectedItemPosition()).getId();
                 int kind = list_detail_show.get(sp_detail.getSelectedItemPosition()).getId();
                 String place = et_place.getText().toString();
+                String title = et_title.getText().toString();
                 String description = et_description.getText().toString();
-                if (place.isEmpty() || description.isEmpty() || kind == -1) {
+                if (place.isEmpty() ||title.isEmpty()|| description.isEmpty() || kind == -1) {
                     t(R.string.can_not_be_empty);
                     break;
                 }
                 // add repair
-                addRepair(kind, place, description, areaNum);
+                addRepair(kind, place,title, description, areaNum);
                 break;
         }
     }

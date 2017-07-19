@@ -73,11 +73,11 @@
     <string name="sign_up_id_number_can_sign_up">No A.R.C ini bisa didaftarkan</string>
     <string name="sign_up_id_number_can_not_sign_up">No A.R.C ini tidak bisa didaftarkan</string>
     <string-array name="nation_name">
-        <item>Taiwan</item>
-        <item>Indonesia</item>
-        <item>Philippines</item>
-        <item>Thailand</item>
-        <item>Vietnam</item>
+        <item>@string/taiwan</item>
+        <item>@string/indonesia</item>
+        <item>@string/philippine</item>
+        <item>@string/thailand</item>
+        <item>@string/vietnam</item>
     </string-array>
     <string-array name="nation_code">
         <item>000</item>
@@ -107,7 +107,6 @@
     <string name="profile_old_password">No pin lama</string>
     <string name="profile_new_password">Pin baru</string>
     <string name="profile_confirm_new_password">Pastikan pin baru</string>
-    <string name="profile_error_confirm_password">error_confirm_password</string>
 
     <!-- Mobile Service -->
     <string name="mobile_service_tab_chat">Pembicaraan pelayanan</string>
@@ -207,7 +206,6 @@
     <string name="taiwan">Taiwan</string>
     <string name="philippine">Filipin</string>
     <string name="vietnam">Vietnam</string>
-    <string name="tailand">Thailand</string>
     <string name="indonesia">Indonesia</string>
     <string name="other">Lain lain</string>
     <string name="from_gallery">dari Gallery</string>
@@ -226,4 +224,5 @@
     <string name="hospital">Rumah sakit</string>
     <string name="staff">personil</string>
     <string name="edit">Edit</string>
+    <string name="thailand">Thailand</string>
 </resources>

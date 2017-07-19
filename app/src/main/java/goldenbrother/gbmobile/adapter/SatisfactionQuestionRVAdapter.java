@@ -76,6 +76,7 @@ public class SatisfactionQuestionRVAdapter extends SampleRVAdapter {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ((SatisfactionQuestionActivity) getContext()).addSatisfactionIssueRecord(item.getSiqNo(), rating);
+                        item.setRating(rating);
                         set.add(item);
                         notifyItemChanged(position);
                     }

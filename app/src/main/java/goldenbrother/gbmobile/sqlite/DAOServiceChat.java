@@ -77,9 +77,12 @@ public class DAOServiceChat {
 
 
     public boolean delete(int id) {
-
         String where = COL_SGCNo + "=" + id;
+        return db.delete(TABLENAME, where, null) > 0;
+    }
 
+    public boolean deleteAll() {
+        String where = COL_SGCNo + ">" + 0;
         return db.delete(TABLENAME, where, null) > 0;
     }
 
