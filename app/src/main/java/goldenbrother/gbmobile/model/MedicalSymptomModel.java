@@ -7,34 +7,34 @@ import android.os.Parcelable;
  *
  */
 
-public class MedicalTreatmentCodeModel implements Parcelable {
+public class MedicalSymptomModel implements Parcelable {
 
     private String columnName;
     private String code;
     private String value;
-    public MedicalTreatmentCodeModel(){
+    public MedicalSymptomModel(){
 
     }
 
-    protected MedicalTreatmentCodeModel(Parcel in) {
+    protected MedicalSymptomModel(Parcel in) {
         columnName = in.readString();
         code = in.readString();
         value = in.readString();
     }
 
-    public static final Creator<MedicalTreatmentCodeModel> CREATOR = new Creator<MedicalTreatmentCodeModel>() {
+    public static final Creator<MedicalSymptomModel> CREATOR = new Creator<MedicalSymptomModel>() {
         @Override
-        public MedicalTreatmentCodeModel createFromParcel(Parcel in) {
-            return new MedicalTreatmentCodeModel(in);
+        public MedicalSymptomModel createFromParcel(Parcel in) {
+            return new MedicalSymptomModel(in);
         }
 
         @Override
-        public MedicalTreatmentCodeModel[] newArray(int size) {
-            return new MedicalTreatmentCodeModel[size];
+        public MedicalSymptomModel[] newArray(int size) {
+            return new MedicalSymptomModel[size];
         }
     };
 
-    public MedicalTreatmentCodeModel(String columnName, String code, String value) {
+    public MedicalSymptomModel(String columnName, String code, String value) {
         this.columnName = columnName;
         this.code = code;
         this.value = value;

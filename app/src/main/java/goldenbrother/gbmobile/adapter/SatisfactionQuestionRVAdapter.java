@@ -49,6 +49,7 @@ public class SatisfactionQuestionRVAdapter extends SampleRVAdapter {
             final ViewHolder h = (ViewHolder) holder;
             h.name.setText(item.getQuestion());
             h.status.setText(set.contains(item) ? R.string.already_rating : R.string.not_rating);
+            h.rating.setRating(item.getRating());
             h.status.setTextColor(ContextCompat.getColor(getContext(), set.contains(item) ? R.color.main_light_yellow : R.color.main_light_gray));
             h.rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override

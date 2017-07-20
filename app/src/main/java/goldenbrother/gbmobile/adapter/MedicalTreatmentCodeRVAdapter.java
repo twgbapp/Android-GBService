@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
+import goldenbrother.gbmobile.model.MedicalSymptomModel;
 
 public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
 
@@ -20,16 +20,16 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
     private static final int GROUP = 0;
     private static final int CHILD = 1;
     // data
-    private ArrayList<MedicalTreatmentCodeModel> list;
-    private HashSet<MedicalTreatmentCodeModel> set;
+    private ArrayList<MedicalSymptomModel> list;
+    private HashSet<MedicalSymptomModel> set;
 
-    public MedicalTreatmentCodeRVAdapter(Context context, ArrayList<MedicalTreatmentCodeModel> list) {
+    public MedicalTreatmentCodeRVAdapter(Context context, ArrayList<MedicalSymptomModel> list) {
         super(context);
         this.list = list;
         this.set = new HashSet<>();
     }
 
-    public HashSet<MedicalTreatmentCodeModel> getSelected() {
+    public HashSet<MedicalSymptomModel> getSelected() {
         return set;
     }
 
@@ -50,7 +50,7 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final MedicalTreatmentCodeModel item = list.get(position);
+        final MedicalSymptomModel item = list.get(position);
         if (holder instanceof GroupViewHolder) {
             final GroupViewHolder h = (GroupViewHolder) holder;
             h.name.setText(item.getValue());

@@ -62,6 +62,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         setPatientInfo();
         // init Date
         tv_birthday.setText(TimeHelper.getYMD());
+        tv_blood_type.setText(getBloodTypeName(patient.getBloodType()));
         tv_date.setText(TimeHelper.getYMD());
     }
 
@@ -70,6 +71,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         tv_gender.setText(getString(patient.isGender() ? R.string.male : R.string.female));
         tv_birthday.setText(patient.getDate());
         tv_date.setText(patient.getJiuZhen_date());
+        tv_blood_type.setText(patient.getBloodType());
         et_arc_id_number.setText(patient.getId1());
     }
 
@@ -211,6 +213,17 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         for (int i = 0; i < names.length; i++) {
             if (names[i].equals(bloodType)) {
                 return codes[i];
+            }
+        }
+        return "";
+    }
+
+    private String getBloodTypeName(String code) {
+        String[] codes = getResources().getStringArray(R.array.blood_type_code);
+        String[] names = getResources().getStringArray(R.array.blood_type_name);
+        for (int i = 0; i < codes.length; i++) {
+            if (codes[i].equals(code)) {
+                return names[i];
             }
         }
         return "";
