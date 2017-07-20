@@ -249,4 +249,6 @@
     <string name="can_not_get_patient">Can not get patient</string>
     <string name="room_id">RoomId</string>
     <string name="member_login">MEMBER LOGIN</string>
+    <string name="language">Language</string>
+    <string name="language_alert">When the language is switched, the system will reopen</string>
 </resources>

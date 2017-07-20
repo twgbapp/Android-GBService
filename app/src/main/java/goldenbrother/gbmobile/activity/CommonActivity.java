@@ -35,7 +35,7 @@ public class CommonActivity extends AppCompatActivity {
     protected AlertDialog alertWithView(View v, String title, DialogInterface.OnClickListener posi, DialogInterface.OnClickListener nega) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         if (title != null) b.setTitle(title);
-        b.setView(v);
+        if (v != null) b.setView(v);
         if (posi != null || nega != null) {
             b.setPositiveButton(R.string.confirm, posi);
             b.setNegativeButton(R.string.cancel, nega);

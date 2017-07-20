@@ -3,6 +3,8 @@ package goldenbrother.gbmobile.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -30,6 +33,7 @@ import goldenbrother.gbmobile.sqlite.DAOServiceChat;
 import goldenbrother.gbmobile.sqlite.DAOServiceTimePoint;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends CommonActivity implements View.OnClickListener {
 
@@ -93,6 +97,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
             list.add(new DrawerItem(R.drawable.ic_satisfaction_survey, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_language_w, R.string.language, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         } else {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
@@ -107,6 +112,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_language_w, R.string.language, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         }
         rv_drawer.setAdapter(new MainDrawerRVAdapter(this, list));
@@ -119,6 +125,53 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         new DAOService(this).deleteAll();
         new DAOServiceChat(this).deleteAll();
         new DAOServiceTimePoint(this).deleteAll();
+    }
+
+    private void showLanguageDialog() {
+        String[] items = getResources().getStringArray(R.array.language);
+        ad = alertCustomItems(0, null, items, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view,final int position, long l) {
+                ad.dismiss();
+                alertWithView(null, getString(R.string.language_alert), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        setLanguage(position);
+                    }
+                }, null);
+            }
+        });
+    }
+
+    private void setLanguage(int i) {
+        String lang = "";
+        switch (i) {
+            case 0:
+                lang = "en";
+                break;
+            case 1:
+                lang = "zh";
+                break;
+            case 2:
+                lang = "in";
+                break;
+            case 3:
+                lang = "vi";
+                break;
+            case 4:
+                lang = "th";
+                break;
+        }
+        Locale locale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = locale;
+        res.updateConfiguration(conf, dm);
+        // restart
+        Bundle b = new Bundle();
+        openActivity(SplashActivity.class, b);
+        finish();
     }
 
     public void onFunctionClick(String str) {
@@ -159,6 +212,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         } else if (str.equals(getString(R.string.main_drawer_e_commerce))) {
             b.putString("url", E_COMMERCE);
             openActivity(WebViewActivity.class, b);
+        } else if (str.equals(getString(R.string.language))) {
+            showLanguageDialog();
         }
     }
 

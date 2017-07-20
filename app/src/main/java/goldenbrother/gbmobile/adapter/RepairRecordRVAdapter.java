@@ -60,10 +60,10 @@ public class RepairRecordRVAdapter extends SampleRVAdapter {
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(), RepairRecordContentActivity.class);
-                    intent.putExtra("rrsNo", list.get(position).getRrsNo());
-                    getContext().startActivity(intent);
+//                    Intent intent = new Intent();
+//                    intent.setClass(getContext(), RepairRecordContentActivity.class);
+//                    intent.putExtra("rrsNo", list.get(position).getRrsNo());
+//                    getContext().startActivity(intent);
                 }
             });
         }

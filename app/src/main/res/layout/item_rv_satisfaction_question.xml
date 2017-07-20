@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/layout_corner_round_radius_5"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tv_item_rv_satisfaction_question_status"
@@ -33,10 +34,10 @@
             android:id="@+id/rb_item_rv_satisfaction_question_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:numStars="5"
             android:rating="0"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
             android:stepSize="1"
             android:theme="@style/AppTheme.RatingBar" />
     </LinearLayout>
