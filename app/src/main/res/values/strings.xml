@@ -246,4 +246,7 @@
     <string name="chat">Chat</string>
     <string name="start_date">StartDate</string>
     <string name="end_date">EndDate</string>
+    <string name="can_not_get_patient">Can not get patient</string>
+    <string name="room_id">RoomId</string>
+    <string name="member_login">MEMBER LOGIN</string>
 </resources>

@@ -23,6 +23,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalListRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -34,7 +35,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
     // ui
     private RecyclerView rv;
     // data
-    private ArrayList<Medical> list_medical_flabor;
+    private ArrayList<Medical> list_medical;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,9 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         rv = (RecyclerView) findViewById(R.id.rv_medical_list);
 
         // init RecyclerView
-        list_medical_flabor = new ArrayList<>();
+        list_medical = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new MedicalListRVAdapter(this, list_medical_flabor));
+        rv.setAdapter(new MedicalListRVAdapter(this, list_medical));
 
         // getMedicalList
         getMedicalFlaborList(TimeHelper.getYMD(), TimeHelper.getYMD());
@@ -81,11 +82,11 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.getMedicalFlaborList(response, list_medical_flabor);
+                    int result = ApiResultHelper.getMedicalFlaborList(response, list_medical);
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
-                        t("Empty");
+                        t(R.string.fail);
                     }
                     break;
             }
@@ -168,7 +169,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
                 showSearchDialog();
                 break;
             case R.id.iv_medical_list_add:
-                openActivity(MedicalRecordActivity.class);
+                openActivity(MedicalRecordActivity.class, new Bundle());
                 break;
         }
     }

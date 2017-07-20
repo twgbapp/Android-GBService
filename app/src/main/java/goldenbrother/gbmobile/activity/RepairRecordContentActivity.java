@@ -60,6 +60,7 @@ public class RepairRecordContentActivity extends CommonActivity {
 
         GetRepairRecord(Context context, JSONObject json, String url) {
             super(context, json, url);
+            repairRecordModel = new RepairRecordModel();
         }
 
         @Override

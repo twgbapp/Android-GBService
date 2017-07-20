@@ -19,7 +19,9 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalTreatmentCodeRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.MedicalSymptomModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
@@ -29,6 +31,8 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     private RecyclerView rv;
     private EditText et_other;
     private ImageView iv_check;
+    // extra
+    private Medical medical;
     // data
     private ArrayList<MedicalSymptomModel> list_symptoms;
     private boolean otherChecked = false;
@@ -45,14 +49,17 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
         et_other = (EditText) findViewById(R.id.et_medical_symptom_other);
         iv_check = (ImageView) findViewById(R.id.iv_medical_symptom_check);
 
+        // extra
+        medical = getIntent().getExtras().getParcelable("medical");
         // init ListView
-        if (list_symptoms == null) list_symptoms = new ArrayList<>();
+        list_symptoms = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new MedicalTreatmentCodeRVAdapter(this, list_symptoms));
 
         // loadMedicalTreatmentCodeList
         getMedicalTreatmentCode();
     }
+
 
     private void getMedicalTreatmentCode() {
         try {
@@ -67,7 +74,6 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     }
 
     private class GetMedicalTreatmentCode extends IAsyncTask {
-
 
         private ArrayList<MedicalSymptomModel> list_first;
         private ArrayList<MedicalSymptomModel> list_second;
@@ -99,11 +105,25 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                     int result = ApiResultHelper.getMedicalTreatmentCode(response, list_first, list_second);
                     if (result == ApiResultHelper.SUCCESS) {
                         sortSymptoms();
-                        updateAdapter();
+                        initSelected();
+//                        updateAdapter();
                     } else {
                         t(R.string.fail);
                     }
                     break;
+            }
+        }
+    }
+
+    private void initSelected() {
+        ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).setSelected(medical.getSymptom());
+        updateAdapter();
+        for (MedicalSymptomModel ms : medical.getSymptom()) {
+            if (ms.getCode().equals("425")) {
+                et_other.setText(ms.getValue());
+                otherChecked = true;
+                updateOther();
+                break;
             }
         }
     }
@@ -118,25 +138,24 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
+        switch (v.getId()) {
             case R.id.iv_event_medical_symptom_done:
                 //
                 HashSet<MedicalSymptomModel> set = ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).getSelected();
                 ArrayList<MedicalSymptomModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
-                if (otherChecked || !et_other.getText().toString().isEmpty()) {
+                if (otherChecked) {
                     String other = et_other.getText().toString();
                     MedicalSymptomModel m = new MedicalSymptomModel();
                     m.setCode("425");
                     m.setValue(other.isEmpty() ? "null" : other);
                     lists.add(m);
                 }
-                Bundle bundle = new Bundle();
+                medical.getSymptom().clear();
+                medical.getSymptom().addAll(lists);
                 Intent intent = new Intent();
-                bundle.putParcelableArrayList("mtrCodeGroup", lists);
-                intent.putExtras(bundle);
+                intent.putExtra("medical", medical);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

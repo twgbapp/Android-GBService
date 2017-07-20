@@ -227,4 +227,5 @@
     <string name="edit">編輯</string>
     <string name="thailand">泰國</string>
     <string name="chat">聊天</string>
+    <string name="room_id">房號</string>
 </resources>

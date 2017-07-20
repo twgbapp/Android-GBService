@@ -1,6 +1,7 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,11 +26,10 @@ import java.util.ArrayList;
 public class QuickRepairActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
-    private EditText et_applicant,et_title, et_place, et_description;
-    private Spinner sp_area, sp_kind, sp_detail;
-    private TextView tv_send;
+    private EditText et_applicant, et_title, et_place, et_description;
+    private TextView tv_area, tv_type, tv_item, tv_send;
     // data
-    private ArrayList<RepairKindModel> list_area, list_kind, list_detail, list_detail_show;
+    private ArrayList<RepairKindModel> list_area1, list_area2, list_kind, list_detail, list_detail_show;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,58 +40,21 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         et_title = (EditText) findViewById(R.id.et_quick_repair_title);
         et_place = (EditText) findViewById(R.id.et_quick_repair_place);
         et_description = (EditText) findViewById(R.id.et_quick_repair_description);
-        sp_area = (Spinner) findViewById(R.id.sp_quick_repair_area);
-        sp_kind = (Spinner) findViewById(R.id.sp_quick_repair_kind);
-        sp_detail = (Spinner) findViewById(R.id.sp_quick_repair_kind_content);
+        tv_area = (TextView) findViewById(R.id.tv_quick_repair_area);
+        tv_type = (TextView) findViewById(R.id.tv_quick_repair_type);
+        tv_item = (TextView) findViewById(R.id.tv_quick_repair_item);
         tv_send = (TextView) findViewById(R.id.tv_quick_repair_send);
         // listener
+        tv_area.setOnClickListener(this);
+        tv_type.setOnClickListener(this);
+        tv_item.setOnClickListener(this);
         tv_send.setOnClickListener(this);
         // init Spinner
-        list_area = new ArrayList<>();
-        list_area.add(0, getDefaultKind());
+        list_area1 = new ArrayList<>();
+        list_area2 = new ArrayList<>();
         list_kind = new ArrayList<>();
-        list_kind.add(0, getDefaultKind());
         list_detail = new ArrayList<>();
         list_detail_show = new ArrayList<>();
-        list_detail_show.add(0, getDefaultKind());
-        sp_area.setAdapter(new RepairKindListAdapter(this, list_area));
-        sp_kind.setAdapter(new RepairKindListAdapter(this, list_kind));
-        sp_detail.setAdapter(new RepairKindListAdapter(this, list_detail_show));
-        // listener
-        sp_area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-                    getRepairKind(list_area.get(position).getId());
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        sp_kind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                RepairKindModel rm_kind = list_kind.get(position);
-                if (rm_kind.getId() != -1) {
-                    list_detail_show.clear();
-                    list_detail_show.add(getDefaultKind());
-                    for (RepairKindModel rm_detail : list_detail) {
-                        if (rm_detail.getParentId() == rm_kind.getId()) {
-                            list_detail_show.add(rm_detail);
-                        }
-                    }
-                    updateKindAdapter();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         // set applicant
         et_applicant.setText(RoleInfo.getInstance().getUserName());
         // load area
@@ -122,9 +85,12 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.getRepairArea(response, list_area);
+                    int result = ApiResultHelper.getRepairArea(response, list_area1, list_area2);
                     if (result == ApiResultHelper.SUCCESS) {
-                        updateAreaAdapter();
+                        if (list_area1.size() != 2 || list_area2.size() != 2) {
+                            t(R.string.fail);
+                            finish();
+                        }
                     } else {
                         t(R.string.fail);
                         finish();
@@ -134,13 +100,91 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         }
     }
 
-    private RepairKindModel getDefaultKind() {
-        return new RepairKindModel(-1, -1, "Select...");
+    private int getAreaId(String content) {
+        for (RepairKindModel rk : list_area1) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        for (RepairKindModel rk : list_area2) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        return -1;
     }
 
-    private void updateAreaAdapter() {
-        list_area.add(0, getDefaultKind());
-        ((RepairKindListAdapter) sp_area.getAdapter()).notifyDataSetChanged();
+    private void showAreaDialog(final int stage) { // 1 or 2
+        if (list_area1.size() != 2 || list_area2.size() != 2) return;
+        final String[] items1 = {list_area1.get(0).getContent(), list_area1.get(1).getContent()};
+        final String[] items2 = {list_area2.get(0).getContent(), list_area2.get(1).getContent()};
+        final String[] items = stage == 1 ? items1 : items2;
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (stage == 1 && i == 0) {
+                    showAreaDialog(2);
+                } else {
+                    tv_area.setText(items[i]);
+                    tv_type.setText("");
+                    tv_item.setText("");
+                    getRepairKind(getAreaId(items[i]));
+                }
+            }
+        });
+    }
+
+    private int getTypeId(String content) {
+        for (RepairKindModel rk : list_kind) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        return -1;
+    }
+
+    private void showTypeDialog() {
+        final String[] items = new String[list_kind.size()];
+        for (int i = 0; i < list_kind.size(); i++) {
+            items[i] = list_kind.get(i).getContent();
+        }
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_type.setText(items[i]);
+                tv_item.setText("");
+            }
+        });
+    }
+
+    private int getItemId(String content) {
+        for (RepairKindModel rk : list_detail_show) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        return -1;
+    }
+
+    private void showItemDialog(String type) {
+        int parentId = getTypeId(type);
+        list_detail_show.clear();
+        for (RepairKindModel rm_detail : list_detail) {
+            if (rm_detail.getParentId() == parentId) {
+                list_detail_show.add(rm_detail);
+            }
+        }
+        final String[] items = new String[list_detail_show.size()];
+        for (int i = 0; i < list_detail_show.size(); i++) {
+            items[i] = list_detail_show.get(i).getContent();
+        }
+
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_item.setText(items[i]);
+            }
+        });
     }
 
     private void getRepairKind(int areaNum) {
@@ -171,10 +215,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getRepairKind(response, list_kind, list_detail);
                     if (result == ApiResultHelper.SUCCESS) {
-                        list_kind.add(0, getDefaultKind());
-                        list_detail_show.clear();
-                        list_detail_show.add(0, getDefaultKind());
-                        updateKindAdapter();
+
                     } else {
                         t(R.string.fail);
                         finish();
@@ -184,12 +225,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         }
     }
 
-    private void updateKindAdapter() {
-        ((RepairKindListAdapter) sp_kind.getAdapter()).notifyDataSetChanged();
-        ((RepairKindListAdapter) sp_detail.getAdapter()).notifyDataSetChanged();
-    }
-
-    private void addRepair(int kind, String place,String title, String description, int areaNum) {
+    private void addRepair(int kind, String place, String title, String description, int areaNum) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addRepair");
@@ -238,18 +274,27 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
+            case R.id.tv_quick_repair_area:
+                showAreaDialog(1);
+                break;
+            case R.id.tv_quick_repair_type:
+                showTypeDialog();
+                break;
+            case R.id.tv_quick_repair_item:
+                showItemDialog(tv_type.getText().toString());
+                break;
             case R.id.tv_quick_repair_send:
-                int areaNum = list_area.get(sp_area.getSelectedItemPosition()).getId();
-                int kind = list_detail_show.get(sp_detail.getSelectedItemPosition()).getId();
+                int areaNum = getAreaId(tv_area.getText().toString());
+                int kind = getItemId(tv_item.getText().toString());
                 String place = et_place.getText().toString();
                 String title = et_title.getText().toString();
                 String description = et_description.getText().toString();
-                if (place.isEmpty() ||title.isEmpty()|| description.isEmpty() || kind == -1) {
+                if (place.isEmpty() || title.isEmpty() || description.isEmpty() || areaNum == -1 || kind == -1) {
                     t(R.string.can_not_be_empty);
                     break;
                 }
                 // add repair
-                addRepair(kind, place,title, description, areaNum);
+                addRepair(kind, place, title, description, areaNum);
                 break;
         }
     }

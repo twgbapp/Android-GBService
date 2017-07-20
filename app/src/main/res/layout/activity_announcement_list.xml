@@ -40,8 +40,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:background="@color/announcement_com" />
 
@@ -52,11 +52,11 @@
                         android:layout_marginLeft="5dp"
                         android:text="@string/company"
                         android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:background="@color/announcement_gov" />
@@ -68,11 +68,11 @@
                         android:layout_marginLeft="5dp"
                         android:text="@string/government"
                         android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
                         android:background="@color/announcement_dorm" />
@@ -84,7 +84,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="@string/dorm"
                         android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView

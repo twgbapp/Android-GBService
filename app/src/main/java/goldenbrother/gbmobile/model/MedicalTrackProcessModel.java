@@ -8,6 +8,8 @@ import android.os.Parcelable;
  */
 
 public class MedicalTrackProcessModel implements Parcelable{
+    private int treatmentStatus;
+    private String treatmentMemo;
     private String name;
     private String data;
 
@@ -21,22 +23,21 @@ public class MedicalTrackProcessModel implements Parcelable{
         this.data = data;
     }
 
-    protected MedicalTrackProcessModel(Parcel in) {
-        name = in.readString();
-        data = in.readString();
+    public int getTreatmentStatus() {
+        return treatmentStatus;
     }
 
-    public static final Creator<MedicalTrackProcessModel> CREATOR = new Creator<MedicalTrackProcessModel>() {
-        @Override
-        public MedicalTrackProcessModel createFromParcel(Parcel in) {
-            return new MedicalTrackProcessModel(in);
-        }
+    public void setTreatmentStatus(int treatmentStatus) {
+        this.treatmentStatus = treatmentStatus;
+    }
 
-        @Override
-        public MedicalTrackProcessModel[] newArray(int size) {
-            return new MedicalTrackProcessModel[size];
-        }
-    };
+    public String getTreatmentMemo() {
+        return treatmentMemo;
+    }
+
+    public void setTreatmentMemo(String treatmentMemo) {
+        this.treatmentMemo = treatmentMemo;
+    }
 
     public String getName() {
         return name;
@@ -54,6 +55,25 @@ public class MedicalTrackProcessModel implements Parcelable{
         this.data = data;
     }
 
+    protected MedicalTrackProcessModel(Parcel in) {
+        treatmentStatus = in.readInt();
+        treatmentMemo = in.readString();
+        name = in.readString();
+        data = in.readString();
+    }
+
+    public static final Creator<MedicalTrackProcessModel> CREATOR = new Creator<MedicalTrackProcessModel>() {
+        @Override
+        public MedicalTrackProcessModel createFromParcel(Parcel in) {
+            return new MedicalTrackProcessModel(in);
+        }
+
+        @Override
+        public MedicalTrackProcessModel[] newArray(int size) {
+            return new MedicalTrackProcessModel[size];
+        }
+    };
+
     @Override
     public int describeContents() {
         return 0;
@@ -61,6 +81,8 @@ public class MedicalTrackProcessModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(treatmentStatus);
+        parcel.writeString(treatmentMemo);
         parcel.writeString(name);
         parcel.writeString(data);
     }

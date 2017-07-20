@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 public class MedicalFileUploadActivity extends CommonActivity implements View.OnClickListener {
@@ -43,7 +46,7 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
     // take picture
     private Uri uriTakePicture;
     // data
-    private String signaturePath = "", medicalPath = "", diagnosticPath = "", servicePath = "";
+    private Medical medical;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,28 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
         iv_medical.setOnClickListener(this);
         iv_diagnostic.setOnClickListener(this);
         iv_service.setOnClickListener(this);
+
+        // extra
+        medical = getIntent().getExtras().getParcelable("medical");
+
+        // init
+        showUploadFile();
+    }
+
+    private void showUploadFile() {
+        String signaturePath = medical.getSignaturePath();
+        String medicalPath = medical.getMedicalCertificatePath();
+        String diagnosisPath = medical.getDiagnosticCertificatePath();
+        String servicePath = medical.getServiceRecordPath();
+
+        if (signaturePath != null && signaturePath.trim().length() != 0)
+            Picasso.with(this).load(medical.getSignaturePath()).into(iv_signature);
+        if (medicalPath != null && medicalPath.trim().length() != 0)
+            Picasso.with(this).load(medical.getMedicalCertificatePath()).into(iv_medical);
+        if (diagnosisPath != null && diagnosisPath.trim().length() != 0)
+            Picasso.with(this).load(medical.getDiagnosticCertificatePath()).into(iv_diagnostic);
+        if (servicePath != null && servicePath.trim().length() != 0)
+            Picasso.with(this).load(medical.getServiceRecordPath()).into(iv_service);
     }
 
     private void showImage(final Bitmap bmp) {
@@ -117,19 +142,19 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
         if (v == null) return;
         switch (v.getId()) {
             case R.id.iv_medical_file_upload_picture_signature:
-                signaturePath = path;
+                medical.setSignaturePath(path);
                 Picasso.with(this).load(path).into(iv_signature);
                 break;
             case R.id.iv_medical_file_upload_picture_medical:
-                medicalPath = path;
+                medical.setMedicalCertificatePath(path);
                 Picasso.with(this).load(path).into(iv_medical);
                 break;
             case R.id.iv_medical_file_upload_picture_diagnostic:
-                diagnosticPath = path;
+                medical.setDiagnosticCertificatePath(path);
                 Picasso.with(this).load(path).into(iv_diagnostic);
                 break;
             case R.id.iv_medical_file_upload_picture_service:
-                servicePath = path;
+                medical.setServiceRecordPath(path);
                 Picasso.with(this).load(path).into(iv_service);
                 break;
         }
@@ -160,10 +185,7 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
         switch (v.getId()) {
             case R.id.iv_medical_file_upload_done:
                 Intent intent = new Intent();
-                intent.putExtra("signaturePath", signaturePath);
-                intent.putExtra("medicalPath", medicalPath);
-                intent.putExtra("diagnosticPath", diagnosticPath);
-                intent.putExtra("servicePath", servicePath);
+                intent.putExtra("medical", medical);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;
@@ -208,6 +230,18 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
                 }
                 break;
         }
+    }
 
+    public static final long DELAY_TIME = 2000L;
+    private long lastBackPressTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastBackPressTime < DELAY_TIME) {
+            super.onBackPressed();
+        } else {
+            lastBackPressTime = System.currentTimeMillis();
+            t(R.string.press_again_to_exit);
+        }
     }
 }

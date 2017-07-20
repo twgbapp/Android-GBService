@@ -13,7 +13,7 @@ public class Patient implements  Parcelable {
     public int age;
     public String mobil;
     public String id1;//身份證號
-    public String jiuZhen_date;
+    public String recordDate;
     public String keshi;
     public String bianHao_type;
     public String biaoHao;
@@ -21,6 +21,7 @@ public class Patient implements  Parcelable {
     public String bloodType;
 
     public String customerNo;
+    public String customerName;
     public String flaborNo;
     public String roomID;
     public String dormID;
@@ -34,7 +35,7 @@ public class Patient implements  Parcelable {
         age = in.readInt();
         mobil = in.readString();
         id1 = in.readString();
-        jiuZhen_date = in.readString();
+        recordDate = in.readString();
         keshi = in.readString();
         bianHao_type = in.readString();
         biaoHao = in.readString();
@@ -47,6 +48,7 @@ public class Patient implements  Parcelable {
         note = in.readString();
         bloodType = in.readString();
         customerNo = in.readString();
+        customerName= in.readString();
         flaborNo = in.readString();
         roomID = in.readString();
         dormID = in.readString();
@@ -125,12 +127,12 @@ public class Patient implements  Parcelable {
         this.id1 = id1;
     }
 
-    public String getJiuZhen_date() {
-        return jiuZhen_date;
+    public String getRecordDate() {
+        return recordDate;
     }
 
-    public void setJiuZhen_date(String jiuZhen_date) {
-        this.jiuZhen_date = jiuZhen_date;
+    public void setRecordDate(String recordDate) {
+        this.recordDate = recordDate;
     }
 
     public String getKeshi() {
@@ -229,6 +231,14 @@ public class Patient implements  Parcelable {
         this.customerNo = customerNo;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
     public String getFlaborNo() {
         return flaborNo;
     }
@@ -275,7 +285,7 @@ public class Patient implements  Parcelable {
         dest.writeInt(age);
         dest.writeString(mobil);
         dest.writeString(id1);
-        dest.writeString(jiuZhen_date);
+        dest.writeString(recordDate);
         dest.writeString(keshi);
         dest.writeString(bianHao_type);
         dest.writeString(biaoHao);
@@ -288,6 +298,7 @@ public class Patient implements  Parcelable {
         dest.writeString(note);
         dest.writeString(bloodType);
         dest.writeString(customerNo);
+        dest.writeString(customerName);
         dest.writeString(flaborNo);
         dest.writeString(roomID);
         dest.writeString(dormID);

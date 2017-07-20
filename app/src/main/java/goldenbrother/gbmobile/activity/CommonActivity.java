@@ -9,9 +9,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.adapter.CommonItemListAdapter;
 
 
 public class CommonActivity extends AppCompatActivity {
@@ -35,6 +40,21 @@ public class CommonActivity extends AppCompatActivity {
             b.setPositiveButton(R.string.confirm, posi);
             b.setNegativeButton(R.string.cancel, nega);
         }
+        return b.show();
+    }
+
+    protected AlertDialog alertCustomItems(int icon, String title, String[] items, AdapterView.OnItemClickListener onItemClickListener) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        final View v = getLayoutInflater().inflate(R.layout.dialog_custom_items, null);
+        final ImageView iv_icon = (ImageView) v.findViewById(R.id.iv_dialog_custom_item_icon);
+        final TextView tv_title = (TextView) v.findViewById(R.id.tv_dialog_custom_item_title);
+        final ListView lv = (ListView) v.findViewById(R.id.lv_dialog_custom_item);
+        v.findViewById(R.id.ll_item_dialog_custom_item).setVisibility(icon == 0 ? View.GONE : View.VISIBLE);
+        iv_icon.setImageResource(icon);
+        tv_title.setText(title);
+        lv.setAdapter(new CommonItemListAdapter(this, items));
+        lv.setOnItemClickListener(onItemClickListener);
+        b.setView(v);
         return b.show();
     }
 
