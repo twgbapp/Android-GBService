@@ -212,12 +212,6 @@
     <string name="quick_repair_area">District</string>
     <string name="quick_repair_kind">Type</string>
     <string name="quick_repair_item">Item</string>
-    <string name="quick_repair_place">Location</string>
-    <string name="quick_repair_description">Description</string>
-    <string name="mobile_service_desk">Mobile Service</string>
-    <string name="am">AM</string>
-    <string name="pm">PM</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="confirm_to_rating">Sure to score?</string>
     <string name="rating_request">You have a scoring request</string>
     <string name="package_request">One unclaim package. Please go to service center</string>
@@ -241,9 +235,19 @@
     <string name="edit">Edit</string>
     <string name="from_gallery">Choose from photos</string>
     <string name="camera">Camera</string>
+<<<<<<< Updated upstream
     <string name="thailand">Thailand</string>
     <string name="title">Title</string>
     <string name="chat">Chat</string>
     <string name="start_date">StartDate</string>
     <string name="end_date">EndDate</string>
+=======
+    <string name="mobile_service_desk">Mobile Service</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+    <string name="copy_to_clipboard">Already copy to clipboard</string>
+    <string name="quick_repair_place">Place</string>
+    <string name="quick_repair_description">Description</string>
+    <string name="Taiwan">Taiwan</string>
+>>>>>>> Stashed changes
 </resources>
