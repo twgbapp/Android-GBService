@@ -29,7 +29,7 @@
     <string name="error_confirm_password">確認密碼不符</string>
     <string name="press_again_to_exit">再按一次返回鍵離開</string>
     <string name="mobile_service_desk">行動服務台</string>
-    <string name="event_list">事件列表</string>
+    <string name="event_list">服務清單</string>
     <string name="quick_repair">快速報修</string>
     <string name="repair_record">報修紀錄</string>
     <!-- Server -->
@@ -73,11 +73,11 @@
     <string name="sign_up_id_number_can_sign_up">此居留證號能被註冊</string>
     <string name="sign_up_id_number_can_not_sign_up">此居留證號不能被註冊</string>
     <string-array name="nation_name">
-        <item>Taiwan</item>
-        <item>Indonesia</item>
-        <item>Philippines</item>
-        <item>Thailand</item>
-        <item>Vietnam</item>
+        <item>@string/taiwan</item>
+        <item>@string/indonesia</item>
+        <item>@string/philippine</item>
+        <item>@string/thailand</item>
+        <item>@string/vietnam</item>
     </string-array>
     <string-array name="nation_code">
         <item>000</item>
@@ -207,7 +207,6 @@
     <string name="taiwan">台灣</string>
     <string name="philippine">菲律賓</string>
     <string name="vietnam">越南</string>
-    <string name="tailand">泰國</string>
     <string name="indonesia">印尼</string>
     <string name="other">其他</string>
     <string name="from_gallery">從圖庫</string>
@@ -226,4 +225,6 @@
     <string name="hospital">醫院</string>
     <string name="staff">人員</string>
     <string name="edit">編輯</string>
+    <string name="thailand">泰國</string>
+    <string name="chat">聊天</string>
 </resources>

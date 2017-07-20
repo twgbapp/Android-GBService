@@ -66,12 +66,13 @@ public class DAOEventTimePoint {
 
 
     public boolean delete(int id) {
-
         String where = COL_ServiceEventID + "=" + id;
-
         return db.delete(TABLENAME, where, null) > 0;
     }
-
+    public boolean deleteAll() {
+        String where = COL_ServiceEventID + ">" + 0;
+        return db.delete(TABLENAME, where, null) > 0;
+    }
 
     public List<EventTimePointModel> getAll() {
         List<EventTimePointModel> result = new ArrayList<>();

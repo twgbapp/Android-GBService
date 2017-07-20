@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GB TAKE</string>
+
+    <string-array name="nation_name">
+        <item>@string/taiwan</item>
+        <item>@string/indonesia</item>
+        <item>@string/philippine</item>
+        <item>@string/thailand</item>
+        <item>@string/vietnam</item>
+    </string-array>
+
     <string name="password">รหัสผ่าน</string>
     <string name="login_login">เข้าสู่ระบบ</string>
     <string name="sign_up">การลงทะเบียน</string>
@@ -131,7 +140,6 @@
     <string name="taiwan">ไต้หวัน</string>
     <string name="philippine">ฟิลิปปินส์</string>
     <string name="vietnam">เวียดนาม</string>
-    <string name="tailand">ไทย</string>
     <string name="indonesia">อินโดนีเซีย</string>
     <string name="other">อื่นๆ</string>
     <string name="medical_process_status_1">คนงานไปหาหมอเอง</string>
@@ -154,4 +162,5 @@
     <string name="hospital">โรงบาล</string>
     <string name="staff">พนักงาน</string>
     <string name="edit">การตัดต่อ</string>
+    <string name="thailand">ไทย</string>
 </resources>

@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.Patient;
 
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -20,7 +21,7 @@ import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.MedicalProcessStatusModel;
 import goldenbrother.gbmobile.model.MedicalTrackProcessModel;
-import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
+import goldenbrother.gbmobile.model.MedicalSymptomModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import java.util.ArrayList;
@@ -34,13 +35,13 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     public static final int REQUEST_TRACK_PROCESS = 3;
     public static final int REQUEST_FILE_UPLOAD = 4;
     // ui
-    private TextView tv_name, tv_gender, tv_birthday, tv_date;
+    private TextView tv_name, tv_gender, tv_birthday, tv_blood_type, tv_date;
     private TextView et_symptoms, et_processing_status, et_tracking_processing, tv_file_upload;
+    // extra
+    private Medical medical;
     // data
     private Patient patient;
-    private ArrayList<MedicalTreatmentCodeModel> list_treatment_code;
-    private ArrayList<MedicalProcessStatusModel> list_processing_status;
-    private ArrayList<MedicalTrackProcessModel> list_track_process;
+
     private String diagnosticCertificatePath, serviceRecordPath, medicalCertificatePath, signaturePath;
 
     @Override
@@ -52,6 +53,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         tv_name = (TextView) findViewById(R.id.tv_medical_record_name);
         tv_gender = (TextView) findViewById(R.id.tv_medical_record_gender);
         tv_birthday = (TextView) findViewById(R.id.tv_medical_record_birthday);
+        tv_blood_type = (TextView) findViewById(R.id.tv_medical_record_blood_type);
         tv_date = (TextView) findViewById(R.id.tv_medical_record_date);
         et_symptoms = (TextView) findViewById(R.id.tv_medical_record_symptoms);
         et_processing_status = (TextView) findViewById(R.id.tv_medical_record_processing_status);
@@ -64,20 +66,73 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
         findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
 
-        // init list
-        list_treatment_code = new ArrayList<>();
-        list_processing_status = new ArrayList<>();
-        list_track_process = new ArrayList<>();
+        // extra
+        medical = getIntent().getExtras().getParcelable("medical");
+        if (medical != null && medical.getMtrsno() != 0) {
+            tv_name.setText(medical.getFlaborName());
+            getMedicalRecord(medical.getMtrsno());
+        } else {
+            medical = new Medical();
+        }
     }
 
-    // 顯示病人資訊(如果有的話)
-    private void setPatientText() {
+    private void getMedicalRecord(int mtrsNo) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "getMedicalRecord");
+            j.put("mtrsno", mtrsNo);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
+            new GetMedicalRecord(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class GetMedicalRecord extends IAsyncTask {
+
+        GetMedicalRecord(Context context, JSONObject json, String url) {
+            super(context, json, url);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.FAIL:
+                    int result = ApiResultHelper.getMedicalRecord(response, medical, patient);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        t(R.string.success);
+                        finish();
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+
+    private void showPatientInfo() {
         if (patient != null) {
             tv_name.setText(String.format(getString(R.string.name) + " : %s", patient.getName()));
             tv_gender.setText(String.format(getString(R.string.sex) + " : %s", getString(patient.isGender() ? R.string.male : R.string.female)));
             tv_date.setText(String.format(getString(R.string.medical_fill_out_date) + " : %s", patient.getJiuZhen_date()));
             tv_birthday.setText(String.format(getString(R.string.birthday) + " : %s", patient.getDate()));
+            tv_blood_type.setText(String.format(getString(R.string.medical_blood_type) + " : %s", getBloodTypeName(patient.getBloodType())));
         }
+    }
+
+    private String getBloodTypeName(String code) {
+        String[] codes = getResources().getStringArray(R.array.blood_type_code);
+        String[] names = getResources().getStringArray(R.array.blood_type_name);
+        for (int i = 0; i < codes.length; i++) {
+            if (codes[i].equals(code)) {
+                return names[i];
+            }
+        }
+        return "";
     }
 
     private void addMedicalRecord() {
@@ -89,7 +144,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("flaborNo", patient.getFlaborNo());
             j.put("roomID", patient.getRoomID()); //getDormUserInfo406
             j.put("dormID", patient.getDormID()); //getDormUserInfo5412
-            j.put("bloodType", "1");
+            j.put("bloodType", patient.getBloodType());
             j.put("age", patient.getAge());
             j.put("centerDirectorID", patient.getCenterDirectorID()); //getDormUserInfo
             j.put("createId", RoleInfo.getInstance().getUserID());
@@ -101,7 +156,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("signature", signaturePath);
 
             JSONArray arrTreatment = new JSONArray();//症狀
-            for (MedicalTreatmentCodeModel m : list_treatment_code) {
+            for (MedicalSymptomModel m : medical.getSymptom()) {
                 //arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
                 if (m.getCode().equals("425")) {
                     arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/" + m.getValue());
@@ -112,7 +167,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("medicalTreatmentRecordDetail", arrTreatment);
 
             JSONArray arrProcessing = new JSONArray(); //處理狀況
-            for (MedicalProcessStatusModel m : list_processing_status) {
+            for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
                 arrProcessing.put(m.getData());
             }
 
@@ -120,7 +175,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
 
             JSONArray arrTrack = new JSONArray(); //追蹤與處理
-            for (MedicalTrackProcessModel m : list_track_process) {
+            for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
                 arrTrack.put(m.getData());
             }
             j.put("medicalTreatmentProcessingRecord", arrTrack);
@@ -178,7 +233,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(MedicalPatientInfoActivity.class, REQUEST_INFO, b);
                 break;
             case R.id.iv_medical_record_symptoms: // 症狀列表
-
                 openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT);
                 break;
             case R.id.iv_medical_record_processing_status: // 處理狀況
@@ -212,34 +266,34 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         switch (requestCode) {
             case REQUEST_INFO: // 查詢外勞(回傳)
                 patient = data.getExtras().getParcelable("patient");
-                setPatientText();
+                showPatientInfo();
                 break;
             case REQUEST_TREATMENT: // 症狀列表(回傳)
-                ArrayList<MedicalTreatmentCodeModel> list = data.getExtras().getParcelableArrayList("mtrCodeGroup");
-                list_treatment_code.clear();
-                if (list != null) list_treatment_code.addAll(list);
+                ArrayList<MedicalSymptomModel> list = data.getExtras().getParcelableArrayList("mtrCodeGroup");
+                medical.getSymptom().clear();
+                if (list != null) medical.getSymptom().addAll(list);
                 String str_symptoms = "";
-                for (MedicalTreatmentCodeModel m : list_treatment_code) {
+                for (MedicalSymptomModel m : medical.getSymptom()) {
                     str_symptoms += (str_symptoms.isEmpty() ? "" : "\n") + m.getValue();
                 }
                 et_symptoms.setText(str_symptoms);
                 break;
             case REQUEST_PROCESS_STATUS: // 處理狀況(回傳)
                 ArrayList<MedicalProcessStatusModel> list1 = data.getExtras().getParcelableArrayList("processStatus");
-                list_processing_status.clear();
-                if (list1 != null) list_processing_status.addAll(list1);
+                medical.getProcessingStatus().clear();
+                if (list1 != null) medical.getProcessingStatus().addAll(list1);
                 String str_processing_status = "";
-                for (MedicalProcessStatusModel m : list_processing_status) {
+                for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
                     str_processing_status += (str_processing_status.isEmpty() ? "" : "\n") + m.getName();
                 }
                 et_processing_status.setText(str_processing_status);
                 break;
             case REQUEST_TRACK_PROCESS: // 追蹤與處理(回傳)
                 ArrayList<MedicalTrackProcessModel> list2 = data.getExtras().getParcelableArrayList("trackProcess");
-                list_track_process.clear();
-                if (list2 != null) list_track_process.addAll(list2);
+                medical.getTrackProcess().clear();
+                if (list2 != null) medical.getTrackProcess().addAll(list2);
                 String str_track_process = "";
-                for (MedicalTrackProcessModel m : list_track_process) {
+                for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
                     str_track_process += (str_track_process.isEmpty() ? "" : "\n") + m.getName();
                 }
                 et_tracking_processing.setText(str_track_process);

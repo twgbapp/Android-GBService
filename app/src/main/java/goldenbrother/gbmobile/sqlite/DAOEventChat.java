@@ -78,12 +78,14 @@ public class DAOEventChat {
 
 
     public boolean delete(int id) {
-
         String where = COL_SECNo + "=" + id;
-
         return db.delete(TABLENAME, where, null) > 0;
     }
 
+    public boolean deleteAll() {
+        String where = COL_SECNo + ">" + 0;
+        return db.delete(TABLENAME, where, null) > 0;
+    }
 
     public List<EventChatModel> get(int ServiceGroupID) {
         List<EventChatModel> result = new ArrayList<>();

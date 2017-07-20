@@ -16,7 +16,7 @@ import goldenbrother.gbmobile.model.HospitalModel;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.ManagerModel;
 import goldenbrother.gbmobile.model.Medical;
-import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
+import goldenbrother.gbmobile.model.MedicalSymptomModel;
 import goldenbrother.gbmobile.model.OnCallManagerModel;
 import goldenbrother.gbmobile.model.PackageModel;
 import goldenbrother.gbmobile.model.PersonalPickUpModel;
@@ -381,7 +381,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalTreatmentCodeModel> list_kind, ArrayList<MedicalTreatmentCodeModel> list_detail) {
+    public static int getMedicalTreatmentCode(String response, ArrayList<MedicalSymptomModel> list_kind, ArrayList<MedicalSymptomModel> list_detail) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -390,7 +390,7 @@ public class ApiResultHelper {
                 JSONArray arr_first = j.getJSONArray("first");
                 for (int i = 0; i < arr_first.length(); i++) {
                     JSONObject o = arr_first.getJSONObject(i);
-                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
+                    MedicalSymptomModel rm = new MedicalSymptomModel();
                     rm.setColumnName(o.getString("columnName"));
                     rm.setCode(o.getString("code"));
                     rm.setValue(o.getString("value"));
@@ -400,7 +400,7 @@ public class ApiResultHelper {
                 JSONArray arr_second = j.getJSONArray("second");
                 for (int i = 0; i < arr_second.length(); i++) {
                     JSONObject o = arr_second.getJSONObject(i);
-                    MedicalTreatmentCodeModel rm = new MedicalTreatmentCodeModel();
+                    MedicalSymptomModel rm = new MedicalSymptomModel();
                     rm.setColumnName(o.getString("columnName"));
                     rm.setCode(o.getString("code"));
                     rm.setValue(o.getString("value"));

@@ -60,6 +60,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:text="@string/title"
+                        android:textColor="#FFF"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/et_quick_repair_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/edittext_quick_repair"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColorHint="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="@string/quick_repair_area"
                         android:textColor="#FFF"
                         android:textSize="16sp" />

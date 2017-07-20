@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <RatingBar
             android:id="@+id/rb_item_rv_satisfaction_question_rating"

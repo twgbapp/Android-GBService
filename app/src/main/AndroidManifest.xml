@@ -96,7 +96,8 @@
         <activity android:name=".activity.SignatureActivity" />
         <activity android:name=".activity.SplashActivity" />
         <activity android:name=".activity.PackageResultActivity" />
-        <activity android:name=".activity.CropActivity"></activity>
+        <activity android:name=".activity.CropActivity" />
+        <activity android:name=".activity.WebViewActivity"></activity>
     </application>
 
 </manifest>

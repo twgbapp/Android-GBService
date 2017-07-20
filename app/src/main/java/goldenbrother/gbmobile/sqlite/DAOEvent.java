@@ -94,6 +94,11 @@ public class DAOEvent {
         return db.delete(TABLENAME, where, null) > 0;
     }
 
+    public boolean deleteAll() {
+        String where = COL_ServiceEventID + ">" + 0;
+        return db.delete(TABLENAME, where, null) > 0;
+    }
+
 
     public List<EventModel> getAll() {
         List<EventModel> result = new ArrayList<>();

@@ -20,7 +20,7 @@ import goldenbrother.gbmobile.adapter.MedicalTreatmentCodeRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
-import goldenbrother.gbmobile.model.MedicalTreatmentCodeModel;
+import goldenbrother.gbmobile.model.MedicalSymptomModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 public class MedicalSymptomActivity extends CommonActivity implements View.OnClickListener {
@@ -30,7 +30,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     private EditText et_other;
     private ImageView iv_check;
     // data
-    private ArrayList<MedicalTreatmentCodeModel> list_symptoms;
+    private ArrayList<MedicalSymptomModel> list_symptoms;
     private boolean otherChecked = false;
 
     @Override
@@ -69,8 +69,8 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     private class GetMedicalTreatmentCode extends IAsyncTask {
 
 
-        private ArrayList<MedicalTreatmentCodeModel> list_first;
-        private ArrayList<MedicalTreatmentCodeModel> list_second;
+        private ArrayList<MedicalSymptomModel> list_first;
+        private ArrayList<MedicalSymptomModel> list_second;
 
         GetMedicalTreatmentCode(Context context, JSONObject json, String url) {
             super(context, json, url);
@@ -80,9 +80,9 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
 
         private void sortSymptoms() {
             list_symptoms.clear();
-            for (MedicalTreatmentCodeModel m : list_first) {
+            for (MedicalSymptomModel m : list_first) {
                 list_symptoms.add(m);
-                for (MedicalTreatmentCodeModel mm : list_second) {
+                for (MedicalSymptomModel mm : list_second) {
                     if (mm.getCode().startsWith(m.getCode())) {
                         list_symptoms.add(mm);
                     }
@@ -122,13 +122,13 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
         switch (id) {
             case R.id.iv_event_medical_symptom_done:
                 //
-                HashSet<MedicalTreatmentCodeModel> set = ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).getSelected();
-                ArrayList<MedicalTreatmentCodeModel> lists = new ArrayList<>();
+                HashSet<MedicalSymptomModel> set = ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).getSelected();
+                ArrayList<MedicalSymptomModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
                 if (otherChecked || !et_other.getText().toString().isEmpty()) {
                     String other = et_other.getText().toString();
-                    MedicalTreatmentCodeModel m = new MedicalTreatmentCodeModel();
+                    MedicalSymptomModel m = new MedicalSymptomModel();
                     m.setCode("425");
                     m.setValue(other.isEmpty() ? "null" : other);
                     lists.add(m);

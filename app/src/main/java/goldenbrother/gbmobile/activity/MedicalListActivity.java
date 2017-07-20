@@ -50,6 +50,9 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         list_medical_flabor = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new MedicalListRVAdapter(this, list_medical_flabor));
+
+        // getMedicalList
+        getMedicalFlaborList(TimeHelper.getYMD(), TimeHelper.getYMD());
     }
 
     private void getMedicalFlaborList(String startRecordDate, String endRecordDate) {
@@ -94,7 +97,9 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
     }
 
     public void onItemClick(Medical item) {
-        t(item.getFlaborName());
+        Bundle b = new Bundle();
+        b.putParcelable("medical", item);
+        openActivity(MedicalRecordActivity.class, b);
     }
 
     private void showSearchDialog() {
@@ -105,7 +110,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         tv_end_date.setText(TimeHelper.getYMD());
         tv_start_date.setOnClickListener(showDatePickerListener);
         tv_end_date.setOnClickListener(showDatePickerListener);
-        alertWithView(v, "Search", new DialogInterface.OnClickListener() {
+        alertWithView(v, getString(R.string.search), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String startDate = tv_start_date.getText().toString();

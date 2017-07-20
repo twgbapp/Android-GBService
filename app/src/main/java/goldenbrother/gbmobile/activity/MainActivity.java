@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
@@ -10,12 +11,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
 import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
+import goldenbrother.gbmobile.sqlite.DAOEvent;
+import goldenbrother.gbmobile.sqlite.DAOEventChat;
+import goldenbrother.gbmobile.sqlite.DAOEventTimePoint;
+import goldenbrother.gbmobile.sqlite.DAOService;
+import goldenbrother.gbmobile.sqlite.DAOServiceChat;
+import goldenbrother.gbmobile.sqlite.DAOServiceTimePoint;
 
 import java.util.ArrayList;
 
@@ -26,16 +36,20 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     public static final int REQUEST_QUICK_REPAIR = 1;
     // ui
     private RecyclerView rv_drawer;
+    private ImageView iv_banner;
     // banner
     private Handler handler;
     private ArrayList<Integer> list_banner;
     private boolean allowShowing = false;
+    // data
+    public static final String E_COMMERCE = "http://www.seanwang66.com/gb/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // ui reference
+        iv_banner = (ImageView) findViewById(R.id.iv_main_banner);
         findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);
         findViewById(R.id.cv_main_life_information).setOnClickListener(this);
         findViewById(R.id.cv_main_e_commerce).setOnClickListener(this);
@@ -68,26 +82,27 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         if (r.isLabor()) {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_quick_repair, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chat, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
 
-            list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_satisfaction_survey, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         } else {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
-            list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_online_setting, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_medical, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
@@ -95,50 +110,58 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         rv_drawer.setAdapter(new MainDrawerRVAdapter(this, list));
     }
 
-    public void onDrawerItemClick(int strId) {
+    private void clearDB() {
+        new DAOEvent(this).deleteAll();
+        new DAOEventChat(this).deleteAll();
+        new DAOEventTimePoint(this).deleteAll();
+        new DAOService(this).deleteAll();
+        new DAOServiceChat(this).deleteAll();
+        new DAOServiceTimePoint(this).deleteAll();
+    }
+
+    public void onItemClick(String str) {
         Bundle b = new Bundle();
-        switch (strId) {
-            case R.string.main_drawer_event_list:
-                b.putInt("position", 1);
-                openActivity(MobileServiceActivity.class, b);
-                break;
-            case R.string.main_drawer_quick_repair:
-                openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR);
-                break;
-            case R.string.main_drawer_satisfaction_survey:
-                openActivity(SatisfactionIssueActivity.class);
-                break;
-            case R.string.main_drawer_club:
-                openActivity(ClubListActivity.class);
-                break;
-            case R.string.main_drawer_announcement:
-                b.putInt("type", 0);
-                b.putString("customerNo", LaborModel.getInstance().getCustomerNo());
-                b.putString("flaborNo", LaborModel.getInstance().getFlaborNo());
-                b.putString("nationCode", LaborModel.getInstance().getUserNationCode());
-                openActivity(AnnouncementListActivity.class, b);
-                break;
-            case R.string.main_drawer_logout:
-                b.putBoolean("isLogout", true);
-                openActivity(SplashActivity.class, b);
-                finish();
-                break;
-            case R.string.main_drawer_online_setting:
-                openActivity(OnLineSettingActivity.class);
-                break;
-            case R.string.main_drawer_package:
-                openActivity(PackageListActivity.class);
-                break;
-            case R.string.main_drawer_chart:
-                openActivity(ChartActivity.class);
-                break;
-            case R.string.main_drawer_repair_record:
-                openActivity(RepairRecordActivity.class);
-                break;
-            case R.string.main_drawer_medical:
-                openActivity(MedicalListActivity.class);
-                break;
+        if (str.equals(getString(R.string.main_drawer_event_list))) {
+            b.putInt("position", 1);
+            openActivity(MobileServiceActivity.class, b);
+        } else if (str.equals(getString(R.string.main_drawer_chat))) {
+            b.putInt("position", 0);
+            openActivity(MobileServiceActivity.class, b);
+        } else if (str.equals(getString(R.string.main_drawer_quick_repair))) {
+            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR);
+        } else if (str.equals(getString(R.string.main_drawer_satisfaction_survey))) {
+            openActivity(SatisfactionIssueActivity.class);
+        } else if (str.equals(getString(R.string.main_drawer_club))) {
+            openActivity(ClubListActivity.class);
+        } else if (str.equals(getString(R.string.main_drawer_announcement))) {
+            b.putInt("type", 0);
+            b.putString("customerNo", LaborModel.getInstance().getCustomerNo());
+            b.putString("flaborNo", LaborModel.getInstance().getFlaborNo());
+            b.putString("nationCode", LaborModel.getInstance().getUserNationCode());
+            openActivity(AnnouncementListActivity.class, b);
+        } else if (str.equals(getString(R.string.main_drawer_logout))) {
+            clearDB();
+            b.putBoolean("isLogout", true);
+            openActivity(SplashActivity.class, b);
+            finish();
+        } else if (str.equals(getString(R.string.main_drawer_online_setting))) {
+            openActivity(OnLineSettingActivity.class);
+        } else if (str.equals(getString(R.string.main_drawer_package))) {
+            openActivity(PackageListActivity.class);
+        } else if (str.equals(getString(R.string.main_drawer_chart))) {
+            openActivity(ChartActivity.class);
+        } else if (str.equals(getString(R.string.main_drawer_repair_record))) {
+            openActivity(RepairRecordActivity.class);
+        } else if (str.equals(getString(R.string.main_drawer_medical))) {
+            openActivity(MedicalListActivity.class);
+        } else if (str.equals(getString(R.string.main_drawer_e_commerce))) {
+            b.putString("url", E_COMMERCE);
+            openActivity(WebViewActivity.class, b);
         }
+    }
+
+    public void onDrawerItemClick(int strId) {
+        onItemClick(getString(strId));
         closeDrawer();
     }
 
@@ -165,15 +188,15 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     final Runnable r = new Runnable() {
         @Override
         public void run() {
-//            if (allowShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
-//                int w = getResources().getDisplayMetrics().widthPixels;
-//                int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
-////                Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
-//                indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
-//                handler.postDelayed(r, REFRESH_BANNER_TIME);
-//            } else {
-//                indexOfBanner = 0;
-//            }
+            if (allowShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
+                int w = getResources().getDisplayMetrics().widthPixels;
+                int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
+                Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
+                indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
+                handler.postDelayed(r, REFRESH_BANNER_TIME);
+            } else {
+                indexOfBanner = 0;
+            }
         }
     };
 
@@ -202,22 +225,54 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         super.onPause();
     }
 
+    private void showMobileServiceDialog() {
+        String[] items_flabor = {getString(R.string.main_drawer_chat),
+                getString(R.string.main_drawer_quick_repair), getString(R.string.main_drawer_event_list)};
+        String[] items_manager = {getString(R.string.main_drawer_chat),
+                getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_online_setting),
+                getString(R.string.main_drawer_chart), getString(R.string.main_drawer_repair_record),
+                getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package)};
+        final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onItemClick(items[i]);
+            }
+        });
+    }
+
+    private void showLifeInformationDialog() {
+        String[] items_flabor = {getString(R.string.main_drawer_club), getString(R.string.main_drawer_announcement)};
+        String[] items_manager = {getString(R.string.main_drawer_club)};
+        final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onItemClick(items[i]);
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
+        Bundle b = new Bundle();
         switch (v.getId()) {
             case R.id.cv_main_mobile_service:
-                Bundle b = new Bundle();
-                b.putInt("position", 0);
-                openActivity(MobileServiceActivity.class, b);
+                showMobileServiceDialog();
                 break;
             case R.id.cv_main_life_information:
-                t(R.string.main_drawer_life_information);
+                showLifeInformationDialog();
                 break;
             case R.id.cv_main_e_commerce:
-                t(R.string.main_drawer_e_commerce);
+                b.putString("url", E_COMMERCE);
+                openActivity(WebViewActivity.class, b);
                 break;
             case R.id.cv_main_satisfaction_survey:
-                t(R.string.main_drawer_satisfaction_survey);
+                if (RoleInfo.getInstance().isLabor()) {
+                    openActivity(SatisfactionIssueActivity.class);
+                } else {
+                    t(R.string.main_drawer_satisfaction_survey);
+                }
                 break;
         }
     }
