@@ -20,13 +20,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ClubGridAdapter extends SampleBaseAdapter {
 
-    private final int w;
     private ArrayList<ClubModel> list;
 
     public ClubGridAdapter(Context context, ArrayList<ClubModel> list) {
         super(context);
         this.list = list;
-        this.w = (int) (100 * getResources().getDisplayMetrics().density);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class ClubGridAdapter extends SampleBaseAdapter {
         tag.name.setText(item.getClubName());
         // set picture
         if (item.getClubPicture() != null && !item.getClubPicture().isEmpty()) {
-            Picasso.with(getContext()).load(item.getClubPicture()).resize(w, w).centerCrop().into(tag.picture);
+            Picasso.with(getContext()).load(item.getClubPicture()).into(tag.picture);
         }
         return v;
     }

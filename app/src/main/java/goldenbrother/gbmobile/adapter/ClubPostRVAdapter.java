@@ -144,57 +144,19 @@ public class ClubPostRVAdapter extends SampleRVAdapter {
                 h.thumbNailPicture.setVisibility(View.GONE);
             }
             // set comment listener
-//            h.comment.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent();
-//                    intent.setClass(getContext(), AddClubPostMessageActivity.class);
-//                    intent.putExtra("clubPostID", item.getClubPostID());
-//                    ((ClubPostActivity) getContext()).startActivityForResult(intent, ClubPostActivity.REQUEST_ADD_POST_MESSAGE);
-//                }
-//            });
+            h.comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), AddClubPostMessageActivity.class);
+                    intent.putExtra("clubPost",item);
+                    ((ClubPostActivity) getContext()).startActivityForResult(intent, ClubPostActivity.REQUEST_ADD_POST_MESSAGE);
+                }
+            });
             // set message count
             h.messageCount.setText(String.format("%d", item.getMessageCount()));
-            // message
-//            if (h.message.getChildCount() > 0) {
-//                h.message.removeAllViews();
-//            }
-//            h.message.addView(getMessageView(item));
         }
     }
-
-//    private View getMessageView(final ClubPostModel item) {
-//        LinearLayout ll = new LinearLayout(getContext());
-//        ll.setOrientation(LinearLayout.VERTICAL);
-//        for (ClubPostMessageModel m : item.getMessages()) {
-//            final View v = getInflater().inflate(R.layout.item_list_club_post_last_message, null);
-//            final ImageView iv_picture = (ImageView) v.findViewById(R.id.iv_item_list_club_post_last_message_picture);
-//            final TextView tv_name = (TextView) v.findViewById(R.id.tv_item_list_club_post_last_message_name);
-//            final TextView tv_message = (TextView) v.findViewById(R.id.tv_item_list_club_post_last_message_message);
-//            final TextView tv_datetime = (TextView) v.findViewById(R.id.tv_item_list_club_post_last_message_datetime);
-//            // set picture
-//            int w = (int) getResources().getDimension(R.dimen.imageview_picture_in_list_width);
-//            if (m.getUserPicture() != null && !m.getUserPicture().isEmpty()) {
-//                Picasso.with(getContext()).load(m.getUserPicture()).resize(w, w).centerCrop().into(iv_picture);
-//            } else {
-//                Picasso.with(getContext()).load(R.drawable.ic_person_replace).resize(w, w).centerCrop().into(iv_picture);
-//            }
-//            // set name
-//            tv_name.setText(m.getUserName());
-//            // set message
-//            tv_message.setText(m.getMessage());
-//            // set datetime
-//            //tv_datetime.setText(TimeHelper.getTodayTime(m.getCreateDate()));
-//            ll.addView(v);
-//        }
-//        ll.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//        return ll;
-//    }
 
     private class HeadViewHolder extends RecyclerView.ViewHolder {
 
@@ -221,6 +183,7 @@ public class ClubPostRVAdapter extends SampleRVAdapter {
         ImageView thumbNailPicture;
         ImageView videoPlay;
         TextView messageCount;
+        TextView comment;
 
         BodyViewHolder(View v) {
             super(v);
@@ -231,6 +194,7 @@ public class ClubPostRVAdapter extends SampleRVAdapter {
             thumbNailPicture = (ImageView) v.findViewById(R.id.iv_item_rv_club_post_body_thumbnail_pic);
             videoPlay = (ImageView) v.findViewById(R.id.iv_item_rv_club_post_body_video_play);
             messageCount = (TextView) v.findViewById(R.id.tv_item_rv_club_post_body_message_count);
+            comment= (TextView) v.findViewById(R.id.tv_item_rv_club_post_body_comment);
         }
     }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/main_background2"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -11,8 +12,8 @@
         <ImageView
             android:id="@+id/iv_item_rv_club_post_head_club_picture"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/imageview_club_post_head_height"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerInside"
+            android:layout_height="@dimen/imageview_club_post_head_height" />
 
         <TextView
             android:id="@+id/tv_item_rv_club_post_head_club_name"
@@ -30,8 +31,10 @@
         android:id="@+id/ll_item_rv_club_post_head_add_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:background="#FDFAEB"
+        android:background="@drawable/layout_circle_corner_gray"
         android:orientation="horizontal">
 
         <ImageView
@@ -46,7 +49,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:text="What's news?"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#FFF"
             android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>

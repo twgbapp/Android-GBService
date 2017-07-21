@@ -39,8 +39,8 @@
     <string name="parse_error_json">JSON剖析失敗</string>
     <!-- Common Array-->
     <string-array name="choose_picture">
-        <item>從圖庫</item>
-        <item>拍照</item>
+        <item>@string/from_gallery</item>
+        <item>@string/camera</item>
     </string-array>
     <!-- Message -->
     <string name="can_not_be_empty">不能是空的</string>
@@ -230,4 +230,5 @@
     <string name="room_id">房號</string>
     <string name="language">語言</string>
     <string name="language_alert">語言切換時,系統將會重新開啟</string>
+    <string name="support">問題需求支援</string>
 </resources>

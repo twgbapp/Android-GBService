@@ -29,7 +29,7 @@
     <string name="cancel">Cancel</string>
     <string name="loading">Loading</string>
     <string name="success">Successful</string>
-    <string name="club">Group</string>
+    <string name="club">Club</string>
     <string name="fail">Failed</string>
     <string name="search">Search</string>
     <string name="sending">Sending</string>
@@ -38,8 +38,8 @@
     <string name="error_confirm_password">Incorrect password</string>
     <string name="press_again_to_exit">Press again to leave</string>
     <string name="mobile_service">Mobile Service</string>
-    <string name="event_list">Menu</string>
-    <string name="quick_repair">Report</string>
+    <string name="event_list">List</string>
+    <string name="quick_repair">Repair</string>
     <string name="repair_record">Repair records</string>
     <string name="rating">Score</string>
     <string name="company">Company</string>
@@ -251,4 +251,7 @@
     <string name="member_login">MEMBER LOGIN</string>
     <string name="language">Language</string>
     <string name="language_alert">When the language is switched, the system will reopen</string>
+    <string name="support">Support</string>
+    <string name="comment">Comment</string>
+    <string name="send">Send</string>
 </resources>

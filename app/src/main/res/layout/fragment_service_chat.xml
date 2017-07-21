@@ -20,10 +20,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="20dp">
+        android:padding="10dp">
 
         <EditText
             android:id="@+id/et_service_chat_content"
@@ -33,14 +30,14 @@
             android:layout_weight="1"
             android:background="@drawable/edittext_chat"
             android:maxLines="1" />
-        <!---->
+
         <TextView
             android:id="@+id/tv_service_chat_send"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/textview_chat_send"
             android:gravity="center"
-            android:text="SEND"
+            android:text="@string/send"
             android:textColor="#FFF"
             android:textSize="16sp"
             android:textStyle="bold" />

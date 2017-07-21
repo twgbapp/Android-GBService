@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.RepairKindListAdapter;
@@ -28,6 +31,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
     // ui
     private EditText et_applicant, et_title, et_place, et_description;
     private TextView tv_area, tv_type, tv_item, tv_send;
+    // extra
+    private boolean isSupport;
     // data
     private ArrayList<RepairKindModel> list_area1, list_area2, list_kind, list_detail, list_detail_show;
 
@@ -44,6 +49,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         tv_type = (TextView) findViewById(R.id.tv_quick_repair_type);
         tv_item = (TextView) findViewById(R.id.tv_quick_repair_item);
         tv_send = (TextView) findViewById(R.id.tv_quick_repair_send);
+        // extra
+        isSupport = getIntent().getExtras().getBoolean("support", false);
         // listener
         tv_area.setOnClickListener(this);
         tv_type.setOnClickListener(this);
@@ -90,6 +97,11 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                         if (list_area1.size() != 2 || list_area2.size() != 2) {
                             t(R.string.fail);
                             finish();
+                        } else {
+                            if (isSupport) {
+                                tv_area.setText(list_area1.get(1).getContent());
+                                getRepairKind(getAreaId(list_area1.get(1).getContent()));
+                            }
                         }
                     } else {
                         t(R.string.fail);
@@ -114,24 +126,41 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         return -1;
     }
 
+    private AlertDialog ad;
+
     private void showAreaDialog(final int stage) { // 1 or 2
         if (list_area1.size() != 2 || list_area2.size() != 2) return;
         final String[] items1 = {list_area1.get(0).getContent(), list_area1.get(1).getContent()};
         final String[] items2 = {list_area2.get(0).getContent(), list_area2.get(1).getContent()};
         final String[] items = stage == 1 ? items1 : items2;
-        alertWithItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (stage == 1 && i == 0) {
-                    showAreaDialog(2);
-                } else {
-                    tv_area.setText(items[i]);
-                    tv_type.setText("");
-                    tv_item.setText("");
-                    getRepairKind(getAreaId(items[i]));
+        if (items.length != 0)
+            alertWithItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (stage == 1 && i == 0) {
+                        showAreaDialog(2);
+                    } else {
+                        tv_area.setText(items[i]);
+                        tv_type.setText("");
+                        tv_item.setText("");
+                        getRepairKind(getAreaId(items[i]));
+                    }
                 }
-            }
-        });
+            });
+//            ad = alertCustomItems(0, null, items, new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    ad.dismiss();
+//                    if (stage == 1 && i == 0) {
+//                        showAreaDialog(2);
+//                    } else {
+//                        tv_area.setText(items[i]);
+//                        tv_type.setText("");
+//                        tv_item.setText("");
+//                        getRepairKind(getAreaId(items[i]));
+//                    }
+//                }
+//            });
     }
 
     private int getTypeId(String content) {
@@ -275,7 +304,11 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         int id = v.getId();
         switch (id) {
             case R.id.tv_quick_repair_area:
-                showAreaDialog(1);
+                if (isSupport) {
+
+                } else {
+                    showAreaDialog(2);
+                }
                 break;
             case R.id.tv_quick_repair_type:
                 showTypeDialog();

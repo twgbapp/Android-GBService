@@ -92,7 +92,7 @@ public class ClubPostActivity extends CommonActivity {
     }
 
     private void updateAdapter() {
-         rv.getAdapter().notifyDataSetChanged();
+        rv.getAdapter().notifyDataSetChanged();
     }
 
     private void setMessageCount(int clubPostID, ArrayList<ClubPostMessageModel> list, int messageCount) {
@@ -147,8 +147,8 @@ public class ClubPostActivity extends CommonActivity {
                         list_club_post.clear();
                         index = -1;
                         loadClubPostList();
-                    }else{
-                        t(R.string.fail);
+                    } else {
+//                        t(R.string.fail);
                     }
                     break;
             }
