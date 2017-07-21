@@ -145,7 +145,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                 ArrayList<MedicalSymptomModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
-                if (otherChecked) {
+                if (otherChecked|| !et_other.getText().toString().isEmpty()) {
                     String other = et_other.getText().toString();
                     MedicalSymptomModel m = new MedicalSymptomModel();
                     m.setCode("425");

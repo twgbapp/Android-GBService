@@ -55,7 +55,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         findViewById(R.id.tv_medical_patient_info_check).setOnClickListener(this);
         findViewById(R.id.iv_medical_patient_info_done).setOnClickListener(this);
         tv_date.setOnClickListener(this);
-        tv_gender.setOnClickListener(this);
+        //tv_gender.setOnClickListener(this);
         tv_blood_type.setOnClickListener(this);
         // extra
         medical = getIntent().getExtras().getParcelable("medical");
@@ -160,15 +160,15 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                 if (idNumber.isEmpty()) return;
                 getDormUserInfo(idNumber);
                 break;
-            case R.id.tv_medical_patient_info_sex:
+            /*case R.id.tv_medical_patient_info_sex:
                 showGenderDialog();
-                break;
+                break;*/
             case R.id.tv_medical_patient_info_blood_type:
                 showBloodTypeDialog();
                 break;
             case R.id.iv_medical_patient_info_done:
                 String name = tv_name.getText().toString();
-                boolean male = tv_gender.getText().toString().equals(getString(R.string.male));
+                boolean male = tv_gender.getText().toString().equals(getString(R.string.male))?true:false;
                 String birthday = tv_birthday.getText().toString();
                 String bloodType = tv_blood_type.getText().toString();
                 String arcIdNumber = et_arc_id_number.getText().toString();
@@ -176,7 +176,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
 
                 int age = getAge(birthday);
                 String bloodTypeCode = getBloodTypeCode(bloodType);
-                if (name.isEmpty() || birthday.isEmpty() || date.isEmpty()) {
+                if (name.isEmpty() || birthday.isEmpty() || date.isEmpty()||bloodTypeCode.isEmpty()) {
                     t(R.string.can_not_be_empty);
                     return;
                 }
