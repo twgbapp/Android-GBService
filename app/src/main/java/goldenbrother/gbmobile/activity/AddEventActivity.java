@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.AddEventKindRVAdapter;
@@ -39,7 +40,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     private String userID;
     // data
     private ArrayList<AddEventModel> list_add_event;
-    private ArrayList<RepairKindModel> list_area, list_kind, list_detail, list_detail_show;
+    private ArrayList<RepairKindModel> list_area1, list_area2, list_kind, list_detail, list_detail_show;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,11 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         // init AddEventList
         list_add_event = new ArrayList<>();
         // init EventKind
-        list_area = new ArrayList<>();
-        list_area.add(0, getDefaultKind());
+        list_area1 = new ArrayList<>();
+        list_area2 = new ArrayList<>();
         list_kind = new ArrayList<>();
-        list_kind.add(0, getDefaultKind());
         list_detail = new ArrayList<>();
         list_detail_show = new ArrayList<>();
-        list_detail_show.add(0, getDefaultKind());
         // init RecyclerView
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new AddEventKindRVAdapter(this, list_add_event));
@@ -95,20 +94,19 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.getRepairArea(response, list_area);
+                    int result = ApiResultHelper.getRepairArea(response, list_area1, list_area2);
                     if (result == ApiResultHelper.SUCCESS) {
-                        list_area.add(0, getDefaultKind());
+                        if (list_area1.size() != 2 || list_area2.size() != 2) {
+                            t(R.string.fail);
+                            finish();
+                        }
                     } else {
-                        t(String.format(getString(R.string.fail) + "(%s)", "GetRepairArea"));
+                        t(R.string.fail);
                         finish();
                     }
                     break;
             }
         }
-    }
-
-    private RepairKindModel getDefaultKind() {
-        return new RepairKindModel(-1, -1, getString(R.string.select) + "...");
     }
 
     private void updateAdapter() {
@@ -121,14 +119,17 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     // add event dialog
     private AlertDialog ad;
     // dialog ui
-    private Spinner sp_area, sp_kind, sp_detail;
+    private TextView tv_area, tv_type, tv_item;
 
     private void showAddEventDialog() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         final View v = getLayoutInflater().inflate(R.layout.dialog_service_add_event, null);
-        sp_area = (Spinner) v.findViewById(R.id.sp_dialog_service_add_event_area);
-        sp_kind = (Spinner) v.findViewById(R.id.sp_dialog_service_add_event_kind);
-        sp_detail = (Spinner) v.findViewById(R.id.sp_dialog_service_add_event_detail);
+        tv_area = (TextView) v.findViewById(R.id.tv_dialog_service_add_event_area);
+        tv_type = (TextView) v.findViewById(R.id.tv_dialog_service_add_event_type);
+        tv_item = (TextView) v.findViewById(R.id.tv_dialog_service_add_event_item);
+        tv_area.setOnClickListener(this);
+        tv_type.setOnClickListener(this);
+        tv_item.setOnClickListener(this);
         final EditText et_description = (EditText) v.findViewById(R.id.et_dialog_service_add_event_description);
         // cancel listener
         v.findViewById(R.id.tv_dialog_service_add_event_cancel).setOnClickListener(new View.OnClickListener() {
@@ -143,8 +144,9 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             public void onClick(View v) {
                 // get data
                 String description = et_description.getText().toString();
-                int kind = list_detail_show.get(sp_detail.getSelectedItemPosition()).getId();
-                String kindContent = list_area.get(sp_area.getSelectedItemPosition()).getContent() + "-" + list_kind.get(sp_kind.getSelectedItemPosition()).getContent() + "-" + list_detail_show.get(sp_detail.getSelectedItemPosition()).getContent();
+                int areaNum = getAreaId(tv_area.getText().toString());
+                int kind = getItemId(tv_item.getText().toString());
+                String kindContent = tv_area.getText().toString() + "-" + tv_type.getText().toString() + "-" + tv_item.getText().toString();
                 // check
                 if (description.isEmpty() || kind == -1) {
                     t(R.string.can_not_be_empty);
@@ -164,47 +166,95 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
                 if (ad != null) ad.dismiss();
             }
         });
-        // init Spinner
-        sp_area.setAdapter(new RepairKindListAdapter(this, list_area));
-        sp_kind.setAdapter(new RepairKindListAdapter(this, list_kind));
-        sp_detail.setAdapter(new RepairKindListAdapter(this, list_detail_show));
-        // listener
-        sp_area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-                    getRepairKind(list_area.get(position).getId());
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        sp_kind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                RepairKindModel rm_kind = list_kind.get(position);
-                if (rm_kind.getId() != -1) {
-                    list_detail_show.clear();
-                    list_detail_show.add(getDefaultKind());
-                    for (RepairKindModel rm_detail : list_detail) {
-                        if (rm_detail.getParentId() == rm_kind.getId()) {
-                            list_detail_show.add(rm_detail);
-                        }
-                    }
-                    updateKindAdapter();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         b.setView(v);
         ad = b.show();
+    }
+
+    private int getAreaId(String content) {
+        for (RepairKindModel rk : list_area1) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        for (RepairKindModel rk : list_area2) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        return -1;
+    }
+
+    private void showAreaDialog(final int stage) { // 1 or 2
+        if (list_area1.size() != 2 || list_area2.size() != 2) return;
+        final String[] items1 = {list_area1.get(0).getContent(), list_area1.get(1).getContent()};
+        final String[] items2 = {list_area2.get(0).getContent(), list_area2.get(1).getContent()};
+        final String[] items = stage == 1 ? items1 : items2;
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (stage == 1 && i == 0) {
+                    showAreaDialog(2);
+                } else {
+                    tv_area.setText(items[i]);
+                    tv_type.setText("");
+                    tv_item.setText("");
+                    getRepairKind(getAreaId(items[i]));
+                }
+            }
+        });
+    }
+
+    private int getTypeId(String content) {
+        for (RepairKindModel rk : list_kind) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        return -1;
+    }
+
+    private void showTypeDialog() {
+        final String[] items = new String[list_kind.size()];
+        for (int i = 0; i < list_kind.size(); i++) {
+            items[i] = list_kind.get(i).getContent();
+        }
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_type.setText(items[i]);
+                tv_item.setText("");
+            }
+        });
+    }
+
+    private int getItemId(String content) {
+        for (RepairKindModel rk : list_detail_show) {
+            if (rk.getContent().equals(content)) {
+                return rk.getId();
+            }
+        }
+        return -1;
+    }
+
+    private void showItemDialog(String type) {
+        int parentId = getTypeId(type);
+        list_detail_show.clear();
+        for (RepairKindModel rm_detail : list_detail) {
+            if (rm_detail.getParentId() == parentId) {
+                list_detail_show.add(rm_detail);
+            }
+        }
+        final String[] items = new String[list_detail_show.size()];
+        for (int i = 0; i < list_detail_show.size(); i++) {
+            items[i] = list_detail_show.get(i).getContent();
+        }
+
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_item.setText(items[i]);
+            }
+        });
     }
 
     private void getRepairKind(int areaNum) {
@@ -235,10 +285,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getRepairKind(response, list_kind, list_detail);
                     if (result == ApiResultHelper.SUCCESS) {
-                        list_kind.add(0, getDefaultKind());
-                        list_detail_show.clear();
-                        list_detail_show.add(0, getDefaultKind());
-                        updateKindAdapter();
+
                     } else {
                         t(String.format(getString(R.string.fail) + "(%s)", "GetRepairKind"));
                         finish();
@@ -246,11 +293,6 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
                     break;
             }
         }
-    }
-
-    private void updateKindAdapter() {
-        ((RepairKindListAdapter) sp_kind.getAdapter()).notifyDataSetChanged();
-        ((RepairKindListAdapter) sp_detail.getAdapter()).notifyDataSetChanged();
     }
 
     private void showConfirmAddEventDialog() {
@@ -319,6 +361,15 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_dialog_service_add_event_area:
+                showAreaDialog(1);
+                break;
+            case R.id.tv_dialog_service_add_event_type:
+                showTypeDialog();
+                break;
+            case R.id.tv_dialog_service_add_event_item:
+                showItemDialog(tv_type.getText().toString());
+                break;
             case R.id.iv_add_event_done:
                 if (list_add_event.isEmpty()) {
                     t(R.string.can_not_be_empty);

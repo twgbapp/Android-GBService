@@ -228,7 +228,7 @@
 <<<<<<< Updated upstream
     <string name="thailand">泰國</string>
     <string name="chat">聊天</string>
-=======
-    <string name="Taiwan">臺灣</string>
->>>>>>> Stashed changes
+    <string name="room_id">房號</string>
+    <string name="language">語言</string>
+    <string name="language_alert">語言切換時,系統將會重新開啟</string>
 </resources>

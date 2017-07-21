@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import goldenbrother.gbmobile.R;
 
@@ -12,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.Patient;
 
@@ -36,13 +40,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     public static final int REQUEST_FILE_UPLOAD = 4;
     // ui
     private TextView tv_name, tv_gender, tv_birthday, tv_blood_type, tv_date;
-    private TextView et_symptoms, et_processing_status, et_tracking_processing, tv_file_upload;
+    private TextView et_symptoms, et_processing_status, et_tracking_processing;
+    private ImageView iv_signature, iv_medical, iv_diagnosis, iv_service;
     // extra
     private Medical medical;
     // data
-    private Patient patient;
-
-    private String diagnosticCertificatePath, serviceRecordPath, medicalCertificatePath, signaturePath;
+    private ArrayList<MedicalSymptomModel> list_symptoms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,11 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         et_symptoms = (TextView) findViewById(R.id.tv_medical_record_symptoms);
         et_processing_status = (TextView) findViewById(R.id.tv_medical_record_processing_status);
         et_tracking_processing = (TextView) findViewById(R.id.tv_medical_record_tracking_processing);
-        tv_file_upload = (TextView) findViewById(R.id.tv_medical_record_file_upload);
+//        tv_file_upload = (TextView) findViewById(R.id.tv_medical_record_file_upload);
+        iv_signature = (ImageView) findViewById(R.id.iv_medical_record_signature_path);
+        iv_medical = (ImageView) findViewById(R.id.iv_medical_record_medical_path);
+        iv_diagnosis = (ImageView) findViewById(R.id.iv_medical_record_diagnosis_path);
+        iv_service = (ImageView) findViewById(R.id.iv_medical_record_service_path);
         findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
         findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
         findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);
@@ -69,10 +76,83 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         // extra
         medical = getIntent().getExtras().getParcelable("medical");
         if (medical != null && medical.getMtrsno() != 0) {
-            tv_name.setText(medical.getFlaborName());
             getMedicalRecord(medical.getMtrsno());
         } else {
             medical = new Medical();
+            getMedicalTreatmentCode();
+        }
+    }
+
+    private void getMedicalTreatmentCode() {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "getMedicalTreatmentCode");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
+            new GetMedicalTreatmentCode(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class GetMedicalTreatmentCode extends IAsyncTask {
+
+        private boolean isAdd;
+        private ArrayList<MedicalSymptomModel> list_first;
+        private ArrayList<MedicalSymptomModel> list_second;
+
+        GetMedicalTreatmentCode(Context context, JSONObject json, String url) {
+            super(context, json, url);
+            isAdd = medical.getMtrsno() == 0;
+            if (list_symptoms == null) list_symptoms = new ArrayList<>();
+            list_first = new ArrayList<>();
+            list_second = new ArrayList<>();
+        }
+
+        private void sortSymptoms() {
+            list_symptoms.clear();
+            for (MedicalSymptomModel m : list_first) {
+                list_symptoms.add(m);
+                for (MedicalSymptomModel mm : list_second) {
+                    if (mm.getCode().startsWith(m.getCode())) {
+                        list_symptoms.add(mm);
+                    }
+                }
+            }
+        }
+
+        private void syncMedicalSymptom() {
+            for (MedicalSymptomModel ms : medical.getSymptom()) {
+                for (MedicalSymptomModel ms2 : list_symptoms) {
+                    if (ms.getCode().equals(ms2.getCode())) {
+                        ms.setValue(ms2.getValue());
+                        break;
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.EMPTY:
+                    int result = ApiResultHelper.getMedicalTreatmentCode(response, list_first, list_second);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        sortSymptoms();
+                        if (isAdd) {
+
+                        } else {
+                            syncMedicalSymptom();
+                            showMedical();
+                        }
+                    } else {
+                        t(getString(R.string.fail) + "GetMedicalTreatmentCode");
+                        finish();
+                    }
+                    break;
+            }
         }
     }
 
@@ -101,10 +181,10 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.getMedicalRecord(response, medical, patient);
+                    int result = ApiResultHelper.getMedicalRecord(response, medical);
                     if (result == ApiResultHelper.SUCCESS) {
-                        t(R.string.success);
-                        finish();
+//                        t(R.string.success);
+                        getMedicalTreatmentCode();
                     } else {
                         t(R.string.fail);
                     }
@@ -113,15 +193,62 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         }
     }
 
+    private void showMedical() {
+        showPatientInfo();
+        showSymptom();
+        showProcessStatus();
+        showTrackProcess();
+        showUploadFile();
+    }
 
     private void showPatientInfo() {
-        if (patient != null) {
-            tv_name.setText(String.format(getString(R.string.name) + " : %s", patient.getName()));
-            tv_gender.setText(String.format(getString(R.string.sex) + " : %s", getString(patient.isGender() ? R.string.male : R.string.female)));
-            tv_date.setText(String.format(getString(R.string.medical_fill_out_date) + " : %s", patient.getJiuZhen_date()));
-            tv_birthday.setText(String.format(getString(R.string.birthday) + " : %s", patient.getDate()));
-            tv_blood_type.setText(String.format(getString(R.string.medical_blood_type) + " : %s", getBloodTypeName(patient.getBloodType())));
+        if (medical.getPatient() != null) {
+            tv_name.setText(String.format(getString(R.string.name) + " : %s", medical.getPatient().getName()));
+            tv_gender.setText(String.format(getString(R.string.sex) + " : %s", getString(medical.getPatient().isGender() ? R.string.male : R.string.female)));
+            tv_date.setText(String.format(getString(R.string.medical_fill_out_date) + " : %s", medical.getPatient().getRecordDate()));
+            tv_birthday.setText(String.format(getString(R.string.room_id) + " : %s", medical.getPatient().getRoomID()));
+            tv_blood_type.setText(String.format(getString(R.string.medical_blood_type) + " : %s", getBloodTypeName(medical.getPatient().getBloodType())));
         }
+    }
+
+    private void showSymptom() {
+        String result = "";
+        for (MedicalSymptomModel ms : medical.getSymptom()) {
+            result += (result.length() == 0 ? "" : "\n") + ms.getValue();
+        }
+        et_symptoms.setText(result);
+    }
+
+    private void showProcessStatus() {
+        String result = "";
+        for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
+            result += (result.isEmpty() ? "" : "\n") + m.getName();
+        }
+        et_processing_status.setText(result);
+    }
+
+    private void showTrackProcess() {
+        String result = "";
+        for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
+            result += (result.isEmpty() ? "" : "\n") + m.getName();
+        }
+        et_tracking_processing.setText(result);
+    }
+
+    private void showUploadFile() {
+        String signaturePath = medical.getSignaturePath();
+        String medicalPath = medical.getMedicalCertificatePath();
+        String diagnosisPath = medical.getDiagnosticCertificatePath();
+        String servicePath = medical.getServiceRecordPath();
+
+        if (signaturePath != null && signaturePath.trim().length() != 0)
+            Picasso.with(this).load(medical.getSignaturePath()).into(iv_signature);
+        if (medicalPath != null && medicalPath.trim().length() != 0)
+            Picasso.with(this).load(medical.getMedicalCertificatePath()).into(iv_medical);
+        if (diagnosisPath != null && diagnosisPath.trim().length() != 0)
+            Picasso.with(this).load(medical.getDiagnosticCertificatePath()).into(iv_diagnosis);
+        if (servicePath != null && servicePath.trim().length() != 0)
+            Picasso.with(this).load(medical.getServiceRecordPath()).into(iv_service);
     }
 
     private String getBloodTypeName(String code) {
@@ -139,21 +266,21 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addMedicalRecord");
-            j.put("recordDate", patient.getJiuZhen_date()); //recordDate JiuZhen_dat 就診日期
-            j.put("customerNo", patient.getCustomerNo());
-            j.put("flaborNo", patient.getFlaborNo());
-            j.put("roomID", patient.getRoomID()); //getDormUserInfo406
-            j.put("dormID", patient.getDormID()); //getDormUserInfo5412
-            j.put("bloodType", patient.getBloodType());
-            j.put("age", patient.getAge());
-            j.put("centerDirectorID", patient.getCenterDirectorID()); //getDormUserInfo
+            j.put("recordDate", medical.getPatient().getRecordDate()); //recordDate 就診日期
+            j.put("customerNo", medical.getPatient().getCustomerNo());
+            j.put("flaborNo", medical.getPatient().getFlaborNo());
+            j.put("roomID", medical.getPatient().getRoomID()); //getDormUserInfo406
+            j.put("dormID", medical.getPatient().getDormID()); //getDormUserInfo5412
+            j.put("bloodType", medical.getPatient().getBloodType());
+            j.put("age", medical.getPatient().getAge());
+            j.put("centerDirectorID", medical.getPatient().getCenterDirectorID()); //getDormUserInfo
             j.put("createId", RoleInfo.getInstance().getUserID());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("createTime", TimeHelper.getStandard());
-            j.put("diagnosticCertificate", diagnosticCertificatePath);
-            j.put("serviceRecord", serviceRecordPath);
-            j.put("medicalCertificate", medicalCertificatePath);
-            j.put("signature", signaturePath);
+            j.put("diagnosticCertificate", medical.getDiagnosticCertificatePath());
+            j.put("serviceRecord", medical.getServiceRecordPath());
+            j.put("medicalCertificate", medical.getMedicalCertificatePath());
+            j.put("signature", medical.getSignaturePath());
 
             JSONArray arrTreatment = new JSONArray();//症狀
             for (MedicalSymptomModel m : medical.getSymptom()) {
@@ -211,47 +338,33 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         }
     }
 
-    private void updateUploadFileString() {
-        StringBuilder sb = new StringBuilder("FilePath");
-        if (!signaturePath.isEmpty())
-            sb.append("\nSignature:").append(signaturePath);
-        if (!medicalCertificatePath.isEmpty())
-            sb.append("\nMedical:").append(medicalCertificatePath);
-        if (!diagnosticCertificatePath.isEmpty())
-            sb.append("\nDiagnostic:").append(diagnosticCertificatePath);
-        if (!serviceRecordPath.isEmpty())
-            sb.append("\nService:").append(serviceRecordPath);
-        tv_file_upload.setText(sb.toString());
-    }
-
     @Override
     public void onClick(View v) {
         Bundle b = new Bundle();
+        b.putParcelable("medical", medical);
         switch (v.getId()) {
             case R.id.iv_medical_record_info: // 查詢外勞
-                b.putParcelable("patient", patient);
                 openActivityForResult(MedicalPatientInfoActivity.class, REQUEST_INFO, b);
                 break;
             case R.id.iv_medical_record_symptoms: // 症狀列表
-                openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT);
+                openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT, b);
                 break;
             case R.id.iv_medical_record_processing_status: // 處理狀況
-                if (patient == null || patient.getDormID() == null || patient.getDormID().isEmpty()) {
-                    t("Can't get dormID");
+                if (medical.getPatient() == null || medical.getPatient().getDormID() == null || medical.getPatient().getDormID().isEmpty()) {
+                    t(R.string.can_not_get_patient);
                     return;
                 }
-                b.putParcelable("patient", patient);
                 openActivityForResult(MedicalProcessStatusActivity.class, REQUEST_PROCESS_STATUS, b);
                 break;
             case R.id.iv_medical_record_tracking_processing: // 追蹤與處理
-                openActivityForResult(MedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS);
+                openActivityForResult(MedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS, b);
                 break;
             case R.id.iv_medical_record_file_upload:
-                openActivityForResult(MedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD);
+                openActivityForResult(MedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD, b);
                 break;
             case R.id.tv_medical_record_save: // 新增醫療紀錄
-                if (patient == null) {
-                    t("No patient");
+                if (medical.getPatient() == null) {
+                    t(R.string.can_not_get_patient);
                     return;
                 }
                 addMedicalRecord();
@@ -263,47 +376,22 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
+        medical = data.getParcelableExtra("medical");
         switch (requestCode) {
-            case REQUEST_INFO: // 查詢外勞(回傳)
-                patient = data.getExtras().getParcelable("patient");
+            case REQUEST_INFO:
                 showPatientInfo();
                 break;
-            case REQUEST_TREATMENT: // 症狀列表(回傳)
-                ArrayList<MedicalSymptomModel> list = data.getExtras().getParcelableArrayList("mtrCodeGroup");
-                medical.getSymptom().clear();
-                if (list != null) medical.getSymptom().addAll(list);
-                String str_symptoms = "";
-                for (MedicalSymptomModel m : medical.getSymptom()) {
-                    str_symptoms += (str_symptoms.isEmpty() ? "" : "\n") + m.getValue();
-                }
-                et_symptoms.setText(str_symptoms);
+            case REQUEST_TREATMENT:
+                showSymptom();
                 break;
-            case REQUEST_PROCESS_STATUS: // 處理狀況(回傳)
-                ArrayList<MedicalProcessStatusModel> list1 = data.getExtras().getParcelableArrayList("processStatus");
-                medical.getProcessingStatus().clear();
-                if (list1 != null) medical.getProcessingStatus().addAll(list1);
-                String str_processing_status = "";
-                for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
-                    str_processing_status += (str_processing_status.isEmpty() ? "" : "\n") + m.getName();
-                }
-                et_processing_status.setText(str_processing_status);
+            case REQUEST_PROCESS_STATUS:
+                showProcessStatus();
                 break;
-            case REQUEST_TRACK_PROCESS: // 追蹤與處理(回傳)
-                ArrayList<MedicalTrackProcessModel> list2 = data.getExtras().getParcelableArrayList("trackProcess");
-                medical.getTrackProcess().clear();
-                if (list2 != null) medical.getTrackProcess().addAll(list2);
-                String str_track_process = "";
-                for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
-                    str_track_process += (str_track_process.isEmpty() ? "" : "\n") + m.getName();
-                }
-                et_tracking_processing.setText(str_track_process);
+            case REQUEST_TRACK_PROCESS:
+                showTrackProcess();
                 break;
             case REQUEST_FILE_UPLOAD:
-                signaturePath = data.getStringExtra("signaturePath");
-                medicalCertificatePath = data.getStringExtra("medicalPath");
-                diagnosticCertificatePath = data.getStringExtra("diagnosticPath");
-                serviceRecordPath = data.getStringExtra("servicePath");
-                updateUploadFileString();
+                showUploadFile();
                 break;
         }
     }

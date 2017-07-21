@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
@@ -21,6 +22,7 @@ import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.HospitalModel;
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.MedicalProcessStatusModel;
 import goldenbrother.gbmobile.model.Patient;
 import goldenbrother.gbmobile.model.PersonalPickUpModel;
@@ -30,12 +32,13 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
 
     // ui
     private EditText et_other;
-    private CheckBox cb_1, cb_2, cb_3, cb_4, cb_5;
+    private ImageView iv_1, iv_2, iv_3, iv_4, iv_5;
     private Spinner sp_hospital, sp_person;
     private RadioButton rb_yes, rb_no;
     // extra
-    private Patient patient;
+    private Medical medical;
     // data
+    private boolean isCheck1, isCheck2, isCheck3, isCheck4, isCheck5;
     private String[] array_process_status;
     private ArrayList<HospitalModel> list_hospital;
     private ArrayList<PersonalPickUpModel> list_personal_pick_up;
@@ -47,19 +50,23 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
 
         // ui reference
         findViewById(R.id.tv_medical_process_status_done).setOnClickListener(this);
-        cb_1 = (CheckBox) findViewById(R.id.cb_medical_process_status_1);
-        cb_2 = (CheckBox) findViewById(R.id.cb_medical_process_status_2);
-        cb_3 = (CheckBox) findViewById(R.id.cb_medical_process_status_3);
-        cb_4 = (CheckBox) findViewById(R.id.cb_medical_process_status_4);
-        cb_5 = (CheckBox) findViewById(R.id.cb_medical_process_status_5);
+        iv_1 = (ImageView) findViewById(R.id.iv_medical_process_status_1);
+        iv_2 = (ImageView) findViewById(R.id.iv_medical_process_status_2);
+        iv_3 = (ImageView) findViewById(R.id.iv_medical_process_status_3);
+        iv_4 = (ImageView) findViewById(R.id.iv_medical_process_status_4);
+        iv_5 = (ImageView) findViewById(R.id.iv_medical_process_status_5);
         et_other = (EditText) findViewById(R.id.et_medical_process_status_other);
         sp_hospital = (Spinner) findViewById(R.id.sp_medical_process_hospital);
         sp_person = (Spinner) findViewById(R.id.sp_medical_process_person);
         rb_yes = (RadioButton) findViewById(R.id.rb_medical_process_yes);
         rb_no = (RadioButton) findViewById(R.id.rb_medical_process_no);
-
+        iv_1.setOnClickListener(this);
+        iv_2.setOnClickListener(this);
+        iv_3.setOnClickListener(this);
+        iv_4.setOnClickListener(this);
+        iv_5.setOnClickListener(this);
         // extra
-        patient = getIntent().getExtras().getParcelable("patient");
+        medical = getIntent().getExtras().getParcelable("medical");
 
         // init
         array_process_status = getResources().getStringArray(R.array.medical_process_status);
@@ -85,8 +92,8 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getHospitalPickUp");
-            j.put("dormID", patient.getDormID());
-            j.put("customerNo", patient.getCustomerNo());
+            j.put("dormID", medical.getPatient().getDormID());
+            j.put("customerNo", medical.getPatient().getCustomerNo());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
             new GetHospitalPickUp(this, j, URLHelper.HOST).execute();
@@ -118,35 +125,63 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
         }
     }
 
+    private void updateCheck() {
+        iv_1.setImageResource(isCheck1 ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
+        iv_2.setImageResource(isCheck2 ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
+        iv_3.setImageResource(isCheck3 ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
+        iv_4.setImageResource(isCheck4 ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
+        iv_5.setImageResource(isCheck5 ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_medical_process_status_1:
+                isCheck1 = !isCheck1;
+                updateCheck();
+                break;
+            case R.id.iv_medical_process_status_2:
+                isCheck2 = !isCheck2;
+                updateCheck();
+                break;
+            case R.id.iv_medical_process_status_3:
+                isCheck3 = !isCheck3;
+                updateCheck();
+                break;
+            case R.id.iv_medical_process_status_4:
+                isCheck4 = !isCheck4;
+                updateCheck();
+                break;
+            case R.id.iv_medical_process_status_5:
+                isCheck5 = !isCheck5;
+                updateCheck();
+                break;
             case R.id.tv_medical_process_status_done:
                 ArrayList<MedicalProcessStatusModel> list = new ArrayList<>();
-                if (cb_1.isChecked())
+                if (isCheck1)
                     list.add(new MedicalProcessStatusModel(array_process_status[0], "0/null/null/null/null"));
-                if (cb_2.isChecked()) {
+                if (isCheck2) {
                     String hospitalCode = (sp_hospital.getSelectedItemPosition() == 0 ? "null" : list_hospital.get(sp_hospital.getSelectedItemPosition()).getCode());
                     String userId = (sp_person.getSelectedItemPosition() == 0 ? "null" : list_personal_pick_up.get(sp_person.getSelectedItemPosition()).getUserId());
                     list.add(new MedicalProcessStatusModel(array_process_status[1], "1/" + hospitalCode + "/" + userId + "/null/null"));
                 }
-                if (cb_3.isChecked())
+                if (isCheck3)
                     list.add(new MedicalProcessStatusModel(array_process_status[2], "2/null/null/null/null"));
-                if (cb_4.isChecked()) {
+                if (isCheck4) {
                     boolean yes = rb_yes.isChecked();
                     boolean no = rb_no.isChecked();
                     String yesNo = (!yes && !no) ? "null" : (yes ? "1" : "0");
                     list.add(new MedicalProcessStatusModel(array_process_status[3], "3/null/null/" + yesNo + "/null"));
                 }
-                if (cb_5.isChecked()) {
+                if (isCheck5) {
                     String other = et_other.getText().toString();
                     other = other.replace("/", "\\");
                     list.add(new MedicalProcessStatusModel(other, "4/null/null/null/" + (other.isEmpty() ? "null" : other)));
                 }
-                Bundle bundle = new Bundle();
+                medical.getProcessingStatus().clear();
+                medical.getProcessingStatus().addAll(list);
                 Intent intent = new Intent();
-                bundle.putParcelableArrayList("processStatus", list);
-                intent.putExtras(bundle);
+                intent.putExtra("medical", medical);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

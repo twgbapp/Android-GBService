@@ -19,14 +19,29 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/textview_corner_round_light_blue"
-                android:gravity="center"
-                android:text="@string/medical_symptoms"
-                android:textColor="#FFF"
-                android:textSize="24sp" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_corner_round_light_blue"
+                    android:gravity="center"
+                    android:text="@string/medical_symptoms"
+                    android:textColor="#FFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/iv_event_medical_symptom_done"
+                    android:layout_width="@dimen/imageview_toolbar_width"
+                    android:layout_height="@dimen/imageview_toolbar_width"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_done_white" />
+            </RelativeLayout>
+
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -37,11 +52,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/iv_event_medical_symptom_done"
-                        android:layout_width="@dimen/imageview_toolbar_width"
-                        android:layout_height="@dimen/imageview_toolbar_width"
-                        android:src="@drawable/ic_done_white" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_medical_symptom"

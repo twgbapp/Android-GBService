@@ -24,34 +24,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="Area" />
+            android:layout_marginTop="10dp"
+            android:text="@string/quick_repair_area" />
 
-        <Spinner
-            android:id="@+id/sp_dialog_service_add_event_area"
+        <TextView
+            android:id="@+id/tv_dialog_service_add_event_area"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_signup"
+            android:hint="@string/select"
+            android:padding="10dp"
+            android:textColor="#FFF"
+            android:textColorHint="#FFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:text="@string/quick_repair_kind" />
+
+        <TextView
+            android:id="@+id/tv_dialog_service_add_event_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_signup"
+            android:hint="@string/select"
+            android:padding="10dp"
+            android:textColor="#FFF"
+            android:textColorHint="#FFF" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="Kind" />
-
-        <Spinner
-            android:id="@+id/sp_dialog_service_add_event_kind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="10dp"
+            android:text="@string/quick_repair_item" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Type" />
-
-        <Spinner
-            android:id="@+id/sp_dialog_service_add_event_detail"
+            android:id="@+id/tv_dialog_service_add_event_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_signup"
+            android:hint="@string/select"
+            android:padding="10dp"
+            android:textColor="#FFF"
+            android:textColorHint="#FFF" />
 
         <TextView
             android:layout_width="wrap_content"

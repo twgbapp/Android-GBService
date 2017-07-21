@@ -9,6 +9,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.MedicalTrackProcessModel;
 
 public class MedicalTrackProcessActivity extends CommonActivity implements View.OnClickListener {
@@ -16,6 +17,8 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
     // ui
     private CheckBox cb_1, cb_2, cb_3, cb_4;
     private EditText et_1, et_2, et_3;
+    // extra
+    private Medical medical;
     // data
     private String[] array_track_process;
 
@@ -33,6 +36,8 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
         et_3 = (EditText) findViewById(R.id.et_medical_track_process_3);
         findViewById(R.id.tv_medical_track_process_done).setOnClickListener(this);
 
+        // extra
+        medical = getIntent().getExtras().getParcelable("medical");
         // init
         array_track_process = getResources().getStringArray(R.array.medical_track_process);
     }
@@ -74,10 +79,10 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
                     m.setData("3/null");
                     list.add(m);
                 }
-                Bundle bundle = new Bundle();
+                medical.getTrackProcess().clear();
+                medical.getTrackProcess().addAll(list);
                 Intent intent = new Intent();
-                bundle.putParcelableArrayList("trackProcess", list);
-                intent.putExtras(bundle);
+                intent.putExtra("medical", medical);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

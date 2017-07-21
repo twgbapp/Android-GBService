@@ -1,7 +1,10 @@
 package goldenbrother.gbmobile.activity;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,7 +13,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -28,6 +33,7 @@ import goldenbrother.gbmobile.sqlite.DAOServiceChat;
 import goldenbrother.gbmobile.sqlite.DAOServiceTimePoint;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends CommonActivity implements View.OnClickListener {
 
@@ -90,7 +96,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_satisfaction_survey, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
-            list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_language_w, R.string.language, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         } else {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
@@ -104,7 +111,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
 
-            list.add(new DrawerItem(R.drawable.ic_e_commerce, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
+            list.add(new DrawerItem(R.drawable.ic_language_w, R.string.language, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         }
         rv_drawer.setAdapter(new MainDrawerRVAdapter(this, list));
@@ -119,7 +127,54 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         new DAOServiceTimePoint(this).deleteAll();
     }
 
-    public void onItemClick(String str) {
+    private void showLanguageDialog() {
+        String[] items = getResources().getStringArray(R.array.language);
+        ad = alertCustomItems(0, null, items, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view,final int position, long l) {
+                ad.dismiss();
+                alertWithView(null, getString(R.string.language_alert), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        setLanguage(position);
+                    }
+                }, null);
+            }
+        });
+    }
+
+    private void setLanguage(int i) {
+        String lang = "";
+        switch (i) {
+            case 0:
+                lang = "en";
+                break;
+            case 1:
+                lang = "zh";
+                break;
+            case 2:
+                lang = "in";
+                break;
+            case 3:
+                lang = "vi";
+                break;
+            case 4:
+                lang = "th";
+                break;
+        }
+        Locale locale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = locale;
+        res.updateConfiguration(conf, dm);
+        // restart
+        Bundle b = new Bundle();
+        openActivity(SplashActivity.class, b);
+        finish();
+    }
+
+    public void onFunctionClick(String str) {
         Bundle b = new Bundle();
         if (str.equals(getString(R.string.main_drawer_event_list))) {
             b.putInt("position", 1);
@@ -157,11 +212,13 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         } else if (str.equals(getString(R.string.main_drawer_e_commerce))) {
             b.putString("url", E_COMMERCE);
             openActivity(WebViewActivity.class, b);
+        } else if (str.equals(getString(R.string.language))) {
+            showLanguageDialog();
         }
     }
 
     public void onDrawerItemClick(int strId) {
-        onItemClick(getString(strId));
+        onFunctionClick(getString(strId));
         closeDrawer();
     }
 
@@ -225,6 +282,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         super.onPause();
     }
 
+    private AlertDialog ad;
+
     private void showMobileServiceDialog() {
         String[] items_flabor = {getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_quick_repair), getString(R.string.main_drawer_event_list)};
@@ -233,10 +292,11 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 getString(R.string.main_drawer_chart), getString(R.string.main_drawer_repair_record),
                 getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
-        alertWithItems(items, new DialogInterface.OnClickListener() {
+        ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                onItemClick(items[i]);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ad.dismiss();
+                onFunctionClick(items[i]);
             }
         });
     }
@@ -245,10 +305,11 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         String[] items_flabor = {getString(R.string.main_drawer_club), getString(R.string.main_drawer_announcement)};
         String[] items_manager = {getString(R.string.main_drawer_club)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
-        alertWithItems(items, new DialogInterface.OnClickListener() {
+        ad = alertCustomItems(R.drawable.ic_life_information_big, getString(R.string.main_drawer_life_information), items, new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                onItemClick(items[i]);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ad.dismiss();
+                onFunctionClick(items[i]);
             }
         });
     }
@@ -298,7 +359,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     public static final long DELAY_TIME = 2000L;
     private long lastBackPressTime = 0;
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
@@ -311,7 +371,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 lastBackPressTime = System.currentTimeMillis();
                 t(R.string.press_again_to_exit);
             }
-
         }
     }
 

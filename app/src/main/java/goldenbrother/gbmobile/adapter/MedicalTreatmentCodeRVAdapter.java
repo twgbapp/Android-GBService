@@ -29,6 +29,11 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
         this.set = new HashSet<>();
     }
 
+    public void setSelected(ArrayList<MedicalSymptomModel> list) {
+        set.clear();
+        set.addAll(list);
+    }
+
     public HashSet<MedicalSymptomModel> getSelected() {
         return set;
     }
@@ -59,7 +64,14 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
             final ChildViewHolder h = (ChildViewHolder) holder;
             h.name.setText(item.getValue());
             h.check.setImageResource(set.contains(item) ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
-            h.check.setOnClickListener(new View.OnClickListener() {
+//            h.check.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+////                    notifyDataSetChanged();
+//                }
+//            });
+            h.name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (set.contains(item)) {
@@ -68,10 +80,19 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
                         set.add(item);
                     }
                     notifyItemChanged(h.getAdapterPosition());
-//                    notifyDataSetChanged();
                 }
             });
-            h.name.setOnClickListener(showTextListener);
+            h.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (set.contains(item)) {
+                        set.remove(item);
+                    } else {
+                        set.add(item);
+                    }
+                    notifyItemChanged(h.getAdapterPosition());
+                }
+            });
         }
     }
 

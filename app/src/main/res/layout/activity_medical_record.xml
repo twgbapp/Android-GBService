@@ -28,9 +28,9 @@
                 android:textSize="24sp" />
 
             <ScrollView
-                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -58,10 +58,10 @@
                             android:textSize="20sp" />
 
                         <RelativeLayout
-                            android:layout_marginRight="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/iv_medical_record_info"
@@ -147,10 +147,10 @@
                             android:textSize="20sp" />
 
                         <RelativeLayout
-                            android:layout_marginRight="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/iv_medical_record_symptoms"
@@ -198,10 +198,10 @@
                             android:textSize="20sp" />
 
                         <RelativeLayout
-                            android:layout_marginRight="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/iv_medical_record_processing_status"
@@ -249,10 +249,10 @@
                             android:textSize="20sp" />
 
                         <RelativeLayout
-                            android:layout_marginRight="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/iv_medical_record_tracking_processing"
@@ -300,10 +300,10 @@
                             android:textSize="20sp" />
 
                         <RelativeLayout
-                            android:layout_marginRight="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/iv_medical_record_file_upload"
@@ -321,23 +321,90 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_medical_record_file_upload"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="@string/medical_file_upload"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/medical_file_upload_1"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_medical_record_signature_path"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_medical_record_add" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/medical_file_upload_2"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_medical_record_medical_path"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_medical_record_add" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/medical_file_upload_3"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_medical_record_diagnosis_path"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_medical_record_add" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/medical_file_upload_4"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_medical_record_service_path"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_medical_record_add" />
+
+                    </LinearLayout>
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/tv_medical_record_file_upload"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="5dp"-->
+                    <!--android:text="@string/medical_file_upload"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textSize="16sp" />-->
 
                     <TextView
                         android:id="@+id/tv_medical_record_save"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:background="@color/main_light_blue"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:layout_margin="10dp"
                         android:text="@string/confirm"
                         android:textColor="#FFF"
                         android:textSize="20sp" />

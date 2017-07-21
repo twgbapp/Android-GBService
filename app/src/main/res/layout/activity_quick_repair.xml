@@ -52,9 +52,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/edittext_quick_repair"
+                        android:background="@drawable/edittext_signup"
                         android:enabled="false"
-                        android:textColorHint="@color/colorPrimary" />
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -62,6 +63,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/title"
                         android:textColor="#FFF"
+                        android:textColorHint="#FFF"
                         android:textSize="16sp" />
 
                     <EditText
@@ -69,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/edittext_quick_repair"
+                        android:background="@drawable/edittext_signup"
                         android:inputType="text"
                         android:maxLines="1"
                         android:textColorHint="@color/colorPrimary" />
@@ -82,11 +84,16 @@
                         android:textColor="#FFF"
                         android:textSize="16sp" />
 
-                    <Spinner
-                        android:id="@+id/sp_quick_repair_area"
+                    <TextView
+                        android:id="@+id/tv_quick_repair_area"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/spinner_corner_round" />
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/select"
+                        android:padding="10dp"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -96,11 +103,16 @@
                         android:textColor="#FFF"
                         android:textSize="16sp" />
 
-                    <Spinner
-                        android:id="@+id/sp_quick_repair_kind"
+                    <TextView
+                        android:id="@+id/tv_quick_repair_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/spinner_corner_round" />
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/select"
+                        android:padding="10dp"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -110,11 +122,16 @@
                         android:textColor="#FFF"
                         android:textSize="16sp" />
 
-                    <Spinner
-                        android:id="@+id/sp_quick_repair_kind_content"
+                    <TextView
+                        android:id="@+id/tv_quick_repair_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/spinner_corner_round" />
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edittext_signup"
+                        android:hint="@string/select"
+                        android:padding="10dp"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -129,10 +146,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/edittext_quick_repair"
+                        android:background="@drawable/edittext_signup"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:textColorHint="@color/colorPrimary" />
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -147,10 +165,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/edittext_quick_repair"
+                        android:background="@drawable/edittext_signup"
                         android:gravity="top"
                         android:minLines="3"
-                        android:textColorHint="@color/colorPrimary" />
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF" />
 
                     <TextView
                         android:id="@+id/tv_quick_repair_send"

@@ -1,7 +1,5 @@
 package goldenbrother.gbmobile.model;
 
-import android.util.Log;
-
 import org.json.JSONObject;
 
 /**
@@ -12,8 +10,9 @@ public class RoleInfo {
 
     private static RoleInfo info;
 
-    public static final int LABOR = 0;
-    public static final int MANAGER = 1;
+    private static final int USER = -1;
+    private static final int LABOR = 0;
+    private static final int MANAGER = 1;
 
     private int roleID;
 
@@ -50,6 +49,8 @@ public class RoleInfo {
 
     public String getUserID() {
         switch (roleID) {
+            case USER:
+                return UserModel.getInstance().getUserID();
             case LABOR:
                 return LaborModel.getInstance().getUserID();
             case MANAGER:
@@ -60,6 +61,8 @@ public class RoleInfo {
 
     public String getUserPicture() {
         switch (roleID) {
+            case USER:
+                return UserModel.getInstance().getUserPicture();
             case LABOR:
                 return LaborModel.getInstance().getUserPicture();
             case MANAGER:
@@ -70,6 +73,9 @@ public class RoleInfo {
 
     public void setUserPicture(String path) {
         switch (roleID) {
+            case USER:
+                UserModel.getInstance().setUserPicture(path);
+                break;
             case LABOR:
                 LaborModel.getInstance().setUserPicture(path);
                 break;
@@ -81,6 +87,8 @@ public class RoleInfo {
 
     public String getUserName() {
         switch (roleID) {
+            case USER:
+                return UserModel.getInstance().getUserName();
             case LABOR:
                 return LaborModel.getInstance().getUserName();
             case MANAGER:
@@ -91,6 +99,8 @@ public class RoleInfo {
 
     public String getUserSex() {
         switch (roleID) {
+            case USER:
+                return UserModel.getInstance().getUserSex();
             case LABOR:
                 return LaborModel.getInstance().getUserSex();
             case MANAGER:
@@ -102,6 +112,8 @@ public class RoleInfo {
 
     public String getUserBirthday() {
         switch (roleID) {
+            case USER:
+                return UserModel.getInstance().getUserBirthday();
             case LABOR:
                 return LaborModel.getInstance().getUserBirthday();
             case MANAGER:
@@ -112,6 +124,8 @@ public class RoleInfo {
 
     public String getUserEmail() {
         switch (roleID) {
+            case USER:
+                return UserModel.getInstance().getUserEmail();
             case LABOR:
                 return LaborModel.getInstance().getUserEmail();
             case MANAGER:
@@ -122,6 +136,8 @@ public class RoleInfo {
 
     public String getUserNationCode() {
         switch (roleID) {
+            case USER:
+                return UserModel.getInstance().getUserNationCode();
             case LABOR:
                 return LaborModel.getInstance().getUserNationCode();
             case MANAGER:
@@ -132,6 +148,9 @@ public class RoleInfo {
 
     public void setJSONObject(JSONObject j) {
         switch (roleID) {
+            case USER:
+                UserModel.getInstance().setJSONObject(j);
+                break;
             case LABOR: // set Labor Object
                 LaborModel.getInstance().setJSONObject(j);
                 break;
@@ -143,9 +162,11 @@ public class RoleInfo {
 
     public JSONObject getJSONObject() {
         switch (roleID) {
-            case LABOR: // set Labor Object
+            case USER:
+                return UserModel.getInstance().getJSONObject();
+            case LABOR:
                 return LaborModel.getInstance().getJSONObject();
-            case MANAGER: // set Manager Object
+            case MANAGER:
                 return ManagerModel.getInstance().getJSONObject();
         }
         return null;

@@ -8,10 +8,15 @@ import android.os.Parcelable;
  */
 
 public class MedicalProcessStatusModel implements Parcelable{
+    private int processingStatus; // 48~52
+    private String processingStatusToHospitalID;
+    private String processingStatusHospitalSNo;
+    private String processingStatusOtherMemo;
+    private String processingStatusMedicalCertificate;
     private String name;
     private String data;
 
-    public MedicalProcessStatusModel(){
+    public MedicalProcessStatusModel() {
 
     }
 
@@ -20,22 +25,45 @@ public class MedicalProcessStatusModel implements Parcelable{
         this.data = data;
     }
 
-    protected MedicalProcessStatusModel(Parcel in) {
-        name = in.readString();
-        data = in.readString();
+    public int getProcessingStatus() {
+        return processingStatus;
     }
 
-    public static final Creator<MedicalProcessStatusModel> CREATOR = new Creator<MedicalProcessStatusModel>() {
-        @Override
-        public MedicalProcessStatusModel createFromParcel(Parcel in) {
-            return new MedicalProcessStatusModel(in);
-        }
+    public void setProcessingStatus(int processingStatus) {
+        this.processingStatus = processingStatus;
+    }
 
-        @Override
-        public MedicalProcessStatusModel[] newArray(int size) {
-            return new MedicalProcessStatusModel[size];
-        }
-    };
+    public String getProcessingStatusToHospitalID() {
+        return processingStatusToHospitalID;
+    }
+
+    public void setProcessingStatusToHospitalID(String processingStatusToHospitalID) {
+        this.processingStatusToHospitalID = processingStatusToHospitalID;
+    }
+
+    public String getProcessingStatusHospitalSNo() {
+        return processingStatusHospitalSNo;
+    }
+
+    public void setProcessingStatusHospitalSNo(String processingStatusHospitalSNo) {
+        this.processingStatusHospitalSNo = processingStatusHospitalSNo;
+    }
+
+    public String getProcessingStatusOtherMemo() {
+        return processingStatusOtherMemo;
+    }
+
+    public void setProcessingStatusOtherMemo(String processingStatusOtherMemo) {
+        this.processingStatusOtherMemo = processingStatusOtherMemo;
+    }
+
+    public String getProcessingStatusMedicalCertificate() {
+        return processingStatusMedicalCertificate;
+    }
+
+    public void setProcessingStatusMedicalCertificate(String processingStatusMedicalCertificate) {
+        this.processingStatusMedicalCertificate = processingStatusMedicalCertificate;
+    }
 
     public String getName() {
         return name;
@@ -53,6 +81,28 @@ public class MedicalProcessStatusModel implements Parcelable{
         this.data = data;
     }
 
+    protected MedicalProcessStatusModel(Parcel in) {
+        processingStatus = in.readInt();
+        processingStatusToHospitalID = in.readString();
+        processingStatusHospitalSNo = in.readString();
+        processingStatusOtherMemo = in.readString();
+        processingStatusMedicalCertificate = in.readString();
+        name = in.readString();
+        data = in.readString();
+    }
+
+    public static final Creator<MedicalProcessStatusModel> CREATOR = new Creator<MedicalProcessStatusModel>() {
+        @Override
+        public MedicalProcessStatusModel createFromParcel(Parcel in) {
+            return new MedicalProcessStatusModel(in);
+        }
+
+        @Override
+        public MedicalProcessStatusModel[] newArray(int size) {
+            return new MedicalProcessStatusModel[size];
+        }
+    };
+
     @Override
     public int describeContents() {
         return 0;
@@ -60,6 +110,11 @@ public class MedicalProcessStatusModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(processingStatus);
+        parcel.writeString(processingStatusToHospitalID);
+        parcel.writeString(processingStatusHospitalSNo);
+        parcel.writeString(processingStatusOtherMemo);
+        parcel.writeString(processingStatusMedicalCertificate);
         parcel.writeString(name);
         parcel.writeString(data);
     }

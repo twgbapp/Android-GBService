@@ -1,10 +1,14 @@
 package goldenbrother.gbmobile.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by asus on 2016/12/8.
  */
 
 public class UserModel {
+    private static UserModel user = new UserModel();
     private String UserID;
     private String UserPassword;
     private String UserNationCode;
@@ -16,6 +20,10 @@ public class UserModel {
     private String UserPhone;
     private String UserPicture;
     private int roleID;
+
+    public static UserModel getInstance(){
+        return user;
+    }
 
     public String getUserID() {
         return UserID;
@@ -103,5 +111,42 @@ public class UserModel {
 
     public void setRoleID(int roleID) {
         this.roleID = roleID;
+    }
+
+    public JSONObject getJSONObject() {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("userID", getUserID());
+            j.put("roleID", getRoleID());
+            j.put("userPicture", getUserPicture());
+            j.put("userSex", getUserSex());
+            j.put("userIDNumber", getUserIDNumber());
+            j.put("userPhone", getUserPhone());
+            j.put("userEmail", getUserEmail());
+            j.put("userNationCode", getUserNationCode());
+            j.put("userName", getUserName());
+            j.put("userBirthday", getUserBirthday());
+            return j;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setJSONObject(JSONObject j) {
+        try {
+            setUserID(j.getString("userID"));
+            setRoleID(j.getInt("roleID"));
+            setUserPicture(j.getString("userPicture"));
+            setUserSex(j.getString("userSex"));
+            setUserIDNumber(j.getString("userIDNumber"));
+            setUserPhone(j.getString("userPhone"));
+            setUserEmail(j.getString("userEmail"));
+            setUserNationCode(j.getString("userNationCode"));
+            setUserName(j.getString("userName"));
+            setUserBirthday(j.getString("userBirthday"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

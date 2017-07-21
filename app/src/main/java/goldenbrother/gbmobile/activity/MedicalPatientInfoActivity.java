@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalBloodTypeListAdapter;
 import goldenbrother.gbmobile.helper.TimeHelper;
+import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.Patient;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
@@ -37,7 +38,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
     private EditText et_arc_id_number;
     private TextView tv_name, tv_gender, tv_birthday, tv_date, tv_blood_type;
     // extra
-    private Patient patient;
+    private Medical medical;
     // data
 
     @Override
@@ -57,22 +58,21 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         tv_gender.setOnClickListener(this);
         tv_blood_type.setOnClickListener(this);
         // extra
-        patient = getIntent().getExtras().getParcelable("patient");
-        if (patient == null) patient = new Patient();
+        medical = getIntent().getExtras().getParcelable("medical");
         setPatientInfo();
         // init Date
         tv_birthday.setText(TimeHelper.getYMD());
-        tv_blood_type.setText(getBloodTypeName(patient.getBloodType()));
+        tv_blood_type.setText(getBloodTypeName(medical.getPatient().getBloodType()));
         tv_date.setText(TimeHelper.getYMD());
     }
 
     private void setPatientInfo() {
-        tv_name.setText(patient.getName());
-        tv_gender.setText(getString(patient.isGender() ? R.string.male : R.string.female));
-        tv_birthday.setText(patient.getDate());
-        tv_date.setText(patient.getJiuZhen_date());
-        tv_blood_type.setText(patient.getBloodType());
-        et_arc_id_number.setText(patient.getId1());
+        tv_name.setText(medical.getPatient().getName());
+        tv_gender.setText(getString(medical.getPatient().isGender() ? R.string.male : R.string.female));
+        tv_birthday.setText(medical.getPatient().getDate());
+        tv_date.setText(medical.getPatient().getRecordDate());
+        tv_blood_type.setText(medical.getPatient().getBloodType());
+        et_arc_id_number.setText(medical.getPatient().getId1());
     }
 
     private void getDormUserInfo(String userIDNumber) {
@@ -112,13 +112,13 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getDormUserInfo(response, map);
                     if (result == ApiResultHelper.SUCCESS) {
-                        patient.setGender(getData("userSex").equals("男"));
-                        patient.setCustomerNo(getData("customerNo"));
-                        patient.setFlaborNo(getData("flaborNo"));
-                        patient.setCustomerNo(getData("customerNo"));
-                        patient.setDormID(getData("dormID"));
-                        patient.setRoomID(getData("roomID"));
-                        patient.setCenterDirectorID(getData("centerDirectorID"));
+                        medical.getPatient().setGender(getData("userSex").equals("男"));
+                        medical.getPatient().setCustomerNo(getData("customerNo"));
+                        medical.getPatient().setFlaborNo(getData("flaborNo"));
+                        medical.getPatient().setCustomerNo(getData("customerNo"));
+                        medical.getPatient().setDormID(getData("dormID"));
+                        medical.getPatient().setRoomID(getData("roomID"));
+                        medical.getPatient().setCenterDirectorID(getData("centerDirectorID"));
 
                         tv_name.setText(getData("userName"));
                         tv_gender.setText(getString(getData("userSex").equals("男") ? R.string.male : R.string.female));
@@ -230,17 +230,15 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
     }
 
     private void saveInfo(String name, boolean male, String birthday, String bloodType, int age, String arcIdNumber, String date) {
-        patient.setName(name);
-        patient.setGender(male);
-        patient.setDate(birthday);
-        patient.setBloodType(bloodType);
-        patient.setAge(age);
-        patient.setId1(arcIdNumber);
-        patient.setJiuZhen_date(date);
+        medical.getPatient().setName(name);
+        medical.getPatient().setGender(male);
+        medical.getPatient().setDate(birthday);
+        medical.getPatient().setBloodType(bloodType);
+        medical.getPatient().setAge(age);
+        medical.getPatient().setId1(arcIdNumber);
+        medical.getPatient().setRecordDate(date);
         Intent intent = new Intent();
-        Bundle b = new Bundle();
-        b.putParcelable("patient", patient);
-        intent.putExtras(b);
+        intent.putExtra("medical", medical);
         setResult(RESULT_OK, intent);
         finish();
     }

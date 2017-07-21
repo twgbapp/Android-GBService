@@ -25,13 +25,6 @@ public class RepairRecordModel {
 
     }
 
-    public RepairRecordModel(int rrsNo, String happenDate, String eventDesc, String status) {
-        this.rrsNo = rrsNo;
-        this.happenDate = happenDate;
-        this.eventDesc = eventDesc;
-        this.status = status;
-    }
-
     public int getRrsNo() {
         return rrsNo;
     }

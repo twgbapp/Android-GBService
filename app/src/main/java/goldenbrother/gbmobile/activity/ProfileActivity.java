@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,6 @@ import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -236,14 +235,23 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         }
     }
 
+    private AlertDialog ad;
+
     private void showChangePasswordDialog() {
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_profile_change_password, null);
         final EditText et_old = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_old);
         final EditText et_new = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_new);
         final EditText et_confirm = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_confirm);
-        alertWithView(v, new DialogInterface.OnClickListener() {
+        v.findViewById(R.id.tv_dialog_profile_change_password_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
+                ad.dismiss();
+            }
+        });
+        v.findViewById(R.id.tv_dialog_profile_change_password_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.dismiss();
                 String pwd_old = et_old.getText().toString();
                 String pwd_new = et_new.getText().toString();
                 String pwd_confirm = et_confirm.getText().toString();
@@ -255,7 +263,8 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                 // changePassword
                 changePassword(pwd_old, pwd_new);
             }
-        }, null);
+        });
+        ad = alertWithView(v, null, null);
     }
 
     @Override

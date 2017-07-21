@@ -63,7 +63,7 @@ public class SatisfactionQuestionRVAdapter extends SampleRVAdapter {
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showRatingDialog(item);
+//                    showRatingDialog(item);
                 }
             });
         }

@@ -42,8 +42,8 @@ public class MedicalListRVAdapter extends SampleRVAdapter {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
             final Medical item = list.get(position);
-            h.name.setText(item.getFlaborName());
-            h.date.setText(item.getRecordDate());
+            h.name.setText(item.getPatient().getName());
+            h.date.setText(item.getPatient().getRecordDate());
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -16,7 +16,9 @@ import goldenbrother.gbmobile.model.HospitalModel;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.ManagerModel;
 import goldenbrother.gbmobile.model.Medical;
+import goldenbrother.gbmobile.model.MedicalProcessStatusModel;
 import goldenbrother.gbmobile.model.MedicalSymptomModel;
+import goldenbrother.gbmobile.model.MedicalTrackProcessModel;
 import goldenbrother.gbmobile.model.OnCallManagerModel;
 import goldenbrother.gbmobile.model.PackageModel;
 import goldenbrother.gbmobile.model.PersonalPickUpModel;
@@ -28,12 +30,14 @@ import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.SatisfactionIssueModel;
 import goldenbrother.gbmobile.model.SatisfactionQuestionModel;
 import goldenbrother.gbmobile.model.ServiceChatModel;
+import goldenbrother.gbmobile.model.UserModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,7 +82,6 @@ public class ApiResultHelper {
         }
     }
 
-
     public static int login(String response) {
         try {
             JSONObject j = new JSONObject(response);
@@ -87,7 +90,24 @@ public class ApiResultHelper {
                 JSONObject ji = j.getJSONObject("userInfo");
                 int roleID = ji.getInt("roleID");
                 RoleInfo.getInstance().setRoleID(roleID);
-                if (roleID == 0) { // user
+                if (roleID == -1) { // user
+                    UserModel u = UserModel.getInstance();
+                    u.setUserID(ji.getString("userID"));
+                    u.setUserName(ji.getString("userName"));
+                    u.setUserIDNumber(ji.getString("userIDNumber"));
+                    u.setUserSex(ji.getString("userSex"));
+                    u.setUserPhone(ji.getString("userPhone"));
+                    u.setUserEmail(ji.getString("userEmail"));
+                    u.setUserNationCode(ji.getString("userNationCode"));
+                    u.setUserBirthday(ji.getString("userBirthday"));
+                    String pic = "";
+                    try {
+                        pic = ji.getString("userPicture");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    u.setUserPicture(pic);
+                } else if (roleID == 0) { // labor
                     LaborModel l = LaborModel.getInstance();
                     l.setUserID(ji.getString("userID"));
                     l.setUserName(ji.getString("userName"));
@@ -870,11 +890,11 @@ public class ApiResultHelper {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                r.setRrsNo(j.getInt("rrsNo"));
+                r.setRrsNo(j.getInt("rrsno"));
                 r.setCenterId(j.getString("centerId"));
-                r.setDormID(j.getString("dormID"));
+                r.setDormID(j.getString("dormId"));
                 r.setHappenDate(j.getString("happenDate"));
-                r.setDutyID(j.getString("dutyID"));
+                r.setDutyID(j.getString("dutyId"));
                 r.setDeadLineDate(j.getString("deadLineDate"));
                 r.setPlace(j.getString("place"));
                 r.setEventKindStr(j.getString("eventKindStr"));
@@ -883,7 +903,7 @@ public class ApiResultHelper {
                 r.setSourceDesc(j.getString("sourceDesc"));
                 r.setSourceEventID(j.getInt("sourceEventID"));
                 r.setCustomerNo(j.getString("customerNo"));
-                r.setFlaborNo(j.getString("flaborNo"));
+                r.setFlaborNo(j.getString("flaborno"));
                 r.setStatus(j.getString("status"));
             }
             return success;
@@ -893,23 +913,28 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getRepairArea(String response, ArrayList<RepairKindModel> list_area) {
+    public static int getRepairArea(String response, ArrayList<RepairKindModel> list_area1, ArrayList<RepairKindModel> list_area2) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                ArrayList<RepairKindModel> list = new ArrayList<>();
                 JSONArray arr = j.getJSONArray("areas");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
-                    RepairKindModel rm = new RepairKindModel();
-                    rm.setId(o.getInt("id"));
-                    rm.setParentId(0);
-                    rm.setContent(o.getString("content"));
-                    list.add(rm);
+                    RepairKindModel rk = new RepairKindModel();
+                    rk.setId(o.getInt("id"));
+                    rk.setParentId(0);
+                    rk.setContent(o.getString("content"));
+                    if (rk.getId() == 3 || rk.getId() == 4) {
+                        list_area1.add(rk);
+                    } else if (rk.getId() == 2 || rk.getId() == 1) {
+                        list_area2.add(rk);
+                    }
                 }
-                list_area.clear();
-                list_area.addAll(list);
+                // swap id=4 to first
+                if (list_area1.size() == 2 && list_area1.get(0).getId() != 4) {
+                    Collections.swap(list_area1, 0, 1);
+                }
             }
             return success;
         } catch (JSONException e) {
@@ -1060,7 +1085,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getMedicalFlaborList(String response, ArrayList<Medical> list_medical_flabor) {
+    public static int getMedicalFlaborList(String response, ArrayList<Medical> list_medical) {
         try {
             JSONObject j = new JSONObject(response);
 
@@ -1072,15 +1097,75 @@ public class ApiResultHelper {
                     JSONObject o = arr.getJSONObject(i);
                     Medical m = new Medical();
                     m.setMtrsno(o.getInt("mtrsno"));
-                    m.setCustomerNo(o.getString("customerNo"));
-                    m.setCustomerName(o.getString("customerName"));
-                    m.setFlaborNo(o.getString("flaborNo"));
-                    m.setFlaborName(o.getString("flaborName"));
-                    m.setRecordDate(o.getString("recordDate"));
+                    m.getPatient().setFlaborNo(o.getString("flaborNo"));
+                    m.getPatient().setName(o.getString("flaborName"));
+                    m.getPatient().setCustomerNo(o.getString("customerNo"));
+                    m.getPatient().setCustomerName(o.getString("customerName"));
+                    m.getPatient().setRecordDate(o.getString("recordDate"));
                     list.add(m);
                 }
-                list_medical_flabor.clear();
-                list_medical_flabor.addAll(list);
+                list_medical.clear();
+                list_medical.addAll(list);
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getMedicalRecord(String response, Medical medical) {
+        try {
+            JSONObject j = new JSONObject(response);
+
+            int result = j.getInt("success");
+            if (result == 1) {
+                medical.getPatient().setAge(j.getInt("age"));
+                medical.getPatient().setBloodType(j.getString("bloodType"));
+                medical.getPatient().setRoomID(j.getString("roomID"));
+                medical.getPatient().setFlaborNo(j.getString("flaborNo"));
+                medical.getPatient().setDormID(j.getString("dormID"));
+                medical.getPatient().setCenterDirectorID(j.getString("centerDirectorID"));
+                medical.getPatient().setCustomerNo(j.getString("customerNo"));
+                medical.getPatient().setRecordDate(j.getString("recordDate"));
+                medical.setSignaturePath(j.getString("signature"));
+                medical.setMedicalCertificatePath(j.getString("medicalCertificate"));
+                medical.setServiceRecordPath(j.getString("serviceRecord"));
+                medical.setDiagnosticCertificatePath(j.getString("diagnosticCertificate"));
+                medical.setCreateId(j.getString("createId"));
+                medical.setCreateTime(j.getString("createTime"));
+                // symptom
+                JSONArray arr_symptom = j.getJSONArray("medicalTreatmentRecordDetail");
+                medical.getSymptom().clear();
+                for (int i = 0; i < arr_symptom.length(); i++) {
+                    JSONObject o = arr_symptom.getJSONObject(i);
+                    MedicalSymptomModel ms = new MedicalSymptomModel();
+                    ms.setCode(o.getString("symptomsType") + o.getString("symptomsTypeItem"));
+                    medical.getSymptom().add(ms);
+                }
+                // process status
+                JSONArray arr_process = j.getJSONArray("medicalProcessingRecord");
+                medical.getProcessingStatus().clear();
+                for (int i = 0; i < arr_process.length(); i++) {
+                    JSONObject o = arr_process.getJSONObject(i);
+                    MedicalProcessStatusModel mps = new MedicalProcessStatusModel();
+                    mps.setProcessingStatus(o.getInt("processingStatus"));
+                    mps.setProcessingStatusToHospitalID(o.getString("processingStatusToHospitalID"));
+                    mps.setProcessingStatusHospitalSNo(o.getString("processingStatusHospitalSNo"));
+                    mps.setProcessingStatusOtherMemo(o.getString("processingStatusOtherMemo"));
+                    mps.setProcessingStatusMedicalCertificate(o.getString("processingStatusMedicalCertificate"));
+                    medical.getProcessingStatus().add(mps);
+                }
+                // track process
+                JSONArray arr_track = j.getJSONArray("medicalTreatmentProcessingRecord");
+                medical.getTrackProcess().clear();
+                for (int i = 0; i < arr_track.length(); i++) {
+                    JSONObject o = arr_track.getJSONObject(i);
+                    MedicalTrackProcessModel mtp = new MedicalTrackProcessModel();
+                    mtp.setTreatmentStatus(o.getInt("treatmentStatus"));
+                    mtp.setTreatmentMemo(o.getString("treatmentMemo"));
+                    medical.getTrackProcess().add(mtp);
+                }
             }
             return result;
         } catch (JSONException e) {

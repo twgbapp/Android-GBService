@@ -3,10 +3,6 @@ package goldenbrother.gbmobile.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- *
- */
-
 public class MedicalSymptomModel implements Parcelable {
 
     private String columnName;
@@ -65,12 +61,19 @@ public class MedicalSymptomModel implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "MedicalTreatmentCodeModel{" +
-                "columnName='" + columnName + '\'' +
-                ", code='" + code + '\'' +
-                ", value='" + value + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MedicalSymptomModel that = (MedicalSymptomModel) o;
+
+        return code != null ? code.equals(that.code) : that.code == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return code != null ? code.hashCode() : 0;
     }
 
     @Override

@@ -241,13 +241,9 @@
     <string name="chat">Chat</string>
     <string name="start_date">StartDate</string>
     <string name="end_date">EndDate</string>
-=======
-    <string name="mobile_service_desk">Mobile Service</string>
-    <string name="am">AM</string>
-    <string name="pm">PM</string>
-    <string name="copy_to_clipboard">Already copy to clipboard</string>
-    <string name="quick_repair_place">Place</string>
-    <string name="quick_repair_description">Description</string>
-    <string name="Taiwan">Taiwan</string>
->>>>>>> Stashed changes
+    <string name="can_not_get_patient">Can not get patient</string>
+    <string name="room_id">RoomId</string>
+    <string name="member_login">MEMBER LOGIN</string>
+    <string name="language">Language</string>
+    <string name="language_alert">When the language is switched, the system will reopen</string>
 </resources>
