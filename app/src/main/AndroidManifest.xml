@@ -98,6 +98,8 @@
         <activity android:name=".activity.PackageResultActivity" />
         <activity android:name=".activity.CropActivity" />
         <activity android:name=".activity.WebViewActivity"></activity>
+        //your activity declarations and other stuff
+        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
     </application>
 
 </manifest>

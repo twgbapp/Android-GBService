@@ -7,9 +7,10 @@ android {
         applicationId "goldenbrother.gbmobile"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "2.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [HOCKEYAPP_APP_ID: "b937710210e940a3862d9f90e993940d"]
     }
     buildTypes {
         release {
@@ -21,6 +22,7 @@ android {
 
 repositories {
     maven { url "https://jitpack.io" }
+    jcenter()
 }
 
 dependencies {
@@ -40,5 +42,6 @@ dependencies {
     compile 'com.github.gcacace:signature-pad:1.2.1'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.+'
     compile 'com.google.android.gms:play-services-appindexing:9.8.0'
+    compile 'net.hockeyapp.android:HockeySDK:4.1.5'
 }
 apply plugin: 'com.google.gms.google-services'

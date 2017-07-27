@@ -19,6 +19,8 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
+import net.hockeyapp.android.UpdateManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,11 +46,14 @@ public class SplashActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        initView();
+        //initView();
+        TextView textView = (TextView) findViewById(R.id.text);
+        textView.setText("Version：" + PackageUtil.getVersionName(this));
+        UpdateManager.register(this);
         // ani
         Message msg = new Message();
         msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? LOG_OUT : LOG_IN;
-        handler.sendMessageDelayed(msg, 4000);
+        handler.sendMessageDelayed(msg, 10000);
     }
 
     private void initView() {
