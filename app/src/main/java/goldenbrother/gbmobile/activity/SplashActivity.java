@@ -51,7 +51,7 @@ public class SplashActivity extends CommonActivity {
         // ani
         Message msg = new Message();
         msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? LOG_OUT : LOG_IN;
-        handler.sendMessageDelayed(msg, 2000);
+        handler.sendMessageDelayed(msg, 1000);
     }
 
     private Handler handler = new Handler() {
