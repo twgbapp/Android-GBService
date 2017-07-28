@@ -231,4 +231,9 @@
     <string name="language">語言</string>
     <string name="language_alert">語言切換時,系統將會重新開啟</string>
     <string name="can_not_get_patient"></string>
+    <string name="hockeyapp_update_button">更新</string>
+    <string name="hockeyapp_update_dialog_message">顯示更新訊息</string>
+    <string name="hockeyapp_update_dialog_negative_button">忽略</string>
+    <string name="hockeyapp_update_dialog_positive_button">顯示</string>
+    <string name="hockeyapp_update_dialog_title">有新版本可更新</string>
 </resources>

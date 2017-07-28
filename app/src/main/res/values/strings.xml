@@ -245,4 +245,12 @@
     <string name="member_login">MEMBER LOGIN</string>
     <string name="language">Language</string>
     <string name="language_alert">When the language is switched, the system will reopen</string>
+    <!-- hockeyt Update -->
+    <string name="hockeyapp_update_mandatory_toast" translatable="false">%s is available and is a mandatory update!</string>
+    <string name="hockeyapp_update_dialog_title">Update Available</string>
+    <string name="hockeyapp_update_button">Update</string>
+    <string name="hockeyapp_update_dialog_message">Show information about the new update?</string>
+    <string name="hockeyapp_update_dialog_negative_button">Ignore</string>
+    <string name="hockeyapp_update_dialog_positive_button">Show</string>
+    <string name="hockeyapp_update_version_details_label" translatable="false">%1$s\n%2$s - %3$s</string>
 </resources>

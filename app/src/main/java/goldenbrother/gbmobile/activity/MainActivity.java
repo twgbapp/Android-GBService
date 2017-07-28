@@ -21,6 +21,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import net.hockeyapp.android.UpdateManager;
+
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
 import goldenbrother.gbmobile.model.DrawerItem;
@@ -55,6 +57,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Hockey  for APP Update Check
+        UpdateManager.register(this);
         // ui reference
         iv_banner = (ImageView) findViewById(R.id.iv_main_banner);
         findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);

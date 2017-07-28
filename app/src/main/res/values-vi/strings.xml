@@ -225,5 +225,6 @@
     <string name="staff">nhân viên</string>
     <string name="edit">chỉnh sửa</string>
     <string name="thailand">thái lan</string>
->>>>>>> Stashed changes
+    <string name="hockeyapp_update_mandatory_toast"></string>
+    >>>>>>> Stashed changes
 </resources>
