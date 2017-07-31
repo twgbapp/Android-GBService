@@ -58,7 +58,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Hockey  for APP Update Check
-        UpdateManager.register(this);
+        checkForUpdates();
         // ui reference
         iv_banner = (ImageView) findViewById(R.id.iv_main_banner);
         findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);
@@ -71,6 +71,21 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         initDrawer();
         // initBanner
         initBanner();
+    }
+
+    private void checkForUpdates() {
+        // Remove this for store builds!
+        UpdateManager.register(this);
+    }
+
+    private void unregisterManagers() {
+        UpdateManager.unregister();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterManagers();
     }
 
     private void initToolbar() {
@@ -285,6 +300,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         if (handler != null)
             handler.removeCallbacks(r);
         super.onPause();
+        unregisterManagers();//for Hockey(APP Update)
     }
 
     private AlertDialog ad;
