@@ -51,7 +51,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     private ArrayList<Integer> list_banner;
     private boolean allowShowing = false;
     // data
-    public static final String E_COMMERCE = "http://www.seanwang66.com/gb/";
+    public static final String E_COMMERCE = "https://www.gbtake.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +151,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         String[] items = getResources().getStringArray(R.array.language);
         ad = alertCustomItems(0, null, items, new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view,final int position, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
                 ad.dismiss();
                 alertWithView(null, getString(R.string.language_alert), new DialogInterface.OnClickListener() {
                     @Override
@@ -203,7 +203,11 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             b.putInt("position", 0);
             openActivity(MobileServiceActivity.class, b);
         } else if (str.equals(getString(R.string.main_drawer_quick_repair))) {
-            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR);
+            b.putBoolean("support", false);
+            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR,b);
+        } else if (str.equals(getString(R.string.support))) {
+            b.putBoolean("support", true);
+            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR,b);
         } else if (str.equals(getString(R.string.main_drawer_satisfaction_survey))) {
             openActivity(SatisfactionIssueActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_club))) {
@@ -307,7 +311,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     private void showMobileServiceDialog() {
         String[] items_flabor = {getString(R.string.main_drawer_chat),
-                getString(R.string.main_drawer_quick_repair), getString(R.string.main_drawer_event_list)};
+                getString(R.string.main_drawer_quick_repair), getString(R.string.support), getString(R.string.main_drawer_event_list)};
         String[] items_manager = {getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_online_setting),
                 getString(R.string.main_drawer_chart), getString(R.string.main_drawer_repair_record),

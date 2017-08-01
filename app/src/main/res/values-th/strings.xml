@@ -9,7 +9,10 @@
         <item>@string/thailand</item>
         <item>@string/vietnam</item>
     </string-array>
-
+    <string-array name="choose_picture">
+        <item>@string/from_gallery</item>
+        <item>@string/camera</item>
+    </string-array>
     <string name="password">รหัสผ่าน</string>
     <string name="login_login">เข้าสู่ระบบ</string>
     <string name="sign_up">การลงทะเบียน</string>

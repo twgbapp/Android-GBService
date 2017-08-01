@@ -1,12 +1,12 @@
 package goldenbrother.gbmobile.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-/**
- * Created by asus on 2017/1/21.
- */
 
-public class ClubPostModel {
+public class ClubPostModel implements Parcelable{
     private int ClubPostID;
     private int ClubID;
     private String postUserPicture;
@@ -22,6 +22,31 @@ public class ClubPostModel {
         list_media = new ArrayList<>();
         list_message = new ArrayList<>();
     }
+
+    protected ClubPostModel(Parcel in) {
+        ClubPostID = in.readInt();
+        ClubID = in.readInt();
+        postUserPicture = in.readString();
+        postUserName = in.readString();
+        Content = in.readString();
+        CreateDate = in.readString();
+        ModeifyDate = in.readString();
+        list_media = in.createTypedArrayList(ClubPostMediaModel.CREATOR);
+        messageCount = in.readInt();
+        list_message = in.createTypedArrayList(ClubPostMessageModel.CREATOR);
+    }
+
+    public static final Creator<ClubPostModel> CREATOR = new Creator<ClubPostModel>() {
+        @Override
+        public ClubPostModel createFromParcel(Parcel in) {
+            return new ClubPostModel(in);
+        }
+
+        @Override
+        public ClubPostModel[] newArray(int size) {
+            return new ClubPostModel[size];
+        }
+    };
 
     public int getClubPostID() {
         return ClubPostID;
@@ -93,5 +118,24 @@ public class ClubPostModel {
 
     public ArrayList<ClubPostMessageModel> getMessages() {
         return list_message;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(ClubPostID);
+        parcel.writeInt(ClubID);
+        parcel.writeString(postUserPicture);
+        parcel.writeString(postUserName);
+        parcel.writeString(Content);
+        parcel.writeString(CreateDate);
+        parcel.writeString(ModeifyDate);
+        parcel.writeTypedList(list_media);
+        parcel.writeInt(messageCount);
+        parcel.writeTypedList(list_message);
     }
 }

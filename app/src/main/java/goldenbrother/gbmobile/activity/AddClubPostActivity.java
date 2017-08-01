@@ -3,7 +3,6 @@ package goldenbrother.gbmobile.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -13,13 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.model.ClubPostMediaModel;
 import goldenbrother.gbmobile.adapter.AddClubPostMediaRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -170,6 +167,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
 
     private void inputVideoPath() {
         final EditText et = new EditText(this);
+        et.setHint(R.string.club_support_url);
         alertWithView(et, getString(R.string.club_video), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -195,8 +193,11 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.iv_add_club_post_done:
                 String content = et_content.getText().toString();
-                if (!content.isEmpty())
-                    addClubPost(et_content.getText().toString());
+                if (content.isEmpty()) {
+                    t(R.string.can_not_be_empty);
+                    return;
+                }
+                addClubPost(et_content.getText().toString());
                 break;
             case R.id.iv_add_club_post_choose_image:
                 chooseImage();

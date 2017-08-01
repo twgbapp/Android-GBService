@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/main_background2"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/main_background"
         app:cardCornerRadius="20dp">
 
         <LinearLayout
@@ -37,7 +38,6 @@
                     android:id="@+id/gv_club"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
                     android:numColumns="3" />
             </LinearLayout>
         </LinearLayout>
