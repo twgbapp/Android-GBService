@@ -170,8 +170,13 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
                 if (isCheck4) {
                     boolean yes = rb_yes.isChecked();
                     boolean no = rb_no.isChecked();
-                    String yesNo = (!yes && !no) ? "null" : (yes ? "1" : "0");
-                    list.add(new MedicalProcessStatusModel(array_process_status[3], "3/null/null/" + yesNo + "/null"));
+                    if(yes||no){
+                        String yesNo = yes ? "1" : "0";
+                        list.add(new MedicalProcessStatusModel(array_process_status[3], "3/null/null/" + yesNo + "/null"));
+                    }else{
+                        t(R.string.can_not_be_empty);
+                        return;
+                    }
                 }
                 if (isCheck5) {
                     String other = et_other.getText().toString();

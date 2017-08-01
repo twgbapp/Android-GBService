@@ -9,4 +9,14 @@
         android:layout_height="@dimen/imageview_login_logo_width"
         android:layout_centerInParent="true"
         android:src="@drawable/logo_splash" />
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="版本："
+        android:textSize="20sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/text" />
 </RelativeLayout>

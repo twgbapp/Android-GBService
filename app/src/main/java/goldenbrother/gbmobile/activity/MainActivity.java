@@ -1,6 +1,7 @@
 package goldenbrother.gbmobile.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -19,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+
+import net.hockeyapp.android.UpdateManager;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
@@ -54,6 +57,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Hockey  for APP Update Check
+        checkForUpdates();
         // ui reference
         iv_banner = (ImageView) findViewById(R.id.iv_main_banner);
         findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);
@@ -66,6 +71,21 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         initDrawer();
         // initBanner
         initBanner();
+    }
+
+    private void checkForUpdates() {
+        // Remove this for store builds!
+        UpdateManager.register(this);
+    }
+
+    private void unregisterManagers() {
+        UpdateManager.unregister();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterManagers();
     }
 
     private void initToolbar() {
@@ -280,6 +300,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         if (handler != null)
             handler.removeCallbacks(r);
         super.onPause();
+        unregisterManagers();//for Hockey(APP Update)
     }
 
     private AlertDialog ad;

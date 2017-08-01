@@ -363,8 +363,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(MedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD, b);
                 break;
             case R.id.tv_medical_record_save: // 新增醫療紀錄
-                if (medical.getPatient() == null) {
+                if (medical.getPatient().getName() == null ) {
                     t(R.string.can_not_get_patient);
+                    return;
+                }
+                if(medical.getSymptom().isEmpty()){
+                    t(R.string.can_not_get_symptom);
                     return;
                 }
                 addMedicalRecord();
