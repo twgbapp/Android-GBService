@@ -212,12 +212,6 @@
     <string name="quick_repair_area">District</string>
     <string name="quick_repair_kind">Type</string>
     <string name="quick_repair_item">Item</string>
-    <string name="quick_repair_place">Location</string>
-    <string name="quick_repair_description">Description</string>
-    <string name="mobile_service_desk">Mobile Service</string>
-    <string name="am">AM</string>
-    <string name="pm">PM</string>
-    <string name="copy_to_clipboard">Copy to clipboard</string>
     <string name="confirm_to_rating">Sure to score?</string>
     <string name="rating_request">You have a scoring request</string>
     <string name="package_request">One unclaim package. Please go to service center</string>
@@ -251,7 +245,13 @@
     <string name="member_login">MEMBER LOGIN</string>
     <string name="language">Language</string>
     <string name="language_alert">When the language is switched, the system will reopen</string>
-    <string name="support">Support</string>
-    <string name="comment">Comment</string>
-    <string name="send">Send</string>
+    <!-- hockeyt Update -->
+    <string name="hockeyapp_update_mandatory_toast" translatable="false">%s is available and is a mandatory update!</string>
+    <string name="hockeyapp_update_dialog_title">Update Available</string>
+    <string name="hockeyapp_update_button">Update</string>
+    <string name="hockeyapp_update_dialog_message">Show information about the new update?</string>
+    <string name="hockeyapp_update_dialog_negative_button">Ignore</string>
+    <string name="hockeyapp_update_dialog_positive_button">Show</string>
+    <string name="hockeyapp_update_version_details_label" translatable="false">%1$s\n%2$s - %3$s</string>
+    <string name="can_not_get_symptom">Can not get symptom﻿</string>
 </resources>
