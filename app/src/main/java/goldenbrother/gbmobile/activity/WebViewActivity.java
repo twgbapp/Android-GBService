@@ -30,12 +30,12 @@ public class WebViewActivity extends AppCompatActivity {
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
-        wv.setWebViewClient(webViewClient);
+        wv.setWebViewClient(new MyWebViewClient());
         // load
         wv.loadUrl(url);
     }
 
-    private WebViewClient webViewClient = new WebViewClient() {
+    private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
@@ -46,7 +46,7 @@ public class WebViewActivity extends AppCompatActivity {
         public void onPageFinished(WebView view, String url) {
 //            tv_title.setText(view.getTitle());
         }
-    };
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

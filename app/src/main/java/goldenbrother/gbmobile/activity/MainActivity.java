@@ -164,25 +164,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void setLanguage(int i) {
-        String lang = "";
-        switch (i) {
-            case 0:
-                lang = "en";
-                break;
-            case 1:
-                lang = "zh";
-                break;
-            case 2:
-                lang = "in";
-                break;
-            case 3:
-                lang = "vi";
-                break;
-            case 4:
-                lang = "th";
-                break;
-        }
-        Locale locale = new Locale(lang);
+        Locale locale = new Locale(new String[]{"en", "zh", "in", "vi", "th"}[i]);
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
@@ -204,10 +186,10 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(MobileServiceActivity.class, b);
         } else if (str.equals(getString(R.string.main_drawer_quick_repair))) {
             b.putBoolean("support", false);
-            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR,b);
+            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR, b);
         } else if (str.equals(getString(R.string.support))) {
             b.putBoolean("support", true);
-            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR,b);
+            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR, b);
         } else if (str.equals(getString(R.string.main_drawer_satisfaction_survey))) {
             openActivity(SatisfactionIssueActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_club))) {

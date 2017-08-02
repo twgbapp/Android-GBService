@@ -28,7 +28,6 @@
     <string name="permission_denied">Không có quyền</string>
     <string name="error_confirm_password">Xác nhận mật mã không phù hợp</string>
     <string name="press_again_to_exit">Ấn lại 1 lần vào nút quay trở lại để thoát</string>
-    <string name="mobile_service_desk">Quầy phục vụ lưu động</string>
     <string name="event_list">Biểu liệt kê sự việc</string>
     <string name="quick_repair">Báo sửa nhanh</string>
     <string name="repair_record">Ghi chép báo sửa</string>
