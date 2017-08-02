@@ -190,7 +190,6 @@
     <string name="government">Pemerintah</string>
     <string name="all">semuanya</string>
     <string name="already_rating">Telah diNilai</string>
-    <string name="am">Pagi hari</string>
     <string name="can_not_rating">Anda tidak bisa menilai</string>
     <string name="choose_a_staff">Pilih satu karyawan</string>
     <string name="confirm_to_rating">Pastikah anda mau menilai</string>
@@ -226,4 +225,6 @@
     <string name="edit">Edit</string>
     <string name="thailand">Thailand</string>
     <string name="hockeyapp_update_button"></string>
+    <string name="am">Pagi hari</string>
+    <string name="can_not_get_patient"></string>
 </resources>

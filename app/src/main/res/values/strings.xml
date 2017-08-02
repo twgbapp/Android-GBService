@@ -253,5 +253,14 @@
     <string name="hockeyapp_update_dialog_negative_button">Ignore</string>
     <string name="hockeyapp_update_dialog_positive_button">Show</string>
     <string name="hockeyapp_update_version_details_label" translatable="false">%1$s\n%2$s - %3$s</string>
-    <string name="can_not_get_symptom">Can not get symptom﻿</string>
+    <string name="can_not_get_symptom">Can not get symptom</string>
+    <string name="comment">comment</string>
+    <string name="send">send</string>
+    <string name="support">support</string>
+    <string name="am">am</string>
+    <string name="pm">pm</string>
+    <string name="discussion_list">Discussion List</string>
+    <string name="copy_to_clipboard">copy_to_clipboard</string>
+    <string name="discussion_add_discussion">Add Discussion</string>
+    <string name="discussion_profile">Profile</string>
 </resources>
