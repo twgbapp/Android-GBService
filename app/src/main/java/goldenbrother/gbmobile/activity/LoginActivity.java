@@ -174,12 +174,12 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        hideKeyBoard(v);
         switch (v.getId()) {
             case R.id.iv_login_change_language:
                 showChangeLanguageDialog();
                 break;
             case R.id.tv_login_dologn:
-                UtilHelper.hideKeyBoard(this, v);
                 doLogin();
                 break;
             case R.id.cv_login_signup:

@@ -4,10 +4,13 @@ import android.content.Context;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.model.AnnouncementModel;
+import goldenbrother.gbmobile.model.Center;
 import goldenbrother.gbmobile.model.ClubModel;
 import goldenbrother.gbmobile.model.ClubPostMediaModel;
 import goldenbrother.gbmobile.model.ClubPostMessageModel;
 import goldenbrother.gbmobile.model.ClubPostModel;
+import goldenbrother.gbmobile.model.Customer;
+import goldenbrother.gbmobile.model.Dorm;
 import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.EventKindModel;
 import goldenbrother.gbmobile.model.EventModel;
@@ -1166,6 +1169,76 @@ public class ApiResultHelper {
                     mtp.setTreatmentMemo(o.getString("treatmentMemo"));
                     medical.getTrackProcess().add(mtp);
                 }
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getCenterInfo(String response, ArrayList<Center> list_center) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Center> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("center");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Center c = new Center();
+                    c.setCenterID(o.getString("centerID"));
+                    c.setCenterName(o.getString("centerName"));
+                    list.add(c);
+                }
+                list_center.clear();
+                list_center.addAll(list);
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+    public static int getDormInfo(String response, ArrayList<Dorm> list_dorm) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Dorm> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("dorm");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Dorm d = new Dorm();
+                    d.setDormID(o.getString("dormID"));
+                    d.setDormName(o.getString("dormName"));
+                    list.add(d);
+                }
+                list_dorm.clear();
+                list_dorm.addAll(list);
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+    public static int getCustomerInfo(String response, ArrayList<Customer> list_customer) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Customer> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("center");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Customer c = new Customer();
+                    c.setCustomerNo(o.getString("customerNo"));
+                    c.setCustomerName(o.getString("customerName"));
+                    list.add(c);
+                }
+                list_customer.clear();
+                list_customer.addAll(list);
             }
             return result;
         } catch (JSONException e) {

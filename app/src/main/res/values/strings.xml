@@ -263,6 +263,8 @@
     <string name="copy_to_clipboard">copy_to_clipboard</string>
     <string name="discussion_add_discussion">Add Discussion</string>
     <string name="discussion_profile">Profile</string>
-    <string name="quick_repair_description">Discription</string>
+    <string name="quick_repair_description">Description</string>
     <string name="quick_repair_place">Location</string>
+    <string name="manager_center">Center</string>
+    <string name="customer">Customer</string>
 </resources>

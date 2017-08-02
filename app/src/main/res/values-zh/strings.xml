@@ -243,4 +243,6 @@
     <string name="send">送出</string>
     <string name="support">需求問題支援</string>
     <string name="start_date">起始日</string>
+    <string name="manager_center">區管中心</string>
+    <string name="customer">客戶</string>
 </resources>

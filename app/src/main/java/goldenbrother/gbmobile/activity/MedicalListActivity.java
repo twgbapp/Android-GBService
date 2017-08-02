@@ -173,7 +173,5 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
                 break;
         }
     }
-
-
 }
 

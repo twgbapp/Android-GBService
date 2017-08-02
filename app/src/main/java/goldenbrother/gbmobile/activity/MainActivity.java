@@ -1,7 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -350,7 +349,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -360,7 +358,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 rv_drawer.getAdapter().notifyItemChanged(0);
                 break;
         }
-
     }
 
     public static final long DELAY_TIME = 2000L;

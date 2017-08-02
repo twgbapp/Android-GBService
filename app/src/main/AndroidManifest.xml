@@ -33,7 +33,6 @@
             android:name=".activity.MobileServiceActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.SignUpActivity" />
-
         <activity
             android:name=".activity.EventChatActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -80,8 +79,7 @@
         <activity android:name=".activity.SplashActivity" />
         <activity android:name=".activity.PackageResultActivity" />
         <activity android:name=".activity.CropActivity" />
-        <activity android:name=".activity.WebViewActivity"/>
-
+        <activity android:name=".activity.WebViewActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -100,8 +98,14 @@
             </intent-filter>
         </service>
 
-        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
 
+        <activity android:name=".activity.DiscussionListActivity" />
+        <activity android:name=".activity.DiscussionRecordActivity" />
+        <activity android:name=".activity.DiscussionFlaborInfoActivity" />
+        <activity android:name=".activity.DiscussionSearchActivity"></activity>
     </application>
 
 </manifest>
