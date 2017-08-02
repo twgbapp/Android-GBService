@@ -38,6 +38,7 @@ public class DiscussionSearchActivity extends CommonActivity implements View.OnC
         tv_center = (TextView) findViewById(R.id.tv_discussion_search_center);
         tv_dorm = (TextView) findViewById(R.id.tv_discussion_search_dorm);
         tv_customer = (TextView) findViewById(R.id.tv_discussion_search_customer);
+        findViewById(R.id.tv_discussion_search_confirm).setOnClickListener(this);
         tv_center.setOnClickListener(this);
         tv_dorm.setOnClickListener(this);
         tv_customer.setOnClickListener(this);
@@ -121,11 +122,11 @@ public class DiscussionSearchActivity extends CommonActivity implements View.OnC
         }
     }
 
-    private void getCustomerInfo(String centerId) {
+    private void getCustomerInfo(String dormId) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getCustomerInfo");
-            j.put("centerId", centerId);
+            j.put("dormId", dormId);
             new GetCustomerInfo(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -165,6 +166,7 @@ public class DiscussionSearchActivity extends CommonActivity implements View.OnC
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 tv_center.setText(list_center.get(i).getCenterName());
+                getDormInfo(getCenterIdByCenterName(list_center.get(i).getCenterName()));
             }
         });
     }
@@ -178,6 +180,7 @@ public class DiscussionSearchActivity extends CommonActivity implements View.OnC
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 tv_dorm.setText(list_dorm.get(i).getDormName());
+                getCustomerInfo(getDormIdByDormName(list_dorm.get(i).getDormName()));
             }
         });
     }
@@ -233,6 +236,15 @@ public class DiscussionSearchActivity extends CommonActivity implements View.OnC
                 break;
             case R.id.tv_discussion_search_customer:
                 showCustomerDialog();
+                break;
+            case R.id.tv_discussion_search_confirm:
+                String centerId = getCenterIdByCenterName(tv_center.getText().toString());
+                String dormId = getDormIdByDormName(tv_dorm.getText().toString());
+                String customerNo = getCustomerNoByCustomerName(tv_customer.getText().toString());
+                if (centerId == null || dormId == null || customerNo == null) {
+                    t(R.string.can_not_be_empty);
+                    return;
+                }
                 break;
         }
     }

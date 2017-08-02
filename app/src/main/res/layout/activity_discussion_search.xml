@@ -45,4 +45,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/select" />
+
+    <TextView
+        android:id="@+id/tv_discussion_search_confirm"
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/confirm" />
 </LinearLayout>
