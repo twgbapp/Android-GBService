@@ -190,7 +190,6 @@
     <string name="government">nhà nước</string>
     <string name="all">tất cả</string>
     <string name="already_rating">đã tính điểm</string>
-    <string name="am">sáng</string>
     <string name="can_not_rating">bạn không thể tính điểm</string>
     <string name="choose_a_staff">chọn một nhân viên</string>
     <string name="confirm_to_rating">bạn đồng ý tính điểm</string>
@@ -226,5 +225,5 @@
     <string name="edit">chỉnh sửa</string>
     <string name="thailand">thái lan</string>
     <string name="hockeyapp_update_mandatory_toast"></string>
-    >>>>>>> Stashed changes
+    <string name="am">sáng</string>
 </resources>

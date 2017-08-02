@@ -7,8 +7,8 @@ android {
         applicationId "goldenbrother.gbmobile"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 5
-        versionName "2.0.5"
+        versionCode 7
+        versionName "2.0.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [HOCKEYAPP_APP_ID: "b937710210e940a3862d9f90e993940d"]
     }

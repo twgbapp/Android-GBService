@@ -126,7 +126,6 @@
     <string name="government">รัฐบาล</string>
     <string name="all">ทั้งหมด</string>
     <string name="already_rating">ลงคะแนนแล้ว</string>
-    <string name="am">ตอนเช้า</string>
     <string name="can_not_rating">คุณไม่สามารถลงคะแนนได้</string>
     <string name="choose_a_staff">เลือกพนักงาน 1 ท่าน</string>
     <string name="confirm_to_rating">คุณแน่ใจจะลงคะแนนหรือไม่？</string>
@@ -166,4 +165,5 @@
     <string name="staff">พนักงาน</string>
     <string name="edit">การตัดต่อ</string>
     <string name="thailand">ไทย</string>
+    <string name="am">ตอนเช้า</string>
 </resources>
