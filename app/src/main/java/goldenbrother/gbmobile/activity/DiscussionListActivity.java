@@ -4,18 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.DiscussionListRVAdapter;
-import goldenbrother.gbmobile.adapter.MedicalListRVAdapter;
-import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.Discussion;
-import goldenbrother.gbmobile.model.RoleInfo;
 
 public class DiscussionListActivity extends CommonActivity implements View.OnClickListener {
 
@@ -55,10 +50,10 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_discussion_list_search:
-                openActivityForResult(DiscussionSearchActivity.class, REQUEST_SEARCH);
+                openActivityForResult(SearchCustomerActivity.class, REQUEST_SEARCH);
                 break;
             case R.id.iv_discussion_list_add:
-
+                openActivity(DiscussionRecordActivity.class, new Bundle());
                 break;
         }
     }

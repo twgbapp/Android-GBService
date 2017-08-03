@@ -245,4 +245,6 @@
     <string name="start_date">起始日</string>
     <string name="manager_center">區管中心</string>
     <string name="customer">客戶</string>
+    <string name="discussion">訪談</string>
+    <string name="workerNo">工號</string>
 </resources>

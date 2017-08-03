@@ -24,6 +24,7 @@ import net.hockeyapp.android.UpdateManager;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
+import goldenbrother.gbmobile.model.Discussion;
 import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -125,6 +126,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_medical, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.discussion, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
@@ -214,6 +216,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(RepairRecordActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_medical))) {
             openActivity(MedicalListActivity.class);
+        } else if (str.equals(getString(R.string.discussion))) {
+            openActivity(DiscussionListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_e_commerce))) {
             b.putString("url", E_COMMERCE);
             openActivity(WebViewActivity.class, b);

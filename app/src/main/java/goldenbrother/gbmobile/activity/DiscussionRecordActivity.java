@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -40,6 +41,18 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         switch (v.getId()) {
             case R.id.iv_discussion_record_profile:
                 openActivityForResult(DiscussionFlaborInfoActivity.class, REQUEST_PROFILE, b);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        discussion = data.getParcelableExtra("discussion");
+        switch (requestCode) {
+            case REQUEST_PROFILE:
+
                 break;
         }
     }

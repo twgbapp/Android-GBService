@@ -105,7 +105,7 @@
         <activity android:name=".activity.DiscussionListActivity" />
         <activity android:name=".activity.DiscussionRecordActivity" />
         <activity android:name=".activity.DiscussionFlaborInfoActivity" />
-        <activity android:name=".activity.DiscussionSearchActivity"></activity>
+        <activity android:name=".activity.SearchCustomerActivity" />
     </application>
 
 </manifest>

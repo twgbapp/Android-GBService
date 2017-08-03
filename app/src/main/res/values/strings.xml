@@ -267,4 +267,6 @@
     <string name="quick_repair_place">Location</string>
     <string name="manager_center">Center</string>
     <string name="customer">Customer</string>
+    <string name="discussion">Discussion</string>
+    <string name="workerNo">WorkerNo</string>
 </resources>

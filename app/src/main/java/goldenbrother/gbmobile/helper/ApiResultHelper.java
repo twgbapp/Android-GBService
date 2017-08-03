@@ -11,6 +11,7 @@ import goldenbrother.gbmobile.model.ClubPostMessageModel;
 import goldenbrother.gbmobile.model.ClubPostModel;
 import goldenbrother.gbmobile.model.Customer;
 import goldenbrother.gbmobile.model.Dorm;
+import goldenbrother.gbmobile.model.DormUser;
 import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.EventKindModel;
 import goldenbrother.gbmobile.model.EventModel;
@@ -1038,21 +1039,20 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getDormUserInfo(String response, HashMap<String, String> map) {
+    public static int getDormUserInfo(String response, DormUser dormUser) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                map.put("userName", j.getString("userName"));
-                map.put("userSex", j.getString("userSex"));
-                map.put("userBirthday", j.getString("userBirthday"));
-                map.put("userSex", j.getString("userSex"));
-                map.put("customerNo", j.getString("customerNo"));
-                map.put("workerNo", j.getString("workerNo"));
-                map.put("flaborNo", j.getString("flaborNo"));
-                map.put("dormID", j.getString("dormID"));
-                map.put("roomID", j.getString("roomID"));
-                map.put("centerDirectorID", j.getString("centerDirectorID"));
+                dormUser.setUserName(j.getString("userName"));
+                dormUser.setUserSex(j.getString("userSex"));
+                dormUser.setUserBirthday(j.getString("userBirthday"));
+                dormUser.setCustomerNo(j.getString("customerNo"));
+                dormUser.setWorkerNo(j.getString("workerNo"));
+                dormUser.setFlaborNo(j.getString("flaborNo"));
+                dormUser.setDormID(j.getString("dormID"));
+                dormUser.setRoomID(j.getString("roomID"));
+                dormUser.setCenterDirectorID(j.getString("centerDirectorID"));
             }
             return success;
         } catch (JSONException e) {

@@ -2,14 +2,17 @@ package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -18,36 +21,51 @@ import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Center;
 import goldenbrother.gbmobile.model.Customer;
 import goldenbrother.gbmobile.model.Dorm;
+import goldenbrother.gbmobile.model.DormUser;
 import goldenbrother.gbmobile.model.RoleInfo;
 
-public class DiscussionSearchActivity extends CommonActivity implements View.OnClickListener {
+public class SearchCustomerActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private TextView tv_center, tv_dorm, tv_customer;
+    private View ll_flabor;
+    private EditText et_worker_no;
+    private TextView tv_flabor_name;
+    // extra
+    private boolean isSearchFlabor;
     // data
     private ArrayList<Center> list_center;
     private ArrayList<Dorm> list_dorm;
     private ArrayList<Customer> list_customer;
+    private DormUser dormUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discussion_search);
+        setContentView(R.layout.activity_search_customer);
 
         // ui reference
-        tv_center = (TextView) findViewById(R.id.tv_discussion_search_center);
-        tv_dorm = (TextView) findViewById(R.id.tv_discussion_search_dorm);
-        tv_customer = (TextView) findViewById(R.id.tv_discussion_search_customer);
-        findViewById(R.id.tv_discussion_search_confirm).setOnClickListener(this);
+        tv_center = (TextView) findViewById(R.id.tv_search_customer_center);
+        tv_dorm = (TextView) findViewById(R.id.tv_search_customer_dorm);
+        tv_customer = (TextView) findViewById(R.id.tv_search_customer_customer);
+        ll_flabor = findViewById(R.id.ll_search_customer_flabor);
+        et_worker_no = (EditText) findViewById(R.id.et_search_customer_worker_no);
+        tv_flabor_name = (TextView) findViewById(R.id.tv_search_customer_flabor_name);
+        findViewById(R.id.tv_search_customer_flabor_search).setOnClickListener(this);
+        findViewById(R.id.tv_search_customer_confirm).setOnClickListener(this);
         tv_center.setOnClickListener(this);
         tv_dorm.setOnClickListener(this);
         tv_customer.setOnClickListener(this);
+
+        // extra
+        isSearchFlabor = getIntent().getExtras().getBoolean("isSearchFlabor", false);
 
         // init
         list_center = new ArrayList<>();
         list_dorm = new ArrayList<>();
         list_customer = new ArrayList<>();
-
+        dormUser = new DormUser();
+        ll_flabor.setVisibility(isSearchFlabor ? View.VISIBLE : View.GONE);
         // getCenterInfo
         getCenterInfo();
     }
@@ -225,26 +243,86 @@ public class DiscussionSearchActivity extends CommonActivity implements View.OnC
         return null;
     }
 
+    private void getDormUserInfo(String customerNo, String workerNo) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "getDormUserInfo");
+            j.put("customerNo", customerNo);
+            j.put("workerNo", workerNo);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
+            new GetDormUserInfo(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class GetDormUserInfo extends IAsyncTask {
+
+        GetDormUserInfo(Context context, JSONObject json, String url) {
+            super(context, json, url);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.EMPTY:
+                    int result = ApiResultHelper.getDormUserInfo(response, dormUser);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        tv_flabor_name.setText(dormUser.getUserName());
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
+        String centerName = tv_center.getText().toString();
+        String dormName = tv_dorm.getText().toString();
+        String customerName = tv_customer.getText().toString();
+        String centerId = getCenterIdByCenterName(centerName);
+        String dormId = getDormIdByDormName(dormName);
+        String customerNo = getCustomerNoByCustomerName(customerName);
         switch (v.getId()) {
-            case R.id.tv_discussion_search_center:
+            case R.id.tv_search_customer_center:
                 showCenterDialog();
                 break;
-            case R.id.tv_discussion_search_dorm:
-                showDormDialog();
+            case R.id.tv_search_customer_dorm:
+                if (!tv_center.getText().toString().equals(getString(R.string.select)))
+                    showDormDialog();
                 break;
-            case R.id.tv_discussion_search_customer:
-                showCustomerDialog();
+            case R.id.tv_search_customer_customer:
+                if (!tv_dorm.getText().toString().equals(getString(R.string.select)))
+                    showCustomerDialog();
                 break;
-            case R.id.tv_discussion_search_confirm:
-                String centerId = getCenterIdByCenterName(tv_center.getText().toString());
-                String dormId = getDormIdByDormName(tv_dorm.getText().toString());
-                String customerNo = getCustomerNoByCustomerName(tv_customer.getText().toString());
+            case R.id.tv_search_customer_flabor_search:
+                String workerNo = et_worker_no.getText().toString();
+                if (centerId == null || dormId == null || customerNo == null || workerNo.isEmpty()) {
+                    t(R.string.can_not_be_empty);
+                    return;
+                }
+                getDormUserInfo(customerNo, workerNo);
+                break;
+            case R.id.tv_search_customer_confirm:
                 if (centerId == null || dormId == null || customerNo == null) {
                     t(R.string.can_not_be_empty);
                     return;
                 }
+
+                Intent intent = new Intent();
+                intent.putExtra("centerName", centerName);
+                intent.putExtra("dormName", dormName);
+                intent.putExtra("customerName", customerName);
+                intent.putExtra("centerId", centerId);
+                intent.putExtra("dormId", dormId);
+                intent.putExtra("customerNo", customerNo);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }
