@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.DiscussionListRVAdapter;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.model.Discussion;
 
 public class DiscussionListActivity extends CommonActivity implements View.OnClickListener {
@@ -48,12 +49,14 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        Bundle b = new Bundle();
         switch (v.getId()) {
             case R.id.iv_discussion_list_search:
-                openActivityForResult(SearchCustomerActivity.class, REQUEST_SEARCH);
+                b.putBoolean("isSearchFlabor", true);
+                openActivityForResult(SearchCustomerActivity.class, REQUEST_SEARCH, b);
                 break;
             case R.id.iv_discussion_list_add:
-                openActivity(DiscussionRecordActivity.class, new Bundle());
+                openActivity(DiscussionRecordActivity.class, b);
                 break;
         }
     }
@@ -64,7 +67,9 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_SEARCH:
-
+                LogHelper.d(data.getStringExtra("dormId"));
+                LogHelper.d(data.getStringExtra("customerNo"));
+                LogHelper.d(data.getStringExtra("flaborNo"));
                 break;
         }
     }

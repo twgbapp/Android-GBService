@@ -95,7 +95,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getCenterInfo(response, list_center);
                     if (result == ApiResultHelper.SUCCESS) {
-                        t(R.string.success);
+//                        t(R.string.success);
                     } else {
                         t(R.string.fail);
                         finish();
@@ -130,7 +130,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getDormInfo(response, list_dorm);
                     if (result == ApiResultHelper.SUCCESS) {
-                        t(R.string.success);
+//                        t(R.string.success);
                     } else {
                         t(R.string.fail);
                         finish();
@@ -144,7 +144,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getCustomerInfo");
-            j.put("dormId", dormId);
+            j.put("dormID", dormId);
             new GetCustomerInfo(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -165,7 +165,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getCustomerInfo(response, list_customer);
                     if (result == ApiResultHelper.SUCCESS) {
-                        t(R.string.success);
+//                        t(R.string.success);
                     } else {
                         t(R.string.fail);
                         finish();
@@ -184,6 +184,8 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 tv_center.setText(list_center.get(i).getCenterName());
+                tv_dorm.setText(getString(R.string.select));
+                tv_customer.setText(getString(R.string.select));
                 getDormInfo(getCenterIdByCenterName(list_center.get(i).getCenterName()));
             }
         });
@@ -198,6 +200,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 tv_dorm.setText(list_dorm.get(i).getDormName());
+                tv_customer.setText(getString(R.string.select));
                 getCustomerInfo(getDormIdByDormName(list_dorm.get(i).getDormName()));
             }
         });
@@ -321,6 +324,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
                 intent.putExtra("centerId", centerId);
                 intent.putExtra("dormId", dormId);
                 intent.putExtra("customerNo", customerNo);
+                intent.putExtra("flaborNo", dormUser.getFlaborNo());
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

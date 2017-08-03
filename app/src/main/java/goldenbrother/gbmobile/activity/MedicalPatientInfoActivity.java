@@ -75,61 +75,61 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
         et_arc_id_number.setText(medical.getPatient().getId1());
     }
 
-    private void getDormUserInfo(String userIDNumber) {
-        try {
-            JSONObject j = new JSONObject();
-            j.put("action", "getDormUserInfo");
-            j.put("arc", userIDNumber);
-            j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
-            new GetDormUserInfo(this, j, URLHelper.HOST).execute();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private class GetDormUserInfo extends IAsyncTask {
-        private HashMap<String, String> map;
-
-        GetDormUserInfo(Context context, JSONObject json, String url) {
-            super(context, json, url);
-            map = new HashMap<>();
-        }
-
-        private String getData(String key) {
-            if (map.containsKey(key)) {
-                return map.get(key);
-            } else {
-                return "";
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            super.onPostExecute(response);
-            switch (getResult()) {
-                case ApiResultHelper.SUCCESS:
-                case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.getDormUserInfo(response, map);
-                    if (result == ApiResultHelper.SUCCESS) {
-                        medical.getPatient().setGender(getData("userSex").equals("男"));
-                        medical.getPatient().setCustomerNo(getData("customerNo"));
-                        medical.getPatient().setFlaborNo(getData("flaborNo"));
-                        medical.getPatient().setCustomerNo(getData("customerNo"));
-                        medical.getPatient().setDormID(getData("dormID"));
-                        medical.getPatient().setRoomID(getData("roomID"));
-                        medical.getPatient().setCenterDirectorID(getData("centerDirectorID"));
-
-                        tv_name.setText(getData("userName"));
-                        tv_gender.setText(getString(getData("userSex").equals("男") ? R.string.male : R.string.female));
-                        tv_birthday.setText(getData("userBirthday"));
-                    } else {
-                        t(R.string.fail);
-                    }
-                    break;
-            }
-        }
-    }
+//    private void getDormUserInfo(String userIDNumber) {
+//        try {
+//            JSONObject j = new JSONObject();
+//            j.put("action", "getDormUserInfo");
+//            j.put("arc", userIDNumber);
+//            j.put("userID", RoleInfo.getInstance().getUserID());
+//            j.put("logStatus", false);
+//            new GetDormUserInfo(this, j, URLHelper.HOST).execute();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    private class GetDormUserInfo extends IAsyncTask {
+//        private HashMap<String, String> map;
+//
+//        GetDormUserInfo(Context context, JSONObject json, String url) {
+//            super(context, json, url);
+//            map = new HashMap<>();
+//        }
+//
+//        private String getData(String key) {
+//            if (map.containsKey(key)) {
+//                return map.get(key);
+//            } else {
+//                return "";
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String response) {
+//            super.onPostExecute(response);
+//            switch (getResult()) {
+//                case ApiResultHelper.SUCCESS:
+//                case ApiResultHelper.EMPTY:
+//                    int result = ApiResultHelper.getDormUserInfo(response, map);
+//                    if (result == ApiResultHelper.SUCCESS) {
+//                        medical.getPatient().setGender(getData("userSex").equals("男"));
+//                        medical.getPatient().setCustomerNo(getData("customerNo"));
+//                        medical.getPatient().setFlaborNo(getData("flaborNo"));
+//                        medical.getPatient().setCustomerNo(getData("customerNo"));
+//                        medical.getPatient().setDormID(getData("dormID"));
+//                        medical.getPatient().setRoomID(getData("roomID"));
+//                        medical.getPatient().setCenterDirectorID(getData("centerDirectorID"));
+//
+//                        tv_name.setText(getData("userName"));
+//                        tv_gender.setText(getString(getData("userSex").equals("男") ? R.string.male : R.string.female));
+//                        tv_birthday.setText(getData("userBirthday"));
+//                    } else {
+//                        t(R.string.fail);
+//                    }
+//                    break;
+//            }
+//        }
+//    }
 
     private void showGenderDialog() {
         final String[] items = {getString(R.string.male), getString(R.string.female)};
@@ -238,7 +238,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
             case R.id.tv_medical_patient_info_check:
                 String idNumber = et_arc_id_number.getText().toString();
                 if (idNumber.isEmpty()) return;
-                getDormUserInfo(idNumber);
+//                getDormUserInfo(idNumber);
                 break;
             /*case R.id.tv_medical_patient_info_sex:
                 showGenderDialog();
@@ -248,7 +248,7 @@ public class MedicalPatientInfoActivity extends CommonActivity implements View.O
                 break;
             case R.id.iv_medical_patient_info_done:
                 String name = tv_name.getText().toString();
-                boolean male = tv_gender.getText().toString().equals(getString(R.string.male))?true:false;
+                boolean male = tv_gender.getText().toString().equals(getString(R.string.male));
                 String birthday = tv_birthday.getText().toString();
                 String bloodType = tv_blood_type.getText().toString();
                 String arcIdNumber = et_arc_id_number.getText().toString();

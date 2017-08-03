@@ -300,7 +300,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         String[] items_manager = {getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_online_setting),
                 getString(R.string.main_drawer_chart), getString(R.string.main_drawer_repair_record),
-                getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package)};
+                getString(R.string.main_drawer_medical),getString(R.string.discussion),
+                getString(R.string.main_drawer_package)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {
             @Override
