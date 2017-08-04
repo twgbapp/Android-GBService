@@ -136,7 +136,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.addGroupChat(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         // clear editText
                         et_content.setText("");

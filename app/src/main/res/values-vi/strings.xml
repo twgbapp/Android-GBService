@@ -225,4 +225,9 @@
     <string name="thailand">thái lan</string>
     <string name="hockeyapp_update_mandatory_toast"></string>
     <string name="am">sáng</string>
+    <string name="place">địa điểm</string>
+    <string name="description">miêu tả</string>
+    <string name="file_upload">phụ kiện tải lên</string>
+    <string name="service_record">bảng ghi chép hành chính</string>
+    <string name="signature">ký tên</string>
 </resources>

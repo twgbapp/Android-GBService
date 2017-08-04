@@ -165,4 +165,9 @@
     <string name="edit">การตัดต่อ</string>
     <string name="thailand">ไทย</string>
     <string name="am">ตอนเช้า</string>
+    <string name="place">สถานที่</string>
+    <string name="description">บรรยาย</string>
+    <string name="file_upload">อัพโหลดไฟล์แนบ</string>
+    <string name="service_record">แบบฟอร์มบริหารในการบันทึกบริการ</string>
+    <string name="signature">เซ็นชื่อ</string>
 </resources>

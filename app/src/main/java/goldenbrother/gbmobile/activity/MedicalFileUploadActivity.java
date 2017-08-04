@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.UUID;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -40,6 +41,7 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
     public static final int REQUEST_SIGNATURE = 10;
     public static final int REQUEST_FROM_GALLERY = 11;
     public static final int REQUEST_TAKE_PHOTO = 12;
+    public static final int REQUEST_TAKE_CROP = 13;
     // ui
     private ImageView iv_signature, iv_medical, iv_diagnostic, iv_service;
     private ImageView iv_clicked;
@@ -93,7 +95,7 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
         alertWithView(iv, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                uploadPicture(BitmapHelper.getLimitBitmap(bmp, 300, 300));
+                uploadPicture(BitmapHelper.resize(bmp, 300, 300));
             }
         }, null);
     }
@@ -104,9 +106,9 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
             j.put("action", "uploadImg");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            j.put("fileName", BitmapHelper.getRandomName());
+            j.put("fileName", UUID.randomUUID().toString());
             j.put("url", URLHelper.HOST);
-            j.put("baseStr", BitmapHelper.bitmap2String(bmp));
+            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -160,7 +162,7 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
         }
     }
 
-    private void choosePictureIntent() {
+    private void choosePicture() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
             @Override
@@ -171,7 +173,7 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
                     startActivityForResult(intent, REQUEST_FROM_GALLERY);
                 } else {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    uriTakePicture = FileProvider.getUriForFile(MedicalFileUploadActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getAppDir(MedicalFileUploadActivity.this) + "/take_picture.jpg"));
+                    uriTakePicture = FileProvider.getUriForFile(MedicalFileUploadActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getPicturesDir(MedicalFileUploadActivity.this) + "/take_picture.jpg"));
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO);
                 }
@@ -197,7 +199,7 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
             case R.id.iv_medical_file_upload_picture_diagnostic:
             case R.id.iv_medical_file_upload_picture_service:
                 iv_clicked = (ImageView) v;
-                choosePictureIntent();
+                choosePicture();
                 break;
         }
     }
@@ -205,29 +207,26 @@ public class MedicalFileUploadActivity extends CommonActivity implements View.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
+        Bundle b = new Bundle();
         switch (requestCode) {
             case REQUEST_SIGNATURE:
-                Bitmap bitmap = BitmapHelper.byte2Bitmap(data.getByteArrayExtra("bitmap"));
+                Bitmap bitmap = BitmapHelper.byteArrayToBitmap(data.getByteArrayExtra("bitmap"));
                 uploadPicture(bitmap);
                 break;
             case REQUEST_FROM_GALLERY:
-                Uri uriChoosePhoto = data.getData();
-                CropImage.activity(uriChoosePhoto)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", data.getData().toString());
+                b.putInt("ratioX", 0);
+                b.putInt("ratioY", 0);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_PHOTO:
-                CropImage.activity(uriTakePicture)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", uriTakePicture.toString());
+                b.putInt("ratioX", 0);
+                b.putInt("ratioY", 0);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                try {
-                    Bitmap bmp = BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri());
-                    showImage(bmp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            case REQUEST_TAKE_CROP:
+                showImage(BitmapHelper.file2Bitmap((File) data.getSerializableExtra("file")));
                 break;
         }
     }

@@ -79,6 +79,155 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_discussion_record_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/main_edit_background"
+                            android:padding="10dp"
+                            android:text="@string/name"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_discussion_record_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/main_edit_background"
+                            android:padding="10dp"
+                            android:text="@string/date"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <EditText
+                            android:id="@+id/et_discussion_record_reason"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/main_edit_background"
+                            android:hint="@string/reason"
+                            android:padding="10dp"
+                            android:textColor="#FFF"
+                            android:textColorHint="#FFF" />
+
+                        <EditText
+                            android:id="@+id/et_discussion_record_place"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/main_edit_background"
+                            android:hint="@string/place"
+                            android:padding="10dp"
+                            android:textColor="#FFF"
+                            android:textColorHint="#FFF" />
+
+                        <EditText
+                            android:id="@+id/et_discussion_record_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/main_edit_background"
+                            android:gravity="start"
+                            android:hint="@string/quick_repair_description"
+                            android:minLines="3"
+                            android:padding="10dp"
+                            android:textColor="#FFF"
+                            android:textColorHint="#FFF" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="#FFF"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/main_light_yellow" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="@string/file_upload"
+                            android:textColor="@color/main_light_blue"
+                            android:textSize="20sp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="5dp"
+                            android:visibility="gone">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerInParent="true"
+                                android:src="@color/main_light_blue" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_edit_w" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/service_record"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_discussion_record_service_record"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_file_upload" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/signature"
+                            android:textColor="#FFF"
+                            android:textSize="20sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_discussion_record_signature"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/ic_file_upload" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_discussion_record_save"

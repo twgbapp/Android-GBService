@@ -17,6 +17,21 @@ public class TimeHelper {
     private static final SimpleDateFormat sdf_ymd = new SimpleDateFormat("yyyy/MM/dd");
     private static final SimpleDateFormat sdf_content_date = new SimpleDateFormat("MM/dd");
 
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public static String now() {
+        return SDF.format(new Date());
+    }
+
+    public static String date() {
+        return now().split(" ")[0];
+    }
+
+    public static String time() {
+        return now().split(" ")[1];
+    }
+
+
     public static String getStandard() {
         return sdf_standard.format(new Date());
     }

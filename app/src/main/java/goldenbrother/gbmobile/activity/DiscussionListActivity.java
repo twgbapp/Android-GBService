@@ -1,16 +1,23 @@
 package goldenbrother.gbmobile.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.DiscussionListRVAdapter;
-import goldenbrother.gbmobile.helper.LogHelper;
+import goldenbrother.gbmobile.helper.ApiResultHelper;
+import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.TimeHelper;
+import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Discussion;
 
 public class DiscussionListActivity extends CommonActivity implements View.OnClickListener {
@@ -36,9 +43,51 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
         list_discussion = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new DiscussionListRVAdapter(this, list_discussion));
+    }
 
-        // getMedicalList
-//        getMedicalFlaborList();
+    private void getDiscussionFlaborList(String dormId, String customerNo, String flaborNo) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "getDiscussionFlaborList");
+            j.put("startRecordDate", "2017-05-01");
+            j.put("endRecordDate", TimeHelper.date());
+            j.put("dormID", dormId);
+            j.put("customerNo", customerNo);
+            if (flaborNo != null)
+                j.put("flaborNo", flaborNo);
+
+            new GetDiscussionFlaborList(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class GetDiscussionFlaborList extends IAsyncTask {
+
+        GetDiscussionFlaborList(Context context, JSONObject json, String url) {
+            super(context, json, url);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.EMPTY:
+                    int result = ApiResultHelper.getDiscussionFlaborList(response, list_discussion);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        updateAdapter();
+//                        t(R.string.success);
+                    } else {
+//                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void updateAdapter() {
+        rv.getAdapter().notifyDataSetChanged();
     }
 
     public void onItemClick(Discussion item) {
@@ -53,7 +102,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.iv_discussion_list_search:
                 b.putBoolean("isSearchFlabor", true);
-                openActivityForResult(SearchCustomerActivity.class, REQUEST_SEARCH, b);
+                openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 break;
             case R.id.iv_discussion_list_add:
                 openActivity(DiscussionRecordActivity.class, b);
@@ -67,9 +116,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
         if (resultCode != RESULT_OK) return;
         switch (requestCode) {
             case REQUEST_SEARCH:
-                LogHelper.d(data.getStringExtra("dormId"));
-                LogHelper.d(data.getStringExtra("customerNo"));
-                LogHelper.d(data.getStringExtra("flaborNo"));
+                getDiscussionFlaborList(data.getStringExtra("dormId"), data.getStringExtra("customerNo"), data.getStringExtra("flaborNo"));
                 break;
         }
     }

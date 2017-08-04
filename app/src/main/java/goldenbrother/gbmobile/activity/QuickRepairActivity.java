@@ -287,7 +287,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.addRepair(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         finish();

@@ -80,7 +80,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         alertWithView(iv, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                uploadPicture(BitmapHelper.getLimitBitmap(bmp, 300, 300));
+                uploadPicture(BitmapHelper.resize(bmp, 300, 300));
             }
         }, null);
     }
@@ -90,7 +90,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             JSONObject j = new JSONObject();
             j.put("action", "uploadImg");
             j.put("fileName", RoleInfo.getInstance().getUserID());
-            j.put("baseStr", BitmapHelper.bitmap2String(bmp));
+            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
             j.put("url", URLHelper.HOST);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
@@ -153,7 +153,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.updatePicture(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         // set picture
                         RoleInfo.getInstance().setUserPicture(path);
@@ -189,7 +189,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                     startActivityForResult(intent, REQUEST_FROM_GALLERY);
                 } else {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    uriTakePicture = FileProvider.getUriForFile(ProfileActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getAppDir(ProfileActivity.this) + "/take_picture.jpg"));
+                    uriTakePicture = FileProvider.getUriForFile(ProfileActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getPicturesDir(ProfileActivity.this) + "/take_picture.jpg"));
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO);
                 }
@@ -224,7 +224,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.changePassword(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                     } else {
@@ -296,12 +296,10 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                         .start(this);
                 break;
             case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                try {
+
                     Bitmap bmp = BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri());
                     showImage(bmp);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 break;
         }
     }

@@ -22,7 +22,7 @@
                 android:textColor="#FFF" />
 
             <TextView
-                android:id="@+id/tv_search_customer_center"
+                android:id="@+id/tv_search_center"
                 style="@style/AppTheme.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textColor="#FFF" />
 
             <TextView
-                android:id="@+id/tv_search_customer_dorm"
+                android:id="@+id/tv_search_dorm"
                 style="@style/AppTheme.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:textColor="#FFF" />
 
             <TextView
-                android:id="@+id/tv_search_customer_customer"
+                android:id="@+id/tv_search_customer"
                 style="@style/AppTheme.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                 android:background="#FFF" />
 
             <LinearLayout
-                android:id="@+id/ll_search_customer_flabor"
+                android:id="@+id/ll_search_flabor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="true"
@@ -82,7 +82,7 @@
                     android:textColor="#FFF" />
 
                 <EditText
-                    android:id="@+id/et_search_customer_worker_no"
+                    android:id="@+id/et_search_worker_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -93,7 +93,7 @@
                     android:textColorHint="#FFF" />
 
                 <TextView
-                    android:id="@+id/tv_search_customer_flabor_search"
+                    android:id="@+id/tv_search_flabor_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -114,7 +114,7 @@
                     android:textColor="#FFF" />
 
                 <TextView
-                    android:id="@+id/tv_search_customer_flabor_name"
+                    android:id="@+id/tv_search_flabor_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -125,7 +125,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_search_customer_confirm"
+                android:id="@+id/tv_search_confirm"
                 style="@style/AppTheme.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

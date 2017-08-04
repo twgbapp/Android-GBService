@@ -3,24 +3,25 @@ package goldenbrother.gbmobile.helper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-/**
- * Created by asus on 2016/6/27.
- */
 public class BitmapHelper {
 
-    public static final int MAX_WIDTH = 768;
-    public static final int MAX_HEIGHT = 1024;
+    public static final int MAX_WIDTH = 1000;
+    public static final int MAX_HEIGHT = 1000;
+
 
     public static Bitmap resize(Bitmap bmp, int maxW, int maxH) {
         if (bmp == null)
@@ -28,7 +29,7 @@ public class BitmapHelper {
         // old w , h
         int oldWidth = bmp.getWidth();
         int oldHeight = bmp.getHeight();
-        // conform upload format
+        // origin is ok
         if (oldWidth <= maxW && oldHeight <= maxH)
             return bmp;
         // new format
@@ -47,82 +48,81 @@ public class BitmapHelper {
         return Bitmap.createBitmap(bmp, 0, 0, oldWidth, oldHeight, matrix, true);
     }
 
-    public static String bitmap2String(Bitmap bmp) {
-        return Base64.encodeToString(bitmap2Byte(bmp), Base64.DEFAULT);
+    public static Bitmap viewToBitmap(View view) {
+        // Define a bitmap with the same size as the view
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        // Bind a canvas to it
+        Canvas canvas = new Canvas(returnedBitmap);
+        // Get the view's background
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) {
+            // has background drawable, then draw it on the canvas
+            bgDrawable.draw(canvas);
+        } else {
+            // does not have background drawable, then draw white background on
+            // the canvas
+            canvas.drawColor(Color.WHITE);
+        }
+        // draw the view on the canvas
+        view.draw(canvas);
+        // return the bitmap
+        return returnedBitmap;
     }
 
-    public static byte[] bitmap2Byte(Bitmap bmp) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        return baos.toByteArray();
+    public static byte[] bitmap2PNGByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
 
-    public static Bitmap byte2Bitmap(byte[] byteArray) {
+    public static byte[] bitmap2JPGByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
+    }
+
+    public static String bitmap2PNGBase64(Bitmap bitmap) {
+        return Base64.encodeToString(bitmap2PNGByteArray(bitmap), Base64.DEFAULT);
+    }
+
+    public static String bitmap2JPGBase64(Bitmap bitmap) {
+        return Base64.encodeToString(bitmap2JPGByteArray(bitmap), Base64.DEFAULT);
+    }
+
+
+    public static Bitmap byteArrayToBitmap(byte[] byteArray) {
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 
-    public static Bitmap uri2Bitmap(Context context, Uri uri) throws IOException {
-        return BitmapHelper.getLimitBitmap(MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri), MAX_WIDTH, MAX_HEIGHT);
-    }
-
-    public static Bitmap getLimitBitmap(Bitmap bmp, int max_width, int max_height) {
-        if (bmp == null) return null;
-        int h = bmp.getHeight();
-        int w = bmp.getWidth();
-        if (h > w) { // portrait
-            while (h > max_height || w > max_width) {
-                h *= 0.9;
-                w *= 0.9;
-            }
-        } else { // landscape
-            while (h > max_width || w > max_height) {
-                h *= 0.9;
-                w *= 0.9;
-            }
-        }
-
-        return Bitmap.createScaledBitmap(bmp, w, h, true);
-    }
-
-    public static File convertBitmapToFile(Context context, Bitmap bitmap) {
+    public static Bitmap uri2Bitmap(Context context, Uri uri) {
         try {
-            File f = new File(context.getCacheDir(), getRandomName());
-            f.createNewFile();
-            //Convert bitmap to byte array
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            byte[] bitmapdata = bos.toByteArray();
-
-            //write the bytes in file
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-            return f;
+            return MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static File getCatcheJPG(Context context) {
-        try {
-            File f = new File(context.getCacheDir(), getRandomName());
-            f.createNewFile();
-            return f;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static Bitmap file2Bitmap(File file) {
+        return BitmapFactory.decodeFile(file.getPath());
     }
 
-    public static Bitmap comvertFileToBitmap(File f) {
-        return BitmapFactory.decodeFile(f.getAbsolutePath());
+    public static File bitmap2PNGFile(Context context, Bitmap bitmap) {
+        // create a png file to cache dir
+        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), UUID.randomUUID().toString() + ".png");
+        // convert to array
+        byte[] bArr = bitmap2PNGByteArray(bitmap);
+        // write to file
+        return FileHelper.writeFile(bArr, f);
     }
 
-    public static String getRandomName() {
-        return UUID.randomUUID().toString();
+    public static File bitmap2JPGFile(Context context, Bitmap bitmap) {
+        // create a png file to cache dir
+        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), UUID.randomUUID().toString() + ".png");
+        // convert to array
+        byte[] bArr = bitmap2JPGByteArray(bitmap);
+        // write to file
+        return FileHelper.writeFile(bArr, f);
     }
-
 
 }

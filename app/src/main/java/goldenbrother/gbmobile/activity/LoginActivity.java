@@ -116,7 +116,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.registerGCMID(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         // save user info
                         SPHelper.getInstance(LoginActivity.this).setUserInfo(RoleInfo.getInstance().getJSONObject());

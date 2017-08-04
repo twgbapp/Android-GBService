@@ -99,7 +99,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.receivePackage(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         Intent intent = new Intent();
@@ -125,7 +125,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                     startActivityForResult(intent, REQUEST_FROM_GALLERY);
                 } else {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    uriTakePicture = FileProvider.getUriForFile(PackageResultActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getAppDir(PackageResultActivity.this) + "/take_picture.jpg"));
+                    uriTakePicture = FileProvider.getUriForFile(PackageResultActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getPicturesDir(PackageResultActivity.this) + "/take_picture.jpg"));
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO);
                 }
@@ -171,16 +171,13 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                         .start(this);
                 break;
             case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                try {
-                    Bitmap bmp = BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri()), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT);
-                    iv_picture.setImageBitmap(bmp);
-                    String baseStr = BitmapHelper.bitmap2String(bmp);
-                    p.setBaseStr(baseStr);
-                    rl_take_picture.setVisibility(View.GONE);
-                    iv_picture.setVisibility(View.VISIBLE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Bitmap bmp = BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri()), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT);
+                iv_picture.setImageBitmap(bmp);
+                String baseStr = BitmapHelper.bitmap2JPGBase64(bmp);
+                p.setBaseStr(baseStr);
+                rl_take_picture.setVisibility(View.GONE);
+                iv_picture.setVisibility(View.VISIBLE);
+
                 break;
         }
     }

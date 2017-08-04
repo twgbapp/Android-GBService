@@ -226,4 +226,9 @@
     <string name="hockeyapp_update_button"></string>
     <string name="am">Pagi hari</string>
     <string name="can_not_get_patient"></string>
+    <string name="place">Lokasi</string>
+    <string name="description">deskripsi</string>
+    <string name="file_upload">Upload lampiran</string>
+    <string name="service_record">Catatan Pelayanan Administrasi</string>
+    <string name="signature">Tanda tangan</string>
 </resources>

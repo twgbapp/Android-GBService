@@ -247,4 +247,12 @@
     <string name="customer">客戶</string>
     <string name="discussion">訪談</string>
     <string name="workerNo">工號</string>
+    <string name="reason">原因</string>
+    <string name="place">地點</string>
+    <string name="description">描述</string>
+    <string name="comment">留言</string>
+    <string name="date">日期</string>
+    <string name="file_upload">附件上傳</string>
+    <string name="service_record">行政服務紀錄表</string>
+    <string name="signature">簽名</string>
 </resources>

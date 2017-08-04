@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -24,7 +23,7 @@ import goldenbrother.gbmobile.model.Dorm;
 import goldenbrother.gbmobile.model.DormUser;
 import goldenbrother.gbmobile.model.RoleInfo;
 
-public class SearchCustomerActivity extends CommonActivity implements View.OnClickListener {
+public class SearchActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private TextView tv_center, tv_dorm, tv_customer;
@@ -42,17 +41,17 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_customer);
+        setContentView(R.layout.activity_search);
 
         // ui reference
-        tv_center = (TextView) findViewById(R.id.tv_search_customer_center);
-        tv_dorm = (TextView) findViewById(R.id.tv_search_customer_dorm);
-        tv_customer = (TextView) findViewById(R.id.tv_search_customer_customer);
-        ll_flabor = findViewById(R.id.ll_search_customer_flabor);
-        et_worker_no = (EditText) findViewById(R.id.et_search_customer_worker_no);
-        tv_flabor_name = (TextView) findViewById(R.id.tv_search_customer_flabor_name);
-        findViewById(R.id.tv_search_customer_flabor_search).setOnClickListener(this);
-        findViewById(R.id.tv_search_customer_confirm).setOnClickListener(this);
+        tv_center = (TextView) findViewById(R.id.tv_search_center);
+        tv_dorm = (TextView) findViewById(R.id.tv_search_dorm);
+        tv_customer = (TextView) findViewById(R.id.tv_search_customer);
+        ll_flabor = findViewById(R.id.ll_search_flabor);
+        et_worker_no = (EditText) findViewById(R.id.et_search_worker_no);
+        tv_flabor_name = (TextView) findViewById(R.id.tv_search_flabor_name);
+        findViewById(R.id.tv_search_flabor_search).setOnClickListener(this);
+        findViewById(R.id.tv_search_confirm).setOnClickListener(this);
         tv_center.setOnClickListener(this);
         tv_dorm.setOnClickListener(this);
         tv_customer.setOnClickListener(this);
@@ -292,18 +291,18 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
         String dormId = getDormIdByDormName(dormName);
         String customerNo = getCustomerNoByCustomerName(customerName);
         switch (v.getId()) {
-            case R.id.tv_search_customer_center:
+            case R.id.tv_search_center:
                 showCenterDialog();
                 break;
-            case R.id.tv_search_customer_dorm:
+            case R.id.tv_search_dorm:
                 if (!tv_center.getText().toString().equals(getString(R.string.select)))
                     showDormDialog();
                 break;
-            case R.id.tv_search_customer_customer:
+            case R.id.tv_search_customer:
                 if (!tv_dorm.getText().toString().equals(getString(R.string.select)))
                     showCustomerDialog();
                 break;
-            case R.id.tv_search_customer_flabor_search:
+            case R.id.tv_search_flabor_search:
                 String workerNo = et_worker_no.getText().toString();
                 if (centerId == null || dormId == null || customerNo == null || workerNo.isEmpty()) {
                     t(R.string.can_not_be_empty);
@@ -311,7 +310,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
                 }
                 getDormUserInfo(customerNo, workerNo);
                 break;
-            case R.id.tv_search_customer_confirm:
+            case R.id.tv_search_confirm:
                 if (centerId == null || dormId == null || customerNo == null) {
                     t(R.string.can_not_be_empty);
                     return;
@@ -325,6 +324,7 @@ public class SearchCustomerActivity extends CommonActivity implements View.OnCli
                 intent.putExtra("dormId", dormId);
                 intent.putExtra("customerNo", customerNo);
                 intent.putExtra("flaborNo", dormUser.getFlaborNo());
+                intent.putExtra("flaborName", tv_flabor_name.getText().toString());
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

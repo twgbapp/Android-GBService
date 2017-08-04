@@ -172,7 +172,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.doSignUp(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         finish();

@@ -86,7 +86,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
-                        t(R.string.fail);
+//                        t(R.string.fail);
                     }
                     break;
             }

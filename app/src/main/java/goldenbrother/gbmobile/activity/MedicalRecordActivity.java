@@ -326,7 +326,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.addMedicalRecord(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         finish();
