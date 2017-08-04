@@ -101,7 +101,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
         Bundle b = new Bundle();
         switch (v.getId()) {
             case R.id.iv_discussion_list_search:
-                b.putBoolean("isSearchFlabor", true);
+                b.putBoolean("isFLabor", true);
                 openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 break;
             case R.id.iv_discussion_list_add:

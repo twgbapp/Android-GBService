@@ -44,15 +44,12 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
     public static final int REQUEST_FROM_GALLERY = 2;
     public static final int REQUEST_TAKE_PHOTO = 3;
     public static final int REQUEST_TAKE_CROP = 4;
-
     // ui
     private TextView tv_name, tv_date;
     private EditText et_reason, et_place, et_description;
     private ImageView iv_service, iv_signature, iv_clicked;
-
     // take picture
     private Uri uriTakePicture;
-
     // extra
     private Discussion discussion;
 
@@ -336,7 +333,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                 showDatePicker(tv_date);
                 break;
             case R.id.iv_discussion_record_profile:
-                b.putBoolean("isSearchFlabor", true);
+                b.putBoolean("isFLabor", true);
                 openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 break;
             case R.id.iv_discussion_record_service_record:

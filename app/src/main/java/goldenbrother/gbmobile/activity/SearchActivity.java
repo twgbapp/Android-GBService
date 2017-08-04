@@ -31,7 +31,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
     private EditText et_worker_no;
     private TextView tv_flabor_name;
     // extra
-    private boolean isSearchFlabor;
+    private boolean isFLabor;
     // data
     private ArrayList<Center> list_center;
     private ArrayList<Dorm> list_dorm;
@@ -57,14 +57,14 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
         tv_customer.setOnClickListener(this);
 
         // extra
-        isSearchFlabor = getIntent().getExtras().getBoolean("isSearchFlabor", false);
+        isFLabor = getIntent().getExtras().getBoolean("isFLabor", false);
 
         // init
         list_center = new ArrayList<>();
         list_dorm = new ArrayList<>();
         list_customer = new ArrayList<>();
         dormUser = new DormUser();
-        ll_flabor.setVisibility(isSearchFlabor ? View.VISIBLE : View.GONE);
+        ll_flabor.setVisibility(isFLabor ? View.VISIBLE : View.GONE);
         // getCenterInfo
         getCenterInfo();
     }
@@ -320,11 +320,19 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                 intent.putExtra("centerName", centerName);
                 intent.putExtra("dormName", dormName);
                 intent.putExtra("customerName", customerName);
+
                 intent.putExtra("centerId", centerId);
                 intent.putExtra("dormId", dormId);
                 intent.putExtra("customerNo", customerNo);
+
                 intent.putExtra("flaborNo", dormUser.getFlaborNo());
                 intent.putExtra("flaborName", tv_flabor_name.getText().toString());
+
+                intent.putExtra("roomId", dormUser.getRoomID());
+                intent.putExtra("centerDirectorId", dormUser.getCenterDirectorID());
+                intent.putExtra("birthday", dormUser.getUserBirthday());
+                intent.putExtra("sex", dormUser.getUserSex());
+
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

@@ -1,24 +1,31 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import goldenbrother.gbmobile.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.helper.BitmapHelper;
+import goldenbrother.gbmobile.helper.FileHelper;
+import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.model.Medical;
-import goldenbrother.gbmobile.model.Patient;
-
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.TimeHelper;
@@ -26,22 +33,32 @@ import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.MedicalProcessStatusModel;
 import goldenbrother.gbmobile.model.MedicalTrackProcessModel;
 import goldenbrother.gbmobile.model.MedicalSymptomModel;
+import goldenbrother.gbmobile.model.Patient;
 import goldenbrother.gbmobile.model.RoleInfo;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class MedicalRecordActivity extends CommonActivity implements View.OnClickListener {
 
     // request
-    public static final int REQUEST_INFO = 0;
+    public static final int REQUEST_SEARCH = 0;
     public static final int REQUEST_TREATMENT = 1;
     public static final int REQUEST_PROCESS_STATUS = 2;
     public static final int REQUEST_TRACK_PROCESS = 3;
-    public static final int REQUEST_FILE_UPLOAD = 4;
+    public static final int REQUEST_SIGNATURE = 11;
+    public static final int REQUEST_FROM_GALLERY = 12;
+    public static final int REQUEST_TAKE_PHOTO = 13;
+    public static final int REQUEST_TAKE_CROP = 14;
     // ui
-    private TextView tv_name, tv_gender, tv_birthday, tv_blood_type, tv_date;
+    private TextView tv_name, tv_blood_type, tv_date;
     private TextView et_symptoms, et_processing_status, et_tracking_processing;
-    private ImageView iv_signature, iv_medical, iv_diagnosis, iv_service;
+    private ImageView iv_signature, iv_medical, iv_diagnosis, iv_service, iv_clicked;
+    // take picture
+    private Uri uriTakePicture;
     // extra
     private Medical medical;
     // data
@@ -54,14 +71,11 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
         // ui reference
         tv_name = (TextView) findViewById(R.id.tv_medical_record_name);
-        tv_gender = (TextView) findViewById(R.id.tv_medical_record_gender);
-        tv_birthday = (TextView) findViewById(R.id.tv_medical_record_birthday);
         tv_blood_type = (TextView) findViewById(R.id.tv_medical_record_blood_type);
         tv_date = (TextView) findViewById(R.id.tv_medical_record_date);
         et_symptoms = (TextView) findViewById(R.id.tv_medical_record_symptoms);
         et_processing_status = (TextView) findViewById(R.id.tv_medical_record_processing_status);
         et_tracking_processing = (TextView) findViewById(R.id.tv_medical_record_tracking_processing);
-//        tv_file_upload = (TextView) findViewById(R.id.tv_medical_record_file_upload);
         iv_signature = (ImageView) findViewById(R.id.iv_medical_record_signature_path);
         iv_medical = (ImageView) findViewById(R.id.iv_medical_record_medical_path);
         iv_diagnosis = (ImageView) findViewById(R.id.iv_medical_record_diagnosis_path);
@@ -72,6 +86,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
         findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
         findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
+        tv_blood_type.setOnClickListener(this);
+        tv_date.setOnClickListener(this);
+        iv_signature.setOnClickListener(this);
+        iv_medical.setOnClickListener(this);
+        iv_diagnosis.setOnClickListener(this);
+        iv_service.setOnClickListener(this);
 
         // extra
         medical = getIntent().getExtras().getParcelable("medical");
@@ -79,6 +99,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             getMedicalRecord(medical.getMtrsno());
         } else {
             medical = new Medical();
+            tv_date.setText(TimeHelper.date());
             getMedicalTreatmentCode();
         }
     }
@@ -204,9 +225,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     private void showPatientInfo() {
         if (medical.getPatient() != null) {
             tv_name.setText(String.format(getString(R.string.name) + " : %s", medical.getPatient().getName()));
-            tv_gender.setText(String.format(getString(R.string.sex) + " : %s", getString(medical.getPatient().isGender() ? R.string.male : R.string.female)));
-            tv_date.setText(String.format(getString(R.string.medical_fill_out_date) + " : %s", medical.getPatient().getRecordDate()));
-            tv_birthday.setText(String.format(getString(R.string.room_id) + " : %s", medical.getPatient().getRoomID()));
             tv_blood_type.setText(String.format(getString(R.string.medical_blood_type) + " : %s", getBloodTypeName(medical.getPatient().getBloodType())));
         }
     }
@@ -266,23 +284,23 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addMedicalRecord");
-            j.put("recordDate", medical.getPatient().getRecordDate()); //recordDate 就診日期
+            j.put("recordDate", medical.getPatient().getRecordDate());
             j.put("customerNo", medical.getPatient().getCustomerNo());
             j.put("flaborNo", medical.getPatient().getFlaborNo());
-            j.put("roomID", medical.getPatient().getRoomID()); //getDormUserInfo406
-            j.put("dormID", medical.getPatient().getDormID()); //getDormUserInfo5412
+            j.put("roomID", medical.getPatient().getRoomID());
+            j.put("dormID", medical.getPatient().getDormID());
             j.put("bloodType", medical.getPatient().getBloodType());
             j.put("age", medical.getPatient().getAge());
-            j.put("centerDirectorID", medical.getPatient().getCenterDirectorID()); //getDormUserInfo
+            j.put("centerDirectorID", medical.getPatient().getCenterDirectorID());
             j.put("createId", RoleInfo.getInstance().getUserID());
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("createTime", TimeHelper.getStandard());
+            j.put("createTime", TimeHelper.now());
             j.put("diagnosticCertificate", medical.getDiagnosticCertificatePath());
             j.put("serviceRecord", medical.getServiceRecordPath());
             j.put("medicalCertificate", medical.getMedicalCertificatePath());
             j.put("signature", medical.getSignaturePath());
 
-            JSONArray arrTreatment = new JSONArray();//症狀
+            JSONArray arrTreatment = new JSONArray(); // 症狀
             for (MedicalSymptomModel m : medical.getSymptom()) {
                 //arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
                 if (m.getCode().equals("425")) {
@@ -293,15 +311,13 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             }
             j.put("medicalTreatmentRecordDetail", arrTreatment);
 
-            JSONArray arrProcessing = new JSONArray(); //處理狀況
+            JSONArray arrProcessing = new JSONArray(); // 處理狀況
             for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
                 arrProcessing.put(m.getData());
             }
-
             j.put("medicalProcessingRecord", arrProcessing);
 
-
-            JSONArray arrTrack = new JSONArray(); //追蹤與處理
+            JSONArray arrTrack = new JSONArray(); // 追蹤與處理
             for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
                 arrTrack.put(m.getData());
             }
@@ -338,18 +354,151 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         }
     }
 
+    private void uploadPicture(Bitmap bmp) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "uploadImg");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
+            j.put("fileName", UUID.randomUUID().toString());
+            j.put("url", URLHelper.HOST);
+            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
+            new UploadImageTask(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class UploadImageTask extends IAsyncTask {
+        private HashMap<String, String> map;
+
+        UploadImageTask(Context context, JSONObject json, String url) {
+            super(context, json, url);
+            map = new HashMap<>();
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.EMPTY:
+                    int result = ApiResultHelper.uploadPicture(response, map);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        savePath(iv_clicked, map.get("path"));
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void savePath(View v, String path) {
+        if (v == null) return;
+        switch (v.getId()) {
+            case R.id.iv_medical_record_signature_path:
+                medical.setSignaturePath(path);
+                Picasso.with(this).load(path).into(iv_signature);
+                break;
+            case R.id.iv_medical_record_medical_path:
+                medical.setMedicalCertificatePath(path);
+                Picasso.with(this).load(path).into(iv_medical);
+                break;
+            case R.id.iv_medical_record_diagnosis_path:
+                medical.setDiagnosticCertificatePath(path);
+                Picasso.with(this).load(path).into(iv_diagnosis);
+                break;
+            case R.id.iv_medical_record_service_path:
+                medical.setServiceRecordPath(path);
+                Picasso.with(this).load(path).into(iv_service);
+                break;
+        }
+    }
+
+    private void choosePicture() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, REQUEST_FROM_GALLERY);
+                } else {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    uriTakePicture = FileProvider.getUriForFile(MedicalRecordActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getPicturesDir(MedicalRecordActivity.this) + "/take_picture.jpg"));
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
+                    startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+                }
+            }
+        });
+        b.show();
+    }
+
+    private void showImage(final Bitmap bmp) {
+        final ImageView iv = new ImageView(this);
+        iv.setImageBitmap(bmp);
+        alertWithView(iv, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                uploadPicture(BitmapHelper.resize(bmp, 300, 300));
+            }
+        }, null);
+    }
+
+    private void showBloodTypeDialog() {
+        final String[] items = getResources().getStringArray(R.array.blood_type_name);
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                tv_blood_type.setText(items[which]);
+            }
+        });
+    }
+
+    private void showDatePicker(final TextView tv) {
+        final Calendar c = Calendar.getInstance();
+        c.setTime(TimeHelper.getYMD2Date(tv.getText().toString()));
+
+        final DatePicker datePicker = new DatePicker(this);
+        datePicker.init(c.get(Calendar.YEAR),
+                c.get(Calendar.MONTH),
+                c.get(Calendar.DAY_OF_MONTH), null);
+
+        alertWithView(datePicker, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int year = datePicker.getYear();
+                int month = datePicker.getMonth() + 1;
+                int date = datePicker.getDayOfMonth();
+                String text = year + "-" + (month < 10 ? "0" + month : month) + "-" + (date < 10 ? "0" + date : date);
+                medical.getPatient().setRecordDate(text);
+                tv.setText(text);
+            }
+        }, null);
+    }
+
     @Override
     public void onClick(View v) {
         Bundle b = new Bundle();
-        b.putParcelable("medical", medical);
         switch (v.getId()) {
+            case R.id.tv_medical_record_blood_type:
+                showBloodTypeDialog();
+                break;
+            case R.id.tv_medical_record_date:
+                showDatePicker(tv_date);
+                break;
             case R.id.iv_medical_record_info: // 查詢外勞
-                openActivityForResult(MedicalPatientInfoActivity.class, REQUEST_INFO, b);
+                b.putBoolean("isFLabor", true);
+                openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 break;
             case R.id.iv_medical_record_symptoms: // 症狀列表
+                b.putParcelable("medical", medical);
                 openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT, b);
                 break;
             case R.id.iv_medical_record_processing_status: // 處理狀況
+                b.putParcelable("medical", medical);
                 if (medical.getPatient() == null || medical.getPatient().getDormID() == null || medical.getPatient().getDormID().isEmpty()) {
                     t(R.string.can_not_get_patient);
                     return;
@@ -357,17 +506,34 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(MedicalProcessStatusActivity.class, REQUEST_PROCESS_STATUS, b);
                 break;
             case R.id.iv_medical_record_tracking_processing: // 追蹤與處理
+                b.putParcelable("medical", medical);
                 openActivityForResult(MedicalTrackProcessActivity.class, REQUEST_TRACK_PROCESS, b);
                 break;
             case R.id.iv_medical_record_file_upload:
-                openActivityForResult(MedicalFileUploadActivity.class, REQUEST_FILE_UPLOAD, b);
+
+                break;
+            case R.id.iv_medical_record_signature_path:
+                iv_clicked = (ImageView) v;
+                openActivityForResult(SignatureActivity.class, REQUEST_SIGNATURE);
+                break;
+            case R.id.iv_medical_record_medical_path:
+                iv_clicked = (ImageView) v;
+                choosePicture();
+                break;
+            case R.id.iv_medical_record_diagnosis_path:
+                iv_clicked = (ImageView) v;
+                choosePicture();
+                break;
+            case R.id.iv_medical_record_service_path:
+                iv_clicked = (ImageView) v;
+                choosePicture();
                 break;
             case R.id.tv_medical_record_save: // 新增醫療紀錄
-                if (medical.getPatient().getName() == null ) {
+                if (medical.getPatient().getName() == null) {
                     t(R.string.can_not_get_patient);
                     return;
                 }
-                if(medical.getSymptom().isEmpty()){
+                if (medical.getSymptom().isEmpty()) {
                     t(R.string.can_not_get_symptom);
                     return;
                 }
@@ -380,22 +546,51 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
-        medical = data.getParcelableExtra("medical");
+        Bundle b = new Bundle();
         switch (requestCode) {
-            case REQUEST_INFO:
-                showPatientInfo();
+            case REQUEST_SEARCH:
+                Patient p = medical.getPatient();
+                p.setName(data.getStringExtra("flaborName"));
+                p.setDate(data.getStringExtra("birthday"));
+                p.setAge(TimeHelper.getAge(data.getStringExtra("birthday")));
+                p.setFlaborNo(data.getStringExtra("flaborNo"));
+                p.setCustomerNo(data.getStringExtra("customerNo"));
+                p.setDormID(data.getStringExtra("dormId"));
+                p.setRoomID(data.getStringExtra("roomId"));
+                p.setCenterDirectorID(data.getStringExtra("centerDirectorId"));
+
+                tv_name.setText(p.getName());
                 break;
             case REQUEST_TREATMENT:
+                medical = data.getParcelableExtra("medical");
                 showSymptom();
                 break;
             case REQUEST_PROCESS_STATUS:
+                medical = data.getParcelableExtra("medical");
                 showProcessStatus();
                 break;
             case REQUEST_TRACK_PROCESS:
+                medical = data.getParcelableExtra("medical");
                 showTrackProcess();
                 break;
-            case REQUEST_FILE_UPLOAD:
-                showUploadFile();
+            case REQUEST_SIGNATURE:
+                Bitmap bitmap = BitmapHelper.byteArrayToBitmap(data.getByteArrayExtra("bitmap"));
+                showImage(bitmap);
+                break;
+            case REQUEST_FROM_GALLERY:
+                b.putString("uri", data.getData().toString());
+                b.putInt("ratioX", 0);
+                b.putInt("ratioY", 0);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
+                break;
+            case REQUEST_TAKE_PHOTO:
+                b.putString("uri", uriTakePicture.toString());
+                b.putInt("ratioX", 0);
+                b.putInt("ratioY", 0);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
+                break;
+            case REQUEST_TAKE_CROP:
+                showImage(BitmapHelper.file2Bitmap((File) data.getSerializableExtra("file")));
                 break;
         }
     }
