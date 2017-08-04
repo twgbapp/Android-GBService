@@ -4,10 +4,15 @@ import android.content.Context;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.model.AnnouncementModel;
+import goldenbrother.gbmobile.model.Center;
 import goldenbrother.gbmobile.model.ClubModel;
 import goldenbrother.gbmobile.model.ClubPostMediaModel;
 import goldenbrother.gbmobile.model.ClubPostMessageModel;
 import goldenbrother.gbmobile.model.ClubPostModel;
+import goldenbrother.gbmobile.model.Customer;
+import goldenbrother.gbmobile.model.Discussion;
+import goldenbrother.gbmobile.model.Dorm;
+import goldenbrother.gbmobile.model.DormUser;
 import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.EventKindModel;
 import goldenbrother.gbmobile.model.EventModel;
@@ -78,6 +83,15 @@ public class ApiResultHelper {
         } catch (JSONException e) {
             e.printStackTrace();
             ToastHelper.t(context, R.string.parse_error_json);
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int commonCreate(String response) {
+        try {
+            return new JSONObject(response).getInt("success");
+        } catch (JSONException e) {
+            e.printStackTrace();
             return PARSER_ERROR;
         }
     }
@@ -155,15 +169,6 @@ public class ApiResultHelper {
         }
     }
 
-    public static int registerGCMID(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
     public static int getServiceChat(String response, ArrayList<ServiceChatModel> list_origin) {
         try {
             JSONObject j = new JSONObject(response);
@@ -199,16 +204,6 @@ public class ApiResultHelper {
             return PARSER_ERROR;
         }
     }
-
-    public static int addGroupChat(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
 
     public static int getEventList(String response, ArrayList<EventModel> list_origin) {
         try {
@@ -277,59 +272,6 @@ public class ApiResultHelper {
                 list_origin.addAll(list);
             }
             return result;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int addEventChat(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int addEvent(String response, HashMap<String, Integer> map) {
-        try {
-            JSONObject j = new JSONObject(response);
-            int success = j.getInt("success");
-            return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int ratingEvent(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int loadEventKind(String response, ArrayList<EventKindModel> list_event_kind) {
-        try {
-            JSONObject j = new JSONObject(response);
-            int success = j.getInt("success");
-            if (success == 1) {
-                ArrayList<EventKindModel> list = new ArrayList<>();
-                JSONArray arr = j.getJSONArray("eventKind");
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject o = arr.getJSONObject(i);
-                    EventKindModel ek = new EventKindModel();
-                    ek.setCode(o.getInt("code"));
-                    ek.setValue(o.getString("value"));
-                    list.add(ek);
-                }
-                list_event_kind.clear();
-                list_event_kind.addAll(list);
-            }
-            return success;
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;
@@ -434,25 +376,6 @@ public class ApiResultHelper {
         }
     }
 
-
-    public static int addEventGroup(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int addMedicalTreatmentCodeGroup(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
     public static int uploadPicture(String response, HashMap<String, String> map) {
         try {
             JSONObject j = new JSONObject(response);
@@ -461,15 +384,6 @@ public class ApiResultHelper {
                 map.put("path", j.getString("url"));
             }
             return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int updatePicture(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;
@@ -506,15 +420,6 @@ public class ApiResultHelper {
         }
     }
 
-    public static int doSignUp(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
     public static int loadOnCallManager(String response, ArrayList<OnCallManagerModel> list_on_call_manager) {
         try {
             JSONObject j = new JSONObject(response);
@@ -540,24 +445,6 @@ public class ApiResultHelper {
                 list_on_call_manager.addAll(list);
             }
             return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int changeOnCallStatus(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int addRepair(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;
@@ -669,24 +556,6 @@ public class ApiResultHelper {
         }
     }
 
-    public static int addClubPost(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int addClubPostMessage(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
     public static int loadClubPostMessage(String response, ArrayList<ClubPostMessageModel> list_message) {
         try {
             ArrayList<ClubPostMessageModel> list = new ArrayList<>();
@@ -791,40 +660,6 @@ public class ApiResultHelper {
         }
     }
 
-    public static int receivePackage(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int loadRepairList(String response, ArrayList<RepairModel> list_repair) {
-        try {
-            JSONObject j = new JSONObject(response);
-            int success = j.getInt("success");
-            if (success == 1) {
-                ArrayList<RepairModel> list = new ArrayList<>();
-                JSONArray arr = j.getJSONArray("repairNumber");
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject o = arr.getJSONObject(i);
-                    RepairModel pm = new RepairModel();
-                    pm.setRepairKind(o.getInt("repairKind"));
-                    pm.setRepairContent(o.getString("repairContent"));
-                    pm.setRepairNumber(o.getInt("repairNumber"));
-                    list.add(pm);
-                }
-                list_repair.clear();
-                list_repair.addAll(list);
-            }
-            return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
     public static int loadRepairKindNumber(String response, ArrayList<RepairKindNumberModel> list_repair_kind_number) {
         try {
             JSONObject j = new JSONObject(response);
@@ -844,15 +679,6 @@ public class ApiResultHelper {
                 list_repair_kind_number.addAll(list);
             }
             return success;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int changePassword(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;
@@ -1026,30 +852,20 @@ public class ApiResultHelper {
         }
     }
 
-    public static int addMedicalRecord(String response) {
-        try {
-            return new JSONObject(response).getInt("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return PARSER_ERROR;
-        }
-    }
-
-    public static int getDormUserInfo(String response, HashMap<String, String> map) {
+    public static int getDormUserInfo(String response, DormUser dormUser) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                map.put("userName", j.getString("userName"));
-                map.put("userSex", j.getString("userSex"));
-                map.put("userBirthday", j.getString("userBirthday"));
-                map.put("userSex", j.getString("userSex"));
-                map.put("customerNo", j.getString("customerNo"));
-                map.put("workerNo", j.getString("workerNo"));
-                map.put("flaborNo", j.getString("flaborNo"));
-                map.put("dormID", j.getString("dormID"));
-                map.put("roomID", j.getString("roomID"));
-                map.put("centerDirectorID", j.getString("centerDirectorID"));
+                dormUser.setUserName(j.getString("userName"));
+                dormUser.setUserSex(j.getString("userSex"));
+                dormUser.setUserBirthday(j.getString("userBirthday"));
+                dormUser.setCustomerNo(j.getString("customerNo"));
+                dormUser.setWorkerNo(j.getString("workerNo"));
+                dormUser.setFlaborNo(j.getString("flaborNo"));
+                dormUser.setDormID(j.getString("dormID"));
+                dormUser.setRoomID(j.getString("roomID"));
+                dormUser.setCenterDirectorID(j.getString("centerDirectorID"));
             }
             return success;
         } catch (JSONException e) {
@@ -1166,6 +982,130 @@ public class ApiResultHelper {
                     mtp.setTreatmentMemo(o.getString("treatmentMemo"));
                     medical.getTrackProcess().add(mtp);
                 }
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getCenterInfo(String response, ArrayList<Center> list_center) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Center> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("center");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Center c = new Center();
+                    c.setCenterID(o.getString("centerID"));
+                    c.setCenterName(o.getString("centerName"));
+                    list.add(c);
+                }
+                list_center.clear();
+                list_center.addAll(list);
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getDormInfo(String response, ArrayList<Dorm> list_dorm) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Dorm> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("dorm");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Dorm d = new Dorm();
+                    d.setDormID(o.getString("dormID"));
+                    d.setDormName(o.getString("dormName"));
+                    list.add(d);
+                }
+                list_dorm.clear();
+                list_dorm.addAll(list);
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getCustomerInfo(String response, ArrayList<Customer> list_customer) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Customer> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("customer");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Customer c = new Customer();
+                    c.setCustomerNo(o.getString("customerNo"));
+                    c.setCustomerName(o.getString("customerName"));
+                    list.add(c);
+                }
+                list_customer.clear();
+                list_customer.addAll(list);
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getDiscussionFlaborList(String response, ArrayList<Discussion> list_discussion) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Discussion> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("discussionFlabor");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Discussion d = new Discussion();
+                    d.setDrsNo(o.getInt("drsno"));
+                    d.setWorkerNo(o.getString("workerNo"));
+                    d.setDiscussionPlace(o.getString("discussionPlace"));
+                    d.setDormName(o.getString("dormName"));
+                    d.setDiscussionDate(o.getString("discussionDate"));
+                    d.setCustomerName(o.getString("customerName"));
+                    d.setFlaborName(o.getString("flaborName"));
+                    d.setCenterName(o.getString("centerName"));
+                    list.add(d);
+                }
+                list_discussion.clear();
+                list_discussion.addAll(list);
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getDiscussionRecord(String response, Discussion discussion) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                discussion.setDepartment(j.getString("department"));
+                discussion.setDiscussionDate(j.getString("discussionDate"));
+                discussion.setDiscussionReason(j.getString("discussionReason"));
+                discussion.setDiscussionPlace(j.getString("discussionPlace"));
+                discussion.setDiscussionDesc(j.getString("discussionDesc"));
+                discussion.setWorkerNo(j.getString("workerNo"));
+                discussion.setFlaborName(j.getString("userName"));
+                discussion.setServiceRecordPath(j.getString("serviceRecord"));
+                discussion.setSignaturePath(j.getString("signature"));
             }
             return result;
         } catch (JSONException e) {

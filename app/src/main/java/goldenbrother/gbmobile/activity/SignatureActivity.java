@@ -37,7 +37,7 @@ public class SignatureActivity extends CommonActivity implements View.OnClickLis
                 Bitmap bitmap = pad.getSignatureBitmap();
                 bitmap = BitmapHelper.resize(bitmap, BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT);
                 Intent intent = new Intent();
-                intent.putExtra("bitmap", BitmapHelper.bitmap2Byte(bitmap));
+                intent.putExtra("bitmap", BitmapHelper.bitmap2JPGByteArray(bitmap));
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

@@ -17,6 +17,21 @@ public class TimeHelper {
     private static final SimpleDateFormat sdf_ymd = new SimpleDateFormat("yyyy/MM/dd");
     private static final SimpleDateFormat sdf_content_date = new SimpleDateFormat("MM/dd");
 
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public static String now() {
+        return SDF.format(new Date());
+    }
+
+    public static String date() {
+        return now().split(" ")[0];
+    }
+
+    public static String time() {
+        return now().split(" ")[1];
+    }
+
+
     public static String getStandard() {
         return sdf_standard.format(new Date());
     }
@@ -149,5 +164,22 @@ public class TimeHelper {
         }
     }
 
+    public static int getAge(String birthday) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = sdf.parse(birthday);
+            Calendar dob = Calendar.getInstance();
+            Calendar today = Calendar.getInstance();
+            dob.setTime(d);
+            int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+            if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+            return age;
 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/main_background2"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_corner_round_light_blue"
+                android:gravity="center"
+                android:text="@string/discussion_profile"
+                android:textColor="#FFF"
+                android:textSize="24sp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="#FFF"
+                        android:layout_height="wrap_content"
+                        android:text="@string/manager_center" />
+
+                    <TextView
+                        android:id="@+id/tv_discussion_flabor_info_center"
+                        style="@style/AppTheme2.TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/select" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFF"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/dorm" />
+
+                    <TextView
+                        android:id="@+id/tv_discussion_flabor_info_dorm"
+                        style="@style/AppTheme2.TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/select" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="#FFF"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/customer" />
+
+                    <TextView
+                        android:id="@+id/tv_discussion_flabor_info_customer"
+                        style="@style/AppTheme2.TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/select" />
+
+                    <EditText
+                        android:id="@+id/et_discussion_flabor_info_workerNo"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:hint="@string/workerNo"
+                        android:padding="10dp"
+                        android:textColor="#FFF"
+                        android:textColorHint="#FFF"
+                        android:background="@color/main_edit_background"
+                        android:layout_height="wrap_content" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#FFF" />
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+

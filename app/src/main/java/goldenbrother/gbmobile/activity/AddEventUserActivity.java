@@ -118,7 +118,7 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.addEventGroup(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         ToastHelper.t(AddEventUserActivity.this, "Add User Success");
                         finish();

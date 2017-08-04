@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
@@ -26,10 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.LoginActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.MobileServiceActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -37,20 +36,6 @@
         <activity
             android:name=".activity.EventChatActivity"
             android:windowSoftInputMode="adjustPan" />
-
-        <!-- Receive InstanceID For First Time -->
-        <service android:name=".fcm.GBInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
-        <!-- Receive Message -->
-        <service android:name=".fcm.GBFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -62,9 +47,6 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
         <activity android:name=".activity.AddEventUserActivity" />
         <activity android:name=".activity.ServiceChatActivity" />
         <activity android:name=".activity.ProfileActivity" />
@@ -92,14 +74,37 @@
         <activity android:name=".activity.MedicalSymptomActivity" />
         <activity android:name=".activity.MedicalProcessStatusActivity" />
         <activity android:name=".activity.MedicalTrackProcessActivity" />
-        <activity android:name=".activity.MedicalFileUploadActivity" />
         <activity android:name=".activity.SignatureActivity" />
         <activity android:name=".activity.SplashActivity" />
         <activity android:name=".activity.PackageResultActivity" />
         <activity android:name=".activity.CropActivity" />
-        <activity android:name=".activity.WebViewActivity"></activity>
-        //your activity declarations and other stuff
-        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <activity android:name=".activity.WebViewActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <!-- Receive InstanceID For First Time -->
+        <service android:name=".fcm.GBInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Receive Message -->
+        <service android:name=".fcm.GBFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
+
+        <activity android:name=".activity.DiscussionListActivity" />
+        <activity android:name=".activity.DiscussionRecordActivity" />
+        <activity android:name=".activity.DiscussionFlaborInfoActivity" />
+        <activity android:name=".activity.SearchActivity" />
     </application>
 
 </manifest>

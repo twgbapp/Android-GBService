@@ -79,52 +79,45 @@
 
                     </LinearLayout>
 
-
-                    <TextView
-                        android:id="@+id/tv_medical_record_name"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="@string/name"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        android:orientation="vertical"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/tv_medical_record_gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="@string/sex"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/tv_medical_record_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/main_edit_background"
+                            android:padding="5dp"
+                            android:text="@string/name"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/tv_medical_record_birthday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="@string/birthday"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/tv_medical_record_blood_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="@string/medical_blood_type"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/tv_medical_record_blood_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/main_edit_background"
+                            android:padding="5dp"
+                            android:text="@string/medical_blood_type"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
 
 
-                    <TextView
-                        android:id="@+id/tv_medical_record_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="@string/medical_fill_out_date"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/tv_medical_record_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/main_edit_background"
+                            android:padding="5dp"
+                            android:text="@string/medical_fill_out_date"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -339,7 +332,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_medical_record_add" />
+                            android:src="@drawable/ic_file_upload" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -354,7 +347,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_medical_record_add" />
+                            android:src="@drawable/ic_file_upload" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -369,7 +362,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_medical_record_add" />
+                            android:src="@drawable/ic_file_upload" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -384,7 +377,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/ic_medical_record_add" />
+                            android:src="@drawable/ic_file_upload" />
 
                     </LinearLayout>
 

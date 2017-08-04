@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/main_background2"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_corner_round_light_blue"
+                    android:gravity="center"
+                    android:text="@string/discussion_list"
+                    android:textColor="#FFF"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/iv_discussion_list_add"
+                    android:layout_width="@dimen/imageview_toolbar_width"
+                    android:layout_height="@dimen/imageview_toolbar_width"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_add" />
+
+                <ImageView
+                    android:id="@+id/iv_discussion_list_search"
+                    android:layout_width="@dimen/imageview_toolbar_width"
+                    android:layout_height="@dimen/imageview_toolbar_width"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/iv_discussion_list_add"
+                    android:layout_toStartOf="@+id/iv_discussion_list_add"
+                    android:src="@drawable/ic_search" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_discussion_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

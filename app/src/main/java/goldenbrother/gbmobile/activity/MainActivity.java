@@ -1,7 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -25,6 +24,7 @@ import net.hockeyapp.android.UpdateManager;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
+import goldenbrother.gbmobile.model.Discussion;
 import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -126,6 +126,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_medical, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.discussion, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
@@ -164,25 +165,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void setLanguage(int i) {
-        String lang = "";
-        switch (i) {
-            case 0:
-                lang = "en";
-                break;
-            case 1:
-                lang = "zh";
-                break;
-            case 2:
-                lang = "in";
-                break;
-            case 3:
-                lang = "vi";
-                break;
-            case 4:
-                lang = "th";
-                break;
-        }
-        Locale locale = new Locale(lang);
+        Locale locale = new Locale(new String[]{"en", "zh", "in", "vi", "th"}[i]);
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
@@ -204,10 +187,10 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(MobileServiceActivity.class, b);
         } else if (str.equals(getString(R.string.main_drawer_quick_repair))) {
             b.putBoolean("support", false);
-            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR,b);
+            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR, b);
         } else if (str.equals(getString(R.string.support))) {
             b.putBoolean("support", true);
-            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR,b);
+            openActivityForResult(QuickRepairActivity.class, REQUEST_QUICK_REPAIR, b);
         } else if (str.equals(getString(R.string.main_drawer_satisfaction_survey))) {
             openActivity(SatisfactionIssueActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_club))) {
@@ -233,6 +216,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(RepairRecordActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_medical))) {
             openActivity(MedicalListActivity.class);
+        } else if (str.equals(getString(R.string.discussion))) {
+            openActivity(DiscussionListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_e_commerce))) {
             b.putString("url", E_COMMERCE);
             openActivity(WebViewActivity.class, b);
@@ -315,7 +300,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         String[] items_manager = {getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_online_setting),
                 getString(R.string.main_drawer_chart), getString(R.string.main_drawer_repair_record),
-                getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package)};
+                getString(R.string.main_drawer_medical),getString(R.string.discussion),
+                getString(R.string.main_drawer_package)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {
             @Override
@@ -368,7 +354,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -378,7 +363,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 rv_drawer.getAdapter().notifyItemChanged(0);
                 break;
         }
-
     }
 
     public static final long DELAY_TIME = 2000L;

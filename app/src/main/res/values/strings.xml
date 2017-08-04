@@ -263,4 +263,17 @@
     <string name="copy_to_clipboard">copy_to_clipboard</string>
     <string name="discussion_add_discussion">Add Discussion</string>
     <string name="discussion_profile">Profile</string>
+    <string name="quick_repair_description">Description</string>
+    <string name="quick_repair_place">Location</string>
+    <string name="manager_center">Center</string>
+    <string name="customer">Customer</string>
+    <string name="discussion">Discussion</string>
+    <string name="workerNo">WorkerNo</string>
+    <string name="reason">Reason</string>
+    <string name="place">Location</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="file_upload">Upload file</string>
+    <string name="service_record">Service Record</string>
+    <string name="signature">Signature</string>
 </resources>

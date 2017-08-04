@@ -172,7 +172,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.doSignUp(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         finish();
@@ -252,6 +252,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        hideKeyBoard(v);
         switch (v.getId()) {
             case R.id.tv_sign_up_check:
                 String str = et_id_number.getText().toString();
@@ -271,7 +272,6 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                 showDatePickerDialog();
                 break;
             case R.id.tv_sign_up_do_sign_up:
-                UtilHelper.hideKeyBoard(this, v);
                 doSignUp();
                 break;
         }

@@ -150,7 +150,7 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.addClubPostMessage(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         et_message.setText("");
                         loadClubPostMessage();

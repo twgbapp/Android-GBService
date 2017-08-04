@@ -16,10 +16,5 @@ public class UtilHelper {
         NetworkInfo info = cm.getActiveNetworkInfo();
         return info != null && info.isAvailable();
     }
-    public static void hideKeyBoard(Context context,View view){
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
+
 }

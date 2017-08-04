@@ -120,7 +120,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.addEventChat(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         // clear editText
                         et_content.setText("");
@@ -262,7 +262,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.ratingEvent(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                     } else {

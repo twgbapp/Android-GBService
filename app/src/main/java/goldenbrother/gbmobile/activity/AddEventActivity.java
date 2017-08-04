@@ -333,11 +333,9 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     }
 
     private class AddEvent extends IAsyncTask {
-        private HashMap<String, Integer> map;
 
         AddEvent(Context context, JSONObject json, String url) {
             super(context, json, url);
-            this.map = new HashMap<>();
         }
 
         @Override
@@ -346,7 +344,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.addEvent(response, map);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         finish();

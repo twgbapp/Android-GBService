@@ -63,8 +63,8 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
             @Override
             public void onPageSelected(int position) {
                 if (position == POSITION_GROUP) {
-//                    tv_title.setText(RoleInfo.getInstance().isLabor() ? R.string.mobile_service_desk : R.string.mobile_service_desk);
-                                        tv_title.setText(R.string.mobile_service_desk);
+//                    tv_title.setText(RoleInfo.getInstance().isLabor() ? R.string.mobile_service : R.string.mobile_service);
+                                        tv_title.setText(R.string.mobile_service);
                 } else if (position == POSITION_EVENT) {
                     tv_title.setText(R.string.event_list);
                 }
@@ -123,7 +123,7 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
                 // get current page
                 int position = viewPager.getCurrentItem();
                 if (position == POSITION_GROUP) {
-                    tv_title.setText(R.string.mobile_service_desk);
+                    tv_title.setText(R.string.mobile_service);
                     ((ServiceListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_GROUP)).clearSearchFilter();
                 } else if (position == POSITION_EVENT) {
                     tv_title.setText(R.string.event_list);

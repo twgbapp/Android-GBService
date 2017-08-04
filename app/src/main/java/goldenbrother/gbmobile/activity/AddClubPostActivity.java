@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 
 public class AddClubPostActivity extends CommonActivity implements View.OnClickListener {
@@ -131,7 +132,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.addClubPost(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         Intent intent = new Intent();
@@ -156,7 +157,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                     startActivityForResult(intent, REQUEST_FROM_GALLERY);
                 } else {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    uriTakePicture = FileProvider.getUriForFile(AddClubPostActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getAppDir(AddClubPostActivity.this) + "/take_picture.jpg"));
+                    uriTakePicture = FileProvider.getUriForFile(AddClubPostActivity.this, GenericFileProvider.AUTH, new File(FileHelper.getPicturesDir(AddClubPostActivity.this) + "/take_picture.jpg"));
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO);
                 }
@@ -225,18 +226,16 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                         .start(this);
                 break;
             case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                try {
+
                     Uri uri = CropImage.getActivityResult(data).getUri();
                     ClubPostMediaModel m = new ClubPostMediaModel();
                     m.setType(ClubPostMediaModel.IMAGE);
                     m.setUri(uri);
-                    m.setPic(BitmapHelper.bitmap2String(BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, uri), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT)));
-                    m.setName(BitmapHelper.getRandomName());
+                    m.setPic(BitmapHelper.bitmap2JPGBase64(BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, uri), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT)));
+                    m.setName(UUID.randomUUID().toString());
                     list_media.add(m);
                     updateAdapter();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 break;
 
         }

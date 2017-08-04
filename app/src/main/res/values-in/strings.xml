@@ -28,7 +28,6 @@
     <string name="permission_denied">bukan dalam kuasa</string>
     <string name="error_confirm_password">setelah dicocokin no pin salah</string>
     <string name="press_again_to_exit">Tekan ulangTombol</string>
-    <string name="mobile_service_desk">pelayanan service</string>
     <string name="event_list">informasi masalah</string>
     <string name="quick_repair">Perbaikan cepat</string>
     <string name="repair_record">Catatan perbaikan</string>
@@ -227,4 +226,9 @@
     <string name="hockeyapp_update_button"></string>
     <string name="am">Pagi hari</string>
     <string name="can_not_get_patient"></string>
+    <string name="place">Lokasi</string>
+    <string name="description">deskripsi</string>
+    <string name="file_upload">Upload lampiran</string>
+    <string name="service_record">Catatan Pelayanan Administrasi</string>
+    <string name="signature">Tanda tangan</string>
 </resources>

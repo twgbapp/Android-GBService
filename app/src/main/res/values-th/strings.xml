@@ -98,7 +98,6 @@
     <string name="medical_track_process_1">ไปตรวจซ้ำ</string>
     <string name="medical_track_process_3">อื่นๆ</string>
     <string name="medical_track_process_4">หายแล้ว</string>
-    <string name="mobile_service_desk">เคาน์เตอร์บริการเคลื่นที่</string>
     <string name="mobile_service_tab_chat">คำสนทนากับเคาน์เตอร์</string>
     <string name="mobile_service_tab_event">เรื่อง</string>
     <string name="medical_fill_out_date">วันที่ไปหาหมอ</string>
@@ -166,4 +165,9 @@
     <string name="edit">การตัดต่อ</string>
     <string name="thailand">ไทย</string>
     <string name="am">ตอนเช้า</string>
+    <string name="place">สถานที่</string>
+    <string name="description">บรรยาย</string>
+    <string name="file_upload">อัพโหลดไฟล์แนบ</string>
+    <string name="service_record">แบบฟอร์มบริหารในการบันทึกบริการ</string>
+    <string name="signature">เซ็นชื่อ</string>
 </resources>

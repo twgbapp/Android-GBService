@@ -1,36 +1,14 @@
 package goldenbrother.gbmobile.activity;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.text.TextUtils;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-
-import net.hockeyapp.android.UpdateManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 
@@ -39,15 +17,14 @@ public class SplashActivity extends CommonActivity {
     // enter type
     public static final int LOG_OUT = 0;
     public static final int LOG_IN = 1;
-    // ui
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         //Version
-        TextView textView = (TextView) findViewById(R.id.text);
-        textView.setText("Version：" + PackageUtil.getVersionName(this));
+        TextView textView = (TextView) findViewById(R.id.tv_splash_version_name);
+        textView.setText(String.format("Version : %s", PackageUtil.getVersionName(this)));
         // ani
         Message msg = new Message();
         msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? LOG_OUT : LOG_IN;

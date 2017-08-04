@@ -126,7 +126,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.changeOnCallStatus(response);
+                    int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         if (onCallStatus.equals("0")) { // offline
                             ToastHelper.t(OnLineSettingActivity.this, "off line");
