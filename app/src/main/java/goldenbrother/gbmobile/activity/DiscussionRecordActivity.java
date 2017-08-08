@@ -45,7 +45,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
     public static final int REQUEST_TAKE_PHOTO = 3;
     public static final int REQUEST_TAKE_CROP = 4;
     // ui
-    private TextView tv_name, tv_date;
+    private TextView tv_name, tv_date, tv_department;
     private EditText et_reason, et_place, et_description;
     private ImageView iv_service, iv_signature, iv_clicked;
     // take picture
@@ -59,6 +59,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         setContentView(R.layout.activity_discussion_record);
 
         // ui reference
+        tv_department = (TextView) findViewById(R.id.tv_discussion_record_department);
         tv_name = (TextView) findViewById(R.id.tv_discussion_record_name);
         tv_date = (TextView) findViewById(R.id.tv_discussion_record_date);
         et_reason = (EditText) findViewById(R.id.et_discussion_record_reason);
@@ -108,13 +109,18 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                     int result = ApiResultHelper.getDiscussionRecord(response, discussion);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
+                        tv_department.setText(discussion.getDepartment());
                         tv_name.setText(discussion.getFlaborName());
                         tv_date.setText(discussion.getDiscussionDate());
                         et_reason.setText(discussion.getDiscussionReason());
                         et_place.setText(discussion.getDiscussionPlace());
                         et_description.setText(discussion.getDiscussionDesc());
-                        Picasso.with(DiscussionRecordActivity.this).load(discussion.getServiceRecordPath()).into(iv_service);
-                        Picasso.with(DiscussionRecordActivity.this).load(discussion.getSignaturePath()).into(iv_signature);
+                        if(!discussion.getServiceRecordPath().isEmpty()) {
+                            Picasso.with(DiscussionRecordActivity.this).load(discussion.getServiceRecordPath()).into(iv_service);
+                        }
+                        if(!discussion.getSignaturePath().isEmpty()) {
+                            Picasso.with(DiscussionRecordActivity.this).load(discussion.getSignaturePath()).into(iv_signature);
+                        }
                     } else {
                         t(R.string.fail);
                         finish();
@@ -375,6 +381,8 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                 discussion.setCustomerNo(data.getStringExtra("customerNo"));
                 discussion.setfLaborNo(data.getStringExtra("flaborNo"));
                 tv_name.setText(data.getStringExtra("flaborName"));
+                discussion.setDepartment(data.getStringExtra("department"));
+                //tv_department.setText(data.getStringExtra("department"));
                 break;
             case REQUEST_SIGNATURE:
                 Bitmap bitmap = BitmapHelper.byteArrayToBitmap(data.getByteArrayExtra("bitmap"));
