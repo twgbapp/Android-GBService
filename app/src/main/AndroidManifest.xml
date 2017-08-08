@@ -66,7 +66,6 @@
         <activity android:name=".activity.QRReaderActivity" />
         <activity android:name=".activity.ChartActivity" />
         <activity android:name=".activity.MedicalListActivity" />
-        <activity android:name=".activity.MedicalPatientInfoActivity" />
         <activity android:name=".activity.MedicalRecordActivity" />
         <activity android:name=".activity.RepairRecordActivity" />
         <activity android:name=".activity.RepairRecordContentActivity" />

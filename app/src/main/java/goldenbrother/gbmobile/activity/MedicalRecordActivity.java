@@ -54,7 +54,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     public static final int REQUEST_TAKE_PHOTO = 13;
     public static final int REQUEST_TAKE_CROP = 14;
     // ui
-    private TextView tv_name, tv_blood_type, tv_date;
+    private TextView tv_name, tv_blood_type, tv_room_id, tv_date;
     private TextView et_symptoms, et_processing_status, et_tracking_processing;
     private ImageView iv_signature, iv_medical, iv_diagnosis, iv_service, iv_clicked;
     // take picture
@@ -72,6 +72,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         // ui reference
         tv_name = (TextView) findViewById(R.id.tv_medical_record_name);
         tv_blood_type = (TextView) findViewById(R.id.tv_medical_record_blood_type);
+        tv_room_id = (TextView) findViewById(R.id.tv_medical_record_room_id);
         tv_date = (TextView) findViewById(R.id.tv_medical_record_date);
         et_symptoms = (TextView) findViewById(R.id.tv_medical_record_symptoms);
         et_processing_status = (TextView) findViewById(R.id.tv_medical_record_processing_status);
@@ -86,6 +87,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
         findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
         findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
+        tv_name.setOnClickListener(this);
+        tv_room_id.setOnClickListener(this);
         tv_blood_type.setOnClickListener(this);
         tv_date.setOnClickListener(this);
         iv_signature.setOnClickListener(this);
@@ -99,6 +102,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             getMedicalRecord(medical.getMtrsno());
         } else {
             medical = new Medical();
+            medical.getPatient().setBloodType("0"); // A
+            medical.getPatient().setRecordDate(TimeHelper.date());
             tv_date.setText(TimeHelper.date());
             getMedicalTreatmentCode();
         }
@@ -452,6 +457,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         alertWithItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
+                medical.getPatient().setBloodType(which + "");
                 tv_blood_type.setText(items[which]);
             }
         });
@@ -489,6 +495,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             case R.id.tv_medical_record_date:
                 showDatePicker(tv_date);
                 break;
+            case R.id.tv_medical_record_name:
+            case R.id.tv_medical_record_room_id:
             case R.id.iv_medical_record_info: // 查詢外勞
                 b.putBoolean("isFLabor", true);
                 openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
@@ -552,14 +560,14 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 Patient p = medical.getPatient();
                 p.setName(data.getStringExtra("flaborName"));
                 p.setDate(data.getStringExtra("birthday"));
-                p.setAge(TimeHelper.getAge(data.getStringExtra("birthday")));
+                p.setAge(TimeHelper.getAge(p.getDate()));
                 p.setFlaborNo(data.getStringExtra("flaborNo"));
                 p.setCustomerNo(data.getStringExtra("customerNo"));
                 p.setDormID(data.getStringExtra("dormId"));
                 p.setRoomID(data.getStringExtra("roomId"));
                 p.setCenterDirectorID(data.getStringExtra("centerDirectorId"));
-
                 tv_name.setText(p.getName());
+                tv_room_id.setText(p.getRoomID());
                 break;
             case REQUEST_TREATMENT:
                 medical = data.getParcelableExtra("medical");

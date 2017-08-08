@@ -86,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:maxLines="1"
                     android:background="@color/main_edit_background"
                     android:hint="@string/workerNo"
                     android:padding="10dp"
