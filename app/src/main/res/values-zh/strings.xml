@@ -255,4 +255,6 @@
     <string name="file_upload">附件上傳</string>
     <string name="service_record">行政服務紀錄表</string>
     <string name="signature">簽名</string>
+    <string name="end_date">中止日</string>
+    <string name="department">部門</string>
 </resources>

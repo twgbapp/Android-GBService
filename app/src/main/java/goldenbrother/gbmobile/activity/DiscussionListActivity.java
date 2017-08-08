@@ -77,9 +77,9 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
                     int result = ApiResultHelper.getDiscussionFlaborList(response, list_discussion);
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
-//                        t(R.string.success);
                     } else {
-//                        t(R.string.fail);
+                        list_discussion.clear();
+                        updateAdapter();
                     }
                     break;
             }

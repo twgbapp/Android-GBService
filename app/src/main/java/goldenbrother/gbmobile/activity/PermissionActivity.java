@@ -2,8 +2,10 @@ package goldenbrother.gbmobile.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 
 import goldenbrother.gbmobile.R;
@@ -25,6 +27,12 @@ public class PermissionActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            Bundle b = new Bundle();
+            openActivity(SplashActivity.class, b);
+            finish();
+            return;
+        }
         checkPermission();
     }
 
@@ -38,21 +46,22 @@ public class PermissionActivity extends CommonActivity {
         }
         // pass
         Bundle b = new Bundle();
-        openActivity(SplashActivity.class,b);
+        openActivity(SplashActivity.class, b);
         finish();
     }
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        for (int result:grantResults){
-            if (result != PackageManager.PERMISSION_GRANTED){
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
                 t(R.string.permission_denied);
                 finish();
                 return;
             }
         }
         Bundle b = new Bundle();
-        openActivity(SplashActivity.class,b);
+        openActivity(SplashActivity.class, b);
         finish();
     }
 }

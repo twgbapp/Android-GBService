@@ -1,4 +1,4 @@
-package goldenbrother.gbmobile.activity;
+package goldenbrother.gbmobile.helper;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -8,7 +8,7 @@ import android.content.pm.PackageManager;
  *
  */
 
-public class PackageUtil {
+public class PackageHelper {
     public static String getVersionName(Context context){
         PackageManager pm = context.getPackageManager();
         try{

@@ -99,7 +99,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         // extra
         medical = getIntent().getExtras().getParcelable("medical");
         if (medical != null && medical.getMtrsno() != 0) {
-            getMedicalRecord(medical.getMtrsno());
+            getMedicalTreatmentCode();
         } else {
             medical = new Medical();
             medical.getPatient().setBloodType("0"); // A
@@ -123,13 +123,11 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
     private class GetMedicalTreatmentCode extends IAsyncTask {
 
-        private boolean isAdd;
         private ArrayList<MedicalSymptomModel> list_first;
         private ArrayList<MedicalSymptomModel> list_second;
 
         GetMedicalTreatmentCode(Context context, JSONObject json, String url) {
             super(context, json, url);
-            isAdd = medical.getMtrsno() == 0;
             if (list_symptoms == null) list_symptoms = new ArrayList<>();
             list_first = new ArrayList<>();
             list_second = new ArrayList<>();
@@ -167,14 +165,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     int result = ApiResultHelper.getMedicalTreatmentCode(response, list_first, list_second);
                     if (result == ApiResultHelper.SUCCESS) {
                         sortSymptoms();
-                        if (isAdd) {
-
-                        } else {
+                        if (medical != null && medical.getMtrsno() != 0) {
+                            getMedicalRecord(medical.getMtrsno());
                             syncMedicalSymptom();
-                            showMedical();
                         }
                     } else {
-                        t(getString(R.string.fail) + "GetMedicalTreatmentCode");
+                        t(getString(R.string.fail));
                         finish();
                     }
                     break;
@@ -209,7 +205,11 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getMedicalRecord(response, medical);
                     if (result == ApiResultHelper.SUCCESS) {
-//                        t(R.string.success);
+                        showPatientInfo();
+                        showSymptom();
+                        showProcessStatus();
+                        showUploadFile();
+                        // getMedicalTreatmentCode
                         getMedicalTreatmentCode();
                     } else {
                         t(R.string.fail);
@@ -219,19 +219,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         }
     }
 
-    private void showMedical() {
-        showPatientInfo();
-        showSymptom();
-        showProcessStatus();
-        showTrackProcess();
-        showUploadFile();
-    }
-
     private void showPatientInfo() {
-        if (medical.getPatient() != null) {
-            tv_name.setText(String.format(getString(R.string.name) + " : %s", medical.getPatient().getName()));
-            tv_blood_type.setText(String.format(getString(R.string.medical_blood_type) + " : %s", getBloodTypeName(medical.getPatient().getBloodType())));
-        }
+        Patient p = medical.getPatient();
+        tv_name.setText(p.getName());
+        tv_blood_type.setText(getBloodTypeName(p.getBloodType()));
+        tv_room_id.setText(p.getRoomID());
+        tv_date.setText(p.getRecordDate());
     }
 
     private void showSymptom() {
@@ -282,7 +275,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 return names[i];
             }
         }
-        return "";
+        return code;
     }
 
     private void addMedicalRecord() {

@@ -41,8 +41,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends CommonActivity implements View.OnClickListener {
 
     // request
-    public static final int REQUEST_FROM_GALLERY = 11;
-    public static final int REQUEST_TAKE_PHOTO = 12;
+    public static final int REQUEST_FROM_GALLERY = 12;
+    public static final int REQUEST_TAKE_PHOTO = 13;
+    public static final int REQUEST_TAKE_CROP = 14;
     // ui
     private CircleImageView iv_picture;
     private EditText et_name, et_email;
@@ -178,7 +179,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         }
     }
 
-    private void choosePictureIntent() {
+    private void choosePicture() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
             @Override
@@ -272,7 +273,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.iv_profile_picture:
-                choosePictureIntent();
+                choosePicture();
                 break;
             case R.id.tv_profile_change_password:
                 showChangePasswordDialog();
@@ -283,23 +284,22 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
+        Bundle b = new Bundle();
         switch (requestCode) {
             case REQUEST_FROM_GALLERY:
-                Uri uriChoosePhoto = data.getData();
-                CropImage.activity(uriChoosePhoto)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", data.getData().toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_PHOTO:
-                CropImage.activity(uriTakePicture)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", uriTakePicture.toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-
-                    Bitmap bmp = BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri());
-                    showImage(bmp);
-
+            case REQUEST_TAKE_CROP:
+                showImage(BitmapHelper.file2Bitmap((File) data.getSerializableExtra("file")));
                 break;
         }
     }

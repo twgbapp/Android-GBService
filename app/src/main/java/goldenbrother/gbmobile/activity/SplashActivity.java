@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 
@@ -24,7 +25,7 @@ public class SplashActivity extends CommonActivity {
         setContentView(R.layout.activity_splash);
         //Version
         TextView textView = (TextView) findViewById(R.id.tv_splash_version_name);
-        textView.setText(String.format("Version : %s", PackageUtil.getVersionName(this)));
+        textView.setText(String.format("Version : %s", PackageHelper.getVersionName(this)));
         // ani
         Message msg = new Message();
         msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? LOG_OUT : LOG_IN;
