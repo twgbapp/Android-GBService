@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Center;
 import goldenbrother.gbmobile.model.Customer;
@@ -315,6 +316,10 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                     t(R.string.can_not_be_empty);
                     return;
                 }
+                if (isFLabor && dormUser.getFlaborNo() == null) {
+                    t(R.string.can_not_be_empty);
+                    return;
+                }
 
                 Intent intent = new Intent();
                 intent.putExtra("centerName", centerName);
@@ -325,14 +330,14 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                 intent.putExtra("dormId", dormId);
                 intent.putExtra("customerNo", customerNo);
 
-                intent.putExtra("flaborNo", dormUser.getFlaborNo());
-                intent.putExtra("flaborName", tv_flabor_name.getText().toString());
-
-                intent.putExtra("roomId", dormUser.getRoomID());
-                intent.putExtra("centerDirectorId", dormUser.getCenterDirectorID());
-                intent.putExtra("birthday", dormUser.getUserBirthday());
-                intent.putExtra("sex", dormUser.getUserSex());
-
+                if (isFLabor) {
+                    intent.putExtra("flaborNo", dormUser.getFlaborNo());
+                    intent.putExtra("flaborName", tv_flabor_name.getText().toString());
+                    intent.putExtra("roomId", dormUser.getRoomID());
+                    intent.putExtra("centerDirectorId", dormUser.getCenterDirectorID());
+                    intent.putExtra("birthday", dormUser.getUserBirthday());
+                    intent.putExtra("sex", dormUser.getUserSex());
+                }
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

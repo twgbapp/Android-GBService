@@ -86,12 +86,27 @@
                         android:padding="10dp">
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/name"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+
+                        <TextView
                             android:id="@+id/tv_medical_record_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:background="@color/main_edit_background"
                             android:padding="5dp"
-                            android:text="@string/name"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/medical_blood_type"
                             android:textColor="#FFF"
                             android:textSize="16sp" />
 
@@ -99,22 +114,45 @@
                             android:id="@+id/tv_medical_record_blood_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:background="@color/main_edit_background"
                             android:padding="5dp"
-                            android:text="@string/medical_blood_type"
                             android:textColor="#FFF"
                             android:textSize="16sp" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/room_id"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_medical_record_room_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/main_edit_background"
+                            android:padding="5dp"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/medical_fill_out_date"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tv_medical_record_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:background="@color/main_edit_background"
                             android:padding="5dp"
-                            android:text="@string/medical_fill_out_date"
                             android:textColor="#FFF"
                             android:textSize="16sp" />
                     </LinearLayout>
