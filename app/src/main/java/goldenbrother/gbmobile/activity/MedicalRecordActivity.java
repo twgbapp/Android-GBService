@@ -145,17 +145,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             }
         }
 
-        private void syncMedicalSymptom() {
-            for (MedicalSymptomModel ms : medical.getSymptom()) {
-                for (MedicalSymptomModel ms2 : list_symptoms) {
-                    if (ms.getCode().equals(ms2.getCode())) {
-                        ms.setValue(ms2.getValue());
-                        break;
-                    }
-                }
-            }
-        }
-
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
@@ -167,7 +156,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                         sortSymptoms();
                         if (medical != null && medical.getMtrsno() != 0) {
                             getMedicalRecord(medical.getMtrsno());
-                            syncMedicalSymptom();
                         }
                     } else {
                         t(getString(R.string.fail));
@@ -197,6 +185,17 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             super(context, json, url);
         }
 
+        private void syncMedicalSymptom() {
+            for (MedicalSymptomModel ms : medical.getSymptom()) {
+                for (MedicalSymptomModel ms2 : list_symptoms) {
+                    if (ms.getCode().equals(ms2.getCode())) {
+                        ms.setValue(ms2.getValue());
+                        break;
+                    }
+                }
+            }
+        }
+
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
@@ -205,12 +204,11 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getMedicalRecord(response, medical);
                     if (result == ApiResultHelper.SUCCESS) {
+                        syncMedicalSymptom();
                         showPatientInfo();
                         showSymptom();
                         showProcessStatus();
                         showUploadFile();
-                        // getMedicalTreatmentCode
-                        getMedicalTreatmentCode();
                     } else {
                         t(R.string.fail);
                     }
