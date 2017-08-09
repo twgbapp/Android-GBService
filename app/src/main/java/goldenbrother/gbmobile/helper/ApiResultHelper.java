@@ -866,6 +866,7 @@ public class ApiResultHelper {
                 dormUser.setDormID(j.getString("dormID"));
                 dormUser.setRoomID(j.getString("roomID"));
                 dormUser.setCenterDirectorID(j.getString("centerDirectorID"));
+                dormUser.setDepartment(j.getString("department"));
             }
             return success;
         } catch (JSONException e) {

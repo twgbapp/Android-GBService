@@ -382,7 +382,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                 discussion.setfLaborNo(data.getStringExtra("flaborNo"));
                 tv_name.setText(data.getStringExtra("flaborName"));
                 discussion.setDepartment(data.getStringExtra("department"));
-                //tv_department.setText(data.getStringExtra("department"));
+                tv_department.setText(data.getStringExtra("department"));
                 break;
             case REQUEST_SIGNATURE:
                 Bitmap bitmap = BitmapHelper.byteArrayToBitmap(data.getByteArrayExtra("bitmap"));
