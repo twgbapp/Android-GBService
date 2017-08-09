@@ -98,11 +98,14 @@
                         android:textColor="#FFF"
                         android:textSize="16sp" />
 
-                    <Spinner
-                        android:id="@+id/sp_medical_process_hospital"
+                    <TextView
+                        android:id="@+id/tv_medical_process_hospital"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:background="@color/main_edit_background"
+                        android:padding="10dp"
+                        android:textColor="#FFF" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -112,11 +115,14 @@
                         android:textColor="#FFF"
                         android:textSize="16sp" />
 
-                    <Spinner
-                        android:id="@+id/sp_medical_process_person"
+                    <TextView
+                        android:id="@+id/tv_medical_process_person"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:background="@color/main_edit_background"
+                        android:padding="10dp"
+                        android:textColor="#FFF" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -206,6 +212,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:orientation="horizontal">
 
                         <TextView

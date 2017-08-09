@@ -880,14 +880,12 @@ public class ApiResultHelper {
             int success = j.getInt("success");
             if (success == 1) {
                 list_hospital.clear();
-                list_hospital.add(new HospitalModel("0", "Select..."));
                 JSONArray arr_hospital = j.getJSONArray("hospital");
                 for (int i = 0; i < arr_hospital.length(); i++) {
                     JSONObject o = arr_hospital.getJSONObject(i);
                     list_hospital.add(new HospitalModel(o.getString("hospitalCode"), o.getString("hospitalName")));
                 }
                 list_personal_pick_up.clear();
-                list_personal_pick_up.add(new PersonalPickUpModel("0", "Select..."));
                 JSONArray arr_personal_pick_up = j.getJSONArray("personnelPickUp");
                 for (int i = 0; i < arr_personal_pick_up.length(); i++) {
                     JSONObject o = arr_personal_pick_up.getJSONObject(i);

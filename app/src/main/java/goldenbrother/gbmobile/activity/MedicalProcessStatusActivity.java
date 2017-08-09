@@ -1,6 +1,7 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +35,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
     // ui
     private EditText et_other;
     private ImageView iv_1, iv_2, iv_3, iv_4, iv_5;
-    private Spinner sp_hospital, sp_person;
+    private TextView tv_hospital, tv_person;
     private RadioButton rb_yes, rb_no;
     // extra
     private Medical medical;
@@ -41,7 +43,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
     private boolean isCheck1, isCheck2, isCheck3, isCheck4, isCheck5;
     private String[] array_process_status;
     private ArrayList<HospitalModel> list_hospital;
-    private ArrayList<PersonalPickUpModel> list_personal_pick_up;
+    private ArrayList<PersonalPickUpModel> list_personal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +58,12 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
         iv_4 = (ImageView) findViewById(R.id.iv_medical_process_status_4);
         iv_5 = (ImageView) findViewById(R.id.iv_medical_process_status_5);
         et_other = (EditText) findViewById(R.id.et_medical_process_status_other);
-        sp_hospital = (Spinner) findViewById(R.id.sp_medical_process_hospital);
-        sp_person = (Spinner) findViewById(R.id.sp_medical_process_person);
+        tv_hospital = (TextView) findViewById(R.id.tv_medical_process_hospital);
+        tv_person = (TextView) findViewById(R.id.tv_medical_process_person);
         rb_yes = (RadioButton) findViewById(R.id.rb_medical_process_yes);
         rb_no = (RadioButton) findViewById(R.id.rb_medical_process_no);
+        tv_hospital.setOnClickListener(this);
+        tv_person.setOnClickListener(this);
         iv_1.setOnClickListener(this);
         iv_2.setOnClickListener(this);
         iv_3.setOnClickListener(this);
@@ -73,22 +77,10 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
 
         // init Spinner
         list_hospital = new ArrayList<>();
-        list_personal_pick_up = new ArrayList<>();
-        list_hospital.add(new HospitalModel("0", getString(R.string.select)));
-        list_personal_pick_up.add(new PersonalPickUpModel("0", getString(R.string.select)));
-        sp_hospital.setAdapter(new MedicalHospitalListAdapter(this, list_hospital));
-        sp_person.setAdapter(new MedicalPersonListAdapter(this, list_personal_pick_up));
-
-        // getHospitalPickUp
-        getHospitalPickUp();
+        list_personal = new ArrayList<>();
     }
 
-    private void updateAdapter() {
-        ((MedicalHospitalListAdapter) sp_hospital.getAdapter()).notifyDataSetChanged();
-        ((MedicalPersonListAdapter) sp_person.getAdapter()).notifyDataSetChanged();
-    }
-
-    private void getHospitalPickUp() {
+    private void getHospitalPickUp(boolean showHospital) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getHospitalPickUp");
@@ -96,7 +88,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
             j.put("customerNo", medical.getPatient().getCustomerNo());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetHospitalPickUp(this, j, URLHelper.HOST).execute();
+            new GetHospitalPickUp(this, j, URLHelper.HOST, showHospital).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -104,8 +96,11 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
 
     private class GetHospitalPickUp extends IAsyncTask {
 
-        GetHospitalPickUp(Context context, JSONObject json, String url) {
+        private boolean showHospital;
+
+        GetHospitalPickUp(Context context, JSONObject json, String url, boolean showHospital) {
             super(context, json, url);
+            this.showHospital = showHospital;
         }
 
         @Override
@@ -114,9 +109,13 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.FAIL:
-                    int result = ApiResultHelper.getHospitalPickUp(response, list_hospital, list_personal_pick_up);
+                    int result = ApiResultHelper.getHospitalPickUp(response, list_hospital, list_personal);
                     if (result == ApiResultHelper.SUCCESS) {
-                        updateAdapter();
+                        if (showHospital) {
+                            showHospitalDialog();
+                        } else {
+                            showPersonDialog();
+                        }
                     } else {
                         t(String.format(getString(R.string.fail) + "(%s)", "GetHospitalPickUp"));
                     }
@@ -133,9 +132,67 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
         iv_5.setImageResource(isCheck5 ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
     }
 
+    private String getIdByHospital(String name) {
+        for (HospitalModel h : list_hospital) {
+            if (h.getName().equals(name)) {
+                return h.getCode();
+            }
+        }
+        return "";
+    }
+
+    private String getIdByPerson(String name) {
+        for (PersonalPickUpModel p : list_personal) {
+            if (p.getName().equals(name)) {
+                return p.getUserId();
+            }
+        }
+        return "";
+    }
+
+    private void showHospitalDialog() {
+        final String[] items = new String[list_hospital.size()];
+        for (int i = 0; i < items.length; i++) {
+            items[i] = list_hospital.get(i).getName();
+        }
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_hospital.setText(items[i]);
+            }
+        });
+    }
+
+    private void showPersonDialog() {
+        final String[] items = new String[list_personal.size()];
+        for (int i = 0; i < items.length; i++) {
+            items[i] = list_personal.get(i).getName();
+        }
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_person.setText(items[i]);
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_medical_process_hospital:
+                if (list_hospital.isEmpty()) {
+                    getHospitalPickUp(true);
+                } else {
+                    showHospitalDialog();
+                }
+                break;
+            case R.id.tv_medical_process_person:
+                if (list_personal.isEmpty()) {
+                    getHospitalPickUp(false);
+                } else {
+                    showPersonDialog();
+                }
+                break;
             case R.id.iv_medical_process_status_1:
                 isCheck1 = !isCheck1;
                 updateCheck();
@@ -161,8 +218,10 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
                 if (isCheck1)
                     list.add(new MedicalProcessStatusModel(array_process_status[0], "0/null/null/null/null"));
                 if (isCheck2) {
-                    String hospitalCode = (sp_hospital.getSelectedItemPosition() == 0 ? "null" : list_hospital.get(sp_hospital.getSelectedItemPosition()).getCode());
-                    String userId = (sp_person.getSelectedItemPosition() == 0 ? "null" : list_personal_pick_up.get(sp_person.getSelectedItemPosition()).getUserId());
+                    String hospitalName = tv_hospital.getText().toString();
+                    String personName = tv_person.getText().toString();
+                    String hospitalCode = hospitalName.isEmpty() ? "null" : getIdByHospital(hospitalName);
+                    String userId = personName.isEmpty() ? "null" : getIdByPerson(personName);
                     list.add(new MedicalProcessStatusModel(array_process_status[1], "1/" + hospitalCode + "/" + userId + "/null/null"));
                 }
                 if (isCheck3)
@@ -170,10 +229,10 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
                 if (isCheck4) {
                     boolean yes = rb_yes.isChecked();
                     boolean no = rb_no.isChecked();
-                    if(yes||no){
+                    if (yes || no) {
                         String yesNo = yes ? "1" : "0";
                         list.add(new MedicalProcessStatusModel(array_process_status[3], "3/null/null/" + yesNo + "/null"));
-                    }else{
+                    } else {
                         t(R.string.can_not_be_empty);
                         return;
                     }

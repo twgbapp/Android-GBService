@@ -64,7 +64,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@color/main_edit_background"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:orientation="horizontal">
@@ -82,7 +81,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@drawable/edittext_signup"
+                            android:background="@color/main_edit_background"
                             android:hint="@string/other"
                             android:textColor="#FFF"
                             android:textColorHint="#FFF" />
