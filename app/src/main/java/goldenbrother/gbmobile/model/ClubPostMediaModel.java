@@ -1,42 +1,37 @@
 package goldenbrother.gbmobile.model;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by asus on 2017/1/21.
- */
+import java.io.File;
 
-public class ClubPostMediaModel implements Parcelable {
+public class ClubPostMediaModel implements Parcelable{
     public static final int IMAGE = 0;
     public static final int VIDEO = 1;
-    private int ClubPostMediaID;
-    private int ClubPostID;
-    private int Type;
-    private int Position;
-    // image
-    private Uri uri;
-    private String pic;
-    private String name;
-    // video
-    private String ThumbNailPath;
-    private String UrlPath;
+    private int clubPostMediaID;
+    private int clubPostID;
+    private int type;
+    private int position;
+    // media
+    private File file; // image file
+    private String pic; // image base64
+    private String name; // image file name
+    private String thumbNailPath; //
+    private String urlPath; //
 
-    public ClubPostMediaModel() {
+    public ClubPostMediaModel(){
 
     }
 
     protected ClubPostMediaModel(Parcel in) {
-        ClubPostMediaID = in.readInt();
-        ClubPostID = in.readInt();
-        Type = in.readInt();
-        Position = in.readInt();
-        uri = in.readParcelable(Uri.class.getClassLoader());
+        clubPostMediaID = in.readInt();
+        clubPostID = in.readInt();
+        type = in.readInt();
+        position = in.readInt();
         pic = in.readString();
         name = in.readString();
-        ThumbNailPath = in.readString();
-        UrlPath = in.readString();
+        thumbNailPath = in.readString();
+        urlPath = in.readString();
     }
 
     public static final Creator<ClubPostMediaModel> CREATOR = new Creator<ClubPostMediaModel>() {
@@ -52,43 +47,43 @@ public class ClubPostMediaModel implements Parcelable {
     };
 
     public int getClubPostMediaID() {
-        return ClubPostMediaID;
+        return clubPostMediaID;
     }
 
     public void setClubPostMediaID(int clubPostMediaID) {
-        ClubPostMediaID = clubPostMediaID;
+        this.clubPostMediaID = clubPostMediaID;
     }
 
     public int getClubPostID() {
-        return ClubPostID;
+        return clubPostID;
     }
 
     public void setClubPostID(int clubPostID) {
-        ClubPostID = clubPostID;
+        this.clubPostID = clubPostID;
     }
 
     public int getType() {
-        return Type;
+        return type;
     }
 
     public void setType(int type) {
-        Type = type;
+        this.type = type;
     }
 
     public int getPosition() {
-        return Position;
+        return position;
     }
 
     public void setPosition(int position) {
-        Position = position;
+        this.position = position;
     }
 
-    public Uri getUri() {
-        return uri;
+    public File getFile() {
+        return file;
     }
 
-    public void setUri(Uri uri) {
-        this.uri = uri;
+    public void setFile(File file) {
+        this.file = file;
     }
 
     public String getPic() {
@@ -108,19 +103,19 @@ public class ClubPostMediaModel implements Parcelable {
     }
 
     public String getThumbNailPath() {
-        return ThumbNailPath;
+        return thumbNailPath;
     }
 
     public void setThumbNailPath(String thumbNailPath) {
-        ThumbNailPath = thumbNailPath;
+        this.thumbNailPath = thumbNailPath;
     }
 
     public String getUrlPath() {
-        return UrlPath;
+        return urlPath;
     }
 
     public void setUrlPath(String urlPath) {
-        UrlPath = urlPath;
+        this.urlPath = urlPath;
     }
 
     @Override
@@ -129,15 +124,14 @@ public class ClubPostMediaModel implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(ClubPostMediaID);
-        parcel.writeInt(ClubPostID);
-        parcel.writeInt(Type);
-        parcel.writeInt(Position);
-        parcel.writeParcelable(uri, i);
-        parcel.writeString(pic);
-        parcel.writeString(name);
-        parcel.writeString(ThumbNailPath);
-        parcel.writeString(UrlPath);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(clubPostMediaID);
+        dest.writeInt(clubPostID);
+        dest.writeInt(type);
+        dest.writeInt(position);
+        dest.writeString(pic);
+        dest.writeString(name);
+        dest.writeString(thumbNailPath);
+        dest.writeString(urlPath);
     }
 }
