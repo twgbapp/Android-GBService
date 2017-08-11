@@ -22,6 +22,9 @@ public class BitmapHelper {
     public static final int MAX_WIDTH = 1000;
     public static final int MAX_HEIGHT = 1000;
 
+    public static Bitmap resize(Bitmap bmp) {
+        return resize(bmp, MAX_WIDTH, MAX_HEIGHT);
+    }
 
     public static Bitmap resize(Bitmap bmp, int maxW, int maxH) {
         if (bmp == null)

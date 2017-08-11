@@ -36,15 +36,15 @@ import goldenbrother.gbmobile.model.RoleInfo;
 public class PackageResultActivity extends CommonActivity implements View.OnClickListener {
 
     // request
-    public static final int REQUEST_FROM_GALLERY = 11;
-    public static final int REQUEST_TAKE_PHOTO = 12;
-    public static final int REQUEST_QR_CODE = 1;
+    public static final int REQUEST_FROM_GALLERY = 12;
+    public static final int REQUEST_TAKE_PHOTO = 13;
+    public static final int REQUEST_TAKE_CROP = 14;
     // ui
     private TextView tv_name, tv_arrive_date;
     private View rl_take_picture;
     private ImageView iv_picture;
     // extra
-    private PackageModel p;
+    private PackageModel mPackage;
     // take picture
     private Uri uriTakePicture;
 
@@ -62,26 +62,26 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         rl_take_picture.setOnClickListener(this);
         iv_picture.setOnClickListener(this);
         // extra
-        p = getIntent().getExtras().getParcelable("package");
+        mPackage = getIntent().getExtras().getParcelable("package");
 
         // init
-        if (p != null) {
-            tv_name.setText(p.getDescription());
-            tv_arrive_date.setText(p.getArriveDate());
+        if (mPackage != null) {
+            tv_name.setText(mPackage.getDescription());
+            tv_arrive_date.setText(mPackage.getArriveDate());
         }
 
     }
 
-    private void receivePackage(PackageModel p) {
+    private void receivePackage() {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "receivePackage");
             j.put("url", URLHelper.HOST);
-            j.put("packageID", p.getPackageID());
+            j.put("packageID", mPackage.getPackageID());
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("baseStr", p.getBaseStr());
+            j.put("baseStr", mPackage.getBaseStr());
             j.put("logStatus", true);
-            new ReceivePackage(this, j, URLHelper.HOST, p).execute();
+            new ReceivePackage(this, j, URLHelper.HOST, mPackage).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
                         Intent intent = new Intent();
-                        intent.putExtra("package", p);
+                        intent.putExtra("package", mPackage);
                         setResult(RESULT_OK, intent);
                         finish();
                     } else {
@@ -149,7 +149,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                     t("No Picture");
                     return;
                 }
-                receivePackage(p);
+                receivePackage();
                 break;
         }
     }
@@ -158,26 +158,26 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
+        Bundle b = new Bundle();
         switch (requestCode) {
             case REQUEST_FROM_GALLERY:
-                Uri uriChoosePhoto = data.getData();
-                CropImage.activity(uriChoosePhoto)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", data.getData().toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_PHOTO:
-                CropImage.activity(uriTakePicture)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", uriTakePicture.toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-                Bitmap bmp = BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, CropImage.getActivityResult(data).getUri()), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT);
-                iv_picture.setImageBitmap(bmp);
-                String baseStr = BitmapHelper.bitmap2JPGBase64(bmp);
-                p.setBaseStr(baseStr);
+            case REQUEST_TAKE_CROP:
+                Bitmap bitmap = BitmapHelper.file2Bitmap((File) data.getSerializableExtra("file"));
+                iv_picture.setImageBitmap(bitmap);
+                mPackage.setBaseStr(BitmapHelper.bitmap2JPGBase64(bitmap));
                 rl_take_picture.setVisibility(View.GONE);
                 iv_picture.setVisibility(View.VISIBLE);
-
                 break;
         }
     }

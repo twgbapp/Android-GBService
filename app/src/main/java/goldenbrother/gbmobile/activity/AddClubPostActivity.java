@@ -42,8 +42,9 @@ import java.util.UUID;
 public class AddClubPostActivity extends CommonActivity implements View.OnClickListener {
 
     // request
-    public static final int REQUEST_FROM_GALLERY = 11;
-    public static final int REQUEST_TAKE_PHOTO = 12;
+    public static final int REQUEST_FROM_GALLERY = 12;
+    public static final int REQUEST_TAKE_PHOTO = 13;
+    public static final int REQUEST_TAKE_CROP = 14;
     // ui
     private EditText et_content;
     private RecyclerView rv_media;
@@ -146,7 +147,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
         }
     }
 
-    private void chooseImage() {
+    private void choosePicture() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
             @Override
@@ -201,7 +202,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                 addClubPost(et_content.getText().toString());
                 break;
             case R.id.iv_add_club_post_choose_image:
-                chooseImage();
+                choosePicture();
                 break;
             case R.id.iv_add_club_post_input_video_path:
                 inputVideoPath();
@@ -213,31 +214,30 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
+        Bundle b = new Bundle();
         switch (requestCode) {
             case REQUEST_FROM_GALLERY:
-                Uri uriChoosePhoto = data.getData();
-                CropImage.activity(uriChoosePhoto)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", data.getData().toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_PHOTO:
-                CropImage.activity(uriTakePicture)
-                        .setAspectRatio(1, 1)
-                        .start(this);
+                b.putString("uri", uriTakePicture.toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
-            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
-
-                    Uri uri = CropImage.getActivityResult(data).getUri();
-                    ClubPostMediaModel m = new ClubPostMediaModel();
-                    m.setType(ClubPostMediaModel.IMAGE);
-                    m.setUri(uri);
-                    m.setPic(BitmapHelper.bitmap2JPGBase64(BitmapHelper.resize(BitmapHelper.uri2Bitmap(this, uri), BitmapHelper.MAX_WIDTH, BitmapHelper.MAX_HEIGHT)));
-                    m.setName(UUID.randomUUID().toString());
-                    list_media.add(m);
-                    updateAdapter();
-
+            case REQUEST_TAKE_CROP:
+                File file = (File) data.getSerializableExtra("file");
+                ClubPostMediaModel m = new ClubPostMediaModel();
+                m.setType(ClubPostMediaModel.IMAGE);
+                m.setFile(file);
+                m.setPic(BitmapHelper.bitmap2JPGBase64(BitmapHelper.resize(BitmapHelper.file2Bitmap(file))));
+                m.setName(UUID.randomUUID().toString());
+                list_media.add(m);
+                updateAdapter();
                 break;
-
         }
     }
 }

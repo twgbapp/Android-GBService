@@ -181,17 +181,19 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_PACKAGE_RESULT:
-                    PackageModel p = data.getParcelableExtra("package");
-                    list_package.remove(p);
+                    PackageModel mPackage = data.getParcelableExtra("package");
+                    list_package.remove(mPackage);
                     updateAdapter();
                     break;
                 case REQUEST_QR_CODE:
                     String text = data.getStringExtra("text");
-                    if (text.length() == 6) {
-                        loadPackageList("", text);
-                    } else {
-                        ToastHelper.t(this, "PickNumber length must be 6");
+
+                    if (text.length() != 6) {
+                        t("Error:" + text);
+                        return;
                     }
+
+                    loadPackageList("", text);
                     break;
             }
         }

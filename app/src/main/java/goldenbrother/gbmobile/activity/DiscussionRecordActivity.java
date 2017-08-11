@@ -45,7 +45,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
     public static final int REQUEST_TAKE_PHOTO = 3;
     public static final int REQUEST_TAKE_CROP = 4;
     // ui
-    private TextView tv_name, tv_date, tv_department;
+    private TextView tv_department, tv_name, tv_date;
     private EditText et_reason, et_place, et_description;
     private ImageView iv_service, iv_signature, iv_clicked;
     // take picture
@@ -69,6 +69,8 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         iv_signature = (ImageView) findViewById(R.id.iv_discussion_record_signature);
         findViewById(R.id.iv_discussion_record_profile).setOnClickListener(this);
         findViewById(R.id.tv_discussion_record_save).setOnClickListener(this);
+        tv_department.setOnClickListener(this);
+        tv_name.setOnClickListener(this);
         tv_date.setOnClickListener(this);
         iv_service.setOnClickListener(this);
         iv_signature.setOnClickListener(this);
@@ -115,12 +117,10 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                         et_reason.setText(discussion.getDiscussionReason());
                         et_place.setText(discussion.getDiscussionPlace());
                         et_description.setText(discussion.getDiscussionDesc());
-                        if(!discussion.getServiceRecordPath().isEmpty()) {
+                        if (discussion.getServiceRecordPath() != null && !discussion.getServiceRecordPath().isEmpty())
                             Picasso.with(DiscussionRecordActivity.this).load(discussion.getServiceRecordPath()).into(iv_service);
-                        }
-                        if(!discussion.getSignaturePath().isEmpty()) {
+                        if (discussion.getSignaturePath() != null && !discussion.getSignaturePath().isEmpty())
                             Picasso.with(DiscussionRecordActivity.this).load(discussion.getSignaturePath()).into(iv_signature);
-                        }
                     } else {
                         t(R.string.fail);
                         finish();
@@ -338,6 +338,8 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
             case R.id.tv_discussion_record_date:
                 showDatePicker(tv_date);
                 break;
+            case R.id.tv_discussion_record_department:
+            case R.id.tv_discussion_record_name:
             case R.id.iv_discussion_record_profile:
                 b.putBoolean("isFLabor", true);
                 openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);

@@ -14,18 +14,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * Created by asus on 2016/6/22.
- */
 public class AddClubPostMediaRVAdapter extends SampleRVAdapter {
 
-    private final int w;
+    // data
     private ArrayList<ClubPostMediaModel> list;
+    private final int width;
 
     public AddClubPostMediaRVAdapter(Context context, ArrayList<ClubPostMediaModel> list) {
         super(context);
         this.list = list;
-        this.w = getResources().getDisplayMetrics().widthPixels / 3;
+        this.width = getResources().getDisplayMetrics().widthPixels / 3;
     }
 
     @Override
@@ -45,19 +43,19 @@ public class AddClubPostMediaRVAdapter extends SampleRVAdapter {
             ViewHolder h = (ViewHolder) holder;
             switch (item.getType()) {
                 case ClubPostMediaModel.IMAGE:
-                    Picasso.with(getContext()).load(item.getUri()).resize(w, w).centerCrop().into(h.image);
+                    Picasso.with(getContext()).load(item.getFile()).resize(width, width).centerCrop().into(h.image);
                     break;
                 case ClubPostMediaModel.VIDEO:
-                    Picasso.with(getContext()).load(item.getThumbNailPath()).resize(w, w).centerCrop().into(h.image);
+                    Picasso.with(getContext()).load(item.getThumbNailPath()).resize(width, width).centerCrop().into(h.image);
                     break;
             }
             h.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(getContext())
-                            .setTitle("Delete")
-                            .setMessage("Delete it ?")
-                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            .setTitle(R.string.delete)
+                            .setMessage(R.string.confirm_delete)
+                            .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     // remove
@@ -66,7 +64,7 @@ public class AddClubPostMediaRVAdapter extends SampleRVAdapter {
                                     notifyItemRangeChanged(position, getItemCount());
                                 }
                             })
-                            .setNegativeButton("CANCEL", null)
+                            .setNegativeButton(R.string.cancel, null)
                             .show();
                 }
             });

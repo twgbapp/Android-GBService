@@ -277,4 +277,6 @@
     <string name="service_record">Service Record</string>
     <string name="signature">Signature</string>
     <string name="department">Department</string>
+    <string name="delete">Delete</string>
+    <string name="confirm_delete">Are you sure to delete?</string>
 </resources>
