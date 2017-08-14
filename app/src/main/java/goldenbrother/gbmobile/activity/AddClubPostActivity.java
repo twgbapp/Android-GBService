@@ -229,7 +229,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                 openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_CROP:
-                File file = (File) data.getSerializableExtra("file");
+                File file = new File(data.getStringExtra("path"));
                 ClubPostMediaModel m = new ClubPostMediaModel();
                 m.setType(ClubPostMediaModel.IMAGE);
                 m.setFile(file);

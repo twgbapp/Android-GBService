@@ -26,6 +26,7 @@ import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -61,12 +62,16 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         findViewById(R.id.tv_profile_change_password).setOnClickListener(this);
         // get role instances
         RoleInfo r = RoleInfo.getInstance();
-        // set picture
-        if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
-            int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-            Picasso.with(this).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_picture);
-        } else {
-            iv_picture.setImageResource(R.drawable.ic_person_white);
+        String picturePath = r.getUserPicture();
+        if (picturePath != null && !picturePath.isEmpty()) {
+            int w = (int) getResources().getDimension(R.dimen.imageview_profile_picture_width);
+            Picasso.with(this)
+                    .load(picturePath)
+                    .resize(w, w)
+                    .centerCrop()
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .into(iv_picture);
         }
         iv_picture.setOnClickListener(this);
         // set name
@@ -164,13 +169,18 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                         // get role instances
                         RoleInfo r = RoleInfo.getInstance();
                         // set picture
-                        if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
-                            int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-                            Picasso.with(ProfileActivity.this).load(r.getUserPicture()).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(iv_picture);
-                            setResult(RESULT_OK);
-                        } else {
-                            Picasso.with(ProfileActivity.this).load(R.drawable.ic_person_white).into(iv_picture);
+                        String picturePath = r.getUserPicture();
+                        if (picturePath != null && !picturePath.isEmpty()) {
+                            int w = (int) getResources().getDimension(R.dimen.imageview_profile_picture_width);
+                            Picasso.with(ProfileActivity.this)
+                                    .load(picturePath)
+                                    .resize(w, w)
+                                    .centerCrop()
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                                    .into(iv_picture);
                         }
+                        setResult(RESULT_OK);
                     } else {
                         t(R.string.fail);
                     }
@@ -299,7 +309,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                 openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_CROP:
-                showImage(BitmapHelper.file2Bitmap((File) data.getSerializableExtra("file")));
+                showImage(BitmapHelper.file2Bitmap(new File(data.getStringExtra("path"))));
                 break;
         }
     }

@@ -1,21 +1,15 @@
 package goldenbrother.gbmobile.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.BitmapHelper;
-import goldenbrother.gbmobile.helper.FileHelper;
 
 public class CropActivity extends CommonActivity implements View.OnClickListener, CropImageView.OnCropImageCompleteListener {
 
@@ -57,9 +51,8 @@ public class CropActivity extends CommonActivity implements View.OnClickListener
 
     @Override
     public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
-        File file = BitmapHelper.bitmap2JPGFile(this, result.getBitmap());
         Intent intent = new Intent();
-        intent.putExtra("file", file);
+        intent.putExtra("path", BitmapHelper.bitmap2PNGFile(this, civ.getCroppedImage()).getAbsolutePath());
         setResult(RESULT_OK, intent);
         finish();
     }
