@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -57,15 +58,20 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeadViewHolder) {
             HeadViewHolder h = (HeadViewHolder) holder;
-            h.name.setText(RoleInfo.getInstance().getUserName());
-            h.email.setText(RoleInfo.getInstance().getUserEmail());
-            // set picture
             RoleInfo r = RoleInfo.getInstance();
-            if (r.getUserPicture() != null && !r.getUserPicture().isEmpty()) {
-                int w = (int) getResources().getDimension(R.dimen.imageview_navigation_picture_width);
-                Picasso.with(getContext()).load(r.getUserPicture()).placeholder(R.drawable.ic_person_white).memoryPolicy(MemoryPolicy.NO_CACHE).resize(w, w).centerCrop().into(h.picture);
-            } else {
-                Picasso.with(getContext()).load(R.drawable.ic_person_white).into(h.picture);
+            h.name.setText(r.getUserName());
+            h.email.setText(r.getUserEmail());
+            // set picture
+            String picturePath = r.getUserPicture();
+            if (picturePath != null && !picturePath.isEmpty()) {
+                int w = (int) getResources().getDimension(R.dimen.imageview_profile_picture_width);
+                Picasso.with(getContext())
+                        .load(picturePath)
+                        .resize(w, w)
+                        .centerCrop()
+                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .into(h.picture);
             }
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -589,7 +589,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_CROP:
-                showImage(BitmapHelper.file2Bitmap((File) data.getSerializableExtra("file")));
+                showImage(BitmapHelper.file2Bitmap(new File(data.getStringExtra("path"))));
                 break;
         }
     }
