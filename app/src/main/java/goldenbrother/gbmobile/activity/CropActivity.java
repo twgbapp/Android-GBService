@@ -8,6 +8,8 @@ import android.view.View;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 
+import java.io.File;
+
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.BitmapHelper;
 
@@ -51,8 +53,13 @@ public class CropActivity extends CommonActivity implements View.OnClickListener
 
     @Override
     public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
+        File file = BitmapHelper.bitmap2JPGFile(this, civ.getCroppedImage(), "crop");
+        if (file == null) {
+            t("Crop Fail");
+            return;
+        }
         Intent intent = new Intent();
-        intent.putExtra("path", BitmapHelper.bitmap2JPGFile(this, civ.getCroppedImage(), "crop").getAbsolutePath());
+        intent.putExtra("path", file.getAbsolutePath());
         setResult(RESULT_OK, intent);
         finish();
     }

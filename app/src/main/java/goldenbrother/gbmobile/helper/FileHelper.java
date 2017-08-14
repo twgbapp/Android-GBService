@@ -51,6 +51,8 @@ public class FileHelper {
             fos.close();
             return file;
         } catch (IOException e) {
+            LogHelper.d(e.toString());
+            LogHelper.d(e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -76,7 +78,8 @@ public class FileHelper {
     public static File getPicturesDir(Context context) {
         return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
     }
-    public static void deletePicturesDir(Context context){
+
+    public static void deletePicturesDir(Context context) {
         File f = getPicturesDir(context);
         File[] listOfFiles = f.listFiles();
         for (File file : listOfFiles) {
