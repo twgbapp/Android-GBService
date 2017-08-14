@@ -110,22 +110,30 @@ public class BitmapHelper {
         return BitmapFactory.decodeFile(file.getPath());
     }
 
-    public static File bitmap2PNGFile(Context context, Bitmap bitmap) {
+    public static File bitmap2PNGFile(Context context, Bitmap bitmap, String fileName) {
         // create a png file to cache dir
-        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), UUID.randomUUID().toString() + ".png");
+        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), fileName + ".png");
         // convert to array
         byte[] bArr = bitmap2PNGByteArray(bitmap);
         // write to file
         return FileHelper.writeFile(bArr, f);
     }
 
-    public static File bitmap2JPGFile(Context context, Bitmap bitmap) {
+    public static File bitmap2PNGFile(Context context, Bitmap bitmap) {
+        return bitmap2PNGFile(context, bitmap, UUID.randomUUID().toString());
+    }
+
+    public static File bitmap2JPGFile(Context context, Bitmap bitmap, String fileName) {
         // create a png file to cache dir
-        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), UUID.randomUUID().toString() + ".png");
+        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), fileName + ".jpg");
         // convert to array
         byte[] bArr = bitmap2JPGByteArray(bitmap);
         // write to file
         return FileHelper.writeFile(bArr, f);
+    }
+
+    public static File bitmap2JPGFile(Context context, Bitmap bitmap) {
+        return bitmap2JPGFile(context, bitmap, UUID.randomUUID().toString());
     }
 
 }

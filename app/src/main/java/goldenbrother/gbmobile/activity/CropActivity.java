@@ -52,7 +52,7 @@ public class CropActivity extends CommonActivity implements View.OnClickListener
     @Override
     public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
         Intent intent = new Intent();
-        intent.putExtra("path", BitmapHelper.bitmap2PNGFile(this, civ.getCroppedImage()).getAbsolutePath());
+        intent.putExtra("path", BitmapHelper.bitmap2JPGFile(this, civ.getCroppedImage(), "crop").getAbsolutePath());
         setResult(RESULT_OK, intent);
         finish();
     }
