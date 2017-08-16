@@ -88,7 +88,7 @@
     <!-- Main -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
-    <string name="main_drawer_satisfaction_survey">滿意度調查</string>
+    <string name="main_drawer_satisfaction_survey">使用度回饋</string>
     <string name="main_drawer_announcement">公告</string>
     <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">登出</string>

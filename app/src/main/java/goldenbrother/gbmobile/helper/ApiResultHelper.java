@@ -409,6 +409,7 @@ public class ApiResultHelper {
                 if (userType == 2) {
                     map.put("customerNo", o.getString("customerNo"));
                     map.put("flaborNo", o.getString("flaborNo"));
+                    map.put("workerNo", o.getString("workerNo"));
                 }
                 // userType = 3
                 //map.put("title", o.getString("title"));
