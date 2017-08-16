@@ -14,6 +14,7 @@ public class DormUser {
     private String dormID;
     private String roomID;
     private String centerDirectorID;
+    private  String department;
 
     public String getUserName() {
         return userName;
@@ -85,5 +86,13 @@ public class DormUser {
 
     public void setCenterDirectorID(String centerDirectorID) {
         this.centerDirectorID = centerDirectorID;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

@@ -30,7 +30,7 @@ public class EncryptHelper {
             for (byte b : bArr) {
                 sb.append(String.format("%02x", b));
             }
-            return sb.toString().toUpperCase();
+            return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

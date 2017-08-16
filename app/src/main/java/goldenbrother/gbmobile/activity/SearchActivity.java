@@ -33,6 +33,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
     private TextView tv_flabor_name;
     // extra
     private boolean isFLabor;
+    private  String  department;
     // data
     private ArrayList<Center> list_center;
     private ArrayList<Dorm> list_dorm;
@@ -275,6 +276,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                     int result = ApiResultHelper.getDormUserInfo(response, dormUser);
                     if (result == ApiResultHelper.SUCCESS) {
                         tv_flabor_name.setText(dormUser.getUserName());
+                        department = dormUser.getDepartment();
                     } else {
                         t(R.string.fail);
                     }
@@ -329,6 +331,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                 intent.putExtra("centerId", centerId);
                 intent.putExtra("dormId", dormId);
                 intent.putExtra("customerNo", customerNo);
+                intent.putExtra("department", department);
 
                 if (isFLabor) {
                     intent.putExtra("flaborNo", dormUser.getFlaborNo());
@@ -337,6 +340,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                     intent.putExtra("centerDirectorId", dormUser.getCenterDirectorID());
                     intent.putExtra("birthday", dormUser.getUserBirthday());
                     intent.putExtra("sex", dormUser.getUserSex());
+
                 }
                 setResult(RESULT_OK, intent);
                 finish();
