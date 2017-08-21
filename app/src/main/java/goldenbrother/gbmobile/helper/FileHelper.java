@@ -35,7 +35,7 @@ public class FileHelper {
     public static File createFile(File dir, String fileName) {
         try {
             File f = new File(dir, fileName);
-            if(f.exists()){
+            if (f.exists()) {
                 f.delete();
             }
             return f.createNewFile() ? f : null;
