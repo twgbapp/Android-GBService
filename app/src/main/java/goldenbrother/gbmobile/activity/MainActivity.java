@@ -1,6 +1,7 @@
 package goldenbrother.gbmobile.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -14,16 +15,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
 import net.hockeyapp.android.UpdateManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
+import goldenbrother.gbmobile.helper.ApiResultHelper;
+import goldenbrother.gbmobile.helper.EncryptHelper;
+import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Discussion;
 import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.LaborModel;
@@ -292,8 +302,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         unregisterManagers();//for Hockey(APP Update)
     }
 
-    private AlertDialog ad;
-
     private void showMobileServiceDialog() {
         String[] items_flabor = {getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_quick_repair), getString(R.string.support), getString(R.string.main_drawer_event_list)};
@@ -349,9 +357,79 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         }
     }
 
+    private void changePassword(String oldUserPassword, String newUserPassword) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "changePassword");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("oldUserPassword", EncryptHelper.md5(oldUserPassword));
+            j.put("newUserPassword", EncryptHelper.md5(newUserPassword));
+            j.put("logStatus", true);
+            new ChangePassword(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class ChangePassword extends IAsyncTask {
+
+        ChangePassword(Context context, JSONObject json, String url) {
+            super(context, json, url);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.FAIL:
+                    int result = ApiResultHelper.commonCreate(response);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        t(R.string.success);
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private AlertDialog ad;
+
+    private void showChangePasswordDialog() {
+        View v = LayoutInflater.from(this).inflate(R.layout.dialog_profile_change_password, null);
+        final EditText et_old = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_old);
+        final EditText et_new = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_new);
+        final EditText et_confirm = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_confirm);
+        v.findViewById(R.id.tv_dialog_profile_change_password_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.dismiss();
+            }
+        });
+        v.findViewById(R.id.tv_dialog_profile_change_password_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.dismiss();
+                String pwd_old = et_old.getText().toString();
+                String pwd_new = et_new.getText().toString();
+                String pwd_confirm = et_confirm.getText().toString();
+                // check
+                if (!pwd_new.equals(pwd_confirm)) {
+                    t(R.string.error_confirm_password);
+                    return;
+                }
+                // changePassword
+                changePassword(pwd_old, pwd_new);
+            }
+        });
+        ad = alertWithView(v, null, null);
+    }
+
     public void openProfileActivity() {
-        closeDrawer();
-        openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
+        //closeDrawer();
+        //openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
+        showChangePasswordDialog();
     }
 
     @Override

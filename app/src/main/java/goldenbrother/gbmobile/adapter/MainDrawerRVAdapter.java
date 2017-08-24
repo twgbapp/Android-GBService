@@ -1,7 +1,14 @@
 package goldenbrother.gbmobile.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +19,24 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.activity.CropActivity;
 import goldenbrother.gbmobile.activity.MainActivity;
+import goldenbrother.gbmobile.helper.ApiResultHelper;
+import goldenbrother.gbmobile.helper.BitmapHelper;
+import goldenbrother.gbmobile.helper.FileHelper;
+import goldenbrother.gbmobile.helper.GenericFileProvider;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.RoleInfo;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by asus on 2016/6/22.
@@ -30,6 +49,15 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
     private static final int CHILD = 1;
     // data
     private ArrayList<DrawerItem> list;
+    // request
+    public static final int REQUEST_FROM_GALLERY = 12;
+    public static final int REQUEST_TAKE_PHOTO = 13;
+    public static final int REQUEST_TAKE_CROP = 14;
+    // ui
+    private CircleImageView iv_picture;
+    //private EditText et_name, et_email;
+    // take picture
+    private Uri uriTakePicture;
 
     public MainDrawerRVAdapter(Context context, ArrayList<DrawerItem> list) {
         super(context);
@@ -77,6 +105,7 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
                 @Override
                 public void onClick(View view) {
                     ((MainActivity) getContext()).openProfileActivity();
+                    //choosePicture();
                 }
             });
         } else if (holder instanceof GroupViewHolder) {
@@ -147,4 +176,157 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
         }
     }
 
+    /*
+    private void showImage(final Bitmap bmp) {
+        final ImageView iv = new ImageView(this);
+        iv.setImageBitmap(bmp);
+        alertWithView(iv, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                uploadPicture(BitmapHelper.resize(bmp, 300, 300));
+            }
+        }, null);
+    }
+
+    private void uploadPicture(Bitmap bmp) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "uploadImg");
+            j.put("fileName", RoleInfo.getInstance().getUserID());
+            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
+            j.put("url", URLHelper.HOST);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", true);
+            new UploadImageTask(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class UploadImageTask extends IAsyncTask {
+        private HashMap<String, String> map;
+
+        UploadImageTask(Context context, JSONObject json, String url) {
+            super(context, json, url);
+            map = new HashMap<>();
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.EMPTY:
+                    int result = ApiResultHelper.uploadPicture(response, map);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        updatePicture(map.get("path"));
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void updatePicture(String path) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "updatePicture");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("path", path);
+            j.put("logStatus", true);
+            new UpdatePicture(this, j, URLHelper.HOST, path).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class UpdatePicture extends IAsyncTask {
+
+        private String path;
+
+        UpdatePicture(Context context, JSONObject json, String url, String path) {
+            super(context, json, url);
+            this.path = path;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.FAIL:
+                    int result = ApiResultHelper.commonCreate(response);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        // set picture
+                        RoleInfo.getInstance().setUserPicture(path);
+                        // save user info
+                        SPHelper.getInstance(MainDrawerRVAdapter.this).setUserInfo(RoleInfo.getInstance().getJSONObject());
+                        t(R.string.success);
+                        // get role instances
+                        RoleInfo r = RoleInfo.getInstance();
+                        // set picture
+                        String picturePath = r.getUserPicture();
+                        if (picturePath != null && !picturePath.isEmpty()) {
+                            int w = (int) getResources().getDimension(R.dimen.imageview_profile_picture_width);
+                            Picasso.with(MainDrawerRVAdapter.this)
+                                    .load(picturePath)
+                                    .resize(w, w)
+                                    .centerCrop()
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                                    .into(iv_picture);
+                        }
+                        setResult(RESULT_OK);
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void choosePicture() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, REQUEST_FROM_GALLERY);
+                } else {
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    uriTakePicture = FileProvider.getUriForFile(MainDrawerRVAdapter.this, GenericFileProvider.AUTH, new File(FileHelper.getPicturesDir(MainDrawerRVAdapter.this) + "/take_picture.jpg"));
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uriTakePicture);
+                    startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+                }
+            }
+        });
+        b.show();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        Bundle b = new Bundle();
+        switch (requestCode) {
+            case REQUEST_FROM_GALLERY:
+                b.putString("uri", data.getData().toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
+                break;
+            case REQUEST_TAKE_PHOTO:
+                b.putString("uri", uriTakePicture.toString());
+                b.putInt("ratioX", 1);
+                b.putInt("ratioY", 1);
+                openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
+                break;
+            case REQUEST_TAKE_CROP:
+                showImage(BitmapHelper.file2Bitmap(new File(data.getStringExtra("path"))));
+                break;
+        }
+    }
+    */
 }
