@@ -28,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.CropActivity;
 import goldenbrother.gbmobile.activity.MainActivity;
+import goldenbrother.gbmobile.activity.ProfileActivity;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
@@ -48,16 +49,8 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
     private static final int GROUP = 0;
     private static final int CHILD = 1;
     // data
-    private ArrayList<DrawerItem> list;
-    // request
-    public static final int REQUEST_FROM_GALLERY = 12;
-    public static final int REQUEST_TAKE_PHOTO = 13;
-    public static final int REQUEST_TAKE_CROP = 14;
-    // ui
-    private CircleImageView iv_picture;
+    private ArrayList<DrawerItem> list;;
     //private EditText et_name, et_email;
-    // take picture
-    private Uri uriTakePicture;
 
     public MainDrawerRVAdapter(Context context, ArrayList<DrawerItem> list) {
         super(context);
@@ -101,6 +94,21 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
                         .networkPolicy(NetworkPolicy.NO_CACHE)
                         .into(h.picture);
             }
+            h.picture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) getContext()).choosePicture();
+                }
+            });
+            h.edit.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getContext()).showChangePasswordDialog();
+                   // ((ProfileActivity) getContext()).showChangePasswordDialog();
+                    //choosePicture();
+                }
+            });
+            /*
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,6 +116,7 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
                     //choosePicture();
                 }
             });
+            */
         } else if (holder instanceof GroupViewHolder) {
             final DrawerItem item = list.get(position - 1);
             GroupViewHolder h = (GroupViewHolder) holder;
