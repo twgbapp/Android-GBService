@@ -73,8 +73,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     private Uri uriTakePicture;
     // ui
     private RecyclerView rv_drawer;
-    private ImageView iv_banner;
-    private CircleImageView iv_picture;
+    private ImageView iv_banner,iv_picture;
     // banner
     private Handler handler;
     private ArrayList<Integer> list_banner;
@@ -89,7 +88,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         //Hockey  for APP Update Check
         checkForUpdates();
         // ui reference
-        iv_picture = (CircleImageView) findViewById(R.id.iv_profile_picture);
+        iv_picture = (ImageView) findViewById(R.id.iv_item_rv_main_drawer_head_picture);
         iv_banner = (ImageView) findViewById(R.id.iv_main_banner);
         findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);
         findViewById(R.id.cv_main_life_information).setOnClickListener(this);
@@ -505,18 +504,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                         // get role instances
                         RoleInfo r = RoleInfo.getInstance();
                         // set picture
-                        String picturePath = r.getUserPicture();
-                        if (picturePath != null && !picturePath.isEmpty()) {
-                            int w = (int) getResources().getDimension(R.dimen.imageview_profile_picture_width);
-                            Picasso.with(MainActivity.this)
-                                    .load(picturePath)
-                                    .resize(w, w)
-                                    .centerCrop()
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-                                    .networkPolicy(NetworkPolicy.NO_CACHE)
-                                    .into(iv_picture);
-                        }
-                        setResult(RESULT_OK);
+                        rv_drawer.getAdapter().notifyItemChanged(0);
                     } else {
                         t(R.string.fail);
                     }
@@ -577,8 +565,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     public void openProfileActivity() {
         //closeDrawer();
-        //openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
-        showChangePasswordDialog();
+        openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
+        //showChangePasswordDialog();
     }
 
     @Override
