@@ -1,7 +1,14 @@
 package goldenbrother.gbmobile.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +19,25 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.activity.CropActivity;
 import goldenbrother.gbmobile.activity.MainActivity;
+import goldenbrother.gbmobile.activity.ProfileActivity;
+import goldenbrother.gbmobile.helper.ApiResultHelper;
+import goldenbrother.gbmobile.helper.BitmapHelper;
+import goldenbrother.gbmobile.helper.FileHelper;
+import goldenbrother.gbmobile.helper.GenericFileProvider;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.RoleInfo;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by asus on 2016/6/22.
@@ -29,7 +49,8 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
     private static final int GROUP = 0;
     private static final int CHILD = 1;
     // data
-    private ArrayList<DrawerItem> list;
+    private ArrayList<DrawerItem> list;;
+    //private EditText et_name, et_email;
 
     public MainDrawerRVAdapter(Context context, ArrayList<DrawerItem> list) {
         super(context);
@@ -73,12 +94,28 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
                         .networkPolicy(NetworkPolicy.NO_CACHE)
                         .into(h.picture);
             }
+            h.picture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) getContext()).choosePicture();
+                }
+            });
+            h.edit.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getContext()).showChangePasswordDialog();
+                }
+            });
+            //預留未來改其它基本資料，另開頁面(ProfileActivity)
+            /*
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ((MainActivity) getContext()).openProfileActivity();
+                    //choosePicture();
                 }
             });
+            */
         } else if (holder instanceof GroupViewHolder) {
             final DrawerItem item = list.get(position - 1);
             GroupViewHolder h = (GroupViewHolder) holder;
@@ -146,5 +183,4 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
             name = (TextView) v.findViewById(R.id.tv_item_rv_main_drawer_child_name);
         }
     }
-
 }

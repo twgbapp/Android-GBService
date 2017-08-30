@@ -71,7 +71,11 @@ public class EventChatRVAdapter extends SampleRVAdapter {
         final EventChatModel item = list.get(position);
         if (holder instanceof OtherViewHolder) {
             final OtherViewHolder h = (OtherViewHolder) holder;
-            Picasso.with(getContext()).load(item.getWriterPicture()).into(h.picture);
+            RoleInfo r = RoleInfo.getInstance();
+            String picturePath = r.getUserPicture();
+            if (picturePath != null && !picturePath.isEmpty()) {
+                Picasso.with(getContext()).load(item.getWriterPicture()).into(h.picture);
+            }
             setContent(item, h.date, h.content, h.rating);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;

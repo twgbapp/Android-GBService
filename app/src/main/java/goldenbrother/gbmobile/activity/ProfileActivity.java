@@ -190,7 +190,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         }
     }
 
-    private void choosePicture() {
+    public void choosePicture() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
             @Override
@@ -249,7 +249,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
 
     private AlertDialog ad;
 
-    private void showChangePasswordDialog() {
+    public void showChangePasswordDialog() {
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_profile_change_password, null);
         final EditText et_old = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_old);
         final EditText et_new = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_new);

@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 
@@ -22,6 +23,8 @@ public class WebViewActivity extends AppCompatActivity {
 
         // ui reference
         wv = (WebView) findViewById(R.id.wv_web_view);
+        final TextView txtTitle = (TextView) findViewById(R.id.wv_title);
+
         // extra
         String url = getIntent().getStringExtra("url");
         // init WebView
@@ -31,6 +34,10 @@ public class WebViewActivity extends AppCompatActivity {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
         wv.setWebViewClient(new MyWebViewClient());
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAppCacheEnabled(false);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         // load
         wv.loadUrl(url);
     }
