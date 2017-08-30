@@ -30,6 +30,7 @@
                 android:layout_width="@dimen/imageview_picture_in_list_width"
                 android:layout_height="@dimen/imageview_picture_in_list_width"
                 android:layout_gravity="center"
+                android:src="@drawable/ic_person_replace"
                 android:layout_margin="@dimen/imageview_picture_in_list_margin" />
 
             <LinearLayout

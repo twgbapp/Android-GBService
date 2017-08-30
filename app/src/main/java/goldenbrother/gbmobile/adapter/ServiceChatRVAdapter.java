@@ -53,7 +53,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
         super(context);
         this.list = list;
         this.selfUserID = RoleInfo.getInstance().getUserID();
-        this.am = getResources().getString(R.string.pm);
+        this.am = getResources().getString(R.string.am);
         this.pm = getResources().getString(R.string.pm);
     }
 

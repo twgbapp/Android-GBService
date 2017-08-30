@@ -9,6 +9,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.Constant;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -56,11 +57,9 @@ public class ServiceGroupListAdapter extends SampleBaseAdapter {
         final ServiceChatModel item = (ServiceChatModel) getItem(position);
         // set picture
         int wp = (int) getResources().getDimension(R.dimen.imageview_picture_in_list_width);
-        if (!item.getUserPicture().isEmpty()) {
-            Picasso.with(getContext()).load(item.getUserPicture()).placeholder(R.drawable.ic_person_replace).resize(wp, wp).centerCrop().into(tag.picture);
-        } else {
-            Picasso.with(getContext()).load(R.drawable.ic_person_replace).resize(wp, wp).centerCrop().into(tag.picture);
-        }
+        String picturePath = item.getUserPicture();
+        if (picturePath != null && !picturePath.isEmpty())
+            Picasso.with(getContext()).load(item.getUserPicture()).resize(wp, wp).centerCrop().into(tag.picture);
         // set user name
         String workerNo = item.getWorkerNo();
         if (workerNo != null && !workerNo.isEmpty()) {

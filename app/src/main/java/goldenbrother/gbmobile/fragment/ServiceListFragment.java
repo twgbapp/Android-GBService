@@ -178,7 +178,6 @@ public class ServiceListFragment extends CommonFragment {
 
         GetGroupListNos(Context context, JSONObject json, String url) {
             super(context, json, url);
-            setShow(false);
         }
 
         @Override
