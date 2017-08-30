@@ -109,7 +109,7 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
             case R.id.tv_mobile_service_search:
                 switch (viewPager.getCurrentItem()) {
                     case POSITION_GROUP:
-                        ((ServiceListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_GROUP)).showSearchDialog();
+//                        ((ServiceListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_GROUP)).showSearchDialog();
                         break;
                     case POSITION_EVENT:
                         ((EventListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_EVENT)).showSearchDialog();
@@ -124,7 +124,7 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
                 int position = viewPager.getCurrentItem();
                 if (position == POSITION_GROUP) {
                     tv_title.setText(R.string.mobile_service);
-                    ((ServiceListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_GROUP)).clearSearchFilter();
+//                    ((ServiceListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_GROUP)).clearSearchFilter();
                 } else if (position == POSITION_EVENT) {
                     tv_title.setText(R.string.event_list);
                     ((EventListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_EVENT)).clearSearchFilter();

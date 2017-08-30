@@ -4,12 +4,8 @@ package goldenbrother.gbmobile.helper;
 import android.util.Log;
 
 public class LogHelper {
-    public static final String TAG = "GBMLOG";
-    private static boolean isDebuggable = true;
-
-    public static void setDebuggable(boolean d) {
-        isDebuggable = d;
-    }
+    private static final String TAG = "GBMLOG";
+    private static boolean isDebuggable = false;
 
     public static void d(String msg) {
         d(TAG, msg);

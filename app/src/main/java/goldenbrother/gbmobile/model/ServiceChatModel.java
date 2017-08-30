@@ -1,21 +1,16 @@
 package goldenbrother.gbmobile.model;
 
-import android.support.annotation.NonNull;
-
-/**
- * Created by asus on 2016/12/8.
- */
-
 public class ServiceChatModel{
     private int SGCNo;
-    private int ServiceGroupID;
-    private int chatCount;
-    private String WriterID;
-    private String WriterName;
+    private int serviceGroupID;
+    private String userID;
     private String workerNo;
-    private String WriterPicture;
-    private String Content;
-    private String ChatDate;
+    private String userPicture;
+    private String userName;
+    private String content;
+    private String chatDate;
+    private int chatCount;
+    private String staffID;
 
     public int getSGCNo() {
         return SGCNo;
@@ -26,35 +21,19 @@ public class ServiceChatModel{
     }
 
     public int getServiceGroupID() {
-        return ServiceGroupID;
+        return serviceGroupID;
     }
 
     public void setServiceGroupID(int serviceGroupID) {
-        ServiceGroupID = serviceGroupID;
+        this.serviceGroupID = serviceGroupID;
     }
 
-    public int getChatCount() {
-        return chatCount;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setChatCount(int chatCount) {
-        this.chatCount = chatCount;
-    }
-
-    public String getWriterID() {
-        return WriterID;
-    }
-
-    public void setWriterID(String writerID) {
-        WriterID = writerID;
-    }
-
-    public String getWriterName() {
-        return WriterName;
-    }
-
-    public void setWriterName(String writerName) {
-        WriterName = writerName;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getWorkerNo() {
@@ -65,28 +44,51 @@ public class ServiceChatModel{
         this.workerNo = workerNo;
     }
 
-    public String getWriterPicture() {
-        return WriterPicture;
+    public String getUserPicture() {
+        return userPicture;
     }
 
-    public void setWriterPicture(String writerPicture) {
-        WriterPicture = writerPicture;
+    public void setUserPicture(String userPicture) {
+        this.userPicture = userPicture;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
 
     public String getChatDate() {
-        return ChatDate;
+        return chatDate;
     }
 
     public void setChatDate(String chatDate) {
-        ChatDate = chatDate;
+        this.chatDate = chatDate;
     }
 
+    public int getChatCount() {
+        return chatCount;
+    }
+
+    public void setChatCount(int chatCount) {
+        this.chatCount = chatCount;
+    }
+
+    public String getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(String staffID) {
+        this.staffID = staffID;
+    }
 }
