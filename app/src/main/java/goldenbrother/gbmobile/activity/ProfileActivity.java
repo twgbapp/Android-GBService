@@ -11,6 +11,7 @@ import android.support.v4.content.FileProvider;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -81,12 +82,12 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
     }
 
     private void showImage(final Bitmap bmp) {
-        final ImageView iv = new ImageView(this);
+        final CircleImageView iv = new CircleImageView(this);
         iv.setImageBitmap(bmp);
         alertWithView(iv, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                uploadPicture(BitmapHelper.resize(bmp, 300, 300));
+                uploadPicture(bmp);
             }
         }, null);
     }
@@ -280,8 +281,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
+        switch (v.getId()) {
             case R.id.iv_profile_picture:
                 choosePicture();
                 break;
@@ -309,7 +309,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                 openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_CROP:
-                showImage(BitmapHelper.file2Bitmap(new File(data.getStringExtra("path"))));
+                showImage(BitmapHelper.resize(BitmapHelper.file2Bitmap(new File(data.getStringExtra("path"))), 300, 300));
                 break;
         }
     }

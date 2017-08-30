@@ -109,7 +109,7 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
 
         String contentTitle = context.getString(R.string.app_name);
         String ticker = context.getString(R.string.app_name);
-        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_gb1);
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
         mBuilder.setContentTitle(contentTitle)          // title
                 .setContentText(message)                // text
                 .setTicker(ticker)                      // the thicker is the message that appears on the status bar when the notification first appears

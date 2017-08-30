@@ -3,6 +3,7 @@ package goldenbrother.gbmobile.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -12,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -127,6 +129,14 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
             super(context, json, url);
         }
 
+        private ArrayList<String> getFileNames() {
+            ArrayList<String> list = new ArrayList<>();
+            for (ClubPostMediaModel cm : list_media) {
+                list.add(cm.getName());
+            }
+            return list;
+        }
+
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
@@ -136,6 +146,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
+                        FileHelper.deletePicturesDirFiles(AddClubPostActivity.this, getFileNames());
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
                         finish();
