@@ -24,6 +24,7 @@ import net.hockeyapp.android.UpdateManager;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
+import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.model.Discussion;
 import goldenbrother.gbmobile.model.DrawerItem;
 import goldenbrother.gbmobile.model.LaborModel;
@@ -203,6 +204,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(AnnouncementListActivity.class, b);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
             clearDB();
+            FileHelper.deletePicturesDirAllFile(this);
             b.putBoolean("isLogout", true);
             openActivity(SplashActivity.class, b);
             finish();
@@ -300,7 +302,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         String[] items_manager = {getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_online_setting),
                 getString(R.string.main_drawer_chart), getString(R.string.main_drawer_repair_record),
-                getString(R.string.main_drawer_medical),getString(R.string.discussion),
+                getString(R.string.main_drawer_medical), getString(R.string.discussion),
                 getString(R.string.main_drawer_package)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {

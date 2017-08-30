@@ -1,19 +1,20 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-
-import java.io.File;
+import java.util.UUID;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.BitmapHelper;
 
-public class CropActivity extends CommonActivity implements View.OnClickListener, CropImageView.OnCropImageCompleteListener {
+public class CropActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
     private CropImageView civ;
@@ -29,7 +30,6 @@ public class CropActivity extends CommonActivity implements View.OnClickListener
         // ui reference
         civ = (CropImageView) findViewById(R.id.civ);
         findViewById(R.id.tv_crop_confirm).setOnClickListener(this);
-        civ.setOnCropImageCompleteListener(this);
 
         // extra
         uri = Uri.parse(getIntent().getExtras().getString("uri"));
@@ -46,21 +46,37 @@ public class CropActivity extends CommonActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_crop_confirm:
-                civ.getCroppedImageAsync();
+                new SaveCropFile().execute();
                 break;
         }
     }
 
-    @Override
-    public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
-        File file = BitmapHelper.bitmap2JPGFile(this, civ.getCroppedImage(), "crop");
-        if (file == null) {
-            t("Crop Fail");
-            return;
+    private class SaveCropFile extends AsyncTask<Void, Void, String> {
+        Bitmap bitmap;
+
+        SaveCropFile() {
+            this.bitmap = civ.getCroppedImage();
         }
-        Intent intent = new Intent();
-        intent.putExtra("path", file.getAbsolutePath());
-        setResult(RESULT_OK, intent);
-        finish();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showLoadingDialog(getString(R.string.loading));
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            return BitmapHelper.bitmap2JPGFile(CropActivity.this, bitmap, UUID.randomUUID().toString()).getAbsolutePath();
+        }
+
+        @Override
+        protected void onPostExecute(String path) {
+            super.onPostExecute(path);
+            dismissLoadingDialog();
+            Intent intent = new Intent();
+            intent.putExtra("path", path);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 }

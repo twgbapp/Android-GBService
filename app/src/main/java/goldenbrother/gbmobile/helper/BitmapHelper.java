@@ -19,8 +19,8 @@ import java.util.UUID;
 
 public class BitmapHelper {
 
-    public static final int MAX_WIDTH = 1000;
-    public static final int MAX_HEIGHT = 1000;
+    public static final int MAX_WIDTH = 500;
+    public static final int MAX_HEIGHT = 500;
 
     public static Bitmap resize(Bitmap bmp) {
         return resize(bmp, MAX_WIDTH, MAX_HEIGHT);
@@ -125,7 +125,7 @@ public class BitmapHelper {
 
     public static File bitmap2JPGFile(Context context, Bitmap bitmap, String fileName) {
         // create a png file to cache dir
-        File f = FileHelper.createFile(FileHelper.getAppExternalDir(context), fileName + ".jpg");
+        File f = FileHelper.createFile(FileHelper.getPicturesDir(context), fileName + ".jpg");
         LogHelper.d(f != null ? f.getAbsolutePath() : "NULL.");
         // convert to array
         byte[] bArr = bitmap2JPGByteArray(bitmap);

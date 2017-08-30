@@ -65,24 +65,11 @@ public class FileHelper {
         return Uri.fromFile(file);
     }
 
-    public static boolean deletePNGFile(Context context, String fileName) {
-        File f = getPicturesDir(context);
-        File[] listOfFiles = f.listFiles();
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-                if (file.getName().equals(fileName)) {
-                    return file.delete();
-                }
-            }
-        }
-        return false;
-    }
-
     public static File getPicturesDir(Context context) {
         return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
     }
 
-    public static void deletePicturesDir(Context context) {
+    public static void deletePicturesDirAllFile(Context context) {
         File f = getPicturesDir(context);
         File[] listOfFiles = f.listFiles();
         for (File file : listOfFiles) {
@@ -90,6 +77,19 @@ public class FileHelper {
                 file.delete();
             }
         }
+    }
+
+    public static boolean deletePicturesDirFiles(Context context, ArrayList<String> fileNames) {
+        File f = getPicturesDir(context);
+        File[] listOfFiles = f.listFiles();
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                if (fileNames.contains(file.getName())) {
+                    return file.delete();
+                }
+            }
+        }
+        return false;
     }
 
     public static File getAppExternalDir(Context context) {

@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.model.ClubPostMediaModel;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,10 +46,22 @@ public class AddClubPostMediaRVAdapter extends SampleRVAdapter {
             ViewHolder h = (ViewHolder) holder;
             switch (item.getType()) {
                 case ClubPostMediaModel.IMAGE:
-                    Picasso.with(getContext()).load(item.getFile()).resize(width, width).centerCrop().into(h.image);
+                    Picasso.with(getContext())
+                            .load(item.getFile())
+                            .resize(width, width)
+                            .centerCrop()
+                            .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .into(h.image);
                     break;
                 case ClubPostMediaModel.VIDEO:
-                    Picasso.with(getContext()).load(item.getThumbNailPath()).resize(width, width).centerCrop().into(h.image);
+                    Picasso.with(getContext())
+                            .load(item.getThumbNailPath())
+                            .resize(width, width)
+                            .centerCrop()
+                            .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                            .networkPolicy(NetworkPolicy.NO_CACHE)
+                            .into(h.image);
                     break;
             }
             h.image.setOnClickListener(new View.OnClickListener() {
