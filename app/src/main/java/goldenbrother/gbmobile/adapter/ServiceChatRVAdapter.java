@@ -64,7 +64,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return list.get(position).getWriterID().equals(selfUserID) ? SELF : OTHER;
+        return list.get(position).getUserID().equals(selfUserID) ? SELF : OTHER;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
         final ServiceChatModel item = list.get(position);
         if (holder instanceof OtherViewHolder) {
             final OtherViewHolder h = (OtherViewHolder) holder;
-            Picasso.with(getContext()).load(item.getWriterPicture()).into(h.picture);
+            Picasso.with(getContext()).load(item.getUserPicture()).into(h.picture);
             setContent(item, h.date, h.content, h.qrCode);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;

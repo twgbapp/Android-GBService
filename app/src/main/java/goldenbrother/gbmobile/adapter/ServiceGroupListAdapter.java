@@ -56,17 +56,17 @@ public class ServiceGroupListAdapter extends SampleBaseAdapter {
         final ServiceChatModel item = (ServiceChatModel) getItem(position);
         // set picture
         int wp = (int) getResources().getDimension(R.dimen.imageview_picture_in_list_width);
-        if (!item.getWriterPicture().isEmpty()) {
-            Picasso.with(getContext()).load(item.getWriterPicture()).placeholder(R.drawable.ic_person_replace).resize(wp, wp).centerCrop().into(tag.picture);
+        if (!item.getUserPicture().isEmpty()) {
+            Picasso.with(getContext()).load(item.getUserPicture()).placeholder(R.drawable.ic_person_replace).resize(wp, wp).centerCrop().into(tag.picture);
         } else {
             Picasso.with(getContext()).load(R.drawable.ic_person_replace).resize(wp, wp).centerCrop().into(tag.picture);
         }
         // set user name
         String workerNo = item.getWorkerNo();
         if (workerNo != null && !workerNo.isEmpty()) {
-            tag.userName.setText("(" + workerNo + ")" + item.getWriterName());
+            tag.userName.setText("(" + workerNo + ")" + item.getUserName());
         } else {
-            tag.userName.setText(item.getWriterName());
+            tag.userName.setText(item.getUserName());
         }
         // set content
         tag.content.setText(getContent(item.getContent()));

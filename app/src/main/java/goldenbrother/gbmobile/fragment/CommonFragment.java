@@ -55,4 +55,8 @@ public class CommonFragment extends Fragment {
     protected void t(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
+
+    protected void t(int resId) {
+        Toast.makeText(getActivity(), resId, Toast.LENGTH_SHORT).show();
+    }
 }

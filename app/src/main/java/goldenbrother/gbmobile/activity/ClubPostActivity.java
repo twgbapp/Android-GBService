@@ -144,11 +144,10 @@ public class ClubPostActivity extends CommonActivity {
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.loadAllClubPostID(response, list_club_id);
                     if (result == ApiResultHelper.SUCCESS) {
-                        list_club_post.clear();
                         index = -1;
                         loadClubPostList();
                     } else {
-//                        t(R.string.fail);
+                        t(R.string.empty);
                     }
                     break;
             }

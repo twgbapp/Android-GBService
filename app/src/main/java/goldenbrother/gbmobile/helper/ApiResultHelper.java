@@ -182,15 +182,14 @@ public class ApiResultHelper {
                     ServiceChatModel g = new ServiceChatModel();
                     g.setSGCNo(o.getInt("SGCNo"));
                     g.setServiceGroupID(o.getInt("serviceGroupID"));
-                    g.setWriterID(o.getString("userID"));
-                    g.setWriterName(o.getString("userName"));
-                    String pic = "";
+                    g.setUserID(o.getString("userID"));
+                    g.setUserName(o.getString("userName"));
+                    g.setUserPicture("");
                     try {
-                        pic = o.getString("userPicture");
+                        g.setUserPicture(o.getString("userPicture"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    g.setWriterPicture(pic);
                     g.setContent(o.getString("content"));
                     g.setChatDate(o.getString("chatDate"));
                     list.add(g);
@@ -278,7 +277,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadCloudGroupList(String response, List<ServiceChatModel> list_groupChat) {
+    public static int getGroupList(String response, List<ServiceChatModel> list_groupChat) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -289,19 +288,19 @@ public class ApiResultHelper {
                     JSONObject o = arr.getJSONObject(i);
                     ServiceChatModel gc = new ServiceChatModel();
                     gc.setServiceGroupID(o.getInt("serviceGroupID"));
-                    gc.setChatCount(o.getInt("chatCount"));
-                    gc.setWriterID(o.getString("userID"));
-                    gc.setWriterName(o.getString("userName"));
+                    gc.setUserID(o.getString("userID"));
                     gc.setWorkerNo(o.getString("workerNo"));
-                    String pic = "";
+                    gc.setUserPicture("");
                     try {
-                        pic = o.getString("userPicture");
+                        gc.setUserPicture(o.getString("userPicture"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    gc.setWriterPicture(pic);
+                    gc.setUserName(o.getString("userName"));
                     gc.setContent(o.getString("content"));
                     gc.setChatDate(o.getString("chatDate"));
+                    gc.setChatCount(o.getInt("chatCount"));
+                    gc.setStaffID(o.getString("staffID"));
                     list.add(gc);
                 }
                 list_groupChat.clear();
@@ -1106,6 +1105,26 @@ public class ApiResultHelper {
                 discussion.setFlaborName(j.getString("userName"));
                 discussion.setServiceRecordPath(j.getString("serviceRecord"));
                 discussion.setSignaturePath(j.getString("signature"));
+            }
+            return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getGroupListNos(String response, ArrayList<Integer> list_service_group_id) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int result = j.getInt("success");
+            if (result == 1) {
+                ArrayList<Integer> list = new ArrayList<>();
+                JSONArray arr = j.getJSONArray("serviceGroupIDs");
+                for (int i = 0; i < arr.length(); i++) {
+                    list.add(arr.getInt(i));
+                }
+                list_service_group_id.clear();
+                list_service_group_id.addAll(list);
             }
             return result;
         } catch (JSONException e) {

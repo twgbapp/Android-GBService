@@ -28,6 +28,7 @@ import goldenbrother.gbmobile.model.ServiceChatModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOServiceChat;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,11 +36,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-
-/**
- * Created by asus on 2016/10/3.
- */
 
 public class ServiceListFragment extends CommonFragment {
     // activity
@@ -49,8 +45,8 @@ public class ServiceListFragment extends CommonFragment {
     private SwipeRefreshLayout srl;
     private ListView lv;
     // data
-    private List<ServiceChatModel> list_service_chat;
-    private ArrayList<ServiceChatModel> list_service_chat_show;
+    private ArrayList<Integer> list_service_group_id;
+    private ArrayList<ServiceChatModel> list_service_chat;
 
     public static ServiceListFragment createInstance() {
         f = new ServiceListFragment();
@@ -66,7 +62,6 @@ public class ServiceListFragment extends CommonFragment {
         return inflater.inflate(R.layout.fragment_service_list, container, false);
     }
 
-    // srl_service_list
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
@@ -84,10 +79,7 @@ public class ServiceListFragment extends CommonFragment {
             @Override
             public void onRefresh() {
                 srl.setRefreshing(true);
-                list_service_chat.clear();
-                list_service_chat_show.clear();
-                updateAdapter();
-                loadCloudGroupList();
+                getGroupListNos();
             }
         });
         srl.setColorSchemeResources(
@@ -96,21 +88,21 @@ public class ServiceListFragment extends CommonFragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light);
         // init ListView
+        list_service_group_id = new ArrayList<>();
         list_service_chat = new ArrayList<>();
-        list_service_chat_show = new ArrayList<>();
-        lv.setAdapter(new ServiceGroupListAdapter(activity, list_service_chat_show));
+        lv.setAdapter(new ServiceGroupListAdapter(activity, list_service_chat));
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // open
                 Intent intent = new Intent();
                 intent.setClass(activity, ServiceChatActivity.class);
-                intent.putExtra("serviceGroupID", list_service_chat_show.get(position).getServiceGroupID());
-                intent.putExtra("userID", list_service_chat_show.get(position).getWriterID());
-                intent.putExtra("userName", list_service_chat_show.get(position).getWriterName());
+                intent.putExtra("serviceGroupID", list_service_chat.get(position).getServiceGroupID());
+                intent.putExtra("userID", list_service_chat.get(position).getUserID());
+                intent.putExtra("userName", list_service_chat.get(position).getUserName());
                 activity.startActivityForResult(intent, MobileServiceActivity.REQUEST_SERVICE_CHAT);
                 // set read
-                list_service_chat_show.get(position).setChatCount(0);
+                list_service_chat.get(position).setChatCount(0);
                 updateAdapter();
             }
         });
@@ -132,12 +124,12 @@ public class ServiceListFragment extends CommonFragment {
         // load local group list
         loadLocalGroupList();
         // load cloud group list
-        loadCloudGroupList();
+        getGroupListNos();
     }
 
     public void updateChat(int serviceGroupID, String lastChat) {
-        if (list_service_chat_show == null) return;
-        for (ServiceChatModel gc : list_service_chat_show) {
+        if (list_service_chat == null) return;
+        for (ServiceChatModel gc : list_service_chat) {
             if (gc.getServiceGroupID() == serviceGroupID) {
                 gc.setContent(lastChat);
                 updateAdapter();
@@ -148,7 +140,7 @@ public class ServiceListFragment extends CommonFragment {
 
     private void countRead() {
         DAOServiceChat daoGroupChat = new DAOServiceChat(activity);
-        for (ServiceChatModel gc : list_service_chat_show) {
+        for (ServiceChatModel gc : list_service_chat) {
             int chatCount = daoGroupChat.getCount(gc.getServiceGroupID());
             if (gc.getChatCount() != 0) {
                 gc.setChatCount(gc.getChatCount() - chatCount);
@@ -157,40 +149,44 @@ public class ServiceListFragment extends CommonFragment {
     }
 
     public void receiveMessage(String content) {
-        loadCloudGroupList();
+        getGroupListNos();
     }
 
     private void updateAdapter() {
-        ServiceGroupListAdapter adapter = (ServiceGroupListAdapter) lv.getAdapter();
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
+        ((ServiceGroupListAdapter) lv.getAdapter()).notifyDataSetChanged();
     }
 
     private void loadLocalGroupList() {
-        DAOServiceChat daoGroupChat = new DAOServiceChat(activity);
-        list_service_chat_show.clear();
-        list_service_chat_show.addAll(daoGroupChat.getAllGroupBy());
+        list_service_chat.clear();
+        list_service_chat.addAll(new DAOServiceChat(activity).getAllGroupBy());
         updateAdapter();
     }
 
-    public void loadCloudGroupList() {
+    private void getGroupListNos() {
         try {
             JSONObject j = new JSONObject();
-            j.put("action", "getGroupList");
+            j.put("action", "getGroupListNos");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadCloudGroupList(activity, j, URLHelper.HOST).execute();
+            new GetGroupListNos(activity, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private class LoadCloudGroupList extends IAsyncTask {
+    private class GetGroupListNos extends IAsyncTask {
 
-        LoadCloudGroupList(Context context, JSONObject json, String url) {
+        GetGroupListNos(Context context, JSONObject json, String url) {
             super(context, json, url);
             setShow(false);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            list_service_group_id.clear();
+            list_service_chat.clear();
+            updateAdapter();
         }
 
         @Override
@@ -200,24 +196,61 @@ public class ServiceListFragment extends CommonFragment {
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.loadCloudGroupList(response, list_service_chat);
+                    int result = ApiResultHelper.getGroupListNos(response, list_service_group_id);
                     if (result == ApiResultHelper.SUCCESS) {
-                        // sort
-                        Collections.sort(list_service_chat, new Comparator<ServiceChatModel>() {
-                            @Override
-                            public int compare(ServiceChatModel a, ServiceChatModel b) {
-                                return TimeHelper.compare(b.getChatDate(), a.getChatDate());
-                            }
-                        });
-                        // reset
-                        list_service_chat_show.clear();
-                        list_service_chat_show.addAll(list_service_chat);
-                        // count read
+                        index = -1;
+                        getGroupList();
+                    } else {
+                        t(R.string.empty);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void getGroupList() {
+        try {
+            ArrayList<Integer> nos = nextLoadNos();
+            JSONObject j = new JSONObject();
+            j.put("action", "getGroupList");
+            JSONArray arr = new JSONArray();
+            for (Integer no : nos) {
+                arr.put(no);
+            }
+            j.put("serviceGroupIDs", arr);
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
+            if (!nos.isEmpty()) {
+                loading = true;
+                new GetGroupList(activity, j, URLHelper.HOST).execute();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class GetGroupList extends IAsyncTask {
+
+        GetGroupList(Context context, JSONObject json, String url) {
+            super(context, json, url);
+            setShow(false);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            loading = false;
+            srl.setRefreshing(false);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.EMPTY:
+                    int result = ApiResultHelper.getGroupList(response, list_service_chat);
+                    if (result == ApiResultHelper.SUCCESS) {
                         countRead();
-                        // refresh
+                        index = index + onceLoadCount > list_service_group_id.size() - 1 ? list_service_group_id.size() - 1 : index + onceLoadCount;
                         updateAdapter();
                     } else {
-                        ToastHelper.t(activity, "empty");
+                        t(R.string.empty);
                     }
                     break;
             }
@@ -232,33 +265,56 @@ public class ServiceListFragment extends CommonFragment {
         b.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // keyword
-                String keyword = et.getText().toString();
-                if (keyword.isEmpty()) {
-                    Toast.makeText(activity, R.string.can_not_be_empty, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                // list of contain 'keyword'
-                ArrayList<ServiceChatModel> list = new ArrayList<>();
-                for (ServiceChatModel gm : list_service_chat) {
-                    if (gm.getWorkerNo().contains(keyword) || gm.getWriterName().contains(keyword)) {
-                        list.add(gm);
-                    }
-                }
-                list_service_chat_show.clear();
-                list_service_chat_show.addAll(list);
-                updateAdapter();
-                // change title
-                activity.changeSearchTitle(keyword);
+//                // keyword
+//                String keyword = et.getText().toString();
+//                if (keyword.isEmpty()) {
+//                    Toast.makeText(activity, R.string.can_not_be_empty, Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                // list of contain 'keyword'
+//                ArrayList<ServiceChatModel> list = new ArrayList<>();
+//                for (ServiceChatModel gm : list_service_chat) {
+//                    if (gm.getWorkerNo().contains(keyword) || gm.getUserName().contains(keyword)) {
+//                        list.add(gm);
+//                    }
+//                }
+//                list_service_chat_show.clear();
+//                list_service_chat_show.addAll(list);
+//                updateAdapter();
+//                // change title
+//                activity.changeSearchTitle(keyword);
             }
         });
         b.setNegativeButton(R.string.cancel, null);
         b.show();
     }
 
-    public void clearSearchFilter() {
-        list_service_chat_show.clear();
-        list_service_chat_show.addAll(list_service_chat);
-        updateAdapter();
+    // load more
+    private static final int remainToLoadMore = 1; //
+    private static final int onceLoadCount = 10;
+    private boolean loading = false;
+    private int index = -1;
+
+    private void onLoadMore(int totalItemCount, int lastVisibleItem) {
+        /*
+        *       1.total不能為0
+        *       2.當進入"剩餘範圍(1)"
+        *       3.不能正在載入狀態
+        *       4.id數不等於總數(代表所有id都載完了)
+        * */
+        if (totalItemCount != 0 && (lastVisibleItem + remainToLoadMore) >= totalItemCount &&
+                !loading && list_service_group_id.size() != totalItemCount) {
+            getGroupList();
+        }
+    }
+
+    private ArrayList<Integer> nextLoadNos() {
+        ArrayList<Integer> r = new ArrayList<>();
+        int start = index + 1;
+        int end = index + onceLoadCount > list_service_group_id.size() - 1 ? list_service_group_id.size() - 1 : index + onceLoadCount;
+        for (int i = start; i <= end; i++) {
+            r.add(list_service_group_id.get(i));
+        }
+        return r;
     }
 }

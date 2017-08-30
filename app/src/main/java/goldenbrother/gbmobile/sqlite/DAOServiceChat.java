@@ -52,9 +52,9 @@ public class DAOServiceChat {
         ContentValues cv = new ContentValues();
         cv.put(COL_SGCNo, gc.getSGCNo());
         cv.put(COL_ServiceGroupID, gc.getServiceGroupID());
-        cv.put(COL_WriterID, gc.getWriterID());
-        cv.put(COL_WriterName, gc.getWriterName());
-        cv.put(COL_WriterPicture, gc.getWriterPicture());
+        cv.put(COL_WriterID, gc.getUserID());
+        cv.put(COL_WriterName, gc.getUserName());
+        cv.put(COL_WriterPicture, gc.getUserPicture());
         cv.put(COL_Content, gc.getContent());
         cv.put(COL_ChatDate, gc.getChatDate());
         return db.insert(TABLENAME, null, cv) > 0;
@@ -64,9 +64,9 @@ public class DAOServiceChat {
         ContentValues cv = new ContentValues();
         cv.put(COL_SGCNo, gc.getSGCNo());
         cv.put(COL_ServiceGroupID, gc.getServiceGroupID());
-        cv.put(COL_WriterID, gc.getWriterID());
-        cv.put(COL_WriterName, gc.getWriterName());
-        cv.put(COL_WriterPicture, gc.getWriterPicture());
+        cv.put(COL_WriterID, gc.getUserID());
+        cv.put(COL_WriterName, gc.getUserName());
+        cv.put(COL_WriterPicture, gc.getUserPicture());
         cv.put(COL_Content, gc.getContent());
         cv.put(COL_ChatDate, gc.getChatDate());
 
@@ -116,9 +116,9 @@ public class DAOServiceChat {
         ServiceChatModel result = new ServiceChatModel();
         result.setSGCNo((int) cursor.getLong(0));
         result.setServiceGroupID(cursor.getInt(1));
-        result.setWriterID(cursor.getString(2));
-        result.setWriterName(cursor.getString(3));
-        result.setWriterPicture(cursor.getString(4));
+        result.setUserID(cursor.getString(2));
+        result.setUserName(cursor.getString(3));
+        result.setUserPicture(cursor.getString(4));
         result.setContent(cursor.getString(5));
         result.setChatDate(cursor.getString(6));
         return result;
