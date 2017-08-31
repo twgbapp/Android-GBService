@@ -84,7 +84,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
             final OtherViewHolder h = (OtherViewHolder) holder;
             String picturePath = item.getUserPicture();
             if (picturePath != null && !picturePath.isEmpty()) {
-                Picasso.with(getContext()).load(item.getUserPicture()).into(h.picture);
+                Picasso.with(getContext()).load(picturePath).into(h.picture);
             }
             setContent(item, h.date, h.content, h.qrCode);
         } else if (holder instanceof SelfViewHolder) {
