@@ -82,7 +82,10 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
         final ServiceChatModel item = list.get(position);
         if (holder instanceof OtherViewHolder) {
             final OtherViewHolder h = (OtherViewHolder) holder;
-            Picasso.with(getContext()).load(item.getUserPicture()).into(h.picture);
+            String picturePath = item.getUserPicture();
+            if (picturePath != null && !picturePath.isEmpty()) {
+                Picasso.with(getContext()).load(item.getUserPicture()).into(h.picture);
+            }
             setContent(item, h.date, h.content, h.qrCode);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
