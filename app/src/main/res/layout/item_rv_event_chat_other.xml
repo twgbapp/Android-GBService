@@ -15,7 +15,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_item_rv_event_chat_other_picture"
             android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:src="@drawable/ic_person_replace" />
 
         <TextView
             android:id="@+id/tv_item_rv_event_chat_other_date"
@@ -23,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="10:10"
-            android:textSize="10sp"
-            android:textColor="#FFF" />
+            android:textColor="#FFF"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <android.support.v7.widget.CardView
@@ -32,15 +33,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
         app:cardBackgroundColor="#FFF"
         app:cardCornerRadius="10dp">
 
         <ImageView
             android:id="@+id/iv_item_rv_event_chat_other_rating"
             android:layout_width="250dp"
-            android:visibility="gone"
             android:layout_height="50dp"
-            android:src="@drawable/background_rating" />
+            android:src="@drawable/background_rating"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_item_rv_event_chat_other_content"
