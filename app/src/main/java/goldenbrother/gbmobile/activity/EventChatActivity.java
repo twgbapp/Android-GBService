@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.EventChatRVAdapter;
+import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.Constant;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
@@ -64,6 +67,12 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         Intent intent = getIntent();
         serviceEventID = intent.getIntExtra("serviceEventID", -1);
         // init
+        FCMNotice.getInstance().setOnMessageReceivedListener(new FCMNotice.OnMessageReceivedListener() {
+            @Override
+            public void onMessageReceived(String s) {
+                handler.sendEmptyMessage(0);
+            }
+        });
         findViewById(R.id.iv_event_rating).setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
         findViewById(R.id.iv_event_add_user).setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
         // initListView
@@ -75,6 +84,14 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         // get Cloud Chat
         loadCloudChat();
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            loadCloudChat();
+        }
+    };
 
     private void addEventChat(String content) {
         if (content.isEmpty()) {
@@ -230,10 +247,6 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         tv_title.setText(event.getUserName());
         // update local chat data to view
         updateAdapter();
-    }
-
-    public void receiveMessage(String content) {
-        loadCloudChat();
     }
 
     private void ratingEvent(int score) {

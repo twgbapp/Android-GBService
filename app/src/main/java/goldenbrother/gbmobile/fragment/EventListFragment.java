@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,6 +25,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.EventChatActivity;
 import goldenbrother.gbmobile.activity.MobileServiceActivity;
 import goldenbrother.gbmobile.adapter.EventListAdapter;
+import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -89,6 +92,12 @@ public class EventListFragment extends Fragment implements View.OnClickListener 
         // get activity
         activity = (MobileServiceActivity) getActivity();
         // init
+        FCMNotice.getInstance().setOnMessageReceivedListener(new FCMNotice.OnMessageReceivedListener() {
+            @Override
+            public void onMessageReceived(String s) {
+                handler.sendEmptyMessage(0);
+            }
+        });
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -143,6 +152,14 @@ public class EventListFragment extends Fragment implements View.OnClickListener 
         // loadCloudEventList
         loadCloudEventList(0);
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            loadCloudEventList(0);
+        }
+    };
 
 
     public static final int ALL = 0;
@@ -272,10 +289,6 @@ public class EventListFragment extends Fragment implements View.OnClickListener 
                 em.setChatCount(em.getChatCount() - chatCount);
             }
         }
-    }
-
-    public void receiveMessage(String content) {
-        loadCloudEventList(0);
     }
 
     public void showSearchDialog() {

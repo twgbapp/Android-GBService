@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.MobileServiceActivity;
 import goldenbrother.gbmobile.activity.ServiceChatActivity;
 import goldenbrother.gbmobile.adapter.ServiceGroupRVAdapter;
+import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -68,6 +71,12 @@ public class ServiceListFragment extends CommonFragment {
         // get activity
         activity = (MobileServiceActivity) getActivity();
         // init
+        FCMNotice.getInstance().setOnMessageReceivedListener(new FCMNotice.OnMessageReceivedListener() {
+            @Override
+            public void onMessageReceived(String s) {
+                handler.sendEmptyMessage(0);
+            }
+        });
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -113,6 +122,14 @@ public class ServiceListFragment extends CommonFragment {
         getGroupListNos();
     }
 
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            getGroupListNos();
+        }
+    };
+
     public void onItemClick(ServiceChatModel item) {
         // open
         Intent intent = new Intent();
@@ -147,10 +164,6 @@ public class ServiceListFragment extends CommonFragment {
         }
     }
 
-    public void receiveMessage(String content) {
-        getGroupListNos();
-    }
-
     private void updateAdapter() {
         rv.getAdapter().notifyDataSetChanged();
     }
@@ -177,6 +190,7 @@ public class ServiceListFragment extends CommonFragment {
 
         GetGroupListNos(Context context, JSONObject json, String url) {
             super(context, json, url);
+            setShow(false);
         }
 
         @Override

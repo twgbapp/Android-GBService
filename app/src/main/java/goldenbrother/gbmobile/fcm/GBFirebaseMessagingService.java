@@ -60,21 +60,7 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
         String userID = map.get("userID");
         String message = map.get("message");
         String type = map.get("type");
-        if (type.equals(TYPE_GROUP)) {
-            if (ServiceFragment.getInstance() != null) {
-                ServiceFragment.getInstance().receiveMessage(message);
-            }
-            if (ServiceListFragment.getInstance() != null) {
-                ServiceListFragment.getInstance().receiveMessage(message);
-            }
-        } else if (type.equals(TYPE_EVENT)) {
-            if (EventChatActivity.getInstance() != null) {
-                EventChatActivity.getInstance().receiveMessage(message);
-            }
-            if (EventListFragment.getInstance() != null) {
-                EventListFragment.getInstance().receiveMessage(message);
-            }
-        }
+        FCMNotice.getInstance().notifyOnMessageReceived(message);
         String msg = message;
         if (message.equals(Constant.RATING)) {
             msg = getString(R.string.rating_request);
