@@ -5,24 +5,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.MobileServiceActivity;
 import goldenbrother.gbmobile.activity.ServiceChatActivity;
-import goldenbrother.gbmobile.adapter.ServiceGroupListAdapter;
+import goldenbrother.gbmobile.adapter.ServiceGroupRVAdapter;
+import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.TimeHelper;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -33,9 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class ServiceListFragment extends CommonFragment {
     // activity
@@ -43,7 +39,7 @@ public class ServiceListFragment extends CommonFragment {
     public static ServiceListFragment f;
     // ui
     private SwipeRefreshLayout srl;
-    private ListView lv;
+    private RecyclerView rv;
     // data
     private ArrayList<Integer> list_service_group_id;
     private ArrayList<ServiceChatModel> list_service_chat;
@@ -66,7 +62,7 @@ public class ServiceListFragment extends CommonFragment {
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
         srl = (SwipeRefreshLayout) v.findViewById(R.id.srl_service_list);
-        lv = (ListView) v.findViewById(R.id.lv_service_list);
+        rv = (RecyclerView) v.findViewById(R.id.rv_service_list);
     }
 
     @Override
@@ -75,6 +71,12 @@ public class ServiceListFragment extends CommonFragment {
         // get activity
         activity = (MobileServiceActivity) getActivity();
         // init
+        FCMNotice.getInstance().setOnMessageReceivedListener(new FCMNotice.OnMessageReceivedListener() {
+            @Override
+            public void onMessageReceived(String s) {
+                handler.sendEmptyMessage(0);
+            }
+        });
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,30 +92,23 @@ public class ServiceListFragment extends CommonFragment {
         // init ListView
         list_service_group_id = new ArrayList<>();
         list_service_chat = new ArrayList<>();
-        lv.setAdapter(new ServiceGroupListAdapter(activity, list_service_chat));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        rv.setLayoutManager(layoutManager);
+        rv.setAdapter(new ServiceGroupRVAdapter(activity, list_service_chat, this));
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // open
-                Intent intent = new Intent();
-                intent.setClass(activity, ServiceChatActivity.class);
-                intent.putExtra("serviceGroupID", list_service_chat.get(position).getServiceGroupID());
-                intent.putExtra("userID", list_service_chat.get(position).getUserID());
-                intent.putExtra("userName", list_service_chat.get(position).getUserName());
-                activity.startActivityForResult(intent, MobileServiceActivity.REQUEST_SERVICE_CHAT);
-                // set read
-                list_service_chat.get(position).setChatCount(0);
-                updateAdapter();
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int totalItem = layoutManager.getItemCount();
+                int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                onLoadMore(totalItem, lastVisibleItem);
             }
         });
-        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
                 if (firstVisibleItem == 0) {
                     srl.setEnabled(true);
                 } else {
@@ -125,6 +120,27 @@ public class ServiceListFragment extends CommonFragment {
         loadLocalGroupList();
         // load cloud group list
         getGroupListNos();
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            getGroupListNos();
+        }
+    };
+
+    public void onItemClick(ServiceChatModel item) {
+        // open
+        Intent intent = new Intent();
+        intent.setClass(activity, ServiceChatActivity.class);
+        intent.putExtra("serviceGroupID", item.getServiceGroupID());
+        intent.putExtra("userID", item.getUserID());
+        intent.putExtra("userName", item.getUserName());
+        activity.startActivityForResult(intent, MobileServiceActivity.REQUEST_SERVICE_CHAT);
+        // set read
+        item.setChatCount(0);
+        updateAdapter();
     }
 
     public void updateChat(int serviceGroupID, String lastChat) {
@@ -148,12 +164,8 @@ public class ServiceListFragment extends CommonFragment {
         }
     }
 
-    public void receiveMessage(String content) {
-        getGroupListNos();
-    }
-
     private void updateAdapter() {
-        ((ServiceGroupListAdapter) lv.getAdapter()).notifyDataSetChanged();
+        rv.getAdapter().notifyDataSetChanged();
     }
 
     private void loadLocalGroupList() {
@@ -178,6 +190,7 @@ public class ServiceListFragment extends CommonFragment {
 
         GetGroupListNos(Context context, JSONObject json, String url) {
             super(context, json, url);
+            setShow(false);
         }
 
         @Override

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.ServiceChatRVAdapter;
+import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
@@ -81,6 +84,13 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
         serviceGroupID = getArguments().getInt("serviceGroupID", -1);
         // get activity
         activity = getActivity();
+        // init
+        FCMNotice.getInstance().setOnMessageReceivedListener(new FCMNotice.OnMessageReceivedListener() {
+            @Override
+            public void onMessageReceived(String s) {
+                handler.sendEmptyMessage(0);
+            }
+        });
         // initListView
         list_group_chat = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(activity));
@@ -90,6 +100,14 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
         // get Cloud Chat
         loadCloudChat();
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            loadCloudChat();
+        }
+    };
 
     private void addGroupChat() {
         String content = et_content.getText().toString();
@@ -250,11 +268,6 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
 
         updateAdapter();
     }
-
-    public void receiveMessage(String content) {
-        loadCloudChat();
-    }
-
 
     private void updateAdapter() {
         rv.getAdapter().notifyDataSetChanged();
