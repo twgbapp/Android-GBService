@@ -303,7 +303,7 @@ public class ApiResultHelper {
                     gc.setStaffID(o.getString("staffID"));
                     list.add(gc);
                 }
-                list_groupChat.clear();
+//                list_groupChat.clear();
                 list_groupChat.addAll(list);
             }
             return success;
