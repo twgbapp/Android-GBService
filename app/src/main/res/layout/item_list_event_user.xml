@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="NAME"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#FFF"
             android:textSize="18sp" />
 
         <TextView
@@ -33,16 +33,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="TITLE"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#FFF"
             android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/iv_item_list_event_check"
+            android:textColor="#FFF"
             android:layout_width="@dimen/imageview_option_in_list_width"
             android:layout_height="@dimen/imageview_option_in_list_width"
             android:layout_gravity="center"
             android:layout_margin="@dimen/imageview_option_in_list_margin"
-            android:src="@drawable/ic_done_blue" />
+            android:src="@drawable/ic_done_white" />
 
     </LinearLayout>
 

@@ -3,6 +3,7 @@ package goldenbrother.gbmobile.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -34,6 +35,8 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
         tv_create_date = (TextView) findViewById(R.id.tv_announcement_content_create_date);
         tv_expiration_date = (TextView) findViewById(R.id.tv_announcement_content_expiration_date);
         wv = (WebView) findViewById(R.id.wv_announcement_content);
+        wv.getSettings().setUseWideViewPort(true);
+        wv.getSettings().setLoadWithOverviewMode(true);
         // listener
         tv_title.setOnClickListener(this);
         // extra && init announcement object

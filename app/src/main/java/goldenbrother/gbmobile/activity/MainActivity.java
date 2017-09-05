@@ -341,7 +341,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void showLifeInformationDialog() {
-        String[] items_flabor = {getString(R.string.main_drawer_club), getString(R.string.main_drawer_announcement)};
+        String[] items_flabor = {getString(R.string.main_drawer_announcement) , getString(R.string.main_drawer_club)};
         String[] items_manager = {getString(R.string.main_drawer_club)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_life_information_big, getString(R.string.main_drawer_life_information), items, new AdapterView.OnItemClickListener() {
