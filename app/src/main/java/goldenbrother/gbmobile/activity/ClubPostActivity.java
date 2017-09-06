@@ -39,7 +39,7 @@ public class ClubPostActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_post);
-
+        setUpBackToolbar(R.id.toolbar, R.string.club_title);
         // ui reference
         srl = (SwipeRefreshLayout) findViewById(R.id.srl_club_post);
         rv = (RecyclerView) findViewById(R.id.rv_club_post);

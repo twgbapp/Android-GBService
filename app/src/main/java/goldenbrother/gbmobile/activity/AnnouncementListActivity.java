@@ -39,6 +39,8 @@ public class AnnouncementListActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_list);
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_announcement);
+
         // ui reference
         rv = (RecyclerView) findViewById(R.id.rv_announcement_list);
         // init ListView

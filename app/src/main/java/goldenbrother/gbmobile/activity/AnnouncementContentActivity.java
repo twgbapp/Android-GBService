@@ -29,6 +29,7 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_content);
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_announcement);
         // ui reference
         tv_title = (TextView) findViewById(R.id.tv_announcement_content_title);
         tv_create_date = (TextView) findViewById(R.id.tv_announcement_content_create_date);
