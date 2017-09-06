@@ -1,16 +1,20 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/main_background2"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
 
     <com.github.gcacace.signaturepad.views.SignaturePad
         android:id="@+id/pad_signature"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:paddingTop="16dp">
 
@@ -29,4 +33,4 @@
             android:text="SAVE" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -35,6 +35,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        setUpBackToolbar(R.id.toolbar, R.string.sign_up_create_account);
         // ui reference
         et_account = (EditText) findViewById(R.id.et_sign_up_account);
         et_password = (EditText) findViewById(R.id.et_sign_up_password);

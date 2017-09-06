@@ -61,6 +61,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_club_post);
+        setUpBackToolbar(R.id.toolbar_add_club_post, R.id.tv_add_club_post_title, R.string.club_add_post);
         // ui reference
         et_content = (EditText) findViewById(R.id.et_add_club_post_content);
         rv_media = (RecyclerView) findViewById(R.id.rv_add_club_post_media);

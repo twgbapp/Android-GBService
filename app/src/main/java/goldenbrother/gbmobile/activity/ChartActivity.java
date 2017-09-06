@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
+
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.chart.MPUtil;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -36,6 +37,7 @@ public class ChartActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_chart);
         // ui reference
         chatView = (BarChart) findViewById(R.id.cv_chart);
         // init
@@ -49,7 +51,7 @@ public class ChartActivity extends CommonActivity {
             JSONObject j = new JSONObject();
             j.put("action", "getRepairKindNumber");
             String startDate = "2017-01-01";
-            String endDateStr = TimeHelper.getStandard().substring(0,10);
+            String endDateStr = TimeHelper.getStandard().substring(0, 10);
             j.put("startDateStr", startDate);
             j.put("endDateStr", endDateStr);
             j.put("nationCode", nationCode);

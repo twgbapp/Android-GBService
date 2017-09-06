@@ -30,6 +30,7 @@ public class RepairRecordActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repair_record);
+        setUpBackToolbar(R.id.toolbar, R.string.repair_record);
         // ui reference
         rv = (RecyclerView) findViewById(R.id.rv_repair_record);
         // init ListView

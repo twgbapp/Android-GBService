@@ -41,7 +41,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_list);
-
+        setUpBackToolbar(R.id.toolbar_medical_list, R.id.tv_medical_list_title, R.string.medical_list);
         // ui reference
         findViewById(R.id.iv_medical_list_search).setOnClickListener(this);
         findViewById(R.id.iv_medical_list_add).setOnClickListener(this);

@@ -33,7 +33,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
     private TextView tv_flabor_name;
     // extra
     private boolean isFLabor;
-    private  String  department;
+    private String department;
     // data
     private ArrayList<Center> list_center;
     private ArrayList<Dorm> list_dorm;
@@ -44,7 +44,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        setUpBackToolbar(R.id.toolbar, R.string.search);
         // ui reference
         tv_center = (TextView) findViewById(R.id.tv_search_center);
         tv_dorm = (TextView) findViewById(R.id.tv_search_dorm);

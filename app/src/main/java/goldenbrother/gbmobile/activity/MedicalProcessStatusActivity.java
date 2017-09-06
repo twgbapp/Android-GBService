@@ -49,7 +49,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_process_status);
-
+        setUpBackToolbar(R.id.toolbar, R.string.medical_process);
         // ui reference
         findViewById(R.id.tv_medical_process_status_done).setOnClickListener(this);
         iv_1 = (ImageView) findViewById(R.id.iv_medical_process_status_1);

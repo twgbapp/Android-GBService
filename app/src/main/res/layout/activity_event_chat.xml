@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_service"
+            android:id="@+id/toolbar_event_chat"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -32,7 +32,6 @@
                     android:layout_toLeftOf="@+id/iv_event_rating"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="UserName"
                     android:textColor="#FFF"
                     android:textSize="24sp" />
 

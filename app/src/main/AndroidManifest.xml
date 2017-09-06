@@ -57,7 +57,6 @@
         <activity android:name=".activity.ClubListActivity" />
         <activity android:name=".activity.ClubPostActivity" />
         <activity android:name=".activity.AddClubPostActivity" />
-        <activity android:name=".activity.GalleryActivity" />
         <activity android:name=".activity.AddClubPostMessageActivity" />
         <activity android:name=".activity.ClubPostMediaActivity" />
         <activity android:name=".activity.AnnouncementListActivity" />
