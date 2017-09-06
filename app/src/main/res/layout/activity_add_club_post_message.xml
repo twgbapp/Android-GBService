@@ -3,175 +3,151 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
+    android:background="@color/main_background2"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <include layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/main_background2"
-        app:cardCornerRadius="20dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/textview_corner_round_light_blue"
-                android:gravity="center"
-                android:text="@string/comment"
-                android:textColor="#FFF"
-                android:textSize="24sp" />
-
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFF"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="@dimen/imageview_picture_in_list_width"
-                                android:layout_height="@dimen/imageview_picture_in_list_width"
-                                android:layout_margin="@dimen/imageview_picture_in_list_margin"
-                                android:src="@color/main_light_blue" />
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/iv_add_club_post_message_user_picture"
-                                android:layout_width="@dimen/imageview_picture_in_list_width"
-                                android:layout_height="@dimen/imageview_picture_in_list_width"
-                                android:layout_margin="@dimen/imageview_picture_in_list_margin"
-                                android:src="@drawable/ic_person_w" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tv_add_club_post_message_user_name"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="NAME"
-                                    android:textColor="#000"
-                                    android:textSize="16sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_add_club_post_message_create_date"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="DATE" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="5dp"
-                        android:background="@color/main_light_blue" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/iv_add_club_post_message_thumbnail_pic"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true" />
-
-                        <ImageView
-                            android:id="@+id/iv_add_club_post_message_video_play"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_video_play"
-                            android:visibility="gone" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/tv_add_club_post_message_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="CONTENT"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#FFF" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_add_club_post_message_comment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-                </LinearLayout>
-
-            </android.support.v4.widget.NestedScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/main_background2"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:background="#FFF"
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_add_club_post_message_message"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/edittext_chat"
-                    android:maxLines="1" />
-
-                <TextView
-                    android:id="@+id/iv_add_club_post_message_send"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/textview_chat_send"
-                    android:gravity="center"
-                    android:text="@string/send"
-                    android:textColor="#FFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/imageview_picture_in_list_width"
+                        android:layout_height="@dimen/imageview_picture_in_list_width"
+                        android:layout_margin="@dimen/imageview_picture_in_list_margin"
+                        android:src="@color/main_light_blue" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_add_club_post_message_user_picture"
+                        android:layout_width="@dimen/imageview_picture_in_list_width"
+                        android:layout_height="@dimen/imageview_picture_in_list_width"
+                        android:layout_margin="@dimen/imageview_picture_in_list_margin"
+                        android:src="@drawable/ic_person_w" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_add_club_post_message_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NAME"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_add_club_post_message_create_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DATE" />
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/main_light_blue" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_add_club_post_message_thumbnail_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" />
+
+                <ImageView
+                    android:id="@+id/iv_add_club_post_message_video_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_video_play"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_add_club_post_message_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="CONTENT"
+                android:textColor="#FFF"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="#FFF" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_add_club_post_message_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </android.support.v4.widget.NestedScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_background2"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
+        <EditText
+            android:id="@+id/et_add_club_post_message_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_chat"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/iv_add_club_post_message_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/textview_chat_send"
+            android:gravity="center"
+            android:text="@string/send"
+            android:textColor="#FFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

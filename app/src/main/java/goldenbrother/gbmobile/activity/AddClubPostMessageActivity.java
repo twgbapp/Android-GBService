@@ -44,6 +44,7 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_club_post_message);
+        setUpBackToolbar(R.id.toolbar, R.string.comment);
         // ui reference
         iv_user_picture = (ImageView) findViewById(R.id.iv_add_club_post_message_user_picture);
         iv_thumbnail_pic = (ImageView) findViewById(R.id.iv_add_club_post_message_thumbnail_pic);

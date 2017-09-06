@@ -84,6 +84,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_login"
+                            android:digits="@string/allow_word"
                             android:hint="@string/login_account"
                             android:inputType="text"
                             android:maxLines="1"

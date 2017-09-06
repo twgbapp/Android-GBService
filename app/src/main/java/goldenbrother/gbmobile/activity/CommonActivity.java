@@ -33,6 +33,14 @@ public class CommonActivity extends AppCompatActivity {
     }
 
     protected void setUpBackToolbar(int viewId, int strId) {
+        setUpBackToolbar(viewId, R.id.toolbar_title, strId);
+    }
+
+    protected void setUpBackToolbar(int viewId, int titleId, int strId) {
+        setUpBackToolbar(viewId, titleId, getString(strId));
+    }
+
+    protected void setUpBackToolbar(int viewId, int titleId, String str) {
         Toolbar toolbar = (Toolbar) findViewById(viewId);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -46,7 +54,7 @@ public class CommonActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ((TextView)findViewById(R.id.toolbar_title)).setText(strId);
+        ((TextView) findViewById(titleId)).setText(str);
     }
 
     protected AlertDialog alertWithView(View v, DialogInterface.OnClickListener posi, DialogInterface.OnClickListener nega) {

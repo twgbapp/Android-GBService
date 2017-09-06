@@ -3,6 +3,7 @@ package goldenbrother.gbmobile.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -81,9 +82,12 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
                         // set expiration date
                         tv_expiration_date.setText(String.format(getString(R.string.ann_expiration_date) + " : %s", announcement.getExpirationDate()));
                         // set content
-                        wv.getSettings().setJavaScriptEnabled(true);
-                        wv.getSettings().setBuiltInZoomControls(true);
-                        wv.getSettings().setDisplayZoomControls(false);
+                        WebSettings webSettings = wv.getSettings();
+                        webSettings.setJavaScriptEnabled(true);
+                        webSettings.setUseWideViewPort(true);
+                        webSettings.setLoadWithOverviewMode(true);
+                        webSettings.setBuiltInZoomControls(true);
+                        webSettings.setDisplayZoomControls(false);
                         wv.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
                             public boolean onLongClick(View v) {

@@ -40,6 +40,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_repair);
+        setUpBackToolbar(R.id.toolbar, R.string.quick_repair);
         // ui reference
         et_applicant = (EditText) findViewById(R.id.et_quick_repair_applicant);
         et_title = (EditText) findViewById(R.id.et_quick_repair_title);

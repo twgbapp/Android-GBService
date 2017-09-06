@@ -33,6 +33,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_satisfaction_issue);
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_satisfaction_survey);
         // ui reference
         srl = (SwipeRefreshLayout) findViewById(R.id.srl_satisfaction_issue);
         rv = (RecyclerView) findViewById(R.id.rv_satisfaction_issue);
@@ -71,7 +72,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
         getSatisfactionIssueList();
     }
 
-    private ArrayList<SatisfactionIssueModel> getData(){
+    private ArrayList<SatisfactionIssueModel> getData() {
         ArrayList<SatisfactionIssueModel> list = new ArrayList<>();
         SatisfactionIssueModel si = new SatisfactionIssueModel();
         si.setName("Room");
