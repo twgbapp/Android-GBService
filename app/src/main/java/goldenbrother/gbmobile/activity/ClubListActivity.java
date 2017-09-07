@@ -28,6 +28,7 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_list);
+        setUpBackToolbar(R.id.toolbar, R.string.club_title);
         // ui reference
         gv = (GridView) findViewById(R.id.gv_club);
         // init GridView
@@ -81,7 +82,7 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Bundle b = new Bundle();
-        b.putParcelable("club",list_club.get(position));
-        openActivity(ClubPostActivity.class,b);
+        b.putParcelable("club", list_club.get(position));
+        openActivity(ClubPostActivity.class, b);
     }
 }

@@ -40,7 +40,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_line_setting);
-
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_online_setting);
         // ui reference
         sw_online = (Switch) findViewById(R.id.sw_on_line_setting);
         ll = (LinearLayout) findViewById(R.id.ll_on_line_setting);
@@ -62,7 +62,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             j.put("action", "getOnCallManage");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadOnCallManager(this, j,URLHelper.HOST).execute();
+            new LoadOnCallManager(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -106,7 +106,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             j.put("staffID", staffID);
             j.put("onCallStatus", onCallStatus);
             j.put("logStatus", true);
-            new ChangeOnCallStatus(this, j,URLHelper.HOST,onCallStatus).execute();
+            new ChangeOnCallStatus(this, j, URLHelper.HOST, onCallStatus).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -115,9 +115,9 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
     private class ChangeOnCallStatus extends IAsyncTask {
         private String onCallStatus;
 
-        ChangeOnCallStatus(Context context, JSONObject json, String url,String onCallStatus) {
+        ChangeOnCallStatus(Context context, JSONObject json, String url, String onCallStatus) {
             super(context, json, url);
-            this.onCallStatus=onCallStatus;
+            this.onCallStatus = onCallStatus;
         }
 
         @Override

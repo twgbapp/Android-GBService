@@ -30,6 +30,7 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_content);
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_announcement);
         // ui reference
         tv_title = (TextView) findViewById(R.id.tv_announcement_content_title);
         tv_create_date = (TextView) findViewById(R.id.tv_announcement_content_create_date);
@@ -83,9 +84,12 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
                         // set expiration date
                         tv_expiration_date.setText(String.format(getString(R.string.ann_expiration_date) + " : %s", announcement.getExpirationDate()));
                         // set content
-                        wv.getSettings().setJavaScriptEnabled(true);
-                        wv.getSettings().setBuiltInZoomControls(true);
-                        wv.getSettings().setDisplayZoomControls(false);
+                        WebSettings webSettings = wv.getSettings();
+                        webSettings.setJavaScriptEnabled(true);
+                        webSettings.setUseWideViewPort(true);
+                        webSettings.setLoadWithOverviewMode(true);
+                        webSettings.setBuiltInZoomControls(true);
+                        webSettings.setDisplayZoomControls(false);
                         wv.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
                             public boolean onLongClick(View v) {

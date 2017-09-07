@@ -41,9 +41,9 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_symptom);
-
+        setUpBackToolbar(R.id.toolbar_medical_symptom, R.id.tv_medical_symptom_title, R.string.medical_symptoms);
         // ui reference
-        findViewById(R.id.iv_event_medical_symptom_done).setOnClickListener(this);
+        findViewById(R.id.iv_medical_symptom_done).setOnClickListener(this);
         findViewById(R.id.ll_medical_symptom_other).setOnClickListener(this);
         rv = (RecyclerView) findViewById(R.id.rv_medical_symptom);
         et_other = (EditText) findViewById(R.id.et_medical_symptom_other);
@@ -139,13 +139,13 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_event_medical_symptom_done:
+            case R.id.iv_medical_symptom_done:
                 //
                 HashSet<MedicalSymptomModel> set = ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).getSelected();
                 ArrayList<MedicalSymptomModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
-                if (otherChecked|| !et_other.getText().toString().isEmpty()) {
+                if (otherChecked || !et_other.getText().toString().isEmpty()) {
                     String other = et_other.getText().toString();
                     MedicalSymptomModel m = new MedicalSymptomModel();
                     m.setCode("425");

@@ -33,7 +33,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_list);
-
+        setUpBackToolbar(R.id.toolbar_discussion_list, R.id.tv_discussion_list_title, R.string.discussion_list);
         // ui reference
         findViewById(R.id.iv_discussion_list_search).setOnClickListener(this);
         findViewById(R.id.iv_discussion_list_add).setOnClickListener(this);

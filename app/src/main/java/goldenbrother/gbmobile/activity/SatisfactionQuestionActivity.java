@@ -34,6 +34,7 @@ public class SatisfactionQuestionActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_satisfaction_question);
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_satisfaction_survey);
         // ui reference
         rv = (RecyclerView) findViewById(R.id.rv_satisfaction_question);
         // extra

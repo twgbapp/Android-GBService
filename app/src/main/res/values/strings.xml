@@ -13,6 +13,7 @@
         <item>ไทย</item>
     </string-array>
     <!-- Common -->
+    <string name="allow_word">0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="account">Account</string>
     <string name="password">Password</string>
     <string name="id_number">ARC No.</string>

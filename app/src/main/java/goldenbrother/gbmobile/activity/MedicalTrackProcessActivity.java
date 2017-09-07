@@ -26,6 +26,7 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_track_process);
+        setUpBackToolbar(R.id.toolbar, R.string.medical_track);
         // ui reference
         cb_1 = (CheckBox) findViewById(R.id.cb_medical_track_process_1);
         cb_2 = (CheckBox) findViewById(R.id.cb_medical_track_process_2);

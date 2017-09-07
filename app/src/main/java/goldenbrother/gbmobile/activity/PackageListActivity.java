@@ -50,8 +50,9 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_list);
+        setUpBackToolbar(R.id.toolbar_package_list, R.id.tv_package_list_title, R.string.main_drawer_package);
         // ui reference
-        findViewById(R.id.tv_package_list_search).setOnClickListener(this);
+        findViewById(R.id.iv_package_list_search).setOnClickListener(this);
         rv = (RecyclerView) findViewById(R.id.rv_package_list);
         // init RecyclerView
         list_package = new ArrayList<>();
@@ -170,7 +171,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_package_list_search:
+            case R.id.iv_package_list_search:
                 showSearchDialog();
                 break;
         }

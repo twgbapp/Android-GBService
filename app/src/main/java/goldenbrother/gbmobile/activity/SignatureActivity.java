@@ -15,13 +15,13 @@ public class SignatureActivity extends CommonActivity implements View.OnClickLis
 
     // ui
     private SignaturePad pad;
-    // data
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signature);
-
+        setUpBackToolbar(R.id.toolbar, R.string.signature);
+        // ui reference
         pad = (SignaturePad) findViewById(R.id.pad_signature);
         findViewById(R.id.bt_signature_clear).setOnClickListener(this);
         findViewById(R.id.bt_signature_save).setOnClickListener(this);

@@ -40,7 +40,7 @@ public class ServiceChatActivity extends CommonActivity implements View.OnClickL
         iv_add_event = (ImageView) findViewById(R.id.iv_service_chat_add_event);
         viewPager = (ViewPager) findViewById(R.id.vp_service_chat);
         // initTitle
-        tv_title.setText(userName);
+        setUpBackToolbar(R.id.toolbar_service_chat, R.id.tv_service_chat_title, userName);
         // initImageView
         iv_add_event.setOnClickListener(this);
         iv_add_event.setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);

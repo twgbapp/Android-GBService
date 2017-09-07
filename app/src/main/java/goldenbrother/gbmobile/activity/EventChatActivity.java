@@ -37,7 +37,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class EventChatActivity extends CommonActivity implements View.OnClickListener {
-    private static EventChatActivity instance;
     // ui
     private TextView tv_title;
     private RecyclerView rv;
@@ -47,15 +46,11 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
     private EventModel event;
     private ArrayList<EventChatModel> list_event_chat;
 
-    public static EventChatActivity getInstance() {
-        return instance;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_chat);
-        instance = this;
+        setUpBackToolbar(R.id.toolbar_event_chat, R.id.tv_event_chat_title, "");
         // ui reference
         tv_title = (TextView) findViewById(R.id.tv_event_chat_title);
         rv = (RecyclerView) findViewById(R.id.rv_event_chat);
@@ -333,12 +328,11 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
+    public void onClick(View v) {
+        hideKeyBoard(v);
+        switch (v.getId()) {
             case R.id.tv_event_chat_send:
                 if (!isSending) {
-                    EnvironmentHelper.hideKeyBoard(this, view);
                     addEventChat(et_content.getText().toString());
                 } else {
                     t(R.string.sending);
@@ -353,19 +347,5 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
                 addEventChat(Constant.RATING);
                 break;
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (instance == null)
-            instance = this;
-    }
-
-    @Override
-    protected void onPause() {
-        if (instance != null)
-            instance = null;
-        super.onPause();
     }
 }

@@ -3,56 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
+    android:background="@color/main_background2"
     android:orientation="vertical">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_service"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_service"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <TextView
-                android:id="@+id/tv_mobile_service_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/mobile_service"
-                android:textColor="#FFF"
-                android:textSize="24sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/tv_mobile_service_search"
-                android:layout_width="@dimen/imageview_toolbar_width"
-                android:layout_height="@dimen/imageview_toolbar_width"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/imageview_toolbar_margin"
-                android:src="@drawable/ic_search"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/tv_mobile_service_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/mobile_service"
+                    android:textColor="#FFF"
+                    android:textSize="24sp" />
 
-            <ImageView
-                android:id="@+id/tv_mobile_service_close"
-                android:layout_width="@dimen/imageview_toolbar_width"
-                android:layout_height="@dimen/imageview_toolbar_width"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/imageview_toolbar_margin"
-                android:src="@drawable/ic_close"
-                android:visibility="gone" />
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/tv_mobile_service_search"
+                    android:layout_width="@dimen/imageview_toolbar_width"
+                    android:layout_height="@dimen/imageview_toolbar_width"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/imageview_toolbar_margin"
+                    android:src="@drawable/ic_search"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/tv_mobile_service_close"
+                    android:layout_width="@dimen/imageview_toolbar_width"
+                    android:layout_height="@dimen/imageview_toolbar_width"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/imageview_toolbar_margin"
+                    android:src="@drawable/ic_close"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_service"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
 </LinearLayout>

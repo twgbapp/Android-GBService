@@ -57,7 +57,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_record);
-
+        setUpBackToolbar(R.id.toolbar, R.string.discussion_add_discussion);
         // ui reference
         tv_department = (TextView) findViewById(R.id.tv_discussion_record_department);
         tv_name = (TextView) findViewById(R.id.tv_discussion_record_name);

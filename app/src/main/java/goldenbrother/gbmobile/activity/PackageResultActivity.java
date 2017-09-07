@@ -52,7 +52,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_result);
-
+        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_package);
         // ui reference
         tv_name = (TextView) findViewById(R.id.tv_package_result_name);
         tv_arrive_date = (TextView) findViewById(R.id.tv_package_result_arrive_date);

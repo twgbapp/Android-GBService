@@ -68,7 +68,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_record);
-
+        setUpBackToolbar(R.id.toolbar, R.string.medical_add_medical);
         // ui reference
         tv_name = (TextView) findViewById(R.id.tv_medical_record_name);
         tv_blood_type = (TextView) findViewById(R.id.tv_medical_record_blood_type);
