@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -43,6 +44,7 @@ import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Discussion;
@@ -134,6 +136,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         rv_drawer.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<DrawerItem> list = new ArrayList<>();
         RoleInfo r = RoleInfo.getInstance();
+        //Version
+        TextView textView = (TextView) findViewById(R.id.tv_main_version_name);
+        textView.setText(String.format("Version : %s", PackageHelper.getVersionName(this)));
         if (r.isLabor()) {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_quick_repair, DrawerItem.CHILD));

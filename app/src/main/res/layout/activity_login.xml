@@ -129,6 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="32dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
                         android:background="@color/main_light_blue"
                         android:paddingBottom="10dp"
                         android:paddingLeft="40dp"

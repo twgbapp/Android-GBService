@@ -23,9 +23,6 @@ public class SplashActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //Version
-        TextView textView = (TextView) findViewById(R.id.tv_splash_version_name);
-        textView.setText(String.format("Version : %s", PackageHelper.getVersionName(this)));
         // ani
         Message msg = new Message();
         msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? LOG_OUT : LOG_IN;

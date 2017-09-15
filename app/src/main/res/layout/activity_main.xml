@@ -19,10 +19,36 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_main_navigation"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#656A79" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_main_navigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:background="#656A79" />
+
+                <TextView
+                    android:text="Ver."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textSize="20sp"
+                    android:textColor="#FFF"
+                    android:background="#656A79"
+                    android:id="@+id/tv_main_version_name" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
     </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>
