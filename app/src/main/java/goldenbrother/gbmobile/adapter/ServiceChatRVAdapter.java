@@ -1,15 +1,14 @@
 package goldenbrother.gbmobile.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,18 +19,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.activity.AddClubPostActivity;
-import goldenbrother.gbmobile.activity.AddClubPostMessageActivity;
-import goldenbrother.gbmobile.activity.ClubPostActivity;
-import goldenbrother.gbmobile.activity.ClubPostMediaActivity;
 import goldenbrother.gbmobile.helper.Constant;
 import goldenbrother.gbmobile.helper.QRCodeHelper;
 import goldenbrother.gbmobile.helper.TimeHelper;
-import goldenbrother.gbmobile.helper.ToastHelper;
-import goldenbrother.gbmobile.model.ClubModel;
-import goldenbrother.gbmobile.model.ClubPostMediaModel;
-import goldenbrother.gbmobile.model.ClubPostMessageModel;
-import goldenbrother.gbmobile.model.ClubPostModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 
@@ -86,11 +76,34 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
             if (picturePath != null && !picturePath.isEmpty()) {
                 Picasso.with(getContext()).load(picturePath).into(h.picture);
             }
+            h.picture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    displayPopupWindow(v, item);
+                }
+            });
             setContent(item, h.date, h.content, h.qrCode);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
             setContent(item, h.date, h.content, h.qrCode);
         }
+    }
+
+    private void displayPopupWindow(View anchorView, ServiceChatModel item) {
+        PopupWindow popup = new PopupWindow(getContext());
+        View v = getInflater().inflate(R.layout.dialog_pop_window, null);
+        TextView tv = (TextView) v.findViewById(R.id.tv_dialog_pop_window_name);
+        tv.setText(item.getUserName());
+        popup.setContentView(v);
+        // Set content width and height
+        popup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        popup.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        // Closes the popup window when touch outside of it - when looses focus
+        popup.setOutsideTouchable(true);
+        popup.setFocusable(true);
+        // Show anchored to button
+        popup.setBackgroundDrawable(new BitmapDrawable());
+        popup.showAsDropDown(anchorView);
     }
 
     private void setContent(ServiceChatModel item, TextView date, final TextView content, ImageView qrCode) {

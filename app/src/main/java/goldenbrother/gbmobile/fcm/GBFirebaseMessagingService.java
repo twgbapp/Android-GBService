@@ -32,31 +32,19 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final int NOTIFICATION_ID = 88;
 
-    // FCM From
-    public static final String TYPE_GROUP = "group";
-    public static final String TYPE_EVENT = "event";
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
-
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         LogHelper.d("From: " + remoteMessage.getFrom());
 
-        // Check if message contains a data payload.
         Map<String, String> map = remoteMessage.getData();
         if (map.size() > 0) {
             LogHelper.d("Message data payload: " + map);
         }
 
-        // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             LogHelper.d("Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
         String userID = map.get("userID");
         String message = map.get("message");
         String type = map.get("type");
@@ -65,17 +53,13 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
         if (message.equals(Constant.RATING)) {
             msg = getString(R.string.rating_request);
         } else if (message.contains(Constant.QR_MESSAGE)) {
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("Hello ");
-//            sb.append(RoleInfo.getInstance().getUserName());
-//            sb.append(" , you have a package , Please claim your package at the reception.");
             msg = getString(R.string.package_request);
         }
-        SendNotification(getApplicationContext(), msg);
+        sendNotification(getApplicationContext(), msg + "(" + type + ")");
     }
 
 
-    public static void SendNotification(Context context, String message) {
+    public static void sendNotification(Context context, String message) {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
