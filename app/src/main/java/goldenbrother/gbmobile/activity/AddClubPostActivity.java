@@ -56,7 +56,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
     private ArrayList<ClubPostMediaModel> list_media;
     // take picture
     private Uri uriTakePicture;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
