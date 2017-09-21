@@ -282,4 +282,6 @@
     <string name="confirm_delete">Are you sure to delete?</string>
     <string name="empty">Empty</string>
     <string name="main_version">Version</string>
+    <string name="page_start">page start</string>
+    <string name="page_end">page end</string>
 </resources>

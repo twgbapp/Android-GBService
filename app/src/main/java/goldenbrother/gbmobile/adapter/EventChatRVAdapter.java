@@ -75,7 +75,8 @@ public class EventChatRVAdapter extends SampleRVAdapter {
             if (picturePath != null && !picturePath.isEmpty()) {
                 Picasso.with(getContext()).load(picturePath).into(h.picture);
             }
-            setContent(item, h.date, h.content, h.rating);
+            //setContent(item, h.date, h.content, h.rating);
+            setContent(item, h.date, h.content, h.rating, h.title);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
             setContent(item, h.date, h.content, h.rating);
@@ -85,6 +86,33 @@ public class EventChatRVAdapter extends SampleRVAdapter {
     private void setContent(EventChatModel item, TextView date,final TextView content, View rating) {
         date.setText(TimeHelper.getTodayTime(item.getChatDate(), am, pm));
         content.setText(item.getContent());
+        if (item.getContent().contains(Constant.RATING)) {
+            rating.setVisibility(View.VISIBLE);
+            content.setVisibility(View.GONE);
+        } else {
+            rating.setVisibility(View.GONE);
+            content.setVisibility(View.VISIBLE);
+        }
+        rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EventChatActivity) getContext()).showRatingDialog();
+            }
+        });
+        content.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                copyToClipboard(content.getText().toString());
+                Toast.makeText(getContext(), R.string.copy_to_clipboard, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+    }
+
+    private void setContent(EventChatModel item, TextView date,final TextView content, View rating ,TextView title) {
+        date.setText(TimeHelper.getTodayTime(item.getChatDate(), am, pm));
+        content.setText(item.getContent());
+        title.setText(item.getWriterName());
         if (item.getContent().contains(Constant.RATING)) {
             rating.setVisibility(View.VISIBLE);
             content.setVisibility(View.GONE);
@@ -128,6 +156,7 @@ public class EventChatRVAdapter extends SampleRVAdapter {
         TextView date;
         TextView content;
         View rating;
+        TextView title;
 
         OtherViewHolder(View v) {
             super(v);
@@ -135,6 +164,7 @@ public class EventChatRVAdapter extends SampleRVAdapter {
             date = (TextView) v.findViewById(R.id.tv_item_rv_event_chat_other_date);
             content = (TextView) v.findViewById(R.id.tv_item_rv_event_chat_other_content);
             rating = v.findViewById(R.id.iv_item_rv_event_chat_other_rating);
+            title =(TextView) v.findViewById(R.id.tv_item_rv_event_chat_other_title);
         }
     }
 

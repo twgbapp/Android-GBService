@@ -16,6 +16,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
@@ -82,7 +84,8 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
                     displayPopupWindow(v, item);
                 }
             });
-            setContent(item, h.date, h.content, h.qrCode);
+//            setContent(item, h.date, h.content, h.qrCode);
+            setContent(item, h.date, h.content, h.qrCode, h.title);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
             setContent(item, h.date, h.content, h.qrCode);
@@ -134,6 +137,35 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
         });
     }
 
+    private void setContent(ServiceChatModel item, TextView date, final TextView content, ImageView qrCode, TextView title) {
+        date.setText(TimeHelper.getTodayTime(item.getChatDate(), am, pm));
+        content.setText(item.getContent());
+        title.setText(item.getUserName());
+        if (item.getContent().contains(Constant.QR)) {
+            try {
+                qrCode.setVisibility(View.VISIBLE);
+                content.setVisibility(View.GONE);
+                String code = item.getContent().substring(Constant.QR.length(), 13);
+                int w = (int) (getResources().getDisplayMetrics().density * 200);
+                Bitmap bmp = QRCodeHelper.encodeAsBitmap(code, BarcodeFormat.QR_CODE, w, w);
+                qrCode.setImageBitmap(bmp);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        } else {
+            qrCode.setVisibility(View.GONE);
+            content.setVisibility(View.VISIBLE);
+        }
+        content.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                copyToClipboard(content.getText().toString());
+                Toast.makeText(getContext(), R.string.copy_to_clipboard, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+    }
+
     private boolean copyToClipboard(String text) {
         Context context = getContext();
         try {
@@ -154,6 +186,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
         TextView date;
         TextView content;
         ImageView qrCode;
+        TextView title;
 
         OtherViewHolder(View v) {
             super(v);
@@ -161,6 +194,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
             date = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_date);
             content = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_content);
             qrCode = (ImageView) v.findViewById(R.id.iv_item_rv_service_chat_other_qr_code);
+            title =(TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_title);
         }
     }
 

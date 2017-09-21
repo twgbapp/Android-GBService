@@ -2,11 +2,21 @@ package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -30,6 +40,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
     private String[] nation_name;
     private String[] nation_code;
     private HashMap<String, String> userData;
+    private  Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
