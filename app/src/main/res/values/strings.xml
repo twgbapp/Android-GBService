@@ -68,13 +68,13 @@
     <string name="login_account">@string/account</string>
     <string name="login_password">@string/password</string>
     <string name="login_forgot_password">Forget your pass word?</string>
-    <string name="login_login">Log in</string>
+    <string name="login_login">Login</string>
     <string name="login_sign_up">@string/sign_up</string>
     <string name="login_error_account_or_password_not_exist">Invalid account or password</string>
-    <string name="login_error_fcm">Log in failed(FCM)</string>
+    <string name="login_error_fcm">Login failed(FCM)</string>
 
     <!-- SignUp -->
-    <string name="sign_up_create_account">Add a new account</string>
+    <string name="sign_up_create_account">Create Account</string>
     <string name="sign_up_account">@string/account</string>
     <string name="sign_up_password">@string/password</string>
     <string name="sign_up_confirm_password">Confirm password</string>
@@ -119,7 +119,7 @@
     <string name="main_drawer_announcement">Announcement</string>
     <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">Log out</string>
-    <string name="main_drawer_online_setting">Log in setting</string>
+    <string name="main_drawer_online_setting">Login setting</string>
     <string name="main_drawer_package">Package</string>
     <string name="main_drawer_chart">Repairing Chart</string>
     <string name="main_drawer_repair_record">@string/repair_record</string>

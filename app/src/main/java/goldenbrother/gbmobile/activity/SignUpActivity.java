@@ -138,6 +138,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
             return;
         }
 
+
         // check password
         if (!confirm_password.equals(password)) {
             t(R.string.error_confirm_password);
@@ -191,6 +192,20 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                         finish();
                     } else {
                         t(R.string.fail);
+                        //toast = Toast.makeText(getApplicationContext(), R.string.fail, Toast.LENGTH_LONG);
+                        //toast.setGravity(Gravity.CENTER, 0, 0);
+                        //toast.show();
+
+                        /*LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.custom_toast,
+                                (ViewGroup) findViewById(R.id.custom_toast_container));
+                        TextView text = (TextView) layout.findViewById(R.id.text);
+                        text.setText(R.string.fail);
+                        Toast toast = new Toast(getApplicationContext());
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();*/
                     }
                     break;
             }
