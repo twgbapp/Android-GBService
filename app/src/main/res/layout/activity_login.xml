@@ -54,12 +54,12 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="32dp"
-                        android:layout_marginTop="32dp"
-                        android:src="@drawable/logo_login" />
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/logo_splash" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -69,9 +69,26 @@
                         android:background="@color/main_edit_background"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:orientation="horizontal">
 
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/et_login_account"
+                            android:hint="@string/login_account"
+                            android:textColorHint="#FFF"
+                            app:met_hideUnderline="true"
+                            app:met_helperText="@string/can_not_be_empty"
+                            app:met_clearButton= "true"
+                            app:met_iconLeft="@drawable/ic_account"
+                            app:met_iconPadding="0dp"
+                            app:met_singleLineEllipsis="true"
+                            app:met_floatingLabel="highlight"
+                            app:met_baseColor="#FFF"
+                            app:met_primaryColor="#FFF"
+                            app:met_errorColor="#ddaa00"
+                            android:textSize="20sp"/>
+                        <!--
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
@@ -91,6 +108,8 @@
                             android:textColor="#FFF"
                             android:textColorHint="#FFF"
                             android:textSize="20sp" />
+                            -->
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -100,9 +119,27 @@
                         android:layout_marginRight="32dp"
                         android:layout_marginTop="16dp"
                         android:background="@color/main_edit_background"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
+                        android:orientation="horizontal">
 
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/et_login_password"
+                            android:hint="@string/login_password"
+                            android:textColorHint="#FFF"
+                            android:inputType="textPassword"
+                            app:met_hideUnderline="true"
+                            app:met_helperText="@string/can_not_be_empty"
+                            app:met_clearButton= "true"
+                            app:met_iconLeft="@drawable/ic_password"
+                            app:met_iconPadding="0dp"
+                            app:met_singleLineEllipsis="true"
+                            app:met_floatingLabel="highlight"
+                            app:met_baseColor="#FFF"
+                            app:met_primaryColor="#FFF"
+                            app:met_errorColor="#ddaa00"
+                            android:textSize="20sp"/>
+                        <!--
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
@@ -120,7 +157,8 @@
                             android:maxLines="1"
                             android:textColor="#FFF"
                             android:textColorHint="#FFF"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"/>
+                            -->
                     </LinearLayout>
 
                     <TextView
@@ -129,6 +167,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="32dp"
                         android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
                         android:background="@color/main_light_blue"
                         android:paddingBottom="10dp"
                         android:paddingLeft="40dp"

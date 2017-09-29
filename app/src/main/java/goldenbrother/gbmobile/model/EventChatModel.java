@@ -68,4 +68,5 @@ public class EventChatModel {
     public void setChatDate(String chatDate) {
         ChatDate = chatDate;
     }
+
 }

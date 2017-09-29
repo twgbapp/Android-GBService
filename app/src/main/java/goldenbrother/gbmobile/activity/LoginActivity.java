@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
+import com.rengwuxian.materialedittext.validation.RegexpValidator;
+
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EncryptHelper;
@@ -40,6 +43,8 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         setContentView(R.layout.activity_login);
         // ui reference
         et_account = (EditText) findViewById(R.id.et_login_account);
+        //MaterialEditText et_account = (MaterialEditText) findViewById(R.id.et_login_account);
+        //et_account.addValidator(new RegexpValidator("Only Integer Valid!", "\\d+"));
         et_password = (EditText) findViewById(R.id.et_login_password);
         // listener
         findViewById(R.id.iv_login_change_language).setOnClickListener(this);
@@ -50,8 +55,17 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     private void doLogin() {
         String account = et_account.getText().toString();
         String password = et_password.getText().toString();
-        if (account.isEmpty() || password.isEmpty()) {
+        /*if (account.isEmpty() || password.isEmpty()) {
             t(R.string.can_not_be_empty);
+            return;
+        }*/
+        if (account.isEmpty()) {
+            et_account.setError("");
+            return;
+        }
+
+        if (password.isEmpty()) {
+            et_password.setError("");
             return;
         }
 

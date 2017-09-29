@@ -1,5 +1,7 @@
 package goldenbrother.gbmobile.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -41,7 +43,15 @@ public class WebViewActivity extends CommonActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
+//            view.loadUrl(url);
+//            return true;
+            if(url.startsWith("mailto:")){
+                Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse(url));
+                startActivity(i);
+            }
+            else{
+                view.loadUrl(url);
+            }
             return true;
         }
 

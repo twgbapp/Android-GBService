@@ -40,7 +40,13 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_repair);
-        setUpBackToolbar(R.id.toolbar, R.string.quick_repair);
+        // extra
+        isSupport = getIntent().getExtras().getBoolean("support", false);
+        if(isSupport){
+            setUpBackToolbar(R.id.toolbar, R.string.support);
+        }else{
+            setUpBackToolbar(R.id.toolbar, R.string.quick_repair);
+        }
         // ui reference
         et_applicant = (EditText) findViewById(R.id.et_quick_repair_applicant);
         et_title = (EditText) findViewById(R.id.et_quick_repair_title);
@@ -50,8 +56,6 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         tv_type = (TextView) findViewById(R.id.tv_quick_repair_type);
         tv_item = (TextView) findViewById(R.id.tv_quick_repair_item);
         tv_send = (TextView) findViewById(R.id.tv_quick_repair_send);
-        // extra
-        isSupport = getIntent().getExtras().getBoolean("support", false);
         // listener
         tv_area.setOnClickListener(this);
         tv_type.setOnClickListener(this);

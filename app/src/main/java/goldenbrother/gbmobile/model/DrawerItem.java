@@ -1,5 +1,7 @@
 package goldenbrother.gbmobile.model;
 
+import android.widget.TextView;
+
 /**
  * Created by haojun on 2017/7/12.
  */

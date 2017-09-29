@@ -7,15 +7,15 @@
     <!-- Common -->
     <string name="account">帳號</string>
     <string name="password">密碼</string>
-    <string name="id_number">居留證號</string>
+    <string name="id_number">居留證號碼</string>
     <string name="check">檢查</string>
-    <string name="name">名稱</string>
+    <string name="name">名字</string>
     <string name="sex">性別</string>
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="birthday">生日</string>
-    <string name="email">信箱</string>
-    <string name="phone">電話</string>
+    <string name="email">電子郵件</string>
+    <string name="phone">手機</string>
     <string name="sign_up">註冊</string>
     <string name="confirm">確認</string>
     <string name="cancel">取消</string>
@@ -26,7 +26,7 @@
     <string name="sending">訊息傳送中</string>
     <string name="select">請選擇</string>
     <string name="permission_denied">權限不足</string>
-    <string name="error_confirm_password">確認密碼不符</string>
+    <string name="error_confirm_password">can_not_be_empty</string>
     <string name="press_again_to_exit">再按一次返回鍵離開</string>
     <string name="event_list">服務清單</string>
     <string name="quick_repair">快速報修</string>
@@ -49,14 +49,14 @@
     <string name="login_password">@string/password</string>
     <string name="login_login">登入</string>
     <string name="login_sign_up">@string/sign_up</string>
-    <string name="login_error_account_or_password_not_exist">帳號或密碼不存在</string>
+    <string name="login_error_account_or_password_not_exist">帳號或密碼錯誤</string>
     <string name="login_error_fcm">登入失敗(FCM)</string>
 
     <!-- SignUp -->
     <string name="sign_up_create_account">新增帳號</string>
     <string name="sign_up_account">@string/account</string>
     <string name="sign_up_password">@string/password</string>
-    <string name="sign_up_confirm_password">確認密碼</string>
+    <string name="sign_up_confirm_password">密碼確認</string>
     <string name="sign_up_nation">國籍</string>
     <string name="sign_up_id_number">@string/id_number</string>
     <string name="sign_up_check">@string/check</string>
@@ -93,10 +93,10 @@
     <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">登出</string>
     <string name="main_drawer_online_setting">上線設定</string>
-    <string name="main_drawer_package">包裹</string>
+    <string name="main_drawer_package">包裹管理</string>
     <string name="main_drawer_chart">報修圖表</string>
     <string name="main_drawer_repair_record">@string/repair_record</string>
-    <string name="main_drawer_medical">醫療</string>
+    <string name="main_drawer_medical">醫療服務</string>
     <string name="main_welcome">歡迎</string>
 
     <!-- Profile -->
@@ -224,7 +224,7 @@
     <string name="staff">人員</string>
     <string name="edit">編輯</string>
     <string name="thailand">泰國</string>
-    <string name="chat">聊天</string>
+    <string name="chat">意見反應</string>
     <string name="room_id">房號</string>
     <string name="language">語言</string>
     <string name="language_alert">語言切換時,系統將會重新開啟</string>
@@ -241,11 +241,11 @@
     <string name="discussion_add_discussion">新增訪談</string>
     <string name="discussion_profile">基本資料</string>
     <string name="send">送出</string>
-    <string name="support">需求問題支援</string>
+    <string name="support">需求支援</string>
     <string name="start_date">起始日</string>
     <string name="manager_center">區管中心</string>
     <string name="customer">客戶</string>
-    <string name="discussion">訪談</string>
+    <string name="discussion">訪談列表</string>
     <string name="workerNo">工號</string>
     <string name="reason">原因</string>
     <string name="place">地點</string>
@@ -257,4 +257,6 @@
     <string name="signature">簽名</string>
     <string name="end_date">中止日</string>
     <string name="department">部門</string>
+    <string name="main_version">版本</string>
+    <string name="member_login">員工登入</string>
 </resources>

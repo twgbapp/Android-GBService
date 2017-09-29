@@ -47,13 +47,20 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
 
         String userID = map.get("userID");
         String message = map.get("message");
-        String type = map.get("type");
+        String type = map.get("type"); // group/event
+        // notify
         FCMNotice.getInstance().notifyOnMessageReceived(message);
+        // filter message
         String msg = message;
         if (message.equals(Constant.RATING)) {
             msg = getString(R.string.rating_request);
         } else if (message.contains(Constant.QR_MESSAGE)) {
             msg = getString(R.string.package_request);
+        }
+        if (type.equals("group")){
+            type = getString(R.string.main_drawer_chat);
+        }else if(type.equals("event")){
+            type = getString(R.string.main_drawer_event_list);
         }
         sendNotification(getApplicationContext(), msg + "(" + type + ")");
     }
