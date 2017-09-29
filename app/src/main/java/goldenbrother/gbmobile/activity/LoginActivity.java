@@ -2,28 +2,19 @@ package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Handler;
-import android.os.Message;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.rengwuxian.materialedittext.validation.RegexpValidator;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
-import goldenbrother.gbmobile.helper.UtilHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
@@ -109,7 +100,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             JSONObject j = new JSONObject();
             j.put("action", "registerGCMID");
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("registerID", SPHelper.getInstance(this).getGCMID());
+            j.put("registerID", SPHelper.getFcmToken(this));
             j.put("status", 1);
             j.put("logStatus", true);
             new RegisterGCMID(this, j, URLHelper.HOST).execute();
@@ -133,7 +124,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         // save user info
-                        SPHelper.getInstance(LoginActivity.this).setUserInfo(RoleInfo.getInstance().getJSONObject());
+                        SPHelper.setUser(LoginActivity.this, RoleInfo.getInstance().getJSONObject());
                         // open main screen
                         openActivity(MainActivity.class);
                         finish();

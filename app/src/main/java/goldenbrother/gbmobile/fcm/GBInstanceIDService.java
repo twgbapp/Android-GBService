@@ -1,15 +1,9 @@
 package goldenbrother.gbmobile.fcm;
 
-import android.util.Log;
-
 import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-
-/**
- * Created by asus on 2016/12/10.
- */
 
 public class GBInstanceIDService extends FirebaseInstanceIdService {
 
@@ -21,6 +15,6 @@ public class GBInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void save(String token) {
-        SPHelper.getInstance(getApplicationContext()).setGCMID(token);
+        SPHelper.setFcmToken(getApplicationContext(), token);
     }
 }

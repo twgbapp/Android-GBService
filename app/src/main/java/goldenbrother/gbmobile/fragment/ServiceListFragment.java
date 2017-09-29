@@ -22,6 +22,8 @@ import goldenbrother.gbmobile.adapter.ServiceGroupRVAdapter;
 import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.PackageHelper;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -139,6 +141,9 @@ public class ServiceListFragment extends CommonFragment {
         intent.putExtra("userName", item.getUserName());
         activity.startActivityForResult(intent, MobileServiceActivity.REQUEST_SERVICE_CHAT);
         // set read
+        int chatUnReadCount = SPHelper.getChatUnReadCount(activity) - item.getChatCount();
+        SPHelper.setChatUnReadCount(activity, chatUnReadCount);
+        PackageHelper.setBadge(activity, SPHelper.getUnReadCount(activity));
         item.setChatCount(0);
         updateAdapter();
     }
@@ -155,13 +160,17 @@ public class ServiceListFragment extends CommonFragment {
     }
 
     private void countRead() {
+        int unreadCount = 0;
         DAOServiceChat daoGroupChat = new DAOServiceChat(activity);
         for (ServiceChatModel gc : list_service_chat) {
             int chatCount = daoGroupChat.getCount(gc.getServiceGroupID());
             if (gc.getChatCount() != 0) {
+                unreadCount += gc.getChatCount() - chatCount;
                 gc.setChatCount(gc.getChatCount() - chatCount);
             }
         }
+        SPHelper.setChatUnReadCount(activity, unreadCount);
+        PackageHelper.setBadge(activity, SPHelper.getUnReadCount(activity));
     }
 
     private void updateAdapter() {

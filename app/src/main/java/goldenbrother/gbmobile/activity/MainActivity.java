@@ -75,7 +75,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     private Uri uriTakePicture;
     // ui
     private RecyclerView rv_drawer;
-    private ImageView iv_banner,iv_picture;
+    private ImageView iv_banner, iv_picture;
     // banner
     private Handler handler;
     private ArrayList<Integer> list_banner;
@@ -237,6 +237,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(AnnouncementListActivity.class, b);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
             clearDB();
+            SPHelper.clearUser(this);
+            SPHelper.clearUnReadCount(this);
+            PackageHelper.setBadge(this, SPHelper.getUnReadCount(this));
             FileHelper.deletePicturesDirAllFile(this);
             b.putBoolean("isLogout", true);
             openActivity(SplashActivity.class, b);
@@ -310,21 +313,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             allowShowing = true;
             handler.post(r);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        startShowAdvertising();
-    }
-
-    @Override
-    public void onPause() {
-        stopShowAdvertising();
-        if (handler != null)
-            handler.removeCallbacks(r);
-        super.onPause();
-        unregisterManagers();//for Hockey(APP Update)
     }
 
     private void showMobileServiceDialog() {
@@ -505,7 +493,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                         // set picture
                         RoleInfo.getInstance().setUserPicture(path);
                         // save user info
-                        SPHelper.getInstance(MainActivity.this).setUserInfo(RoleInfo.getInstance().getJSONObject());
+                        SPHelper.setUser(MainActivity.this, RoleInfo.getInstance().getJSONObject());
                         t(R.string.success);
                         // get role instances
                         RoleInfo r = RoleInfo.getInstance();
@@ -569,10 +557,22 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         ad = alertWithView(v, null, null);
     }
 
-    public void openProfileActivity() {
-        //closeDrawer();
-        openActivityForResult(ProfileActivity.class, REQUEST_PROFILE);
-        //showChangePasswordDialog();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startShowAdvertising();
+        if (RoleInfo.getInstance().getUserID() == null) {
+
+        }
+    }
+
+    @Override
+    public void onPause() {
+        stopShowAdvertising();
+        if (handler != null)
+            handler.removeCallbacks(r);
+        unregisterManagers();//for Hockey(APP Update)
+        super.onPause();
     }
 
     @Override

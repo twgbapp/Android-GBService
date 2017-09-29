@@ -35,7 +35,7 @@ public class SplashActivity extends CommonActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case LOG_IN:
-                    String info = SPHelper.getInstance(SplashActivity.this).getUserInfo();
+                    String info = SPHelper.getUser(SplashActivity.this);
                     if (!info.isEmpty()) { // auto login
                         try {
                             JSONObject j = new JSONObject(info);
@@ -51,7 +51,7 @@ public class SplashActivity extends CommonActivity {
                         } catch (JSONException e) { // occur exception
                             e.printStackTrace();
                             // clear user info
-                            SPHelper.getInstance(SplashActivity.this).clearUserInfo();
+                            SPHelper.clearUser(SplashActivity.this);
                             // open Login
                             openActivity(LoginActivity.class);
                             finish();
@@ -63,8 +63,6 @@ public class SplashActivity extends CommonActivity {
                     }
                     break;
                 case LOG_OUT: // log out
-                    // clear user info
-                    SPHelper.getInstance(SplashActivity.this).clearUserInfo();
                     // open Login
                     openActivity(LoginActivity.class);
                     finish();

@@ -28,7 +28,10 @@ import goldenbrother.gbmobile.adapter.EventListAdapter;
 import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.PackageHelper;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
+import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.EventModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOEvent;
@@ -46,7 +49,7 @@ import java.util.Comparator;
  * Created by asus on 2016/10/3.
  */
 
-public class EventListFragment extends Fragment implements View.OnClickListener {
+public class EventListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     // activity
     private MobileServiceActivity activity;
     public static EventListFragment f;
@@ -119,19 +122,7 @@ public class EventListFragment extends Fragment implements View.OnClickListener 
         list_event = new ArrayList<>();
         list_event_show = new ArrayList<>();
         lv_event.setAdapter(new EventListAdapter(activity, list_event_show));
-        lv_event.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // open
-                Intent intent = new Intent();
-                intent.setClass(activity, EventChatActivity.class);
-                intent.putExtra("serviceEventID", list_event_show.get(position).getServiceEventID());
-                startActivity(intent);
-                // set read
-                list_event_show.get(position).setChatCount(0);
-                updateAdapter();
-            }
-        });
+        lv_event.setOnItemClickListener(this);
         lv_event.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -226,6 +217,22 @@ public class EventListFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        EventModel item = list_event_show.get(position);
+        // open
+        Intent intent = new Intent();
+        intent.setClass(activity, EventChatActivity.class);
+        intent.putExtra("serviceEventID", list_event_show.get(position).getServiceEventID());
+        startActivity(intent);
+        // set read
+        int eventUnReadCount = SPHelper.getEventUnReadCount(activity) - item.getChatCount();
+        SPHelper.setEventUnReadCount(activity, eventUnReadCount);
+        PackageHelper.setBadge(activity, SPHelper.getUnReadCount(activity));
+        item.setChatCount(0);
+        updateAdapter();
+    }
+
     private class LoadCloudEventList extends IAsyncTask {
 
         private int serviceGroupID = 0;
@@ -282,13 +289,17 @@ public class EventListFragment extends Fragment implements View.OnClickListener 
     }
 
     private void countRead() {
+        int unreadCount = 0;
         DAOEventChat daoEventChat = new DAOEventChat(activity);
         for (EventModel em : list_event) {
             int chatCount = daoEventChat.getCount(em.getServiceEventID());
             if (em.getChatCount() != 0) {
+                unreadCount += em.getChatCount() - chatCount;
                 em.setChatCount(em.getChatCount() - chatCount);
             }
         }
+        SPHelper.setEventUnReadCount(activity, unreadCount);
+        PackageHelper.setBadge(activity, SPHelper.getUnReadCount(activity));
     }
 
     public void showSearchDialog() {
@@ -324,10 +335,7 @@ public class EventListFragment extends Fragment implements View.OnClickListener 
     }
 
     private void updateAdapter() {
-        EventListAdapter adapter = (EventListAdapter) lv_event.getAdapter();
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
+        ((EventListAdapter) lv_event.getAdapter()).notifyDataSetChanged();
     }
 
     public void clearSearchFilter() {

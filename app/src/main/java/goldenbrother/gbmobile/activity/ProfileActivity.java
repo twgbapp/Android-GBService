@@ -165,7 +165,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
                         // set picture
                         RoleInfo.getInstance().setUserPicture(path);
                         // save user info
-                        SPHelper.getInstance(ProfileActivity.this).setUserInfo(RoleInfo.getInstance().getJSONObject());
+                        SPHelper.setUser(ProfileActivity.this, RoleInfo.getInstance().getJSONObject());
                         t(R.string.success);
                         // get role instances
                         RoleInfo r = RoleInfo.getInstance();
