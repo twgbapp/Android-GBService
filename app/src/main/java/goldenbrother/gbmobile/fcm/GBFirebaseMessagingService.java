@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.EventChatActivity;
+import goldenbrother.gbmobile.activity.MainActivity;
 import goldenbrother.gbmobile.activity.MobileServiceActivity;
 import goldenbrother.gbmobile.fragment.EventListFragment;
 import goldenbrother.gbmobile.fragment.ServiceFragment;
@@ -30,6 +33,9 @@ import java.util.Map;
 
 public class GBFirebaseMessagingService extends FirebaseMessagingService {
 
+    // type
+    public static final String GROUP = "group";
+    public static final String EVENT = "event";
     public static final int NOTIFICATION_ID = 88;
 
     @Override
@@ -47,7 +53,7 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
 
         String userID = map.get("userID");
         String message = map.get("message");
-        String type = map.get("type"); // group/event
+        String type = map.get("type"); // group~event
         // notify
         FCMNotice.getInstance().notifyOnMessageReceived(message);
         // filter message
@@ -57,48 +63,45 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
         } else if (message.contains(Constant.QR_MESSAGE)) {
             msg = getString(R.string.package_request);
         }
-        if (type.equals("group")){
-            type = getString(R.string.main_drawer_chat);
-        }else if(type.equals("event")){
-            type = getString(R.string.main_drawer_event_list);
+        if (type.equals(GROUP)) {
+            msg += "(" + getString(R.string.main_drawer_chat) + ")";
+        } else if (type.equals(EVENT)) {
+            msg += "(" + getString(R.string.main_drawer_event_list) + ")";
         }
-        sendNotification(getApplicationContext(), msg + "(" + type + ")");
+        sendNotification(getApplicationContext(), type, msg);
     }
 
+    public static void sendNotification(Context context, String type, String message) {
+        // open MainActivity params
+        Bundle b = new Bundle();
+        b.putBoolean("openMobileActivity", true);
+        b.putString("type", type);
 
-    public static void sendNotification(Context context, String message) {
-        NotificationManager notificationManager = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        //Intent to be launched on notification click
-        Intent intent = new Intent(context, MobileServiceActivity.class);
-//
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //Intent intent = context.getPackageManager().getLaunchIntentForPackage("goldenbrother.gbmobile");
-
-        int requestID = (int) System.currentTimeMillis();
-        PendingIntent contentIntent = PendingIntent.getActivity(context, requestID,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context);
-
-        String contentTitle = context.getString(R.string.app_name);
-        String ticker = context.getString(R.string.app_name);
-        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
-        mBuilder.setContentTitle(contentTitle)          // title
+        // intent
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context,
+                (int) System.currentTimeMillis(),
+                new Intent(context, MainActivity.class)
+                        .putExtras(b),
+                PendingIntent.FLAG_ONE_SHOT
+        );
+        
+        // notification builder
+        Notification notification = new NotificationCompat.Builder(context)
+                .setContentTitle( context.getString(R.string.app_name))          // title
                 .setContentText(message)                // text
-                .setTicker(ticker)                      // the thicker is the message that appears on the status bar when the notification first appears
-                .setColor(context.getResources().getColor(R.color.colorPrimary))
+                .setTicker(context.getString(R.string.app_name))                      // the thicker is the message that appears on the status bar when the notification first appears
+                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_notification_small)
-                .setLargeIcon(bmp)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.logo))
                 .setDefaults(Notification.DEFAULT_ALL)  // use defaults for various notification settings
-                //.setContentIntent(contentIntent)        // intent used on click
+                .setContentIntent(pendingIntent)        // intent used on click
                 .setAutoCancel(true)                    // if you want the notification to be dismissed when clicked
-                .setOnlyAlertOnce(true); // don't play any sound or flash light if since we're updating
+                .setOnlyAlertOnce(true)
+                .build(); // don't play any sound or flash light if since we're updating
 
-
-        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        // send
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID, notification);
     }
 }

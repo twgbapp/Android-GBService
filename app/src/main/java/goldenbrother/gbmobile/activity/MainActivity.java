@@ -38,6 +38,7 @@ import org.json.JSONObject;
 import de.hdodenhof.circleimageview.CircleImageView;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
+import goldenbrother.gbmobile.fcm.GBFirebaseMessagingService;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.EncryptHelper;
@@ -96,12 +97,30 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         findViewById(R.id.cv_main_life_information).setOnClickListener(this);
         findViewById(R.id.cv_main_e_commerce).setOnClickListener(this);
         findViewById(R.id.cv_main_satisfaction_survey).setOnClickListener(this);
+
         // init Toolbar
         initToolbar();
+
         // init Drawer
         initDrawer();
+
         // initBanner
         initBanner();
+
+        //
+        isOriginFromNotification();
+    }
+
+    private void isOriginFromNotification() {
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            boolean openMobileActivity = b.getBoolean("openMobileActivity", false);
+            String type = b.getString("type");
+            if (openMobileActivity && type != null) {
+                b.putInt("position", type.equals(GBFirebaseMessagingService.GROUP) ? 0 : 1);
+                openActivity(MobileServiceActivity.class, b);
+            }
+        }
     }
 
     private void checkForUpdates() {
