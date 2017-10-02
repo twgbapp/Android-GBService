@@ -9,9 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "golfforgaming.db";
+    public static final String DATABASE_NAME = "gb.db";
 
-    public static final int VERSION = 2;
+    public static final int VERSION = 5;
 
     private static SQLiteDatabase database;
 

@@ -12,6 +12,9 @@ public class EventChatModel {
     private String WriterPicture;
     private String Content;
     private String ChatDate;
+    private String workerNo;
+    private String customerNo;
+
 
     public int getSECNo() {
         return SECNo;
@@ -69,4 +72,19 @@ public class EventChatModel {
         ChatDate = chatDate;
     }
 
+    public String getWorkerNo() {
+        return workerNo;
+    }
+
+    public void setWorkerNo(String workerNo) {
+        this.workerNo = workerNo;
+    }
+
+    public String getCustomerNo() {
+        return customerNo;
+    }
+
+    public void setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
+    }
 }

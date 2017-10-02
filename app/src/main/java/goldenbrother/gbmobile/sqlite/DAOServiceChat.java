@@ -25,6 +25,8 @@ public class DAOServiceChat {
     private static final String COL_WriterPicture = "WriterPicture";
     private static final String COL_Content = "Content";
     private static final String COL_ChatDate = "ChatDate";
+    private static final String COL_WorkerNo = "WorkerNo";
+    private static final String COL_CustomerNo = "CustomerNo";
 
     public static String createTable() {
         StringBuilder sb = new StringBuilder();
@@ -35,7 +37,9 @@ public class DAOServiceChat {
         sb.append(COL_WriterName + " TEXT NOT NULL, ");
         sb.append(COL_WriterPicture + " TEXT NOT NULL, ");
         sb.append(COL_Content + " TEXT NOT NULL, ");
-        sb.append(COL_ChatDate + " TEXT NOT NULL) ");
+        sb.append(COL_ChatDate + " TEXT NOT NULL, ");
+        sb.append(COL_WorkerNo + " TEXT NOT NULL, ");
+        sb.append(COL_CustomerNo + " TEXT NOT NULL) ");
         return sb.toString();
     }
 
@@ -57,6 +61,8 @@ public class DAOServiceChat {
         cv.put(COL_WriterPicture, gc.getUserPicture());
         cv.put(COL_Content, gc.getContent());
         cv.put(COL_ChatDate, gc.getChatDate());
+        cv.put(COL_WorkerNo, gc.getWorkerNo());
+        cv.put(COL_CustomerNo, gc.getCustomerNo());
         return db.insert(TABLENAME, null, cv) > 0;
     }
 
@@ -69,6 +75,8 @@ public class DAOServiceChat {
         cv.put(COL_WriterPicture, gc.getUserPicture());
         cv.put(COL_Content, gc.getContent());
         cv.put(COL_ChatDate, gc.getChatDate());
+        cv.put(COL_WorkerNo, gc.getWorkerNo());
+        cv.put(COL_CustomerNo, gc.getCustomerNo());
 
         String where = COL_SGCNo + "=" + gc.getSGCNo();
 
@@ -121,6 +129,8 @@ public class DAOServiceChat {
         result.setUserPicture(cursor.getString(4));
         result.setContent(cursor.getString(5));
         result.setChatDate(cursor.getString(6));
+        result.setWorkerNo(cursor.getString(7));
+        result.setCustomerNo(cursor.getString(8));
         return result;
     }
 

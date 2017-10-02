@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.Constant;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.QRCodeHelper;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -76,20 +78,43 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
             final OtherViewHolder h = (OtherViewHolder) holder;
             String picturePath = item.getUserPicture();
             if (picturePath != null && !picturePath.isEmpty()) {
-                Picasso.with(getContext()).load(picturePath).into(h.picture);
+                Picasso.with(getContext())
+                        .load(picturePath)
+                        .into(h.picture);
             }
             h.picture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    displayPopupWindow(v, item);
+                    showProfile(item);
                 }
             });
-//            setContent(item, h.date, h.content, h.qrCode);
             setContent(item, h.date, h.content, h.qrCode, h.title);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
             setContent(item, h.date, h.content, h.qrCode);
         }
+    }
+
+    private void showProfile(ServiceChatModel item) {
+        View v = getInflater().inflate(R.layout.dialog_profile, null);
+        ImageView iv_picture = (ImageView) v.findViewById(R.id.iv_dialog_profile_picture);
+        TextView tv_name = (TextView) v.findViewById(R.id.tv_dialog_profile_name);
+        TextView tv_worker_no = (TextView) v.findViewById(R.id.tv_dialog_profile_worker_no);
+        TextView tv_customer_no = (TextView) v.findViewById(R.id.tv_dialog_profile_customer_no);
+
+        String picturePath = item.getUserPicture();
+        if (picturePath != null && !picturePath.isEmpty()) {
+            Picasso.with(getContext())
+                    .load(picturePath)
+                    .into(iv_picture);
+        }
+        tv_name.setText(item.getUserName());
+        tv_worker_no.setText(item.getWorkerNo());
+        tv_customer_no.setText(item.getCustomerNo());
+
+        new AlertDialog.Builder(getContext())
+                .setView(v)
+                .show();
     }
 
     private void displayPopupWindow(View anchorView, ServiceChatModel item) {
@@ -194,7 +219,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
             date = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_date);
             content = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_content);
             qrCode = (ImageView) v.findViewById(R.id.iv_item_rv_service_chat_other_qr_code);
-            title =(TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_title);
+            title = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_title);
         }
     }
 

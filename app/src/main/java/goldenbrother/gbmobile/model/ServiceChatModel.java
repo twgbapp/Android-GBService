@@ -11,6 +11,7 @@ public class ServiceChatModel{
     private String chatDate;
     private int chatCount;
     private String staffID;
+    private String customerNo;
 
     public int getSGCNo() {
         return SGCNo;
@@ -90,5 +91,13 @@ public class ServiceChatModel{
 
     public void setStaffID(String staffID) {
         this.staffID = staffID;
+    }
+
+    public String getCustomerNo() {
+        return customerNo;
+    }
+
+    public void setCustomerNo(String customerNo) {
+        this.customerNo = customerNo;
     }
 }

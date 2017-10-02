@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
@@ -75,12 +76,39 @@ public class EventChatRVAdapter extends SampleRVAdapter {
             if (picturePath != null && !picturePath.isEmpty()) {
                 Picasso.with(getContext()).load(picturePath).into(h.picture);
             }
-            //setContent(item, h.date, h.content, h.rating);
+            h.picture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showProfile(item);
+                }
+            });
             setContent(item, h.date, h.content, h.rating, h.title);
         } else if (holder instanceof SelfViewHolder) {
             SelfViewHolder h = (SelfViewHolder) holder;
             setContent(item, h.date, h.content, h.rating);
         }
+    }
+
+    private void showProfile(EventChatModel item) {
+        View v = getInflater().inflate(R.layout.dialog_profile, null);
+        ImageView iv_picture = (ImageView) v.findViewById(R.id.iv_dialog_profile_picture);
+        TextView tv_name = (TextView) v.findViewById(R.id.tv_dialog_profile_name);
+        TextView tv_worker_no = (TextView) v.findViewById(R.id.tv_dialog_profile_worker_no);
+        TextView tv_customer_no = (TextView) v.findViewById(R.id.tv_dialog_profile_customer_no);
+
+        String picturePath = item.getWriterPicture();
+        if (picturePath != null && !picturePath.isEmpty()) {
+            Picasso.with(getContext())
+                    .load(picturePath)
+                    .into(iv_picture);
+        }
+        tv_name.setText(item.getWriterName());
+        tv_worker_no.setText(item.getWorkerNo());
+        tv_customer_no.setText(item.getCustomerNo());
+
+        new AlertDialog.Builder(getContext())
+                .setView(v)
+                .show();
     }
 
     private void setContent(EventChatModel item, TextView date,final TextView content, View rating) {

@@ -25,6 +25,8 @@ public class DAOEventChat {
     private static final String COL_WriterPicture = "WriterPicture";
     private static final String COL_Content = "Content";
     private static final String COL_ChatDate = "ChatDate";
+    private static final String COL_WorkerNo = "WorkerNo";
+    private static final String COL_CustomerNo = "CustomerNo";
 
     public static String createTable() {
         StringBuilder sb = new StringBuilder();
@@ -35,7 +37,9 @@ public class DAOEventChat {
         sb.append(COL_WriterName + " TEXT NOT NULL, ");
         sb.append(COL_WriterPicture + " TEXT NOT NULL, ");
         sb.append(COL_Content + " TEXT NOT NULL, ");
-        sb.append(COL_ChatDate + " TEXT NOT NULL) ");
+        sb.append(COL_ChatDate + " TEXT NOT NULL, ");
+        sb.append(COL_WorkerNo + " TEXT NOT NULL, ");
+        sb.append(COL_CustomerNo + " TEXT NOT NULL) ");
         return sb.toString();
     }
 
@@ -45,33 +49,37 @@ public class DAOEventChat {
         db = SQLiteManager.getDatabase(context);
     }
 
-    public boolean insert(EventChatModel ec) {
-        if (getBySECNo(ec.getSECNo()) != null) {
+    public boolean insert(EventChatModel item) {
+        if (getBySECNo(item.getSECNo()) != null) {
             return false;
         }
 
         ContentValues cv = new ContentValues();
-        cv.put(COL_SECNo, ec.getSECNo());
-        cv.put(COL_ServiceEventID, ec.getServiceEventID());
-        cv.put(COL_WriterID, ec.getWriterID());
-        cv.put(COL_WriterName, ec.getWriterName());
-        cv.put(COL_WriterPicture, ec.getWriterPicture());
-        cv.put(COL_Content, ec.getContent());
-        cv.put(COL_ChatDate, ec.getChatDate());
+        cv.put(COL_SECNo, item.getSECNo());
+        cv.put(COL_ServiceEventID, item.getServiceEventID());
+        cv.put(COL_WriterID, item.getWriterID());
+        cv.put(COL_WriterName, item.getWriterName());
+        cv.put(COL_WriterPicture, item.getWriterPicture());
+        cv.put(COL_Content, item.getContent());
+        cv.put(COL_ChatDate, item.getChatDate());
+        cv.put(COL_WorkerNo, item.getWorkerNo());
+        cv.put(COL_CustomerNo, item.getCustomerNo());
         return db.insert(TABLENAME, null, cv) > 0;
     }
 
-    public boolean update(EventChatModel gc) {
+    public boolean update(EventChatModel item) {
         ContentValues cv = new ContentValues();
-        cv.put(COL_SECNo, gc.getSECNo());
-        cv.put(COL_ServiceEventID, gc.getServiceEventID());
-        cv.put(COL_WriterID, gc.getWriterID());
-        cv.put(COL_WriterName, gc.getWriterName());
-        cv.put(COL_WriterPicture, gc.getWriterPicture());
-        cv.put(COL_Content, gc.getContent());
-        cv.put(COL_ChatDate, gc.getChatDate());
+        cv.put(COL_SECNo, item.getSECNo());
+        cv.put(COL_ServiceEventID, item.getServiceEventID());
+        cv.put(COL_WriterID, item.getWriterID());
+        cv.put(COL_WriterName, item.getWriterName());
+        cv.put(COL_WriterPicture, item.getWriterPicture());
+        cv.put(COL_Content, item.getContent());
+        cv.put(COL_ChatDate, item.getChatDate());
+        cv.put(COL_WorkerNo, item.getWorkerNo());
+        cv.put(COL_CustomerNo, item.getCustomerNo());
 
-        String where = COL_SECNo + "=" + gc.getSECNo();
+        String where = COL_SECNo + "=" + item.getSECNo();
 
         return db.update(TABLENAME, cv, where, null) > 0;
     }
@@ -120,6 +128,8 @@ public class DAOEventChat {
         result.setWriterPicture(cursor.getString(4));
         result.setContent(cursor.getString(5));
         result.setChatDate(cursor.getString(6));
+        result.setWorkerNo(cursor.getString(7));
+        result.setCustomerNo(cursor.getString(8));
         return result;
     }
 

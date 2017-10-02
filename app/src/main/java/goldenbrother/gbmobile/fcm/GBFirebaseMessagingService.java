@@ -85,7 +85,7 @@ public class GBFirebaseMessagingService extends FirebaseMessagingService {
                         .putExtras(b),
                 PendingIntent.FLAG_ONE_SHOT
         );
-        
+
         // notification builder
         Notification notification = new NotificationCompat.Builder(context)
                 .setContentTitle( context.getString(R.string.app_name))          // title

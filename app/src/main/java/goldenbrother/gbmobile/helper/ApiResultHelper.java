@@ -87,6 +87,14 @@ public class ApiResultHelper {
         }
     }
 
+    public static String tryGetString(JSONObject j, String key) {
+        try {
+            return j.getString(key);
+        } catch (JSONException e) {
+            return "";
+        }
+    }
+
     public static int commonCreate(String response) {
         try {
             return new JSONObject(response).getInt("success");
@@ -147,13 +155,7 @@ public class ApiResultHelper {
                     m.setUserID(ji.getString("userID"));
                     m.setUserName(ji.getString("userName"));
                     m.setUserIDNumber(ji.getString("userIDNumber"));
-                    String pic = "";
-                    try {
-                        pic = ji.getString("userPicture");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    m.setUserPicture(pic);
+                    m.setUserPicture(tryGetString(ji, "userPicture"));
                     m.setUserSex(ji.getString("userSex"));
                     m.setUserPhone(ji.getString("userPhone"));
                     m.setUserEmail(ji.getString("userEmail"));
@@ -184,12 +186,9 @@ public class ApiResultHelper {
                     g.setServiceGroupID(o.getInt("serviceGroupID"));
                     g.setUserID(o.getString("userID"));
                     g.setUserName(o.getString("userName"));
-                    g.setUserPicture("");
-                    try {
-                        g.setUserPicture(o.getString("userPicture"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    g.setUserPicture(tryGetString(o, "userPicture"));
+                    g.setWorkerNo(tryGetString(o, "workerNo"));
+                    g.setCustomerNo(tryGetString(o, "customerNo"));
                     g.setContent(o.getString("content"));
                     g.setChatDate(o.getString("chatDate"));
                     list.add(g);
@@ -214,18 +213,12 @@ public class ApiResultHelper {
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
                     EventModel em = new EventModel();
-                    String pic = "";
-                    try {
-                        pic = o.getString("userPicture");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    em.setUserPicture(pic);
                     em.setServiceEventID(o.getInt("serviceEventID"));
                     em.setEventScore(o.getInt("eventScore"));
                     em.setChatCount(o.getInt("chatCount"));
                     em.setEventDescription(o.getString("eventDescription"));
                     em.setUserName(o.getString("userName"));
+                    em.setUserPicture(tryGetString(o, "userPicture"));
                     em.setWorkerNo(o.getString("workerNo"));
                     em.setUserID(o.getString("userID"));
                     em.setRoleID(0);
@@ -256,15 +249,11 @@ public class ApiResultHelper {
                     g.setServiceEventID(o.getInt("serviceEventID"));
                     g.setWriterID(o.getString("userID"));
                     g.setWriterName(o.getString("userName"));
-                    String pic = "";
-                    try {
-                        pic = o.getString("userPicture");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    g.setWriterPicture(pic);
+                    g.setWriterPicture(tryGetString(o, "userPicture"));
                     g.setContent(o.getString("content"));
                     g.setChatDate(o.getString("chatDate"));
+                    g.setWorkerNo(tryGetString(o, "workerNo"));
+                    g.setCustomerNo(tryGetString(o, "customerNo"));
                     list.add(g);
                 }
                 list_origin.clear();
