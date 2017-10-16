@@ -46,6 +46,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         findViewById(R.id.iv_medical_list_search).setOnClickListener(this);
         findViewById(R.id.iv_medical_list_add).setOnClickListener(this);
         rv = (RecyclerView) findViewById(R.id.rv_medical_list);
+        //test
 
         // init RecyclerView
         list_medical = new ArrayList<>();
