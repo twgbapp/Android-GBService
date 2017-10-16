@@ -32,6 +32,7 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
     public void setSelected(ArrayList<MedicalSymptomModel> list) {
         set.clear();
         set.addAll(list);
+        notifyDataSetChanged();
     }
 
     public HashSet<MedicalSymptomModel> getSelected() {

@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalTreatmentCodeRVAdapter;
@@ -116,20 +117,20 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
     }
 
     private void initSelected() {
-        ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).setSelected(medical.getSymptom());
-        updateAdapter();
-        for (MedicalSymptomModel ms : medical.getSymptom()) {
+        // safety remove
+        Iterator<MedicalSymptomModel> iterator = medical.getSymptom().iterator();
+        while (iterator.hasNext()) {
+            MedicalSymptomModel ms = iterator.next();
             if (ms.getCode().equals("425")) {
                 et_other.setText(ms.getValue());
                 otherChecked = true;
                 updateOther();
+                iterator.remove();
                 break;
             }
         }
-    }
-
-    private void updateAdapter() {
-        rv.getAdapter().notifyDataSetChanged();
+        // update
+        ((MedicalTreatmentCodeRVAdapter) rv.getAdapter()).setSelected(medical.getSymptom());
     }
 
     private void updateOther() {
@@ -152,6 +153,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                     m.setValue(other.isEmpty() ? "null" : other);
                     lists.add(m);
                 }
+                LogHelper.d(lists.size() + "");
                 medical.getSymptom().clear();
                 medical.getSymptom().addAll(lists);
                 Intent intent = new Intent();
