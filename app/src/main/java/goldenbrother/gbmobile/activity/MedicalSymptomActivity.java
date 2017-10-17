@@ -146,11 +146,15 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                 ArrayList<MedicalSymptomModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
-                if (otherChecked || !et_other.getText().toString().isEmpty()) {
+                if (otherChecked && et_other.getText().toString().isEmpty()){
+                    t("其它欄位未填寫");
+                    return;
+                }
+                if (!et_other.getText().toString().isEmpty()) {
                     String other = et_other.getText().toString();
                     MedicalSymptomModel m = new MedicalSymptomModel();
                     m.setCode("425");
-                    m.setValue(other.isEmpty() ? "null" : other);
+                    m.setValue(other.isEmpty() ? "" : other);
                     lists.add(m);
                 }
                 LogHelper.d(lists.size() + "");
