@@ -16,22 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/main_background2"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:popupTheme="@style/AppTheme.PopupOverlay"            >
 
-            <RelativeLayout
+            <!-- android:gravity="center"-->
+            <TextView
+                android:id="@+id/tv_main_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_main_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/app_name"
-                    android:textColor="#FFF"
-                    android:textSize="24sp" />
-
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/app_name"
+                android:textColor="#FFF"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -71,6 +67,8 @@
                     android:layout_marginTop="16dp"
                     android:src="@drawable/ic_mobile_service_big" />
 
+                <!-- android:text="@string/mobile_service" -->
+                <!-- android:text="@string/content_main_mobile_service" -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,7 +76,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:minLines="2"
-                    android:text="@string/mobile_service"
+                    android:text="@string/content_main_mobile_service"
                     android:textColor="#FFF"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -108,6 +106,8 @@
                     android:layout_marginTop="16dp"
                     android:src="@drawable/ic_life_information_big" />
 
+                <!--android:text="@string/main_drawer_life_information"-->
+                <!--android:text="@string/content_main_life_information" -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:minLines="2"
-                    android:text="@string/main_drawer_life_information"
+                    android:text="@string/content_main_life_information"
                     android:textColor="#FFF"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -152,6 +152,8 @@
                     android:layout_marginTop="16dp"
                     android:src="@drawable/ic_e_commerce_big" />
 
+                <!--android:text="@string/main_drawer_e_commerce" -->
+                <!--android:text="@string/content_main_e_commerce" -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -159,7 +161,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:minLines="2"
-                    android:text="@string/main_drawer_e_commerce"
+                    android:text="@string/content_main_e_commerce"
                     android:textColor="#FFF"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -189,6 +191,8 @@
                     android:layout_marginTop="16dp"
                     android:src="@drawable/ic_satisfaction_survey_big" />
 
+                <!--android:text="@string/main_drawer_satisfaction_survey" -->
+                <!--android:text="@string/content_main_satisfaction_survey" -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -196,7 +200,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:minLines="2"
-                    android:text="@string/main_drawer_satisfaction_survey"
+                    android:text="@string/content_main_satisfaction_survey"
                     android:textColor="#FFF"
                     android:textSize="14sp" />
             </LinearLayout>

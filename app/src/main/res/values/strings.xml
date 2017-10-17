@@ -284,4 +284,8 @@
     <string name="main_version">Version</string>
     <string name="page_start">page start</string>
     <string name="page_end">page end</string>
+    <string name="content_main_e_commerce">Shopping\n生活易購網</string>
+    <string name="content_main_life_information">Lifestyle\n資訊推播</string>
+    <string name="content_main_mobile_service">Service\n行動服務台</string>
+    <string name="content_main_satisfaction_survey">Satisfaction Survey\n使用度評分</string>
 </resources>
