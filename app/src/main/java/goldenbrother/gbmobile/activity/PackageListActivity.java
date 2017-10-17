@@ -58,6 +58,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         list_package = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PackageListRVAdapter(this, list_package));
+        loadPackageList("","",true);
     }
 
     private void showSearchDialog() {
@@ -95,14 +96,14 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
                     ToastHelper.t(PackageListActivity.this, "Can't be empty");
                     return;
                 }
-                loadPackageList(keyword, "");
+                loadPackageList(keyword, "", true);
             }
         });
         b.setNegativeButton("CANCEL", null);
         b.show();
     }
 
-    private void loadPackageList(String description, String pickNumber) {
+    private void loadPackageList(String description, String pickNumber, boolean byDescription) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getPackageList");
@@ -110,7 +111,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
             j.put("pickNumber", pickNumber);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadPackageList(this, j, URLHelper.HOST, !description.isEmpty()).execute();
+            new LoadPackageList(this, j, URLHelper.HOST, description.isEmpty()).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -194,7 +195,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
                         return;
                     }
 
-                    loadPackageList("", text);
+                    loadPackageList("", text, false);
                     break;
             }
         }
