@@ -231,4 +231,8 @@
     <string name="file_upload">Upload lampiran</string>
     <string name="service_record">Catatan Pelayanan Administrasi</string>
     <string name="signature">Tanda tangan</string>
+    <string name="content_main_e_commerce">Shopping\njaringan belanja Internet</string>
+    <string name="content_main_life_information">Lifestyle\nInformasi sponsor</string>
+    <string name="content_main_mobile_service">Service\npelayanan service</string>
+    <string name="content_main_satisfaction_survey">Satisfaction Survey\nAngket pertanyaan</string>
 </resources>

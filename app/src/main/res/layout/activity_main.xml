@@ -35,15 +35,29 @@
                     android:nestedScrollingEnabled="false"
                     android:background="#656A79" />
 
-                <TextView
-                    android:text="Ver."
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:textSize="20sp"
-                    android:textColor="#FFF"
-                    android:background="#656A79"
-                    android:id="@+id/tv_main_version_name" />
+                    android:background="@color/main_edit_background"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/ic_version" />
+                    <TextView
+                        android:id="@+id/tv_main_version_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:background="#656A79"
+                        android:gravity="left"
+                        android:layout_marginLeft="15dp"
+                        android:text="Ver."
+                        android:textColor="#FFF"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
             </LinearLayout>
 

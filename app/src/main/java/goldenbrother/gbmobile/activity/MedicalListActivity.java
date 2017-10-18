@@ -53,7 +53,13 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         rv.setAdapter(new MedicalListRVAdapter(this, list_medical));
 
         // getMedicalList
-        getMedicalFlaborList(TimeHelper.getYMD(), TimeHelper.getYMD());
+        //getMedicalFlaborList(TimeHelper.getYMD(), TimeHelper.getYMD());
+        //查詢三個月內紀錄
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -3);
+        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        getMedicalFlaborList(format.format(calendar.getTime()),TimeHelper.getYMD());
+
     }
 
     private void getMedicalFlaborList(String startRecordDate, String endRecordDate) {
@@ -88,6 +94,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
                     } else {
                         list_medical.clear();
                         updateAdapter();
+                        //test3
                     }
                     break;
             }
