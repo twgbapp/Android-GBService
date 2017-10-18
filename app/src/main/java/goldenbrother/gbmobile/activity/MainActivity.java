@@ -157,12 +157,13 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         RoleInfo r = RoleInfo.getInstance();
         //Version
         TextView textView = (TextView) findViewById(R.id.tv_main_version_name);
-        textView.setText(String.format("Version : %s", PackageHelper.getVersionName(this)));
+        textView.setText(String.format("Version %s", PackageHelper.getVersionName(this)));
         if (r.isLabor()) {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_quick_repair, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chat, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.support, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chat, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
@@ -175,12 +176,13 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         } else {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_event_list, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chat, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_online_setting, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
+            //list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_medical, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.discussion, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.discussion, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
@@ -335,13 +337,12 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void showMobileServiceDialog() {
-        String[] items_flabor = {getString(R.string.main_drawer_chat),
-                getString(R.string.main_drawer_quick_repair), getString(R.string.support), getString(R.string.main_drawer_event_list)};
-        String[] items_manager = {getString(R.string.main_drawer_chat),
-                getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_online_setting),
-                getString(R.string.main_drawer_chart), getString(R.string.main_drawer_repair_record),
-                getString(R.string.main_drawer_medical), getString(R.string.discussion),
-                getString(R.string.main_drawer_package)};
+        String[] items_flabor = {getString(R.string.main_drawer_quick_repair), getString(R.string.support), getString(R.string.main_drawer_event_list),getString(R.string.main_drawer_chat)};
+        String[] items_manager = {getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_chat),
+                getString(R.string.main_drawer_online_setting),
+                //getString(R.string.main_drawer_chart),
+                getString(R.string.main_drawer_repair_record),
+                getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package),getString(R.string.discussion)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {
             @Override

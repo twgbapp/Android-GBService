@@ -30,7 +30,7 @@
     <string name="press_again_to_exit">再按一次返回鍵離開</string>
     <string name="event_list">服務清單</string>
     <string name="quick_repair">快速報修</string>
-    <string name="repair_record">報修紀錄</string>
+    <string name="repair_record">待辦事項</string>
     <!-- Server -->
     <string name="server_error">伺服器沒有回應</string>
     <string name="no_network">沒有偵測到網路</string>
@@ -92,11 +92,11 @@
     <string name="main_drawer_announcement">公告</string>
     <string name="main_drawer_club">@string/club</string>
     <string name="main_drawer_logout">登出</string>
-    <string name="main_drawer_online_setting">上線設定</string>
+    <string name="main_drawer_online_setting">在線設定</string>
     <string name="main_drawer_package">包裹管理</string>
     <string name="main_drawer_chart">報修圖表</string>
     <string name="main_drawer_repair_record">@string/repair_record</string>
-    <string name="main_drawer_medical">醫療服務</string>
+    <string name="main_drawer_medical">醫療紀錄</string>
     <string name="main_welcome">歡迎</string>
 
     <!-- Profile -->
