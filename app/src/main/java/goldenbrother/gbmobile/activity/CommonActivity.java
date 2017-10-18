@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.CommonItemListAdapter;
+import goldenbrother.gbmobile.exception.ExceptionHandler;
 
 
 public class CommonActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class CommonActivity extends AppCompatActivity {
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
     }
 
     protected void setUpBackToolbar(int viewId, int strId) {

@@ -213,7 +213,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/edittext_signup"
                     android:ems="10"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textColor="#FFF" />
 
                 <ImageView
                     android:id="@+id/iv_medical_process_status_5"

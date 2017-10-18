@@ -17,24 +17,34 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activity.PermissionActivity">
+        android:theme="@style/AppTheme"
+        android:name=".exception.MyApplication">
+        <activity
+            android:name=".activity.PermissionActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.MobileServiceActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.SignUpActivity" />
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EventChatActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
         <provider
@@ -47,36 +57,96 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".activity.AddEventUserActivity" />
-        <activity android:name=".activity.ServiceChatActivity" />
-        <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.OnLineSettingActivity" />
-        <activity android:name=".activity.QuickRepairActivity" />
-        <activity android:name=".activity.SatisfactionIssueActivity" />
-        <activity android:name=".activity.AddEventActivity" />
-        <activity android:name=".activity.ClubListActivity" />
-        <activity android:name=".activity.ClubPostActivity" />
-        <activity android:name=".activity.AddClubPostActivity" />
-        <activity android:name=".activity.AddClubPostMessageActivity" />
-        <activity android:name=".activity.ClubPostMediaActivity" />
-        <activity android:name=".activity.AnnouncementListActivity" />
-        <activity android:name=".activity.AnnouncementContentActivity" />
-        <activity android:name=".activity.PackageListActivity" />
-        <activity android:name=".activity.QRReaderActivity" />
-        <activity android:name=".activity.ChartActivity" />
-        <activity android:name=".activity.MedicalListActivity" />
-        <activity android:name=".activity.MedicalRecordActivity" />
-        <activity android:name=".activity.RepairRecordActivity" />
-        <activity android:name=".activity.RepairRecordContentActivity" />
-        <activity android:name=".activity.SatisfactionQuestionActivity" />
-        <activity android:name=".activity.MedicalSymptomActivity" />
-        <activity android:name=".activity.MedicalProcessStatusActivity" />
-        <activity android:name=".activity.MedicalTrackProcessActivity" />
-        <activity android:name=".activity.SignatureActivity" />
-        <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.PackageResultActivity" />
-        <activity android:name=".activity.CropActivity" />
-        <activity android:name=".activity.WebViewActivity" />
+        <activity
+            android:name=".activity.AddEventUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ServiceChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OnLineSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QuickRepairActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SatisfactionIssueActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ClubListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ClubPostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddClubPostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddClubPostMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ClubPostMediaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AnnouncementListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AnnouncementContentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PackageListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QRReaderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ChartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MedicalListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MedicalRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RepairRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RepairRecordContentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SatisfactionQuestionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MedicalSymptomActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MedicalProcessStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MedicalTrackProcessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SignatureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PackageResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CropActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -99,10 +169,18 @@
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".activity.DiscussionListActivity" />
-        <activity android:name=".activity.DiscussionRecordActivity" />
-        <activity android:name=".activity.DiscussionFlaborInfoActivity" />
-        <activity android:name=".activity.SearchActivity" />
+        <activity
+            android:name=".activity.DiscussionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DiscussionRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DiscussionFlaborInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

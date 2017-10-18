@@ -45,6 +45,7 @@ import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -337,12 +338,12 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void showMobileServiceDialog() {
-        String[] items_flabor = {getString(R.string.main_drawer_quick_repair), getString(R.string.support), getString(R.string.main_drawer_event_list),getString(R.string.main_drawer_chat)};
+        String[] items_flabor = {getString(R.string.main_drawer_quick_repair), getString(R.string.support), getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_chat)};
         String[] items_manager = {getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_online_setting),
                 //getString(R.string.main_drawer_chart),
                 getString(R.string.main_drawer_repair_record),
-                getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package),getString(R.string.discussion)};
+                getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package), getString(R.string.discussion)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {
             @Override
@@ -580,10 +581,12 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        startShowAdvertising();
         if (RoleInfo.getInstance().getUserID() == null) {
-
+            startActivity(new Intent(this, PermissionActivity.class).putExtra("crash", true));
+            finish();
+            return;
         }
+        startShowAdvertising();
     }
 
     @Override

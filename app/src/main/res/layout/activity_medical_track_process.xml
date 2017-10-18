@@ -34,7 +34,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_signup"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#FFF" />
 
             <CheckBox
                 android:id="@+id/cb_medical_track_process_1"
@@ -64,7 +65,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_signup"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#FFF" />
 
             <CheckBox
                 android:id="@+id/cb_medical_track_process_2"
@@ -94,7 +96,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/edittext_signup"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#FFF" />
 
             <CheckBox
                 android:id="@+id/cb_medical_track_process_3"

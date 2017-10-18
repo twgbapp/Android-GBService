@@ -938,6 +938,7 @@ public class ApiResultHelper {
                 medical.setDiagnosticCertificatePath(j.getString("diagnosticCertificate"));
                 medical.setCreateId(j.getString("createId"));
                 medical.setCreateTime(j.getString("createTime"));
+
                 // symptom
                 JSONArray arr_symptom = j.getJSONArray("medicalTreatmentRecordDetail");
                 medical.getSymptom().clear();
@@ -947,27 +948,24 @@ public class ApiResultHelper {
                     ms.setCode(o.getString("symptomsType") + o.getString("symptomsTypeItem"));
                     medical.getSymptom().add(ms);
                 }
+
                 // process status
                 JSONArray arr_process = j.getJSONArray("medicalProcessingRecord");
                 medical.getProcessingStatus().clear();
                 for (int i = 0; i < arr_process.length(); i++) {
                     JSONObject o = arr_process.getJSONObject(i);
                     MedicalProcessStatusModel mps = new MedicalProcessStatusModel();
-                    mps.setProcessingStatus(o.getInt("processingStatus"));
-                    mps.setProcessingStatusToHospitalID(o.getString("processingStatusToHospitalID"));
-                    mps.setProcessingStatusHospitalSNo(o.getString("processingStatusHospitalSNo"));
-                    mps.setProcessingStatusOtherMemo(o.getString("processingStatusOtherMemo"));
-                    mps.setProcessingStatusMedicalCertificate(o.getString("processingStatusMedicalCertificate"));
+                    mps.setData(String.format("%d/%s/%s/%s/%s", o.getInt("processingStatus"), o.getString("processingStatusToHospitalID"), o.getString("processingStatusHospitalSNo"), o.getString("processingStatusOtherMemo"), o.getString("processingStatusMedicalCertificate")));
                     medical.getProcessingStatus().add(mps);
                 }
+
                 // track process
                 JSONArray arr_track = j.getJSONArray("medicalTreatmentProcessingRecord");
                 medical.getTrackProcess().clear();
                 for (int i = 0; i < arr_track.length(); i++) {
                     JSONObject o = arr_track.getJSONObject(i);
                     MedicalTrackProcessModel mtp = new MedicalTrackProcessModel();
-                    mtp.setTreatmentStatus(o.getInt("treatmentStatus"));
-                    mtp.setTreatmentMemo(o.getString("treatmentMemo"));
+                    mtp.setData(String.format("%d/%s",o.getInt("treatmentStatus"),o.getString("treatmentMemo")));
                     medical.getTrackProcess().add(mtp);
                 }
             }

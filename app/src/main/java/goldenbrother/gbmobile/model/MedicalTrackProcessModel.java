@@ -8,8 +8,6 @@ import android.os.Parcelable;
  */
 
 public class MedicalTrackProcessModel implements Parcelable{
-    private int treatmentStatus;
-    private String treatmentMemo;
     private String name;
     private String data;
 
@@ -21,22 +19,6 @@ public class MedicalTrackProcessModel implements Parcelable{
     public MedicalTrackProcessModel(String name, String data) {
         this.name = name;
         this.data = data;
-    }
-
-    public int getTreatmentStatus() {
-        return treatmentStatus;
-    }
-
-    public void setTreatmentStatus(int treatmentStatus) {
-        this.treatmentStatus = treatmentStatus;
-    }
-
-    public String getTreatmentMemo() {
-        return treatmentMemo;
-    }
-
-    public void setTreatmentMemo(String treatmentMemo) {
-        this.treatmentMemo = treatmentMemo;
     }
 
     public String getName() {
@@ -56,8 +38,6 @@ public class MedicalTrackProcessModel implements Parcelable{
     }
 
     protected MedicalTrackProcessModel(Parcel in) {
-        treatmentStatus = in.readInt();
-        treatmentMemo = in.readString();
         name = in.readString();
         data = in.readString();
     }
@@ -81,8 +61,6 @@ public class MedicalTrackProcessModel implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(treatmentStatus);
-        parcel.writeString(treatmentMemo);
         parcel.writeString(name);
         parcel.writeString(data);
     }

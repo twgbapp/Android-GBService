@@ -69,6 +69,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_record);
         setUpBackToolbar(R.id.toolbar, R.string.medical_add_medical);
+        TextView tv = null;
+        tv.setText("");
         // ui reference
         tv_name = (TextView) findViewById(R.id.tv_medical_record_name);
         tv_blood_type = (TextView) findViewById(R.id.tv_medical_record_blood_type);
@@ -204,10 +206,55 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getMedicalRecord(response, medical);
                     if (result == ApiResultHelper.SUCCESS) {
+
+                        // ProcessStatus - init name
+                        String[] process_status = getResources().getStringArray(R.array.medical_process_status);
+                        for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
+                            int processingStatus = Integer.valueOf(m.getData().split("/")[0]);
+                            switch (processingStatus) {
+                                case 48:
+                                    m.setName(process_status[0]);
+                                    break;
+                                case 49:
+                                    m.setName(process_status[1]);
+                                    break;
+                                case 50:
+                                    m.setName(process_status[2]);
+                                    break;
+                                case 51:
+                                    m.setName(process_status[3]);
+                                    break;
+                                case 52:
+                                    m.setName(m.getData().split("/")[3]);
+                                    break;
+                            }
+                        }
+
+                        // TrackProcess - init name
+                        String[] track_process = getResources().getStringArray(R.array.medical_track_process);
+                        for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
+                            int treatmentStatus = Integer.valueOf(m.getData().split("/")[0]);
+                            switch (treatmentStatus) {
+                                case 48:
+                                    m.setName(track_process[0] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
+                                    break;
+                                case 49:
+                                    m.setName(track_process[1] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
+                                    break;
+                                case 50:
+                                    m.setName(track_process[2] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
+                                    break;
+                                case 51:
+                                    m.setName(track_process[3] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
+                                    break;
+                            }
+                        }
+
                         syncMedicalSymptom();
                         showPatientInfo();
                         showSymptom();
                         showProcessStatus();
+                        showTrackProcess();
                         showUploadFile();
                     } else {
                         t(R.string.fail);
@@ -329,6 +376,73 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     private class AddMedicalRecord extends IAsyncTask {
 
         AddMedicalRecord(Context context, JSONObject json, String url) {
+            super(context, json, url);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.FAIL:
+                    int result = ApiResultHelper.commonCreate(response);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        t(R.string.success);
+                        finish();
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void updateMedicalRecord() {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "updateMedicalRecord");
+            j.put("mtrsno", medical.getMtrsno());
+            j.put("bloodType", medical.getPatient().getBloodType());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("diagnosticCertificate", medical.getDiagnosticCertificatePath());
+            j.put("serviceRecord", medical.getServiceRecordPath());
+            j.put("medicalCertificate", medical.getMedicalCertificatePath());
+            j.put("signature", medical.getSignaturePath());
+
+            JSONArray arrTreatment = new JSONArray(); // 症狀
+            for (MedicalSymptomModel m : medical.getSymptom()) {
+                //arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
+                if (m.getCode().equals("425")) {
+                    arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/" + m.getValue());
+                } else {
+                    arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
+                }
+            }
+            j.put("medicalTreatmentRecordDetail", arrTreatment);
+
+            JSONArray arrProcessing = new JSONArray(); // 處理狀況
+            for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
+                arrProcessing.put(m.getData());
+            }
+            j.put("medicalProcessingRecord", arrProcessing);
+
+            JSONArray arrTrack = new JSONArray(); // 追蹤與處理
+            for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
+                arrTrack.put(m.getData());
+            }
+            j.put("medicalTreatmentProcessingRecord", arrTrack);
+
+            j.put("logStatus", true);
+
+            new UpdateMedicalRecord(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class UpdateMedicalRecord extends IAsyncTask {
+
+        UpdateMedicalRecord(Context context, JSONObject json, String url) {
             super(context, json, url);
         }
 
@@ -489,8 +603,10 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             case R.id.tv_medical_record_name:
             case R.id.tv_medical_record_room_id:
             case R.id.iv_medical_record_info: // 查詢外勞
-                b.putBoolean("isFLabor", true);
-                openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
+                if (medical.getMtrsno() == 0) {
+                    b.putBoolean("isFLabor", true);
+                    openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
+                }
                 break;
             case R.id.iv_medical_record_symptoms: // 症狀列表
                 b.putParcelable("medical", medical);
@@ -536,7 +652,11 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     t(R.string.can_not_get_symptom);
                     return;
                 }
-                addMedicalRecord();
+                if (medical.getMtrsno() != 0) { // update
+                    updateMedicalRecord();
+                } else { // add
+                    addMedicalRecord();
+                }
                 break;
         }
     }
