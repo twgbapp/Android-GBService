@@ -952,10 +952,10 @@ public class ApiResultHelper {
                 JSONArray arr_symptom = j.getJSONArray("medicalTreatmentRecordDetail");
                 medical.getSymptom().clear();
                 for (int i = 0; i < arr_symptom.length(); i++) {
+                    JSONObject o = arr_symptom.getJSONObject(i);
                     MedicalSymptomModel ms = new MedicalSymptomModel();
-                    String[] arr = arr_symptom.getString(i).split("/");
-                    ms.setCode(arr[0] + arr[1]);
-                    ms.setValue(arr[3]);
+                    ms.setCode(o.getString("symptomsType") + o.getString("symptomsTypeItem"));
+                    ms.setValue(o.getString("others"));
                     medical.getSymptom().add(ms);
                 }
 
@@ -963,13 +963,13 @@ public class ApiResultHelper {
                 JSONArray arr_process = j.getJSONArray("medicalProcessingRecord");
                 medical.getProcessingStatus().clear();
                 for (int i = 0; i < arr_process.length(); i++) {
-                    String[] arr = arr_process.getString(i).split("/");
+                    JSONObject o = arr_process.getJSONObject(i);
                     MedicalProcessStatusModel mps = new MedicalProcessStatusModel();
-                    mps.setProcessingStatus(Integer.valueOf(arr[0]));
-                    mps.setProcessingStatusHospitalSNo(arr[1]);
-                    mps.setProcessingStatusToHospitalID(arr[2]);
-                    mps.setProcessingStatusMedicalCertificate(arr[3]);
-                    mps.setProcessingStatusOtherMemo(arr[4]);
+                    mps.setProcessingStatus(o.getInt("processingStatus"));
+                    mps.setProcessingStatusHospitalSNo(o.getString("processingStatusHospitalSNo"));
+                    mps.setProcessingStatusToHospitalID(o.getString("processingStatusToHospitalID"));
+                    mps.setProcessingStatusMedicalCertificate(o.getString("processingStatusMedicalCertificate"));
+                    mps.setProcessingStatusOtherMemo(o.getString("processingStatusOtherMemo"));
                     medical.getProcessingStatus().add(mps);
                 }
 
@@ -977,10 +977,10 @@ public class ApiResultHelper {
                 JSONArray arr_track = j.getJSONArray("medicalTreatmentProcessingRecord");
                 medical.getTrackProcess().clear();
                 for (int i = 0; i < arr_track.length(); i++) {
-                    String[] arr = arr_track.getString(i).split("/");
+                    JSONObject o = arr_track.getJSONObject(i);
                     MedicalTrackProcessModel mtp = new MedicalTrackProcessModel();
-                    mtp.setTreatmentStatus(Integer.valueOf(arr[0]));
-                    mtp.setTreatmentMemo(arr[1]);
+                    mtp.setTreatmentStatus(o.getInt("treatmentStatus"));
+                    mtp.setTreatmentMemo(o.getString("treatmentMemo"));
                     medical.getTrackProcess().add(mtp);
                 }
             }
