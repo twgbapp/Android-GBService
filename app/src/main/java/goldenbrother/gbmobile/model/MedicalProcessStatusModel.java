@@ -8,42 +8,95 @@ import android.os.Parcelable;
  */
 
 public class MedicalProcessStatusModel implements Parcelable{
-//    private int processingStatus; // 48~52
-//    private String processingStatusHospitalSNo;
-//    private String processingStatusToHospitalID;
-//    private String processingStatusMedicalCertificate;
-//    private String processingStatusOtherMemo;
-    private String name;
-    private String data; // processingStatus/processingStatusHospitalSNo/processingStatusToHospitalID/processingStatusMedicalCertificate/processingStatusOtherMemo
+    private int processingStatus;
+    private String processingStatusHospitalSNo;
+    private String processingStatusToHospitalID;
+    private String processingStatusMedicalCertificate;
+    private String processingStatusOtherMemo;
+    //
+    private String content;
 
     public MedicalProcessStatusModel() {
 
     }
 
-    public MedicalProcessStatusModel(String name, String data) {
-        this.name = name;
-        this.data = data;
+    public MedicalProcessStatusModel(int processingStatus, String processingStatusHospitalSNo, String processingStatusToHospitalID, String processingStatusMedicalCertificate, String processingStatusOtherMemo, String content) {
+        this.processingStatus = processingStatus;
+        this.processingStatusHospitalSNo = processingStatusHospitalSNo;
+        this.processingStatusToHospitalID = processingStatusToHospitalID;
+        this.processingStatusMedicalCertificate = processingStatusMedicalCertificate;
+        this.processingStatusOtherMemo = processingStatusOtherMemo;
+        this.content = content;
     }
 
-    public String getName() {
-        return name;
+    public int getProcessingStatus() {
+        return processingStatus;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProcessingStatus(int processingStatus) {
+        this.processingStatus = processingStatus;
     }
 
-    public String getData() {
-        return data;
+    public String getProcessingStatusHospitalSNo() {
+        return processingStatusHospitalSNo;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setProcessingStatusHospitalSNo(String processingStatusHospitalSNo) {
+        this.processingStatusHospitalSNo = processingStatusHospitalSNo;
+    }
+
+    public String getProcessingStatusToHospitalID() {
+        return processingStatusToHospitalID;
+    }
+
+    public void setProcessingStatusToHospitalID(String processingStatusToHospitalID) {
+        this.processingStatusToHospitalID = processingStatusToHospitalID;
+    }
+
+    public String getProcessingStatusMedicalCertificate() {
+        return processingStatusMedicalCertificate;
+    }
+
+    public void setProcessingStatusMedicalCertificate(String processingStatusMedicalCertificate) {
+        this.processingStatusMedicalCertificate = processingStatusMedicalCertificate;
+    }
+
+    public String getProcessingStatusOtherMemo() {
+        return processingStatusOtherMemo;
+    }
+
+    public void setProcessingStatusOtherMemo(String processingStatusOtherMemo) {
+        this.processingStatusOtherMemo = processingStatusOtherMemo;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     protected MedicalProcessStatusModel(Parcel in) {
-        name = in.readString();
-        data = in.readString();
+        processingStatus = in.readInt();
+        processingStatusHospitalSNo = in.readString();
+        processingStatusToHospitalID = in.readString();
+        processingStatusMedicalCertificate = in.readString();
+        processingStatusOtherMemo = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(processingStatus);
+        dest.writeString(processingStatusHospitalSNo);
+        dest.writeString(processingStatusToHospitalID);
+        dest.writeString(processingStatusMedicalCertificate);
+        dest.writeString(processingStatusOtherMemo);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<MedicalProcessStatusModel> CREATOR = new Creator<MedicalProcessStatusModel>() {
@@ -57,15 +110,4 @@ public class MedicalProcessStatusModel implements Parcelable{
             return new MedicalProcessStatusModel[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeString(data);
-    }
 }

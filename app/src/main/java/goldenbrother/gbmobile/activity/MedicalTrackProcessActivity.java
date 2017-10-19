@@ -55,30 +55,18 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
                 ArrayList<MedicalTrackProcessModel> list = new ArrayList<>();
                 if (cb_1.isChecked()) {
                     String str = et_1.getText().toString();
-                    MedicalTrackProcessModel m = new MedicalTrackProcessModel();
-                    m.setName(array_track_process[0] + " : " + str);
-                    m.setData("0/" + (str.isEmpty() ? "null" : checkSymbol(str)));
-                    list.add(m);
+                    list.add(new MedicalTrackProcessModel(0, (str.isEmpty() ? "null" : checkSymbol(str)), array_track_process[0] + " : " + str));
                 }
                 if (cb_2.isChecked()) {
                     String str = et_2.getText().toString();
-                    MedicalTrackProcessModel m = new MedicalTrackProcessModel();
-                    m.setName(array_track_process[1] + " : " + str);
-                    m.setData("1/" + (str.isEmpty() ? "null" : checkSymbol(str)));
-                    list.add(m);
+                    list.add(new MedicalTrackProcessModel(1, (str.isEmpty() ? "null" : checkSymbol(str)), array_track_process[1] + " : " + str));
                 }
                 if (cb_3.isChecked()) {
                     String str = et_3.getText().toString();
-                    MedicalTrackProcessModel m = new MedicalTrackProcessModel();
-                    m.setName(array_track_process[2] + " : " + str);
-                    m.setData("2/" + (str.isEmpty() ? "null" : checkSymbol(str)));
-                    list.add(m);
+                    list.add(new MedicalTrackProcessModel(2, (str.isEmpty() ? "null" : checkSymbol(str)), array_track_process[2] + " : " + str));
                 }
                 if (cb_4.isChecked()) {
-                    MedicalTrackProcessModel m = new MedicalTrackProcessModel();
-                    m.setName(array_track_process[3]);
-                    m.setData("3/null");
-                    list.add(m);
+                    list.add(new MedicalTrackProcessModel(3, "null", array_track_process[3]));
                 }
                 medical.getTrackProcess().clear();
                 medical.getTrackProcess().addAll(list);

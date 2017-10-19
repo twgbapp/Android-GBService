@@ -8,38 +8,59 @@ import android.os.Parcelable;
  */
 
 public class MedicalTrackProcessModel implements Parcelable{
-    private String name;
-    private String data;
+    private int treatmentStatus;
+    private String treatmentMemo;
+    //
+    private String content;
 
-
-    public MedicalTrackProcessModel() {
+    public MedicalTrackProcessModel(){
 
     }
 
-    public MedicalTrackProcessModel(String name, String data) {
-        this.name = name;
-        this.data = data;
+    public MedicalTrackProcessModel(int treatmentStatus, String treatmentMemo, String content) {
+        this.treatmentStatus = treatmentStatus;
+        this.treatmentMemo = treatmentMemo;
+        this.content = content;
     }
 
-    public String getName() {
-        return name;
+    public int getTreatmentStatus() {
+        return treatmentStatus;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTreatmentStatus(int treatmentStatus) {
+        this.treatmentStatus = treatmentStatus;
     }
 
-    public String getData() {
-        return data;
+    public String getTreatmentMemo() {
+        return treatmentMemo;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setTreatmentMemo(String treatmentMemo) {
+        this.treatmentMemo = treatmentMemo;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     protected MedicalTrackProcessModel(Parcel in) {
-        name = in.readString();
-        data = in.readString();
+        treatmentStatus = in.readInt();
+        treatmentMemo = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(treatmentStatus);
+        dest.writeString(treatmentMemo);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<MedicalTrackProcessModel> CREATOR = new Creator<MedicalTrackProcessModel>() {
@@ -53,15 +74,4 @@ public class MedicalTrackProcessModel implements Parcelable{
             return new MedicalTrackProcessModel[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeString(data);
-    }
 }

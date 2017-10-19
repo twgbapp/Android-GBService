@@ -216,22 +216,22 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
             case R.id.tv_medical_process_status_done:
                 ArrayList<MedicalProcessStatusModel> list = new ArrayList<>();
                 if (isCheck1)
-                    list.add(new MedicalProcessStatusModel(array_process_status[0], "0/null/null/null/null"));
+                    list.add(new MedicalProcessStatusModel(0, "null", "null", "null", "null", array_process_status[0]));
                 if (isCheck2) {
                     String hospitalName = tv_hospital.getText().toString();
                     String personName = tv_person.getText().toString();
                     String hospitalCode = hospitalName.isEmpty() ? "null" : getIdByHospital(hospitalName);
                     String userId = personName.isEmpty() ? "null" : getIdByPerson(personName);
-                    list.add(new MedicalProcessStatusModel(array_process_status[1], "1/" + hospitalCode + "/" + userId + "/null/null"));
+                    list.add(new MedicalProcessStatusModel(1, hospitalCode, userId, "null", "null", array_process_status[1]));
                 }
                 if (isCheck3)
-                    list.add(new MedicalProcessStatusModel(array_process_status[2], "2/null/null/null/null"));
+                    list.add(new MedicalProcessStatusModel(2, "null", "null", "null", "null", array_process_status[2]));
                 if (isCheck4) {
                     boolean yes = rb_yes.isChecked();
                     boolean no = rb_no.isChecked();
                     if (yes || no) {
                         String yesNo = yes ? "1" : "0";
-                        list.add(new MedicalProcessStatusModel(array_process_status[3], "3/null/null/" + yesNo + "/null"));
+                        list.add(new MedicalProcessStatusModel(3, "null", "null", yesNo, "null", array_process_status[3]));
                     } else {
                         t(R.string.can_not_be_empty);
                         return;
@@ -240,7 +240,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
                 if (isCheck5) {
                     String other = et_other.getText().toString();
                     other = other.replace("/", "\\");
-                    list.add(new MedicalProcessStatusModel(other, "4/null/null/null/" + (other.isEmpty() ? "null" : other)));
+                    list.add(new MedicalProcessStatusModel(4, "null", "null", "null", (other.isEmpty() ? "null" : other), array_process_status[3]));
                 }
                 medical.getProcessingStatus().clear();
                 medical.getProcessingStatus().addAll(list);

@@ -69,8 +69,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_record);
         setUpBackToolbar(R.id.toolbar, R.string.medical_add_medical);
-        TextView tv = null;
-        tv.setText("");
+
         // ui reference
         tv_name = (TextView) findViewById(R.id.tv_medical_record_name);
         tv_blood_type = (TextView) findViewById(R.id.tv_medical_record_blood_type);
@@ -207,47 +206,16 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     int result = ApiResultHelper.getMedicalRecord(response, medical);
                     if (result == ApiResultHelper.SUCCESS) {
 
-                        // ProcessStatus - init name
+                        // ProcessStatus - init content
                         String[] process_status = getResources().getStringArray(R.array.medical_process_status);
                         for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
-                            int processingStatus = Integer.valueOf(m.getData().split("/")[0]);
-                            switch (processingStatus) {
-                                case 48:
-                                    m.setName(process_status[0]);
-                                    break;
-                                case 49:
-                                    m.setName(process_status[1]);
-                                    break;
-                                case 50:
-                                    m.setName(process_status[2]);
-                                    break;
-                                case 51:
-                                    m.setName(process_status[3]);
-                                    break;
-                                case 52:
-                                    m.setName(m.getData().split("/")[3]);
-                                    break;
-                            }
+                            m.setContent(process_status[m.getProcessingStatus()]);
                         }
 
-                        // TrackProcess - init name
+                        // TrackProcess - init content
                         String[] track_process = getResources().getStringArray(R.array.medical_track_process);
                         for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
-                            int treatmentStatus = Integer.valueOf(m.getData().split("/")[0]);
-                            switch (treatmentStatus) {
-                                case 48:
-                                    m.setName(track_process[0] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
-                                    break;
-                                case 49:
-                                    m.setName(track_process[1] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
-                                    break;
-                                case 50:
-                                    m.setName(track_process[2] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
-                                    break;
-                                case 51:
-                                    m.setName(track_process[3] + (m.getData().split("/")[1].equals("null") ? "" : m.getData().split("/")[1]));
-                                    break;
-                            }
+                            m.setContent(track_process[m.getTreatmentStatus()]);
                         }
 
                         syncMedicalSymptom();
@@ -256,6 +224,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                         showProcessStatus();
                         showTrackProcess();
                         showUploadFile();
+
                     } else {
                         t(R.string.fail);
                     }
@@ -283,7 +252,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     private void showProcessStatus() {
         String result = "";
         for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
-            result += (result.isEmpty() ? "" : "\n") + m.getName();
+            result += (result.isEmpty() ? "" : "\n") + m.getContent();
         }
         et_processing_status.setText(result);
     }
@@ -291,7 +260,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     private void showTrackProcess() {
         String result = "";
         for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
-            result += (result.isEmpty() ? "" : "\n") + m.getName();
+            result += (result.isEmpty() ? "" : "\n") + m.getContent();
         }
         et_tracking_processing.setText(result);
     }
@@ -345,7 +314,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
             JSONArray arrTreatment = new JSONArray(); // 症狀
             for (MedicalSymptomModel m : medical.getSymptom()) {
-                //arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
                 if (m.getCode().equals("425")) {
                     arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/" + m.getValue());
                 } else {
@@ -356,15 +324,16 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
             JSONArray arrProcessing = new JSONArray(); // 處理狀況
             for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
-                arrProcessing.put(m.getData());
+                arrProcessing.put(String.format("%d/%s/%s/%s/%s", m.getProcessingStatus(), m.getProcessingStatusHospitalSNo(), m.getProcessingStatusToHospitalID(), m.getProcessingStatusMedicalCertificate(), m.getProcessingStatusOtherMemo()));
             }
             j.put("medicalProcessingRecord", arrProcessing);
 
             JSONArray arrTrack = new JSONArray(); // 追蹤與處理
             for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
-                arrTrack.put(m.getData());
+                arrTrack.put(String.format("%d/%s", m.getTreatmentStatus(), m.getTreatmentMemo()));
             }
             j.put("medicalTreatmentProcessingRecord", arrTrack);
+
             j.put("logStatus", true);
 
             new AddMedicalRecord(this, j, URLHelper.HOST).execute();
@@ -411,7 +380,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
             JSONArray arrTreatment = new JSONArray(); // 症狀
             for (MedicalSymptomModel m : medical.getSymptom()) {
-                //arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/null");
                 if (m.getCode().equals("425")) {
                     arrTreatment.put(m.getCode().substring(0, 1) + "/" + m.getCode().substring(1, 3) + "/" + m.getValue());
                 } else {
@@ -422,13 +390,13 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
             JSONArray arrProcessing = new JSONArray(); // 處理狀況
             for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
-                arrProcessing.put(m.getData());
+                arrProcessing.put(String.format("%d/%s/%s/%s/%s", m.getProcessingStatus(), m.getProcessingStatusHospitalSNo(), m.getProcessingStatusToHospitalID(), m.getProcessingStatusMedicalCertificate(), m.getProcessingStatusOtherMemo()));
             }
             j.put("medicalProcessingRecord", arrProcessing);
 
             JSONArray arrTrack = new JSONArray(); // 追蹤與處理
             for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
-                arrTrack.put(m.getData());
+                arrTrack.put(String.format("%d/%s", m.getTreatmentStatus(), m.getTreatmentMemo()));
             }
             j.put("medicalTreatmentProcessingRecord", arrTrack);
 
@@ -445,6 +413,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         UpdateMedicalRecord(Context context, JSONObject json, String url) {
             super(context, json, url);
         }
+
 
         @Override
         protected void onPostExecute(String response) {

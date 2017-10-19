@@ -331,6 +331,17 @@ public class ApiResultHelper {
         }
     }
 
+    /**
+     * getSymList
+     * first:"1/感冒"
+     * second:"101/鼻塞"
+     * <p>
+     * add/updateMedical
+     * "1/01/null"
+     * <p>
+     * getMedical
+     * "1/01/null"
+     **/
     public static int getMedicalTreatmentCode(String response, ArrayList<MedicalSymptomModel> list_kind, ArrayList<MedicalSymptomModel> list_detail) {
         try {
             JSONObject j = new JSONObject(response);
@@ -341,7 +352,6 @@ public class ApiResultHelper {
                 for (int i = 0; i < arr_first.length(); i++) {
                     JSONObject o = arr_first.getJSONObject(i);
                     MedicalSymptomModel rm = new MedicalSymptomModel();
-                    rm.setColumnName(o.getString("columnName"));
                     rm.setCode(o.getString("code"));
                     rm.setValue(o.getString("value"));
                     list_kind.add(rm);
@@ -351,7 +361,6 @@ public class ApiResultHelper {
                 for (int i = 0; i < arr_second.length(); i++) {
                     JSONObject o = arr_second.getJSONObject(i);
                     MedicalSymptomModel rm = new MedicalSymptomModel();
-                    rm.setColumnName(o.getString("columnName"));
                     rm.setCode(o.getString("code"));
                     rm.setValue(o.getString("value"));
                     list_detail.add(rm);
@@ -943,9 +952,10 @@ public class ApiResultHelper {
                 JSONArray arr_symptom = j.getJSONArray("medicalTreatmentRecordDetail");
                 medical.getSymptom().clear();
                 for (int i = 0; i < arr_symptom.length(); i++) {
-                    JSONObject o = arr_symptom.getJSONObject(i);
                     MedicalSymptomModel ms = new MedicalSymptomModel();
-                    ms.setCode(o.getString("symptomsType") + o.getString("symptomsTypeItem"));
+                    String[] arr = arr_symptom.getString(i).split("/");
+                    ms.setCode(arr[0] + arr[1]);
+                    ms.setValue(arr[3]);
                     medical.getSymptom().add(ms);
                 }
 
@@ -953,9 +963,13 @@ public class ApiResultHelper {
                 JSONArray arr_process = j.getJSONArray("medicalProcessingRecord");
                 medical.getProcessingStatus().clear();
                 for (int i = 0; i < arr_process.length(); i++) {
-                    JSONObject o = arr_process.getJSONObject(i);
+                    String[] arr = arr_process.getString(i).split("/");
                     MedicalProcessStatusModel mps = new MedicalProcessStatusModel();
-                    mps.setData(String.format("%d/%s/%s/%s/%s", o.getInt("processingStatus"), o.getString("processingStatusToHospitalID"), o.getString("processingStatusHospitalSNo"), o.getString("processingStatusOtherMemo"), o.getString("processingStatusMedicalCertificate")));
+                    mps.setProcessingStatus(Integer.valueOf(arr[0]));
+                    mps.setProcessingStatusHospitalSNo(arr[1]);
+                    mps.setProcessingStatusToHospitalID(arr[2]);
+                    mps.setProcessingStatusMedicalCertificate(arr[3]);
+                    mps.setProcessingStatusOtherMemo(arr[4]);
                     medical.getProcessingStatus().add(mps);
                 }
 
@@ -963,9 +977,10 @@ public class ApiResultHelper {
                 JSONArray arr_track = j.getJSONArray("medicalTreatmentProcessingRecord");
                 medical.getTrackProcess().clear();
                 for (int i = 0; i < arr_track.length(); i++) {
-                    JSONObject o = arr_track.getJSONObject(i);
+                    String[] arr = arr_track.getString(i).split("/");
                     MedicalTrackProcessModel mtp = new MedicalTrackProcessModel();
-                    mtp.setData(String.format("%d/%s",o.getInt("treatmentStatus"),o.getString("treatmentMemo")));
+                    mtp.setTreatmentStatus(Integer.valueOf(arr[0]));
+                    mtp.setTreatmentMemo(arr[1]);
                     medical.getTrackProcess().add(mtp);
                 }
             }
