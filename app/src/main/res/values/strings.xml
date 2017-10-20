@@ -287,5 +287,6 @@
     <string name="content_main_e_commerce">Shopping\n生活易購網</string>
     <string name="content_main_life_information">Lifestyle\n資訊推播</string>
     <string name="content_main_mobile_service">Service\n行動服務台</string>
-    <string name="content_main_satisfaction_survey">Satisfaction Survey\n使用度評分</string>
+    <string name="content_main_satisfaction_survey">Happiness\n使用度評分</string>
+    <string name="discussion_update_discussion">Update Discussion</string>
 </resources>

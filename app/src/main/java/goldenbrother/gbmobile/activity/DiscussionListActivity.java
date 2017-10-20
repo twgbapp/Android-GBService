@@ -93,6 +93,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
     public void onItemClick(Discussion item) {
         Bundle b = new Bundle();
         b.putParcelable("discussion", item);
+        b.putBoolean("isAdd", false);
         openActivity(DiscussionRecordActivity.class, b);
     }
 
@@ -105,6 +106,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
                 openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 break;
             case R.id.iv_discussion_list_add:
+                b.putBoolean("isAdd", true);
                 openActivity(DiscussionRecordActivity.class, b);
                 break;
         }
