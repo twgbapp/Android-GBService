@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -1068,6 +1069,8 @@ public class ApiResultHelper {
                     d.setCenterName(o.getString("centerName"));
                     list.add(d);
                 }
+                SortClass sortClass = new SortClass();
+                Collections.sort(list, sortClass);
                 list_discussion.clear();
                 list_discussion.addAll(list);
             }
@@ -1075,6 +1078,16 @@ public class ApiResultHelper {
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;
+        }
+    }
+
+    public static class SortClass implements Comparator {
+        @Override
+        public int compare(Object o1, Object o2) {
+            Discussion user1 = (Discussion) o1;
+            Discussion user2 = (Discussion) o2;
+            int flag = user2.getDiscussionDate().compareTo(user1.getDiscussionDate());
+            return flag;
         }
     }
 
