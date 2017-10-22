@@ -966,10 +966,10 @@ public class ApiResultHelper {
                     JSONObject o = arr_process.getJSONObject(i);
                     MedicalProcessStatusModel mps = new MedicalProcessStatusModel();
                     mps.setProcessingStatus(o.getInt("processingStatus"));
-                    mps.setProcessingStatusHospitalSNo(o.getString("processingStatusHospitalSNo"));
-                    mps.setProcessingStatusToHospitalID(o.getString("processingStatusToHospitalID"));
-                    mps.setProcessingStatusMedicalCertificate(o.getString("processingStatusMedicalCertificate"));
-                    mps.setProcessingStatusOtherMemo(o.getString("processingStatusOtherMemo"));
+                    mps.setProcessingStatusHospitalSNo(o.optString("processingStatusHospitalSNo").isEmpty() ? "null" : o.optString("processingStatusHospitalSNo"));
+                    mps.setProcessingStatusToHospitalID(o.optString("processingStatusToHospitalID").isEmpty() ? "null" : o.optString("processingStatusToHospitalID"));
+                    mps.setProcessingStatusMedicalCertificate(o.optString("processingStatusMedicalCertificate").isEmpty() ? "null" : o.optString("processingStatusMedicalCertificate"));
+                    mps.setProcessingStatusOtherMemo(o.optString("processingStatusOtherMemo").isEmpty() ? "null" : o.optString("processingStatusOtherMemo"));
                     medical.getProcessingStatus().add(mps);
                 }
 
@@ -980,7 +980,7 @@ public class ApiResultHelper {
                     JSONObject o = arr_track.getJSONObject(i);
                     MedicalTrackProcessModel mtp = new MedicalTrackProcessModel();
                     mtp.setTreatmentStatus(o.getInt("treatmentStatus"));
-                    mtp.setTreatmentMemo(o.getString("treatmentMemo"));
+                    mtp.setTreatmentMemo(o.getString("treatmentMemo").isEmpty() ? "null" : o.optString("treatmentMemo"));
                     medical.getTrackProcess().add(mtp);
                 }
             }
