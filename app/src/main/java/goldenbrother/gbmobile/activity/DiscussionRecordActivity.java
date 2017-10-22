@@ -47,17 +47,25 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
     // ui
     private TextView tv_department, tv_name, tv_date;
     private EditText et_reason, et_place, et_description;
-    private ImageView iv_service, iv_signature, iv_clicked;
+    private ImageView iv_service, iv_signature, iv_clicked, iv_edit;
     // take picture
     private Uri uriTakePicture;
     // extra
     private Discussion discussion;
+    private boolean isAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_record);
-        setUpBackToolbar(R.id.toolbar, R.string.discussion_add_discussion);
+        // extra
+        isAdd = getIntent().getExtras().getBoolean("isAdd", false);
+        if(isAdd){
+            setUpBackToolbar(R.id.toolbar, R.string.discussion_add_discussion);
+        }else{
+            setUpBackToolbar(R.id.toolbar, R.string.discussion_update_discussion);
+        }
+
         // ui reference
         tv_department = (TextView) findViewById(R.id.tv_discussion_record_department);
         tv_name = (TextView) findViewById(R.id.tv_discussion_record_name);
@@ -67,6 +75,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         et_description = (EditText) findViewById(R.id.et_discussion_record_description);
         iv_service = (ImageView) findViewById(R.id.iv_discussion_record_service_record);
         iv_signature = (ImageView) findViewById(R.id.iv_discussion_record_signature);
+        iv_edit = (ImageView) findViewById(R.id.iv_discussion_record_profile);
         findViewById(R.id.iv_discussion_record_profile).setOnClickListener(this);
         findViewById(R.id.tv_discussion_record_save).setOnClickListener(this);
         tv_department.setOnClickListener(this);
@@ -82,6 +91,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         } else { // create
             discussion = new Discussion();
             tv_date.setText(TimeHelper.getYMD());
+            iv_edit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -341,8 +351,11 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
             case R.id.tv_discussion_record_department:
             case R.id.tv_discussion_record_name:
             case R.id.iv_discussion_record_profile:
-                b.putBoolean("isFLabor", true);
-                openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
+                if(discussion.getDrsNo()==0){
+                    b.putBoolean("isFLabor", true);
+                    openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
+                }
+
                 break;
             case R.id.iv_discussion_record_service_record:
                 iv_clicked = (ImageView) v;
