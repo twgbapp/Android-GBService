@@ -31,6 +31,7 @@ import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Discussion;
@@ -53,6 +54,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
     // extra
     private Discussion discussion;
     private boolean isAdd;
+    private String fileType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +129,17 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                         et_reason.setText(discussion.getDiscussionReason());
                         et_place.setText(discussion.getDiscussionPlace());
                         et_description.setText(discussion.getDiscussionDesc());
-                        if (discussion.getServiceRecordPath() != null && !discussion.getServiceRecordPath().isEmpty())
-                            Picasso.with(DiscussionRecordActivity.this).load(discussion.getServiceRecordPath()).into(iv_service);
+                        if (discussion.getServiceRecordPath() != null && !discussion.getServiceRecordPath().isEmpty()){
+                            String path =discussion.getServiceRecordPath();
+                            int dotPos   =   path.lastIndexOf(".");
+                            fileType = path.substring(  dotPos  + 1,path.length());
+                            if(fileType.equals("jpg")){
+                                Picasso.with(DiscussionRecordActivity.this).load(discussion.getServiceRecordPath()).into(iv_service);
+                            }
+                            if(fileType.equals("pdf")){
+                                Picasso.with(DiscussionRecordActivity.this).load(R.drawable.ic_pdf).into(iv_service);
+                            }
+                        }
                         if (discussion.getSignaturePath() != null && !discussion.getSignaturePath().isEmpty())
                             Picasso.with(DiscussionRecordActivity.this).load(discussion.getSignaturePath()).into(iv_signature);
                     } else {
@@ -358,9 +369,17 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
 
                 break;
             case R.id.iv_discussion_record_service_record:
-                iv_clicked = (ImageView) v;
-                choosePicture();
-                break;
+                if(fileType.equals("pdf")){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(discussion.getServiceRecordPath()));
+                    startActivity(intent);
+                    break;
+                }else{
+                    iv_clicked = (ImageView) v;
+                    choosePicture();
+                    break;
+                }
             case R.id.iv_discussion_record_signature:
                 iv_clicked = (ImageView) v;
                 openActivityForResult(SignatureActivity.class, REQUEST_SIGNATURE);
