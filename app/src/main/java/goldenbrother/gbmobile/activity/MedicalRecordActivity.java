@@ -172,8 +172,10 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                     int result = ApiResultHelper.getMedicalTreatmentCode(response, list_first, list_second);
                     if (result == ApiResultHelper.SUCCESS) {
                         sortSymptoms();
-                        if (medical != null && medical.getMtrsno() != 0) {
+                        if (medical != null && medical.getMtrsno() != 0) { // update
                             getMedicalRecord(medical.getMtrsno());
+                        }else{ // add
+                            openSearchActivity();
                         }
                     } else {
                         t(getString(R.string.fail));
@@ -226,13 +228,21 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                         // ProcessStatus - init content
                         String[] process_status = getResources().getStringArray(R.array.medical_process_status);
                         for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
-                            m.setContent(process_status[m.getProcessingStatus()]);
+                            if (m.getProcessingStatus() == 4) {
+                                m.setContent(m.getProcessingStatusOtherMemo());
+                            } else {
+                                m.setContent(process_status[m.getProcessingStatus()]);
+                            }
                         }
 
                         // TrackProcess - init content
                         String[] track_process = getResources().getStringArray(R.array.medical_track_process);
                         for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
-                            m.setContent(track_process[m.getTreatmentStatus()]);
+                            if (m.getTreatmentStatus() == 3) {
+                                m.setContent(track_process[m.getTreatmentStatus()]);
+                            } else {
+                                m.setContent(track_process[m.getTreatmentStatus()] + " : " + (m.getTreatmentMemo().equals("null") ? "" : m.getTreatmentMemo()));
+                            }
                         }
 
                         syncMedicalSymptom();
@@ -578,6 +588,14 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         }, null);
     }
 
+    private void openSearchActivity(){
+        if (medical.getMtrsno() == 0) {
+            Bundle b = new Bundle();
+            b.putBoolean("isFLabor", true);
+            openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         Bundle b = new Bundle();
@@ -591,10 +609,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             case R.id.tv_medical_record_name:
             case R.id.tv_medical_record_room_id:
             case R.id.iv_medical_record_info: // 查詢外勞
-                if (medical.getMtrsno() == 0) {
-                    b.putBoolean("isFLabor", true);
-                    openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
-                }
+                openSearchActivity();
                 break;
             case R.id.iv_medical_record_symptoms: // 症狀列表
                 b.putParcelable("medical", medical);
