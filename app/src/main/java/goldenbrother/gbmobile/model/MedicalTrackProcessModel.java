@@ -50,12 +50,14 @@ public class MedicalTrackProcessModel implements Parcelable{
     protected MedicalTrackProcessModel(Parcel in) {
         treatmentStatus = in.readInt();
         treatmentMemo = in.readString();
+        content = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(treatmentStatus);
         dest.writeString(treatmentMemo);
+        dest.writeString(content);
     }
 
     @Override

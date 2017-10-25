@@ -2,6 +2,7 @@ package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,8 @@ import goldenbrother.gbmobile.model.RoleInfo;
 
 public class MedicalListActivity extends CommonActivity implements View.OnClickListener {
 
+    // request
+    public static final int REQUEST_ADD_MEDICAL = 0;
     // ui
     private RecyclerView rv;
     // data
@@ -42,24 +45,25 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_list);
         setUpBackToolbar(R.id.toolbar_medical_list, R.id.tv_medical_list_title, R.string.medical_list);
+
         // ui reference
         findViewById(R.id.iv_medical_list_search).setOnClickListener(this);
         findViewById(R.id.iv_medical_list_add).setOnClickListener(this);
         rv = (RecyclerView) findViewById(R.id.rv_medical_list);
 
-        // init RecyclerView
+        // init
         list_medical = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new MedicalListRVAdapter(this, list_medical));
 
-        // getMedicalList
-        //getMedicalFlaborList(TimeHelper.getYMD(), TimeHelper.getYMD());
-        //查詢三個月內紀錄
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, -3);
-        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        getMedicalFlaborList(format.format(calendar.getTime()),TimeHelper.getYMD());
+        getRecentMedicalFlaborList();
+    }
 
+    private void getRecentMedicalFlaborList() {
+        // 查詢三個月內紀錄
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, -3);
+        getMedicalFlaborList(new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()), TimeHelper.getYMD());
     }
 
     private void getMedicalFlaborList(String startRecordDate, String endRecordDate) {
@@ -177,7 +181,18 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
                 showSearchDialog();
                 break;
             case R.id.iv_medical_list_add:
-                openActivity(MedicalRecordActivity.class, new Bundle());
+                openActivityForResult(MedicalRecordActivity.class, REQUEST_ADD_MEDICAL, new Bundle());
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_ADD_MEDICAL:
+                getRecentMedicalFlaborList();
                 break;
         }
     }

@@ -22,6 +22,7 @@ import goldenbrother.gbmobile.adapter.MedicalHospitalListAdapter;
 import goldenbrother.gbmobile.adapter.MedicalPersonListAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.HospitalModel;
 import goldenbrother.gbmobile.model.Medical;
