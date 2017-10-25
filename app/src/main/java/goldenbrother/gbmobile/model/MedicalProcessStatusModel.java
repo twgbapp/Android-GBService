@@ -83,6 +83,7 @@ public class MedicalProcessStatusModel implements Parcelable{
         processingStatusToHospitalID = in.readString();
         processingStatusMedicalCertificate = in.readString();
         processingStatusOtherMemo = in.readString();
+        content = in.readString();
     }
 
     @Override
@@ -92,6 +93,7 @@ public class MedicalProcessStatusModel implements Parcelable{
         dest.writeString(processingStatusToHospitalID);
         dest.writeString(processingStatusMedicalCertificate);
         dest.writeString(processingStatusOtherMemo);
+        dest.writeString(content);
     }
 
     @Override

@@ -418,7 +418,8 @@
                 android:padding="10dp"
                 android:text="@string/confirm"
                 android:textColor="#FFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
