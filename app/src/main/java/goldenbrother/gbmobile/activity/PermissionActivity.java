@@ -28,7 +28,7 @@ public class PermissionActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
         if (getIntent().getBooleanExtra("crash", false))
-            t("App restarted after crash");
+            //t("App restarted after crash");
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             Bundle b = new Bundle();
             openActivity(SplashActivity.class, b);

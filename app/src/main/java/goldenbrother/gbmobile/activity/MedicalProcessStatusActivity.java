@@ -241,7 +241,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
                 if (isCheck5) {
                     String other = et_other.getText().toString();
                     other = other.replace("/", "\\");
-                    list.add(new MedicalProcessStatusModel(4, "null", "null", "null", (other.isEmpty() ? "null" : other), array_process_status[3]));
+                    list.add(new MedicalProcessStatusModel(4, "null", "null", "null", (other.isEmpty() ? "null" : other), other));
                 }
                 medical.getProcessingStatus().clear();
                 medical.getProcessingStatus().addAll(list);

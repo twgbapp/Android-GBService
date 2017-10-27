@@ -82,20 +82,20 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         iv_medical = (ImageView) findViewById(R.id.iv_medical_record_medical_path);
         iv_diagnosis = (ImageView) findViewById(R.id.iv_medical_record_diagnosis_path);
         iv_service = (ImageView) findViewById(R.id.iv_medical_record_service_path);
-//        findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
-//        findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
-//        tv_name.setOnClickListener(this);
-//        tv_room_id.setOnClickListener(this);
-//        tv_blood_type.setOnClickListener(this);
-//        tv_date.setOnClickListener(this);
-//        iv_signature.setOnClickListener(this);
-//        iv_medical.setOnClickListener(this);
-//        iv_diagnosis.setOnClickListener(this);
-//        iv_service.setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
+        findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
+        tv_name.setOnClickListener(this);
+        tv_room_id.setOnClickListener(this);
+        tv_blood_type.setOnClickListener(this);
+        tv_date.setOnClickListener(this);
+        iv_signature.setOnClickListener(this);
+        iv_medical.setOnClickListener(this);
+        iv_diagnosis.setOnClickListener(this);
+        iv_service.setOnClickListener(this);
 
         // extra
         medical = getIntent().getExtras().getParcelable("medical");
@@ -399,7 +399,16 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             JSONObject j = new JSONObject();
             j.put("action", "updateMedicalRecord");
             j.put("mtrsno", medical.getMtrsno());
-            j.put("bloodType", medical.getPatient().getBloodType());
+            if(tv_blood_type.getText().equals("A")){
+                j.put("bloodType", "0");
+            }else if(tv_blood_type.getText().equals("B")){
+                j.put("bloodType", "1");
+            }else if(tv_blood_type.getText().equals("O")){
+                j.put("bloodType", "2");
+            }else{
+                j.put("bloodType", "3");
+            }
+            //j.put("bloodType", medical.getPatient().getBloodType());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("diagnosticCertificate", medical.getDiagnosticCertificatePath());
             j.put("serviceRecord", medical.getServiceRecordPath());
