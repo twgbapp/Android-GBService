@@ -252,11 +252,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         } else if (str.equals(getString(R.string.main_drawer_club))) {
             openActivity(ClubListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_announcement))) {
-            b.putInt("type", 0);
-            b.putString("customerNo", LaborModel.getInstance().getCustomerNo());
-            b.putString("flaborNo", LaborModel.getInstance().getFlaborNo());
-            b.putString("nationCode", LaborModel.getInstance().getUserNationCode());
-            openActivity(AnnouncementListActivity.class, b);
+            openActivity(AnnouncementListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
             clearDB();
             SPHelper.clearUser(this);

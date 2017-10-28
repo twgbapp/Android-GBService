@@ -13,6 +13,7 @@ import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.AnnouncementModel;
+import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
@@ -23,6 +24,8 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
     // ui
     private TextView tv_title, tv_expiration_date, tv_create_date;
     private WebView wv;
+    // extra
+    private int announcementID;
     // data
     private AnnouncementModel announcement;
 
@@ -31,20 +34,19 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_content);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_announcement);
+
         // ui reference
-        tv_title = (TextView) findViewById(R.id.tv_announcement_content_title);
-        tv_create_date = (TextView) findViewById(R.id.tv_announcement_content_create_date);
-        tv_expiration_date = (TextView) findViewById(R.id.tv_announcement_content_expiration_date);
-        wv = (WebView) findViewById(R.id.wv_announcement_content);
+        tv_title = findViewById(R.id.tv_announcement_content_title);
+        tv_create_date = findViewById(R.id.tv_announcement_content_create_date);
+        tv_expiration_date = findViewById(R.id.tv_announcement_content_expiration_date);
+        wv = findViewById(R.id.wv_announcement_content);
         wv.getSettings().setUseWideViewPort(true);
         wv.getSettings().setLoadWithOverviewMode(true);
-        // listener
         tv_title.setOnClickListener(this);
-        // extra && init announcement object
-        announcement = new AnnouncementModel();
-        announcement.setAnnouncementID(getIntent().getExtras().getInt("announcementID", -1));
-        announcement.setNationCode(getIntent().getExtras().getString("nationCode"));
-        // LoadAnnouncement
+
+        // extra
+        announcementID = getIntent().getExtras().getInt("announcementID", -1);
+
         loadAnnouncement();
     }
 
@@ -52,8 +54,8 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getAnnouncement");
-            j.put("announcementId", announcement.getAnnouncementID());
-            j.put("nationCode", announcement.getNationCode());
+            j.put("announcementId", announcementID);
+            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             new LoadAnnouncement(this, j, URLHelper.HOST).execute();
@@ -61,7 +63,6 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
             e.printStackTrace();
         }
     }
-
 
     private class LoadAnnouncement extends IAsyncTask {
 

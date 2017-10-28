@@ -17,6 +17,7 @@ import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.EventKindModel;
 import goldenbrother.gbmobile.model.EventModel;
 import goldenbrother.gbmobile.model.EventUserModel;
+import goldenbrother.gbmobile.model.GBActivity;
 import goldenbrother.gbmobile.model.HospitalModel;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.ManagerModel;
@@ -621,6 +622,7 @@ public class ApiResultHelper {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
+                announcement = new AnnouncementModel();
                 announcement.setAnnouncementID(j.getInt("announcementID"));
                 announcement.setTitle(j.getString("title"));
                 announcement.setContent(j.getString("content"));
@@ -1142,6 +1144,30 @@ public class ApiResultHelper {
                 list_service_group_id.addAll(list);
             }
             return result;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getActivityList(String response, ArrayList<GBActivity> list_gb_activity) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int success = j.getInt("success");
+            if (success == 1) {
+                list_gb_activity.clear();
+                JSONArray arr = j.getJSONArray("activity");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    GBActivity item = new GBActivity();
+                    item.setActivityID(o.getInt("activityID"));
+                    item.setTitle(o.getString("title"));
+                    item.setType(o.getInt("type"));
+                    item.setCreateDate(o.getString("createDate"));
+                    list_gb_activity.add(item);
+                }
+            }
+            return success;
         } catch (JSONException e) {
             e.printStackTrace();
             return PARSER_ERROR;

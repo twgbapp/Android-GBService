@@ -1,21 +1,18 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.adapter.AnnouncementListAdapter;
 import goldenbrother.gbmobile.adapter.AnnouncementListRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.AnnouncementModel;
+import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
@@ -31,11 +28,6 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
     public static final int GOV = 3;
     // ui
     private RecyclerView rv;
-    // extra
-    private int type;
-    private String customerNo;
-    private String flaborNo;
-    private String nationCode;
     // data
     private ArrayList<AnnouncementModel> list_announcement, list_announcement_show;
 
@@ -51,13 +43,6 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
         findViewById(R.id.ll_announcement_list_gov).setOnClickListener(this);
         findViewById(R.id.ll_announcement_list_dorm).setOnClickListener(this);
 
-        // extra
-        Intent intent = getIntent();
-        type = intent.getIntExtra("type", -1);
-        customerNo = intent.getStringExtra("customerNo");
-        flaborNo = intent.getStringExtra("flaborNo");
-        nationCode = intent.getStringExtra("nationCode");
-
         // init
         list_announcement = new ArrayList<>();
         list_announcement_show = new ArrayList<>();
@@ -71,10 +56,10 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getAnnouncementList");
-            j.put("type", type);
-            j.put("customerNo", customerNo);
-            j.put("flaborNo", flaborNo);
-            j.put("nationCode", nationCode);
+            j.put("type", 0);
+            j.put("customerNo", LaborModel.getInstance().getCustomerNo());
+            j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
+            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             new LoadAnnouncementList(this, j, URLHelper.HOST).execute();
@@ -113,15 +98,14 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
     public void onItemClick(AnnouncementModel item) {
         Bundle b = new Bundle();
         b.putInt("announcementID", item.getAnnouncementID());
-        b.putString("nationCode", nationCode);
         openActivity(AnnouncementContentActivity.class, b);
     }
 
     private void filter(int type) {
         list_announcement_show.clear();
-        for (AnnouncementModel a : list_announcement) {
-            if (a.getType() == type)
-                list_announcement_show.add(a);
+        for (AnnouncementModel item : list_announcement) {
+            if (item.getType() == type)
+                list_announcement_show.add(item);
         }
         rv.getAdapter().notifyDataSetChanged();
     }
