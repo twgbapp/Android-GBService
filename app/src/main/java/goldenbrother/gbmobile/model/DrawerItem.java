@@ -1,11 +1,5 @@
 package goldenbrother.gbmobile.model;
 
-import android.widget.TextView;
-
-/**
- * Created by haojun on 2017/7/12.
- */
-
 public class DrawerItem {
     public static final int GROUP = 0;
     public static final int CHILD = 1;

@@ -51,6 +51,7 @@ import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Discussion;
 import goldenbrother.gbmobile.model.DrawerItem;
+import goldenbrother.gbmobile.model.GBActivity;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOEvent;
@@ -89,26 +90,21 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Hockey  for APP Update Check
+
+        // Hockey for APP Update Check
         checkForUpdates();
+
         // ui reference
-        iv_picture = (ImageView) findViewById(R.id.iv_item_rv_main_drawer_head_picture);
-        iv_banner = (ImageView) findViewById(R.id.iv_main_banner);
+        iv_picture = findViewById(R.id.iv_item_rv_main_drawer_head_picture);
+        iv_banner = findViewById(R.id.iv_main_banner);
         findViewById(R.id.cv_main_mobile_service).setOnClickListener(this);
         findViewById(R.id.cv_main_life_information).setOnClickListener(this);
         findViewById(R.id.cv_main_e_commerce).setOnClickListener(this);
         findViewById(R.id.cv_main_satisfaction_survey).setOnClickListener(this);
 
-        // init Toolbar
         initToolbar();
-
-        // init Drawer
         initDrawer();
-
-        // initBanner
         initBanner();
-
-        //
         isOriginFromNotification();
     }
 
@@ -141,10 +137,10 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     private void initToolbar() {
         // toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         // drawer connect
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.app_name, R.string.app_name);
         drawer.addDrawerListener(toggle);
@@ -152,12 +148,12 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void initDrawer() {
-        rv_drawer = (RecyclerView) findViewById(R.id.rv_main_navigation);
+        rv_drawer = findViewById(R.id.rv_main_navigation);
         rv_drawer.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<DrawerItem> list = new ArrayList<>();
         RoleInfo r = RoleInfo.getInstance();
-        //Version
-        TextView textView = (TextView) findViewById(R.id.tv_main_version_name);
+        // version
+        TextView textView = findViewById(R.id.tv_main_version_name);
         textView.setText(String.format("Version %s", PackageHelper.getVersionName(this)));
         if (r.isLabor()) {
             list.add(new DrawerItem(R.drawable.ic_mobile_service, R.string.mobile_service, DrawerItem.GROUP));
@@ -168,6 +164,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_satisfaction_survey, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
@@ -193,15 +190,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_exit, R.string.main_drawer_logout, DrawerItem.GROUP));
         }
         rv_drawer.setAdapter(new MainDrawerRVAdapter(this, list));
-    }
-
-    private void clearDB() {
-        new DAOEvent(this).deleteAll();
-        new DAOEventChat(this).deleteAll();
-        new DAOEventTimePoint(this).deleteAll();
-        new DAOService(this).deleteAll();
-        new DAOServiceChat(this).deleteAll();
-        new DAOServiceTimePoint(this).deleteAll();
     }
 
     private void showLanguageDialog() {
@@ -253,8 +241,15 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(ClubListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_announcement))) {
             openActivity(AnnouncementListActivity.class);
+        } else if (str.equals(getString(R.string.activity))) {
+            openActivity(GBActivityListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
-            clearDB();
+            new DAOEvent(this).deleteAll();
+            new DAOEventChat(this).deleteAll();
+            new DAOEventTimePoint(this).deleteAll();
+            new DAOService(this).deleteAll();
+            new DAOServiceChat(this).deleteAll();
+            new DAOServiceTimePoint(this).deleteAll();
             SPHelper.clearUser(this);
             SPHelper.clearUnReadCount(this);
             PackageHelper.setBadge(this, SPHelper.getUnReadCount(this));
@@ -288,7 +283,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     public void closeDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
         drawer.closeDrawer(GravityCompat.START);
     }
 
@@ -351,7 +346,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void showLifeInformationDialog() {
-        String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.main_drawer_club)};
+        String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.activity),getString(R.string.main_drawer_club)};
         String[] items_manager = {getString(R.string.main_drawer_club)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_life_information_big, getString(R.string.main_drawer_life_information), items, new AdapterView.OnItemClickListener() {
@@ -546,9 +541,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     public void showChangePasswordDialog() {
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_profile_change_password, null);
-        final EditText et_old = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_old);
-        final EditText et_new = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_new);
-        final EditText et_confirm = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_confirm);
+        final EditText et_old = v.findViewById(R.id.et_dialog_profile_change_password_old);
+        final EditText et_new = v.findViewById(R.id.et_dialog_profile_change_password_new);
+        final EditText et_confirm = v.findViewById(R.id.et_dialog_profile_change_password_confirm);
         v.findViewById(R.id.tv_dialog_profile_change_password_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -626,7 +621,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout_main);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
