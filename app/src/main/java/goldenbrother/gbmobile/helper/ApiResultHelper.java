@@ -1086,10 +1086,6 @@ public class ApiResultHelper {
                     d.setCenterName(o.getString("centerName"));
                     list.add(d);
                 }
-                SortClass sortClass = new SortClass();
-                Collections.sort(list, sortClass);
-                list_discussion.clear();
-                list_discussion.addAll(list);
             }
             return result;
         } catch (JSONException e) {
@@ -1098,13 +1094,22 @@ public class ApiResultHelper {
         }
     }
 
-    public static class SortClass implements Comparator {
-        @Override
-        public int compare(Object o1, Object o2) {
-            Discussion user1 = (Discussion) o1;
-            Discussion user2 = (Discussion) o2;
-            int flag = user2.getDiscussionDate().compareTo(user1.getDiscussionDate());
-            return flag;
+    public static int getActivity(String response, GBActivity gbActivity) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int success = j.getInt("success");
+            if (success == 1) {
+                gbActivity = new GBActivity();
+                gbActivity.setActivityID(j.getInt("activityID"));
+                gbActivity.setTitle(j.getString("title"));
+                gbActivity.setContent(j.getString("content"));
+                gbActivity.setCreateDate(j.getString("createDate"));
+                gbActivity.setExpirationDate(j.getString("expirationDate"));
+            }
+            return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
         }
     }
 

@@ -11,6 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.DiscussionListRVAdapter;
@@ -76,18 +78,20 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getDiscussionFlaborList(response, list_discussion);
                     if (result == ApiResultHelper.SUCCESS) {
-                        updateAdapter();
+                        // sort
+                        Collections.sort(list_discussion, new Comparator<Discussion>() {
+                            @Override
+                            public int compare(Discussion o1, Discussion o2) {
+                                return o2.getDiscussionDate().compareTo(o1.getDiscussionDate());
+                            }
+                        });
                     } else {
                         list_discussion.clear();
-                        updateAdapter();
                     }
+                    rv.getAdapter().notifyDataSetChanged();
                     break;
             }
         }
-    }
-
-    private void updateAdapter() {
-        rv.getAdapter().notifyDataSetChanged();
     }
 
     public void onItemClick(Discussion item) {
