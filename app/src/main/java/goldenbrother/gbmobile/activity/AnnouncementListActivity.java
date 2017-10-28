@@ -23,17 +23,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class AnnouncementListActivity extends CommonActivity {
+public class AnnouncementListActivity extends CommonActivity implements View.OnClickListener {
 
+    // announcement type
+    public static final int DORM = 1;
+    public static final int COM = 2;
+    public static final int GOV = 3;
     // ui
     private RecyclerView rv;
-    // data
-    private ArrayList<AnnouncementModel> list_announcement;
     // extra
     private int type;
     private String customerNo;
     private String flaborNo;
     private String nationCode;
+    // data
+    private ArrayList<AnnouncementModel> list_announcement, list_announcement_show;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,18 +46,24 @@ public class AnnouncementListActivity extends CommonActivity {
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_announcement);
 
         // ui reference
-        rv = (RecyclerView) findViewById(R.id.rv_announcement_list);
-        // init ListView
-        list_announcement = new ArrayList<>();
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new AnnouncementListRVAdapter(this, list_announcement));
+        rv = findViewById(R.id.rv_announcement_list);
+        findViewById(R.id.ll_announcement_list_com).setOnClickListener(this);
+        findViewById(R.id.ll_announcement_list_gov).setOnClickListener(this);
+        findViewById(R.id.ll_announcement_list_dorm).setOnClickListener(this);
+
         // extra
         Intent intent = getIntent();
         type = intent.getIntExtra("type", -1);
         customerNo = intent.getStringExtra("customerNo");
         flaborNo = intent.getStringExtra("flaborNo");
         nationCode = intent.getStringExtra("nationCode");
-        // LoadAnnouncementList
+
+        // init
+        list_announcement = new ArrayList<>();
+        list_announcement_show = new ArrayList<>();
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(new AnnouncementListRVAdapter(this, list_announcement_show));
+
         loadAnnouncementList();
     }
 
@@ -87,7 +97,9 @@ public class AnnouncementListActivity extends CommonActivity {
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.loadAnnouncementList(response, list_announcement);
                     if (result == ApiResultHelper.SUCCESS) {
-                        updateAdapter();
+                        list_announcement_show.clear();
+                        list_announcement_show.addAll(list_announcement);
+                        rv.getAdapter().notifyDataSetChanged();
                     } else {
                         t(R.string.fail);
                     }
@@ -98,14 +110,34 @@ public class AnnouncementListActivity extends CommonActivity {
         }
     }
 
-    private void updateAdapter() {
-        rv.getAdapter().notifyDataSetChanged();
-    }
-
     public void onItemClick(AnnouncementModel item) {
         Bundle b = new Bundle();
         b.putInt("announcementID", item.getAnnouncementID());
         b.putString("nationCode", nationCode);
         openActivity(AnnouncementContentActivity.class, b);
+    }
+
+    private void filter(int type) {
+        list_announcement_show.clear();
+        for (AnnouncementModel a : list_announcement) {
+            if (a.getType() == type)
+                list_announcement_show.add(a);
+        }
+        rv.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_announcement_list_com:
+                filter(COM);
+                break;
+            case R.id.ll_announcement_list_gov:
+                filter(GOV);
+                break;
+            case R.id.ll_announcement_list_dorm:
+                filter(DORM);
+                break;
+        }
     }
 }
