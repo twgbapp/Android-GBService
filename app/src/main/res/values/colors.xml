@@ -8,7 +8,7 @@
     <color name="main_background">#282e40</color>
     <color name="main_background2">#535866</color>
     <color name="main_edit_background">#616776</color>
-    <color name="main_light_blue">#16afce</color>
+    <color name="main_light_blue">#16AFCE</color>
     <color name="main_light_yellow">#FFEA00</color>
     <color name="main_light_gray">#E0E0E0</color>
 
@@ -24,7 +24,7 @@
 
     <!-- Status -->
     <color name="status_green">#009944</color>
-    <color name="status_yellow">#ffae00</color>
-    <color name="status_red">#ff5050</color>
+    <color name="status_yellow">#FFAE00</color>
+    <color name="status_red">#FF5050</color>
 
 </resources>

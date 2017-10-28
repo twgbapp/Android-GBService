@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
     defaultConfig {
         applicationId "goldenbrother.gbmobile"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 16
+        targetSdkVersion 26
         versionCode 24
         versionName "2.0.24"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,25 +22,26 @@ android {
 repositories {
     maven { url "https://jitpack.io" }
     jcenter()
+    google()
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/xUtils-2.6.14.jar')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile "com.android.support:recyclerview-v7:25.3.1"
-    compile "com.android.support:cardview-v7:25.3.1"
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
+    compile "com.android.support:recyclerview-v7:26.1.0"
+    compile "com.android.support:cardview-v7:26.1.0"
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.roughike:bottom-bar:2.0.2'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.google.firebase:firebase-messaging:9.8.0'
+    compile 'com.roughike:bottom-bar:2.3.1'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+    compile 'com.google.firebase:firebase-messaging:11.4.2'
     compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
     compile 'com.github.gcacace:signature-pad:1.2.1'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
-    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
-    compile 'net.hockeyapp.android:HockeySDK:4.1.5'
+//    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
+    compile 'net.hockeyapp.android:HockeySDK:5.0.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile "me.leolin:ShortcutBadger:1.1.18@aar"
     compile 'de.hdodenhof:circleimageview:2.1.0'

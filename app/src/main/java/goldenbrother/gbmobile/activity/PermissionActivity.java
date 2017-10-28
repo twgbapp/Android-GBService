@@ -17,11 +17,8 @@ public class PermissionActivity extends CommonActivity {
     public static final int PERMISSION = 0;
     // permission
     public static final String[] PERMISSIONS = {
-            Manifest.permission.INTERNET,
-            Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,};
+            Manifest.permission.CAMERA};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +26,12 @@ public class PermissionActivity extends CommonActivity {
         setContentView(R.layout.activity_permission);
         if (getIntent().getBooleanExtra("crash", false))
             t("App restarted after crash");
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            Bundle b = new Bundle();
-            openActivity(SplashActivity.class, b);
-            finish();
-            return;
-        }
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+//            Bundle b = new Bundle();
+//            openActivity(SplashActivity.class, b);
+//            finish();
+//            return;
+//        }
         checkPermission();
     }
 
