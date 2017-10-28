@@ -91,10 +91,10 @@ public class EventChatRVAdapter extends SampleRVAdapter {
 
     private void showProfile(EventChatModel item) {
         View v = getInflater().inflate(R.layout.dialog_profile, null);
-        ImageView iv_picture = (ImageView) v.findViewById(R.id.iv_dialog_profile_picture);
-        TextView tv_name = (TextView) v.findViewById(R.id.tv_dialog_profile_name);
-        TextView tv_worker_no = (TextView) v.findViewById(R.id.tv_dialog_profile_worker_no);
-        TextView tv_customer_no = (TextView) v.findViewById(R.id.tv_dialog_profile_customer_no);
+        ImageView iv_picture = v.findViewById(R.id.iv_dialog_profile_picture);
+        TextView tv_name = v.findViewById(R.id.tv_dialog_profile_name);
+        TextView tv_worker_no = v.findViewById(R.id.tv_dialog_profile_worker_no);
+        TextView tv_customer_no = v.findViewById(R.id.tv_dialog_profile_customer_no);
 
         String picturePath = item.getWriterPicture();
         if (picturePath != null && !picturePath.isEmpty()) {
@@ -188,11 +188,11 @@ public class EventChatRVAdapter extends SampleRVAdapter {
 
         OtherViewHolder(View v) {
             super(v);
-            picture = (ImageView) v.findViewById(R.id.iv_item_rv_event_chat_other_picture);
-            date = (TextView) v.findViewById(R.id.tv_item_rv_event_chat_other_date);
-            content = (TextView) v.findViewById(R.id.tv_item_rv_event_chat_other_content);
+            picture = v.findViewById(R.id.iv_item_rv_event_chat_other_picture);
+            date = v.findViewById(R.id.tv_item_rv_event_chat_other_date);
+            content = v.findViewById(R.id.tv_item_rv_event_chat_other_content);
             rating = v.findViewById(R.id.iv_item_rv_event_chat_other_rating);
-            title =(TextView) v.findViewById(R.id.tv_item_rv_event_chat_other_title);
+            title = v.findViewById(R.id.tv_item_rv_event_chat_other_title);
         }
     }
 
@@ -204,8 +204,8 @@ public class EventChatRVAdapter extends SampleRVAdapter {
 
         SelfViewHolder(View v) {
             super(v);
-            content = (TextView) v.findViewById(R.id.tv_item_rv_event_chat_self_content);
-            date = (TextView) v.findViewById(R.id.tv_item_rv_event_chat_self_date);
+            content = v.findViewById(R.id.tv_item_rv_event_chat_self_content);
+            date = v.findViewById(R.id.tv_item_rv_event_chat_self_date);
             rating = v.findViewById(R.id.iv_item_rv_event_chat_self_rating);
         }
     }

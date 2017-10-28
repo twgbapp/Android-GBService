@@ -65,7 +65,7 @@ public class SatisfactionIssueRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.tv_item_rv_satisfaction_issue_name);
+            name = v.findViewById(R.id.tv_item_rv_satisfaction_issue_name);
         }
     }
 

@@ -48,14 +48,14 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             setUpBackToolbar(R.id.toolbar, R.string.quick_repair);
         }
         // ui reference
-        et_applicant = (EditText) findViewById(R.id.et_quick_repair_applicant);
-        et_title = (EditText) findViewById(R.id.et_quick_repair_title);
-        et_place = (EditText) findViewById(R.id.et_quick_repair_place);
-        et_description = (EditText) findViewById(R.id.et_quick_repair_description);
-        tv_area = (TextView) findViewById(R.id.tv_quick_repair_area);
-        tv_type = (TextView) findViewById(R.id.tv_quick_repair_type);
-        tv_item = (TextView) findViewById(R.id.tv_quick_repair_item);
-        tv_send = (TextView) findViewById(R.id.tv_quick_repair_send);
+        et_applicant = findViewById(R.id.et_quick_repair_applicant);
+        et_title = findViewById(R.id.et_quick_repair_title);
+        et_place = findViewById(R.id.et_quick_repair_place);
+        et_description = findViewById(R.id.et_quick_repair_description);
+        tv_area = findViewById(R.id.tv_quick_repair_area);
+        tv_type = findViewById(R.id.tv_quick_repair_type);
+        tv_item = findViewById(R.id.tv_quick_repair_item);
+        tv_send = findViewById(R.id.tv_quick_repair_send);
         // listener
         tv_area.setOnClickListener(this);
         tv_type.setOnClickListener(this);

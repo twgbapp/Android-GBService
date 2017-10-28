@@ -46,9 +46,9 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
         // ui reference
         findViewById(R.id.iv_medical_symptom_done).setOnClickListener(this);
         findViewById(R.id.ll_medical_symptom_other).setOnClickListener(this);
-        rv = (RecyclerView) findViewById(R.id.rv_medical_symptom);
-        et_other = (EditText) findViewById(R.id.et_medical_symptom_other);
-        iv_check = (ImageView) findViewById(R.id.iv_medical_symptom_check);
+        rv = findViewById(R.id.rv_medical_symptom);
+        et_other = findViewById(R.id.et_medical_symptom_other);
+        iv_check = findViewById(R.id.iv_medical_symptom_check);
 
         // extra
         medical = getIntent().getExtras().getParcelable("medical");

@@ -62,7 +62,7 @@ public class MedicalBloodTypeListAdapter extends SampleBaseAdapter {
         TextView name;
 
         ViewHolder(View v) {
-            name = (TextView) v.findViewById(R.id.tv_item_list_medical_blood_type_name);
+            name = v.findViewById(R.id.tv_item_list_medical_blood_type_name);
         }
     }
 }

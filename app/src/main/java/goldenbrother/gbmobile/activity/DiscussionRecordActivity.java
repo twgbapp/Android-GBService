@@ -67,15 +67,15 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         }
 
         // ui reference
-        tv_department = (TextView) findViewById(R.id.tv_discussion_record_department);
-        tv_name = (TextView) findViewById(R.id.tv_discussion_record_name);
-        tv_date = (TextView) findViewById(R.id.tv_discussion_record_date);
-        et_reason = (EditText) findViewById(R.id.et_discussion_record_reason);
-        et_place = (EditText) findViewById(R.id.et_discussion_record_place);
-        et_description = (EditText) findViewById(R.id.et_discussion_record_description);
-        iv_service = (ImageView) findViewById(R.id.iv_discussion_record_service_record);
-        iv_signature = (ImageView) findViewById(R.id.iv_discussion_record_signature);
-        iv_edit = (ImageView) findViewById(R.id.iv_discussion_record_profile);
+        tv_department = findViewById(R.id.tv_discussion_record_department);
+        tv_name = findViewById(R.id.tv_discussion_record_name);
+        tv_date = findViewById(R.id.tv_discussion_record_date);
+        et_reason = findViewById(R.id.et_discussion_record_reason);
+        et_place = findViewById(R.id.et_discussion_record_place);
+        et_description = findViewById(R.id.et_discussion_record_description);
+        iv_service = findViewById(R.id.iv_discussion_record_service_record);
+        iv_signature = findViewById(R.id.iv_discussion_record_signature);
+        iv_edit = findViewById(R.id.iv_discussion_record_profile);
         findViewById(R.id.iv_discussion_record_profile).setOnClickListener(this);
         findViewById(R.id.tv_discussion_record_save).setOnClickListener(this);
         tv_department.setOnClickListener(this);

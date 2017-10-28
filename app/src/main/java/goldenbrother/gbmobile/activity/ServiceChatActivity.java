@@ -36,9 +36,9 @@ public class ServiceChatActivity extends CommonActivity implements View.OnClickL
         userID = getIntent().getStringExtra("userID");
         userName = getIntent().getStringExtra("userName");
         // ui reference
-        tv_title = (TextView) findViewById(R.id.tv_service_chat_title);
-        iv_add_event = (ImageView) findViewById(R.id.iv_service_chat_add_event);
-        viewPager = (ViewPager) findViewById(R.id.vp_service_chat);
+        tv_title = findViewById(R.id.tv_service_chat_title);
+        iv_add_event = findViewById(R.id.iv_service_chat_add_event);
+        viewPager = findViewById(R.id.vp_service_chat);
         // initTitle
         setUpBackToolbar(R.id.toolbar_service_chat, R.id.tv_service_chat_title, userName);
         // initImageView

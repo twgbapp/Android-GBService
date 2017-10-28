@@ -81,9 +81,9 @@ public class RepairRecordRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View v) {
             super(v);
-            date = (TextView) v.findViewById(R.id.tv_item_rv_repair_record_date);
-            desc = (TextView) v.findViewById(R.id.tv_item_rv_repair_record_desc);
-            status = (CircleImageView) v.findViewById(R.id.iv_item_rv_repair_record_status);
+            date = v.findViewById(R.id.tv_item_rv_repair_record_date);
+            desc = v.findViewById(R.id.tv_item_rv_repair_record_desc);
+            status = v.findViewById(R.id.iv_item_rv_repair_record_status);
         }
     }
 

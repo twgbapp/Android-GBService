@@ -38,8 +38,8 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
         setContentView(R.layout.activity_add_event_user);
         setUpBackToolbar(R.id.toolbar_add_event_user, R.id.tv_add_event_user_title, R.string.add_user_add_user);
         // ui reference
-        iv_add_user = (ImageView) findViewById(R.id.iv_event_add_user_done);
-        lv = (ListView) findViewById(R.id.lv_add_event_user);
+        iv_add_user = findViewById(R.id.iv_event_add_user_done);
+        lv = findViewById(R.id.lv_add_event_user);
         // listener
         iv_add_user.setOnClickListener(this);
         // initListView

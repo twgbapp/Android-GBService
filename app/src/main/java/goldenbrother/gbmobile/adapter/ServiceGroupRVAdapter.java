@@ -108,11 +108,11 @@ public class ServiceGroupRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View v) {
             super(v);
-            picture = (CircleImageView) v.findViewById(R.id.iv_item_list_group_picture);
-            userName = (TextView) v.findViewById(R.id.tv_item_list_group_user_name);
-            content = (TextView) v.findViewById(R.id.tv_item_list_group_content);
-            chatDate = (TextView) v.findViewById(R.id.tv_item_list_group_chat_date);
-            read = (TextView) v.findViewById(R.id.tv_item_list_group_read);
+            picture = v.findViewById(R.id.iv_item_list_group_picture);
+            userName = v.findViewById(R.id.tv_item_list_group_user_name);
+            content = v.findViewById(R.id.tv_item_list_group_content);
+            chatDate = v.findViewById(R.id.tv_item_list_group_chat_date);
+            read = v.findViewById(R.id.tv_item_list_group_read);
         }
     }
 

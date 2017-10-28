@@ -46,12 +46,12 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
         setContentView(R.layout.activity_search);
         setUpBackToolbar(R.id.toolbar, R.string.search);
         // ui reference
-        tv_center = (TextView) findViewById(R.id.tv_search_center);
-        tv_dorm = (TextView) findViewById(R.id.tv_search_dorm);
-        tv_customer = (TextView) findViewById(R.id.tv_search_customer);
+        tv_center = findViewById(R.id.tv_search_center);
+        tv_dorm = findViewById(R.id.tv_search_dorm);
+        tv_customer = findViewById(R.id.tv_search_customer);
         ll_flabor = findViewById(R.id.ll_search_flabor);
-        et_worker_no = (EditText) findViewById(R.id.et_search_worker_no);
-        tv_flabor_name = (TextView) findViewById(R.id.tv_search_flabor_name);
+        et_worker_no = findViewById(R.id.et_search_worker_no);
+        tv_flabor_name = findViewById(R.id.tv_search_flabor_name);
         findViewById(R.id.tv_search_flabor_search).setOnClickListener(this);
         findViewById(R.id.tv_search_confirm).setOnClickListener(this);
         tv_center.setOnClickListener(this);

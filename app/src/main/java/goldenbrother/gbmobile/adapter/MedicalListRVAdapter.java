@@ -64,8 +64,8 @@ public class MedicalListRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.tv_item_rv_medical_list_name);
-            date = (TextView) itemView.findViewById(R.id.tv_item_rv_medical_list_date);
+            name = itemView.findViewById(R.id.tv_item_rv_medical_list_name);
+            date = itemView.findViewById(R.id.tv_item_rv_medical_list_date);
         }
     }
 

@@ -96,7 +96,7 @@ public class AddClubPostMediaRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.iv_item_rv_club_post_media_image);
+            image = itemView.findViewById(R.id.iv_item_rv_club_post_media_image);
         }
     }
 

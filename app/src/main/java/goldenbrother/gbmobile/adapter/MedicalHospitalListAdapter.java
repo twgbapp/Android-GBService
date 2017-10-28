@@ -58,7 +58,7 @@ public class MedicalHospitalListAdapter extends SampleBaseAdapter {
         TextView name;
 
         ViewHolder(View v) {
-            name = (TextView) v.findViewById(R.id.tv_item_list_medical_hospital_name);
+            name = v.findViewById(R.id.tv_item_list_medical_hospital_name);
         }
     }
 }

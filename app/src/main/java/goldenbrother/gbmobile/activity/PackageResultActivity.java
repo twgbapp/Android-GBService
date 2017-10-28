@@ -54,9 +54,9 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         setContentView(R.layout.activity_package_result);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_package);
         // ui reference
-        tv_name = (TextView) findViewById(R.id.tv_package_result_name);
-        tv_arrive_date = (TextView) findViewById(R.id.tv_package_result_arrive_date);
-        iv_picture = (ImageView) findViewById(R.id.iv_package_result_picture);
+        tv_name = findViewById(R.id.tv_package_result_name);
+        tv_arrive_date = findViewById(R.id.tv_package_result_arrive_date);
+        iv_picture = findViewById(R.id.iv_package_result_picture);
         rl_take_picture = findViewById(R.id.rl_package_result_take_picture);
         findViewById(R.id.tv_package_result_receive).setOnClickListener(this);
         rl_take_picture.setOnClickListener(this);

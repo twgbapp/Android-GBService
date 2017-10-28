@@ -34,8 +34,8 @@ public class RepairRecordContentActivity extends CommonActivity {
         setContentView(R.layout.activity_repair_record_content);
         // ui
         rl_picture = findViewById(R.id.rl_repair_record_content_picture);
-        iv_picture = (ImageView) findViewById(R.id.iv_repair_record_content_picture);
-        tv_proc_result = (TextView) findViewById(R.id.tv_repair_record_content_proc_result);
+        iv_picture = findViewById(R.id.iv_repair_record_content_picture);
+        tv_proc_result = findViewById(R.id.tv_repair_record_content_proc_result);
         // extra
         rrsNo = getIntent().getIntExtra("rrsNo", -1);
         // get record content

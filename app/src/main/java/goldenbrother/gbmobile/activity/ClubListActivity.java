@@ -30,7 +30,7 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_club_list);
         setUpBackToolbar(R.id.toolbar, R.string.club_title);
         // ui reference
-        gv = (GridView) findViewById(R.id.gv_club);
+        gv = findViewById(R.id.gv_club);
         // init GridView
         list_club = new ArrayList<>();
         gv.setAdapter(new ClubGridAdapter(this, list_club));

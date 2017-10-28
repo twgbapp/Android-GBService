@@ -49,7 +49,7 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
     private static final int GROUP = 0;
     private static final int CHILD = 1;
     // data
-    private ArrayList<DrawerItem> list;;
+    private ArrayList<DrawerItem> list;
     //private EditText et_name, et_email;
 
     public MainDrawerRVAdapter(Context context, ArrayList<DrawerItem> list) {
@@ -155,9 +155,9 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
 
         HeadViewHolder(View v) {
             super(v);
-            picture = (ImageView) v.findViewById(R.id.iv_item_rv_main_drawer_head_picture);
-            name = (TextView) v.findViewById(R.id.tv_item_rv_main_drawer_head_name);
-            email = (TextView) v.findViewById(R.id.tv_item_rv_main_drawer_head_email);
+            picture = v.findViewById(R.id.iv_item_rv_main_drawer_head_picture);
+            name = v.findViewById(R.id.tv_item_rv_main_drawer_head_name);
+            email = v.findViewById(R.id.tv_item_rv_main_drawer_head_email);
             edit = v.findViewById(R.id.tv_item_rv_main_drawer_head_edit);
         }
     }
@@ -168,8 +168,8 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
 
         GroupViewHolder(View v) {
             super(v);
-            icon = (ImageView) v.findViewById(R.id.iv_item_rv_main_drawer_group_icon);
-            name = (TextView) v.findViewById(R.id.tv_item_rv_main_drawer_group_name);
+            icon = v.findViewById(R.id.iv_item_rv_main_drawer_group_icon);
+            name = v.findViewById(R.id.tv_item_rv_main_drawer_group_name);
         }
     }
 
@@ -179,8 +179,8 @@ public class MainDrawerRVAdapter extends SampleRVAdapter {
 
         ChildViewHolder(View v) {
             super(v);
-            icon = (ImageView) v.findViewById(R.id.iv_item_rv_main_drawer_child_icon);
-            name = (TextView) v.findViewById(R.id.tv_item_rv_main_drawer_child_name);
+            icon = v.findViewById(R.id.iv_item_rv_main_drawer_child_icon);
+            name = v.findViewById(R.id.tv_item_rv_main_drawer_child_name);
         }
     }
 }

@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,6 +30,7 @@ public class SplashActivity extends CommonActivity {
         handler.sendMessageDelayed(msg, 1000);
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

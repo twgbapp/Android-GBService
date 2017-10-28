@@ -39,7 +39,7 @@ public class ChartActivity extends CommonActivity {
         setContentView(R.layout.activity_chart);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_chart);
         // ui reference
-        chatView = (BarChart) findViewById(R.id.cv_chart);
+        chatView = findViewById(R.id.cv_chart);
         // init
         list_repair_kind_number = new ArrayList<>();
         // load

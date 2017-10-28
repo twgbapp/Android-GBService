@@ -28,7 +28,7 @@ public class CropActivity extends CommonActivity implements View.OnClickListener
         setContentView(R.layout.activity_crop);
 
         // ui reference
-        civ = (CropImageView) findViewById(R.id.civ);
+        civ = findViewById(R.id.civ);
         findViewById(R.id.tv_crop_confirm).setOnClickListener(this);
 
         // extra

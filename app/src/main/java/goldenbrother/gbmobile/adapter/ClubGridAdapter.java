@@ -68,8 +68,8 @@ public class ClubGridAdapter extends SampleBaseAdapter {
         TextView name;
 
         ViewHolder(View v) {
-            picture = (ImageView) v.findViewById(R.id.iv_item_grid_club_picture);
-            name = (TextView) v.findViewById(R.id.tv_item_grid_club_name);
+            picture = v.findViewById(R.id.iv_item_grid_club_picture);
+            name = v.findViewById(R.id.tv_item_grid_club_name);
         }
     }
 }

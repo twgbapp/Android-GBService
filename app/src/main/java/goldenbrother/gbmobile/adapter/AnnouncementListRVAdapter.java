@@ -83,10 +83,10 @@ public class AnnouncementListRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View itemView) {
             super(itemView);
-            type = (ImageView) itemView.findViewById(R.id.iv_item_rv_announcement_list_type);
-            date = (TextView) itemView.findViewById(R.id.tv_item_rv_announcement_list_date);
-            title = (TextView) itemView.findViewById(R.id.tv_item_rv_announcement_list_title);
-            description = (TextView) itemView.findViewById(R.id.tv_item_rv_announcement_list_description);
+            type = itemView.findViewById(R.id.iv_item_rv_announcement_list_type);
+            date = itemView.findViewById(R.id.tv_item_rv_announcement_list_date);
+            title = itemView.findViewById(R.id.tv_item_rv_announcement_list_title);
+            description = itemView.findViewById(R.id.tv_item_rv_announcement_list_description);
         }
     }
 

@@ -64,8 +64,8 @@ public class PackageListRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View itemView) {
             super(itemView);
-            description = (TextView) itemView.findViewById(R.id.tv_item_rv_package_list_description);
-            date = (TextView) itemView.findViewById(R.id.tv_item_rv_package_list_date);
+            description = itemView.findViewById(R.id.tv_item_rv_package_list_description);
+            date = itemView.findViewById(R.id.tv_item_rv_package_list_date);
         }
     }
 

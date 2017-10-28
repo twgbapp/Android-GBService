@@ -57,7 +57,7 @@ public class CommonItemListAdapter extends SampleBaseAdapter {
         View divider;
 
         ViewHolder(View v) {
-            item = (TextView) v.findViewById(R.id.tv_item_list_common_item_name);
+            item = v.findViewById(R.id.tv_item_list_common_item_name);
             divider = v.findViewById(R.id.v_item_list_common_item_divider);
         }
     }

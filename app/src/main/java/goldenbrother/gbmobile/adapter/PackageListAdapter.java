@@ -62,8 +62,8 @@ public class PackageListAdapter extends SampleBaseAdapter {
         TextView arriveDate;
 
         ViewHolder(View v) {
-            description = (TextView) v.findViewById(R.id.tv_item_list_package_description);
-            arriveDate = (TextView) v.findViewById(R.id.tv_item_list_package_arrivedate);
+            description = v.findViewById(R.id.tv_item_list_package_description);
+            arriveDate = v.findViewById(R.id.tv_item_list_package_arrivedate);
         }
     }
 }

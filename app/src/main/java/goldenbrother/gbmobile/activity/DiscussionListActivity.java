@@ -37,7 +37,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
         // ui reference
         findViewById(R.id.iv_discussion_list_search).setOnClickListener(this);
         findViewById(R.id.iv_discussion_list_add).setOnClickListener(this);
-        rv = (RecyclerView) findViewById(R.id.rv_discussion_list);
+        rv = findViewById(R.id.rv_discussion_list);
 
         // init RecyclerView
         list_discussion = new ArrayList<>();

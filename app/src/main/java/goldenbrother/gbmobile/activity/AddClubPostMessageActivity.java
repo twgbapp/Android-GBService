@@ -46,14 +46,14 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
         setContentView(R.layout.activity_add_club_post_message);
         setUpBackToolbar(R.id.toolbar, R.string.comment);
         // ui reference
-        iv_user_picture = (ImageView) findViewById(R.id.iv_add_club_post_message_user_picture);
-        iv_thumbnail_pic = (ImageView) findViewById(R.id.iv_add_club_post_message_thumbnail_pic);
-        iv_video_play = (ImageView) findViewById(R.id.iv_add_club_post_message_video_play);
-        tv_user_name = (TextView) findViewById(R.id.tv_add_club_post_message_user_name);
-        tv_create_date = (TextView) findViewById(R.id.tv_add_club_post_message_create_date);
-        tv_content = (TextView) findViewById(R.id.tv_add_club_post_message_content);
-        rv = (RecyclerView) findViewById(R.id.rv_add_club_post_message_comment);
-        et_message = (EditText) findViewById(R.id.et_add_club_post_message_message);
+        iv_user_picture = findViewById(R.id.iv_add_club_post_message_user_picture);
+        iv_thumbnail_pic = findViewById(R.id.iv_add_club_post_message_thumbnail_pic);
+        iv_video_play = findViewById(R.id.iv_add_club_post_message_video_play);
+        tv_user_name = findViewById(R.id.tv_add_club_post_message_user_name);
+        tv_create_date = findViewById(R.id.tv_add_club_post_message_create_date);
+        tv_content = findViewById(R.id.tv_add_club_post_message_content);
+        rv = findViewById(R.id.rv_add_club_post_message_comment);
+        et_message = findViewById(R.id.et_add_club_post_message_message);
         findViewById(R.id.iv_add_club_post_message_send).setOnClickListener(this);
         // init ListView
         list_message = new ArrayList<>();

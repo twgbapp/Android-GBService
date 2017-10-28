@@ -49,7 +49,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         // ui reference
         findViewById(R.id.iv_medical_list_search).setOnClickListener(this);
         findViewById(R.id.iv_medical_list_add).setOnClickListener(this);
-        rv = (RecyclerView) findViewById(R.id.rv_medical_list);
+        rv = findViewById(R.id.rv_medical_list);
 
         // init
         list_medical = new ArrayList<>();
@@ -117,8 +117,8 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
 
     private void showSearchDialog() {
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_medical_list_search, null);
-        final TextView tv_start_date = (TextView) v.findViewById(R.id.tv_dialog_medical_list_search_start_date);
-        final TextView tv_end_date = (TextView) v.findViewById(R.id.tv_dialog_medical_list_search_end_date);
+        final TextView tv_start_date = v.findViewById(R.id.tv_dialog_medical_list_search_start_date);
+        final TextView tv_end_date = v.findViewById(R.id.tv_dialog_medical_list_search_end_date);
         tv_start_date.setText(TimeHelper.getYMD());
         tv_end_date.setText(TimeHelper.getYMD());
         tv_start_date.setOnClickListener(showDatePickerListener);

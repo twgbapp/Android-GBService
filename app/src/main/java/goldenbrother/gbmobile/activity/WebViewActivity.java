@@ -24,7 +24,7 @@ public class WebViewActivity extends CommonActivity {
         setContentView(R.layout.activity_web_view);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_e_commerce);
         // ui reference
-        wv = (WebView) findViewById(R.id.wv_web_view);
+        wv = findViewById(R.id.wv_web_view);
 
         // extra
         String url = getIntent().getStringExtra("url");

@@ -70,9 +70,9 @@ public class ClubPostMessageRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View v) {
             super(v);
-            picture = (ImageView) v.findViewById(R.id.iv_item_list_club_post_message_picture);
-            name = (TextView) v.findViewById(R.id.tv_item_list_club_post_message_name);
-            message = (TextView) v.findViewById(R.id.tv_item_list_club_post_message_message);
+            picture = v.findViewById(R.id.iv_item_list_club_post_message_picture);
+            name = v.findViewById(R.id.tv_item_list_club_post_message_name);
+            message = v.findViewById(R.id.tv_item_list_club_post_message_message);
         }
     }
 

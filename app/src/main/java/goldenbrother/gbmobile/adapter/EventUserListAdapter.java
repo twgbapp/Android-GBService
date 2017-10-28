@@ -103,10 +103,10 @@ public class EventUserListAdapter extends SampleBaseAdapter {
         ImageView check;
 
         ViewHolder(View v) {
-            picture = (CircleImageView) v.findViewById(R.id.iv_item_list_event_user_picture);
-            name = (TextView) v.findViewById(R.id.tv_item_list_event_user_name);
-            title = (TextView) v.findViewById(R.id.tv_item_list_event_title);
-            check = (ImageView) v.findViewById(R.id.iv_item_list_event_check);
+            picture = v.findViewById(R.id.iv_item_list_event_user_picture);
+            name = v.findViewById(R.id.tv_item_list_event_user_name);
+            title = v.findViewById(R.id.tv_item_list_event_title);
+            check = v.findViewById(R.id.iv_item_list_event_check);
         }
     }
 }

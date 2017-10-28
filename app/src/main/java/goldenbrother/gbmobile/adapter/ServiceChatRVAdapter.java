@@ -97,10 +97,10 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
 
     private void showProfile(ServiceChatModel item) {
         View v = getInflater().inflate(R.layout.dialog_profile, null);
-        ImageView iv_picture = (ImageView) v.findViewById(R.id.iv_dialog_profile_picture);
-        TextView tv_name = (TextView) v.findViewById(R.id.tv_dialog_profile_name);
-        TextView tv_worker_no = (TextView) v.findViewById(R.id.tv_dialog_profile_worker_no);
-        TextView tv_customer_no = (TextView) v.findViewById(R.id.tv_dialog_profile_customer_no);
+        ImageView iv_picture = v.findViewById(R.id.iv_dialog_profile_picture);
+        TextView tv_name = v.findViewById(R.id.tv_dialog_profile_name);
+        TextView tv_worker_no = v.findViewById(R.id.tv_dialog_profile_worker_no);
+        TextView tv_customer_no = v.findViewById(R.id.tv_dialog_profile_customer_no);
 
         String picturePath = item.getUserPicture();
         if (picturePath != null && !picturePath.isEmpty()) {
@@ -120,7 +120,7 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
     private void displayPopupWindow(View anchorView, ServiceChatModel item) {
         PopupWindow popup = new PopupWindow(getContext());
         View v = getInflater().inflate(R.layout.dialog_pop_window, null);
-        TextView tv = (TextView) v.findViewById(R.id.tv_dialog_pop_window_name);
+        TextView tv = v.findViewById(R.id.tv_dialog_pop_window_name);
         tv.setText(item.getUserName());
         popup.setContentView(v);
         // Set content width and height
@@ -215,11 +215,11 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
 
         OtherViewHolder(View v) {
             super(v);
-            picture = (ImageView) v.findViewById(R.id.iv_item_rv_service_chat_other_picture);
-            date = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_date);
-            content = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_content);
-            qrCode = (ImageView) v.findViewById(R.id.iv_item_rv_service_chat_other_qr_code);
-            title = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_other_title);
+            picture = v.findViewById(R.id.iv_item_rv_service_chat_other_picture);
+            date = v.findViewById(R.id.tv_item_rv_service_chat_other_date);
+            content = v.findViewById(R.id.tv_item_rv_service_chat_other_content);
+            qrCode = v.findViewById(R.id.iv_item_rv_service_chat_other_qr_code);
+            title = v.findViewById(R.id.tv_item_rv_service_chat_other_title);
         }
     }
 
@@ -231,9 +231,9 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
 
         SelfViewHolder(View v) {
             super(v);
-            content = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_self_content);
-            date = (TextView) v.findViewById(R.id.tv_item_rv_service_chat_self_date);
-            qrCode = (ImageView) v.findViewById(R.id.iv_item_rv_service_chat_self_qr_code);
+            content = v.findViewById(R.id.tv_item_rv_service_chat_self_content);
+            date = v.findViewById(R.id.tv_item_rv_service_chat_self_date);
+            qrCode = v.findViewById(R.id.iv_item_rv_service_chat_self_qr_code);
         }
     }
 }

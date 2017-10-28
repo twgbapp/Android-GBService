@@ -114,7 +114,7 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
 
         GroupViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.tv_item_list_medical_symptom_group_name);
+            name = v.findViewById(R.id.tv_item_list_medical_symptom_group_name);
         }
     }
 
@@ -124,8 +124,8 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
 
         ChildViewHolder(View v) {
             super(v);
-            check = (ImageView) v.findViewById(R.id.iv_item_list_medical_symptom_child_check);
-            name = (TextView) v.findViewById(R.id.tv_item_list_medical_symptom_child_name);
+            check = v.findViewById(R.id.iv_item_list_medical_symptom_child_check);
+            name = v.findViewById(R.id.tv_item_list_medical_symptom_child_name);
         }
     }
 

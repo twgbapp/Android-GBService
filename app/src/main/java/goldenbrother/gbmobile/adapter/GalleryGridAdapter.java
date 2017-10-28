@@ -101,9 +101,9 @@ public class GalleryGridAdapter extends SampleBaseAdapter {
         TextView order;
 
         ViewHolder(View v) {
-            background = (RelativeLayout) v.findViewById(R.id.rl_item_grid_gallery_background);
-            image = (ImageView) v.findViewById(R.id.iv_item_grid_gallery_image);
-            order = (TextView) v.findViewById(R.id.tv_item_grid_gallery_order);
+            background = v.findViewById(R.id.rl_item_grid_gallery_background);
+            image = v.findViewById(R.id.iv_item_grid_gallery_image);
+            order = v.findViewById(R.id.tv_item_grid_gallery_order);
         }
     }
 }

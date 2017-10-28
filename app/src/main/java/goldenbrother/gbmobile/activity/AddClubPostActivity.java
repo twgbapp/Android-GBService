@@ -68,8 +68,8 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
         setContentView(R.layout.activity_add_club_post);
         setUpBackToolbar(R.id.toolbar_add_club_post, R.id.tv_add_club_post_title, R.string.club_add_post);
         // ui reference
-        et_content = (EditText) findViewById(R.id.et_add_club_post_content);
-        rv_media = (RecyclerView) findViewById(R.id.rv_add_club_post_media);
+        et_content = findViewById(R.id.et_add_club_post_content);
+        rv_media = findViewById(R.id.rv_add_club_post_media);
         // listener
         findViewById(R.id.iv_add_club_post_done).setOnClickListener(this);
         findViewById(R.id.iv_add_club_post_input_video_path).setOnClickListener(this);

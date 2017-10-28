@@ -85,8 +85,8 @@ public class AddEventKindRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View itemView) {
             super(itemView);
-            kind = (TextView) itemView.findViewById(R.id.tv_item_list_add_event_kind);
-            description = (TextView) itemView.findViewById(R.id.tv_item_list_add_event_description);
+            kind = itemView.findViewById(R.id.tv_item_list_add_event_kind);
+            description = itemView.findViewById(R.id.tv_item_list_add_event_description);
         }
     }
 

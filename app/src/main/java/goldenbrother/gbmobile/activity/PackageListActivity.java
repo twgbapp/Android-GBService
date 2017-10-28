@@ -53,7 +53,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         setUpBackToolbar(R.id.toolbar_package_list, R.id.tv_package_list_title, R.string.main_drawer_package);
         // ui reference
         findViewById(R.id.iv_package_list_search).setOnClickListener(this);
-        rv = (RecyclerView) findViewById(R.id.rv_package_list);
+        rv = findViewById(R.id.rv_package_list);
         // init RecyclerView
         list_package = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));

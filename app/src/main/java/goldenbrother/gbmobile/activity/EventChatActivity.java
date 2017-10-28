@@ -52,9 +52,9 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
         setContentView(R.layout.activity_event_chat);
         setUpBackToolbar(R.id.toolbar_event_chat, R.id.tv_event_chat_title, "");
         // ui reference
-        tv_title = (TextView) findViewById(R.id.tv_event_chat_title);
-        rv = (RecyclerView) findViewById(R.id.rv_event_chat);
-        et_content = (EditText) findViewById(R.id.et_event_chat_content);
+        tv_title = findViewById(R.id.tv_event_chat_title);
+        rv = findViewById(R.id.rv_event_chat);
+        et_content = findViewById(R.id.et_event_chat_content);
         findViewById(R.id.iv_event_rating).setOnClickListener(this);
         findViewById(R.id.iv_event_add_user).setOnClickListener(this);
         findViewById(R.id.tv_event_chat_send).setOnClickListener(this);
@@ -291,7 +291,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
 
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         final View v = getLayoutInflater().inflate(R.layout.dialog_event_rating, null);
-        final RatingBar rb = (RatingBar) v.findViewById(R.id.rb_dialog_event_rating);
+        final RatingBar rb = v.findViewById(R.id.rb_dialog_event_rating);
         final View tv_close = v.findViewById(R.id.tv_dialog_event_rating_close);
         // init RatingBar
         rb.setRating(event.getEventScore());

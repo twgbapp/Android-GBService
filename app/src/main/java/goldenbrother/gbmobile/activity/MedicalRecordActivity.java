@@ -71,17 +71,17 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         setUpBackToolbar(R.id.toolbar, R.string.medical_add_medical);
 
         // ui reference
-        tv_name = (TextView) findViewById(R.id.tv_medical_record_name);
-        tv_blood_type = (TextView) findViewById(R.id.tv_medical_record_blood_type);
-        tv_room_id = (TextView) findViewById(R.id.tv_medical_record_room_id);
-        tv_date = (TextView) findViewById(R.id.tv_medical_record_date);
-        et_symptoms = (TextView) findViewById(R.id.tv_medical_record_symptoms);
-        et_processing_status = (TextView) findViewById(R.id.tv_medical_record_processing_status);
-        et_tracking_processing = (TextView) findViewById(R.id.tv_medical_record_tracking_processing);
-        iv_signature = (ImageView) findViewById(R.id.iv_medical_record_signature_path);
-        iv_medical = (ImageView) findViewById(R.id.iv_medical_record_medical_path);
-        iv_diagnosis = (ImageView) findViewById(R.id.iv_medical_record_diagnosis_path);
-        iv_service = (ImageView) findViewById(R.id.iv_medical_record_service_path);
+        tv_name = findViewById(R.id.tv_medical_record_name);
+        tv_blood_type = findViewById(R.id.tv_medical_record_blood_type);
+        tv_room_id = findViewById(R.id.tv_medical_record_room_id);
+        tv_date = findViewById(R.id.tv_medical_record_date);
+        et_symptoms = findViewById(R.id.tv_medical_record_symptoms);
+        et_processing_status = findViewById(R.id.tv_medical_record_processing_status);
+        et_tracking_processing = findViewById(R.id.tv_medical_record_tracking_processing);
+        iv_signature = findViewById(R.id.iv_medical_record_signature_path);
+        iv_medical = findViewById(R.id.iv_medical_record_medical_path);
+        iv_diagnosis = findViewById(R.id.iv_medical_record_diagnosis_path);
+        iv_service = findViewById(R.id.iv_medical_record_service_path);
 //        findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
 //        findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
 //        findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);

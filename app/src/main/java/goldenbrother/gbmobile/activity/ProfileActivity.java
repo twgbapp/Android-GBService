@@ -57,9 +57,9 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         // ui reference
-        iv_picture = (CircleImageView) findViewById(R.id.iv_profile_picture);
-        et_name = (EditText) findViewById(R.id.et_profile_name);
-        et_email = (EditText) findViewById(R.id.et_profile_email);
+        iv_picture = findViewById(R.id.iv_profile_picture);
+        et_name = findViewById(R.id.et_profile_name);
+        et_email = findViewById(R.id.et_profile_email);
         findViewById(R.id.tv_profile_change_password).setOnClickListener(this);
         // get role instances
         RoleInfo r = RoleInfo.getInstance();
@@ -251,9 +251,9 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
 
     public void showChangePasswordDialog() {
         View v = LayoutInflater.from(this).inflate(R.layout.dialog_profile_change_password, null);
-        final EditText et_old = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_old);
-        final EditText et_new = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_new);
-        final EditText et_confirm = (EditText) v.findViewById(R.id.et_dialog_profile_change_password_confirm);
+        final EditText et_old = v.findViewById(R.id.et_dialog_profile_change_password_old);
+        final EditText et_new = v.findViewById(R.id.et_dialog_profile_change_password_new);
+        final EditText et_confirm = v.findViewById(R.id.et_dialog_profile_change_password_confirm);
         v.findViewById(R.id.tv_dialog_profile_change_password_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

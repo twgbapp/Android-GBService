@@ -85,10 +85,10 @@ public class EventListAdapter extends SampleBaseAdapter {
         TextView read;
 
         ViewHolder(View v) {
-            picture = (CircleImageView) v.findViewById(R.id.iv_item_list_event_picture);
-            name = (TextView) v.findViewById(R.id.tv_item_list_event_name);
-            description = (TextView) v.findViewById(R.id.tv_item_list_event_description);
-            read = (TextView) v.findViewById(R.id.tv_item_list_event_read);
+            picture = v.findViewById(R.id.iv_item_list_event_picture);
+            name = v.findViewById(R.id.tv_item_list_event_name);
+            description = v.findViewById(R.id.tv_item_list_event_description);
+            read = v.findViewById(R.id.tv_item_list_event_read);
         }
     }
 }

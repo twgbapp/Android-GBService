@@ -33,10 +33,10 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // ui reference
-        et_account = (EditText) findViewById(R.id.et_login_account);
+        et_account = findViewById(R.id.et_login_account);
         //MaterialEditText et_account = (MaterialEditText) findViewById(R.id.et_login_account);
         //et_account.addValidator(new RegexpValidator("Only Integer Valid!", "\\d+"));
-        et_password = (EditText) findViewById(R.id.et_login_password);
+        et_password = findViewById(R.id.et_login_password);
         // listener
         findViewById(R.id.iv_login_change_language).setOnClickListener(this);
         findViewById(R.id.tv_login_dologn).setOnClickListener(this);

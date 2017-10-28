@@ -18,7 +18,7 @@ public class QRReaderActivity extends CommonActivity implements QRCodeReaderView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrreader);
         // ui reference
-        readerView = (QRCodeReaderView) findViewById(R.id.qr_view);
+        readerView = findViewById(R.id.qr_view);
         // listener
         readerView.setOnQRCodeReadListener(this);
     }

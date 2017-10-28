@@ -49,7 +49,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         // ui reference
         iv_done = findViewById(R.id.iv_add_event_done);
         fab_add_event = findViewById(R.id.fab_add_event);
-        rv = (RecyclerView) findViewById(R.id.rv_add_event);
+        rv = findViewById(R.id.rv_add_event);
         // listener
         iv_done.setOnClickListener(this);
         fab_add_event.setOnClickListener(this);
@@ -124,13 +124,13 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     private void showAddEventDialog() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         final View v = getLayoutInflater().inflate(R.layout.dialog_service_add_event, null);
-        tv_area = (TextView) v.findViewById(R.id.tv_dialog_service_add_event_area);
-        tv_type = (TextView) v.findViewById(R.id.tv_dialog_service_add_event_type);
-        tv_item = (TextView) v.findViewById(R.id.tv_dialog_service_add_event_item);
+        tv_area = v.findViewById(R.id.tv_dialog_service_add_event_area);
+        tv_type = v.findViewById(R.id.tv_dialog_service_add_event_type);
+        tv_item = v.findViewById(R.id.tv_dialog_service_add_event_item);
         tv_area.setOnClickListener(this);
         tv_type.setOnClickListener(this);
         tv_item.setOnClickListener(this);
-        final EditText et_description = (EditText) v.findViewById(R.id.et_dialog_service_add_event_description);
+        final EditText et_description = v.findViewById(R.id.et_dialog_service_add_event_description);
         // cancel listener
         v.findViewById(R.id.tv_dialog_service_add_event_cancel).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -91,7 +91,7 @@ public class SatisfactionQuestionRVAdapter extends SampleRVAdapter {
     private void showRatingDialog(final SatisfactionQuestionModel item) {
         AlertDialog.Builder b = new AlertDialog.Builder(getContext());
         final View v = getInflater().inflate(R.layout.dialog_satisfaction_rating, null);
-        final RatingBar rb = (RatingBar) v.findViewById(R.id.rb_dialog_satisfaction_rating);
+        final RatingBar rb = v.findViewById(R.id.rb_dialog_satisfaction_rating);
         // init RatingBar
         rb.setRating(5);
         v.findViewById(R.id.tv_dialog_satisfaction_close).setOnClickListener(new View.OnClickListener() {
@@ -123,9 +123,9 @@ public class SatisfactionQuestionRVAdapter extends SampleRVAdapter {
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.tv_item_rv_satisfaction_question_name);
-            status = (TextView) v.findViewById(R.id.tv_item_rv_satisfaction_question_status);
-            rating = (RatingBar) v.findViewById(R.id.rb_item_rv_satisfaction_question_rating);
+            name = v.findViewById(R.id.tv_item_rv_satisfaction_question_name);
+            status = v.findViewById(R.id.tv_item_rv_satisfaction_question_status);
+            rating = v.findViewById(R.id.rb_item_rv_satisfaction_question_rating);
         }
     }
 

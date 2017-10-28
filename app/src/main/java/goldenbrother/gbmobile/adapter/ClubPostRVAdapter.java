@@ -167,9 +167,9 @@ public class ClubPostRVAdapter extends SampleRVAdapter {
 
         HeadViewHolder(View v) {
             super(v);
-            clubPicture = (ImageView) v.findViewById(R.id.iv_item_rv_club_post_head_club_picture);
-            clubName = (TextView) v.findViewById(R.id.tv_item_rv_club_post_head_club_name);
-            userPicture = (ImageView) v.findViewById(R.id.iv_item_rv_club_post_head_user_picture);
+            clubPicture = v.findViewById(R.id.iv_item_rv_club_post_head_club_picture);
+            clubName = v.findViewById(R.id.tv_item_rv_club_post_head_club_name);
+            userPicture = v.findViewById(R.id.iv_item_rv_club_post_head_user_picture);
             addPost = v.findViewById(R.id.ll_item_rv_club_post_head_add_post);
         }
     }
@@ -187,14 +187,14 @@ public class ClubPostRVAdapter extends SampleRVAdapter {
 
         BodyViewHolder(View v) {
             super(v);
-            userPicture = (ImageView) v.findViewById(R.id.iv_item_rv_club_post_body_user_picture);
-            userName = (TextView) v.findViewById(R.id.tv_item_rv_club_post_body_user_name);
-            createDate = (TextView) v.findViewById(R.id.tv_item_rv_club_post_body_create_date);
-            content = (TextView) v.findViewById(R.id.tv_item_rv_club_post_body_content);
-            thumbNailPicture = (ImageView) v.findViewById(R.id.iv_item_rv_club_post_body_thumbnail_pic);
-            videoPlay = (ImageView) v.findViewById(R.id.iv_item_rv_club_post_body_video_play);
-            messageCount = (TextView) v.findViewById(R.id.tv_item_rv_club_post_body_message_count);
-            comment= (TextView) v.findViewById(R.id.tv_item_rv_club_post_body_comment);
+            userPicture = v.findViewById(R.id.iv_item_rv_club_post_body_user_picture);
+            userName = v.findViewById(R.id.tv_item_rv_club_post_body_user_name);
+            createDate = v.findViewById(R.id.tv_item_rv_club_post_body_create_date);
+            content = v.findViewById(R.id.tv_item_rv_club_post_body_content);
+            thumbNailPicture = v.findViewById(R.id.iv_item_rv_club_post_body_thumbnail_pic);
+            videoPlay = v.findViewById(R.id.iv_item_rv_club_post_body_video_play);
+            messageCount = v.findViewById(R.id.tv_item_rv_club_post_body_message_count);
+            comment= v.findViewById(R.id.tv_item_rv_club_post_body_comment);
         }
     }
 }

@@ -41,8 +41,8 @@ public class ClubPostActivity extends CommonActivity {
         setContentView(R.layout.activity_club_post);
         setUpBackToolbar(R.id.toolbar, R.string.club_title);
         // ui reference
-        srl = (SwipeRefreshLayout) findViewById(R.id.srl_club_post);
-        rv = (RecyclerView) findViewById(R.id.rv_club_post);
+        srl = findViewById(R.id.srl_club_post);
+        rv = findViewById(R.id.rv_club_post);
         // get extra
         Intent intent = getIntent();
         club = intent.getExtras().getParcelable("club");

@@ -25,8 +25,8 @@ public class ClubPostMediaActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_post_media);
         // ui reference
-        tv_count = (TextView) findViewById(R.id.tv_club_post_media_count);
-        vp = (ViewPager) findViewById(R.id.vp_club_post_media);
+        tv_count = findViewById(R.id.tv_club_post_media_count);
+        vp = findViewById(R.id.vp_club_post_media);
         // extra
         list_media = getIntent().getParcelableArrayListExtra("media");
         // init Count

@@ -53,16 +53,16 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
         setUpBackToolbar(R.id.toolbar, R.string.medical_process);
         // ui reference
         findViewById(R.id.tv_medical_process_status_done).setOnClickListener(this);
-        iv_1 = (ImageView) findViewById(R.id.iv_medical_process_status_1);
-        iv_2 = (ImageView) findViewById(R.id.iv_medical_process_status_2);
-        iv_3 = (ImageView) findViewById(R.id.iv_medical_process_status_3);
-        iv_4 = (ImageView) findViewById(R.id.iv_medical_process_status_4);
-        iv_5 = (ImageView) findViewById(R.id.iv_medical_process_status_5);
-        et_other = (EditText) findViewById(R.id.et_medical_process_status_other);
-        tv_hospital = (TextView) findViewById(R.id.tv_medical_process_hospital);
-        tv_person = (TextView) findViewById(R.id.tv_medical_process_person);
-        rb_yes = (RadioButton) findViewById(R.id.rb_medical_process_yes);
-        rb_no = (RadioButton) findViewById(R.id.rb_medical_process_no);
+        iv_1 = findViewById(R.id.iv_medical_process_status_1);
+        iv_2 = findViewById(R.id.iv_medical_process_status_2);
+        iv_3 = findViewById(R.id.iv_medical_process_status_3);
+        iv_4 = findViewById(R.id.iv_medical_process_status_4);
+        iv_5 = findViewById(R.id.iv_medical_process_status_5);
+        et_other = findViewById(R.id.et_medical_process_status_other);
+        tv_hospital = findViewById(R.id.tv_medical_process_hospital);
+        tv_person = findViewById(R.id.tv_medical_process_person);
+        rb_yes = findViewById(R.id.rb_medical_process_yes);
+        rb_no = findViewById(R.id.rb_medical_process_no);
         tv_hospital.setOnClickListener(this);
         tv_person.setOnClickListener(this);
         iv_1.setOnClickListener(this);

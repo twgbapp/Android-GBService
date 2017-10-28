@@ -59,7 +59,7 @@ public class RepairKindListAdapter extends SampleBaseAdapter {
         TextView value;
 
         ViewHolder(View v) {
-            value = (TextView) v.findViewById(R.id.item_list_event_kind_value);
+            value = v.findViewById(R.id.item_list_event_kind_value);
         }
     }
 }

@@ -36,7 +36,7 @@ public class SatisfactionQuestionActivity extends CommonActivity {
         setContentView(R.layout.activity_satisfaction_question);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_satisfaction_survey);
         // ui reference
-        rv = (RecyclerView) findViewById(R.id.rv_satisfaction_question);
+        rv = findViewById(R.id.rv_satisfaction_question);
         // extra
         issue = getIntent().getParcelableExtra("issue");
         // init RecyclerView

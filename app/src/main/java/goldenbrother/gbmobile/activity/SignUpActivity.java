@@ -38,16 +38,16 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         setContentView(R.layout.activity_sign_up);
         setUpBackToolbar(R.id.toolbar, R.string.sign_up_create_account);
         // ui reference
-        et_account = (EditText) findViewById(R.id.et_sign_up_account);
-        et_password = (EditText) findViewById(R.id.et_sign_up_password);
-        et_confirm_password = (EditText) findViewById(R.id.et_sign_up_confirm_password);
-        et_id_number = (EditText) findViewById(R.id.et_sign_up_id_number);
-        et_name = (EditText) findViewById(R.id.et_sign_up_name);
-        et_email = (EditText) findViewById(R.id.et_sign_up_email);
-        et_phone = (EditText) findViewById(R.id.et_sign_up_phone);
-        tv_sex = (TextView) findViewById(R.id.tv_sign_up_sex);
-        tv_nation = (TextView) findViewById(R.id.tv_sign_up_nation);
-        tv_birthday = (TextView) findViewById(R.id.tv_sign_up_birthday);
+        et_account = findViewById(R.id.et_sign_up_account);
+        et_password = findViewById(R.id.et_sign_up_password);
+        et_confirm_password = findViewById(R.id.et_sign_up_confirm_password);
+        et_id_number = findViewById(R.id.et_sign_up_id_number);
+        et_name = findViewById(R.id.et_sign_up_name);
+        et_email = findViewById(R.id.et_sign_up_email);
+        et_phone = findViewById(R.id.et_sign_up_phone);
+        tv_sex = findViewById(R.id.tv_sign_up_sex);
+        tv_nation = findViewById(R.id.tv_sign_up_nation);
+        tv_birthday = findViewById(R.id.tv_sign_up_birthday);
         findViewById(R.id.tv_sign_up_do_sign_up).setOnClickListener(this);
         findViewById(R.id.tv_sign_up_check).setOnClickListener(this);
         // listener

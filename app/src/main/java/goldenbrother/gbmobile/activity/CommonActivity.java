@@ -44,7 +44,7 @@ public class CommonActivity extends AppCompatActivity {
     }
 
     protected void setUpBackToolbar(int viewId, int titleId, String str) {
-        Toolbar toolbar = (Toolbar) findViewById(viewId);
+        Toolbar toolbar = findViewById(viewId);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -78,9 +78,9 @@ public class CommonActivity extends AppCompatActivity {
     protected AlertDialog alertCustomItems(int icon, String title, String[] items, AdapterView.OnItemClickListener onItemClickListener) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         final View v = getLayoutInflater().inflate(R.layout.dialog_custom_items, null);
-        final ImageView iv_icon = (ImageView) v.findViewById(R.id.iv_dialog_custom_item_icon);
-        final TextView tv_title = (TextView) v.findViewById(R.id.tv_dialog_custom_item_title);
-        final ListView lv = (ListView) v.findViewById(R.id.lv_dialog_custom_item);
+        final ImageView iv_icon = v.findViewById(R.id.iv_dialog_custom_item_icon);
+        final TextView tv_title = v.findViewById(R.id.tv_dialog_custom_item_title);
+        final ListView lv = v.findViewById(R.id.lv_dialog_custom_item);
         v.findViewById(R.id.ll_item_dialog_custom_item).setVisibility(icon == 0 ? View.GONE : View.VISIBLE);
         iv_icon.setImageResource(icon);
         tv_title.setText(title);
@@ -155,7 +155,7 @@ public class CommonActivity extends AppCompatActivity {
         //Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
-        TextView text = (TextView) layout.findViewById(R.id.text);
+        TextView text = layout.findViewById(R.id.text);
         text.setText(id);
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);

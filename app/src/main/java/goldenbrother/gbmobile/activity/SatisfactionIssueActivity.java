@@ -35,8 +35,8 @@ public class SatisfactionIssueActivity extends CommonActivity {
         setContentView(R.layout.activity_satisfaction_issue);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_satisfaction_survey);
         // ui reference
-        srl = (SwipeRefreshLayout) findViewById(R.id.srl_satisfaction_issue);
-        rv = (RecyclerView) findViewById(R.id.rv_satisfaction_issue);
+        srl = findViewById(R.id.srl_satisfaction_issue);
+        rv = findViewById(R.id.rv_satisfaction_issue);
         // init Swipe Refresh Layout
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

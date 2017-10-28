@@ -65,7 +65,7 @@ public class ClubPostMediaPagerAdapter extends SamplePagerAdapter {
         ImageView picture;
 
         ViewHolder(View v) {
-            picture = (ImageView) v.findViewById(R.id.iv_item_pager_club_post_media_image);
+            picture = v.findViewById(R.id.iv_item_pager_club_post_media_image);
         }
     }
 }
