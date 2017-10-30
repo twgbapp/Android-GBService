@@ -16,6 +16,9 @@
     <color name="announcement_gov">#D979B1</color>
     <color name="announcement_dorm">#65C8D0</color>
 
+    <color name="activity_com">#F8EC00</color>
+    <color name="activity_club">#D979B1</color>
+
     <color name="tab_selected">#616776</color>
     <color name="tab_not_selected">#535866</color>
 

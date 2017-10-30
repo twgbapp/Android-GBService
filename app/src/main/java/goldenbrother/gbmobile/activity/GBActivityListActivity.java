@@ -24,8 +24,8 @@ import goldenbrother.gbmobile.model.RoleInfo;
 public class GBActivityListActivity extends CommonActivity implements View.OnClickListener {
 
     // gb activity type
-    public static final int COM = 0;
-    public static final int CLUB = 1;
+    public static final int COM = 1;
+    public static final int CLUB = 2;
     // ui
     private RecyclerView rv;
     // data
@@ -111,10 +111,10 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_activity_list_com:
-//                filter(COM);
+                filter(COM);
                 break;
             case R.id.ll_activity_list_club:
-//                filter(CLUB);
+                filter(CLUB);
                 break;
         }
     }

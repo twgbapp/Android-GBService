@@ -1074,7 +1074,7 @@ public class ApiResultHelper {
             JSONObject j = new JSONObject(response);
             int result = j.getInt("success");
             if (result == 1) {
-                ArrayList<Discussion> list = new ArrayList<>();
+                list_discussion.clear();
                 JSONArray arr = j.getJSONArray("discussionFlabor");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
@@ -1087,7 +1087,7 @@ public class ApiResultHelper {
                     d.setCustomerName(o.getString("customerName"));
                     d.setFlaborName(o.getString("flaborName"));
                     d.setCenterName(o.getString("centerName"));
-                    list.add(d);
+                    list_discussion.add(d);
                 }
             }
             return result;

@@ -90,7 +90,6 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/main_edit_background"
                     android:hint="@string/workerNo"
-                    android:maxLines="1"
                     android:padding="10dp"
                     android:textColor="#FFF"
                     android:textColorHint="#FFF" />

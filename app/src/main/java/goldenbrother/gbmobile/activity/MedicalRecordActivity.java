@@ -82,20 +82,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         iv_medical = findViewById(R.id.iv_medical_record_medical_path);
         iv_diagnosis = findViewById(R.id.iv_medical_record_diagnosis_path);
         iv_service = findViewById(R.id.iv_medical_record_service_path);
-//        findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
-//        findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
-//        findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
-//        tv_name.setOnClickListener(this);
-//        tv_room_id.setOnClickListener(this);
-//        tv_blood_type.setOnClickListener(this);
-//        tv_date.setOnClickListener(this);
-//        iv_signature.setOnClickListener(this);
-//        iv_medical.setOnClickListener(this);
-//        iv_diagnosis.setOnClickListener(this);
-//        iv_service.setOnClickListener(this);
 
         // extra
         medical = getIntent().getExtras().getParcelable("medical");
@@ -174,7 +160,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                         sortSymptoms();
                         if (medical != null && medical.getMtrsno() != 0) { // update
                             getMedicalRecord(medical.getMtrsno());
-                        }else{ // add
+                        } else { // add
                             openSearchActivity();
                         }
                     } else {
@@ -228,6 +214,9 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                         // ProcessStatus - init content
                         String[] process_status = getResources().getStringArray(R.array.medical_process_status);
                         for (MedicalProcessStatusModel m : medical.getProcessingStatus()) {
+                            if (m.getProcessingStatus() >= 48) {
+                                m.setProcessingStatus(m.getProcessingStatus() - 48);
+                            }
                             if (m.getProcessingStatus() == 4) {
                                 m.setContent(m.getProcessingStatusOtherMemo());
                             } else {
@@ -238,6 +227,9 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                         // TrackProcess - init content
                         String[] track_process = getResources().getStringArray(R.array.medical_track_process);
                         for (MedicalTrackProcessModel m : medical.getTrackProcess()) {
+                            if (m.getTreatmentStatus() >= 48) {
+                                m.setTreatmentStatus(m.getTreatmentStatus() - 48);
+                            }
                             if (m.getTreatmentStatus() == 3) {
                                 m.setContent(track_process[m.getTreatmentStatus()]);
                             } else {
@@ -293,19 +285,25 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     }
 
     private void showUploadFile() {
-        String signaturePath = medical.getSignaturePath();
-        String medicalPath = medical.getMedicalCertificatePath();
-        String diagnosisPath = medical.getDiagnosticCertificatePath();
-        String servicePath = medical.getServiceRecordPath();
+        displayPicture(medical.getSignaturePath(), iv_signature);
+        displayPicture(medical.getMedicalCertificatePath(), iv_medical);
+        displayPicture(medical.getDiagnosticCertificatePath(), iv_diagnosis);
+        displayPicture(medical.getServiceRecordPath(), iv_service);
+    }
 
-        if (signaturePath != null && signaturePath.trim().length() != 0)
-            Picasso.with(this).load(medical.getSignaturePath()).into(iv_signature);
-        if (medicalPath != null && medicalPath.trim().length() != 0)
-            Picasso.with(this).load(medical.getMedicalCertificatePath()).into(iv_medical);
-        if (diagnosisPath != null && diagnosisPath.trim().length() != 0)
-            Picasso.with(this).load(medical.getDiagnosticCertificatePath()).into(iv_diagnosis);
-        if (servicePath != null && servicePath.trim().length() != 0)
-            Picasso.with(this).load(medical.getServiceRecordPath()).into(iv_service);
+    // check jpg, pdf
+    private void displayPicture(String url, ImageView iv) {
+        if (url == null || url.isEmpty())
+            return;
+        if (url.endsWith(".pdf")) {
+            Picasso.with(this)
+                    .load(R.drawable.ic_pdf)
+                    .into(iv);
+        } else {
+            Picasso.with(this)
+                    .load(url)
+                    .into(iv);
+        }
     }
 
     private String getBloodTypeName(String code) {
@@ -399,13 +397,13 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             JSONObject j = new JSONObject();
             j.put("action", "updateMedicalRecord");
             j.put("mtrsno", medical.getMtrsno());
-            if(tv_blood_type.getText().equals("A")){
+            if (tv_blood_type.getText().equals("A")) {
                 j.put("bloodType", "0");
-            }else if(tv_blood_type.getText().equals("B")){
+            } else if (tv_blood_type.getText().equals("B")) {
                 j.put("bloodType", "1");
-            }else if(tv_blood_type.getText().equals("O")){
+            } else if (tv_blood_type.getText().equals("O")) {
                 j.put("bloodType", "2");
-            }else{
+            } else {
                 j.put("bloodType", "3");
             }
             //j.put("bloodType", medical.getPatient().getBloodType());
@@ -597,12 +595,19 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         }, null);
     }
 
-    private void openSearchActivity(){
+    private void openSearchActivity() {
         if (medical.getMtrsno() == 0) {
             Bundle b = new Bundle();
             b.putBoolean("isFLabor", true);
             openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
         }
+    }
+
+    private void openPDF(String url) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
     }
 
     @Override
@@ -644,16 +649,28 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(SignatureActivity.class, REQUEST_SIGNATURE);
                 break;
             case R.id.iv_medical_record_medical_path:
-                iv_clicked = (ImageView) v;
-                choosePicture();
+                if (medical.getMedicalCertificatePath().endsWith(".pdf")) {
+                    openPDF(medical.getMedicalCertificatePath());
+                } else {
+                    iv_clicked = (ImageView) v;
+                    choosePicture();
+                }
                 break;
             case R.id.iv_medical_record_diagnosis_path:
-                iv_clicked = (ImageView) v;
-                choosePicture();
+                if (medical.getDiagnosticCertificatePath().endsWith(".pdf")) {
+                    openPDF(medical.getDiagnosticCertificatePath());
+                } else {
+                    iv_clicked = (ImageView) v;
+                    choosePicture();
+                }
                 break;
             case R.id.iv_medical_record_service_path:
-                iv_clicked = (ImageView) v;
-                choosePicture();
+                if (medical.getServiceRecordPath().endsWith(".pdf")) {
+                    openPDF(medical.getServiceRecordPath());
+                } else {
+                    iv_clicked = (ImageView) v;
+                    choosePicture();
+                }
                 break;
             case R.id.tv_medical_record_save: // 新增醫療紀錄
                 if (medical.getPatient().getName() == null) {

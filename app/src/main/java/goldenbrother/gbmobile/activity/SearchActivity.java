@@ -45,6 +45,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setUpBackToolbar(R.id.toolbar, R.string.search);
+
         // ui reference
         tv_center = findViewById(R.id.tv_search_center);
         tv_dorm = findViewById(R.id.tv_search_dorm);

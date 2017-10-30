@@ -62,9 +62,9 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         setContentView(R.layout.activity_discussion_record);
         // extra
         isAdd = getIntent().getExtras().getBoolean("isAdd", false);
-        if(isAdd){
+        if (isAdd) {
             setUpBackToolbar(R.id.toolbar, R.string.discussion_add_discussion);
-        }else{
+        } else {
             setUpBackToolbar(R.id.toolbar, R.string.discussion_update_discussion);
         }
 
@@ -122,32 +122,36 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getDiscussionRecord(response, discussion);
                     if (result == ApiResultHelper.SUCCESS) {
-                        t(R.string.success);
+//                        t(R.string.success);
                         tv_department.setText(discussion.getDepartment());
                         tv_name.setText(discussion.getFlaborName());
                         tv_date.setText(discussion.getDiscussionDate());
                         et_reason.setText(discussion.getDiscussionReason());
                         et_place.setText(discussion.getDiscussionPlace());
                         et_description.setText(discussion.getDiscussionDesc());
-                        if (discussion.getServiceRecordPath() != null && !discussion.getServiceRecordPath().isEmpty()){
-                            String path =discussion.getServiceRecordPath();
-                            int dotPos   =   path.lastIndexOf(".");
-                            fileType = path.substring(  dotPos  + 1,path.length());
-                            if(fileType.equals("jpg")){
-                                Picasso.with(DiscussionRecordActivity.this).load(discussion.getServiceRecordPath()).into(iv_service);
-                            }
-                            if(fileType.equals("pdf")){
-                                Picasso.with(DiscussionRecordActivity.this).load(R.drawable.ic_pdf).into(iv_service);
-                            }
-                        }
-                        if (discussion.getSignaturePath() != null && !discussion.getSignaturePath().isEmpty())
-                            Picasso.with(DiscussionRecordActivity.this).load(discussion.getSignaturePath()).into(iv_signature);
+                        displayPicture(discussion.getServiceRecordPath(), iv_service);
+                        displayPicture(discussion.getSignaturePath(), iv_signature);
                     } else {
                         t(R.string.fail);
                         finish();
                     }
                     break;
             }
+        }
+    }
+
+    // check jpg, pdf
+    private void displayPicture(String url, ImageView iv) {
+        if (url == null || url.isEmpty())
+            return;
+        if (url.endsWith(".pdf")) {
+            Picasso.with(this)
+                    .load(R.drawable.ic_pdf)
+                    .into(iv);
+        } else {
+            Picasso.with(this)
+                    .load(url)
+                    .into(iv);
         }
     }
 
@@ -362,24 +366,23 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
             case R.id.tv_discussion_record_department:
             case R.id.tv_discussion_record_name:
             case R.id.iv_discussion_record_profile:
-                if(discussion.getDrsNo()==0){
+                if (discussion.getDrsNo() == 0) {
                     b.putBoolean("isFLabor", true);
                     openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 }
 
                 break;
             case R.id.iv_discussion_record_service_record:
-                if(fileType.equals("pdf")){
+                if (discussion.getServiceRecordPath().endsWith(".pdf")){
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(discussion.getServiceRecordPath()));
                     startActivity(intent);
-                    break;
                 }else{
                     iv_clicked = (ImageView) v;
                     choosePicture();
-                    break;
                 }
+                break;
             case R.id.iv_discussion_record_signature:
                 iv_clicked = (ImageView) v;
                 openActivityForResult(SignatureActivity.class, REQUEST_SIGNATURE);

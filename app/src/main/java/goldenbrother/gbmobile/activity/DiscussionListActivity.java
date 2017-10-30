@@ -18,6 +18,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.DiscussionListRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Discussion;

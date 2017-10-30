@@ -41,7 +41,7 @@ public class GBActivityListRVAdapter extends SampleRVAdapter {
         if (holder instanceof ViewHolder) {
             ViewHolder h = (ViewHolder) holder;
             final GBActivity item = list.get(position);
-//            h.type.setBackgroundColor(getTypeColor(item.getType()));
+            h.type.setBackgroundColor(getTypeColor(item.getType()));
             h.date.setText(TimeHelper.getYMDTime(item.getCreateDate()));
             h.title.setText(item.getTitle());
             h.itemView.setOnClickListener(new View.OnClickListener() {
@@ -53,17 +53,15 @@ public class GBActivityListRVAdapter extends SampleRVAdapter {
         }
     }
 
-//    private int getTypeColor(int type) {
-//        switch (type) {
-//            case 1:
-//                return ContextCompat.getColor(getContext(), R.color.announcement_dorm);
-//            case 2:
-//                return ContextCompat.getColor(getContext(), R.color.announcement_com);
-//            case 3:
-//                return ContextCompat.getColor(getContext(), R.color.announcement_gov);
-//        }
-//        return 0;
-//    }
+    private int getTypeColor(int type) {
+        switch (type) {
+            case 1:
+                return ContextCompat.getColor(getContext(), R.color.activity_com);
+            case 2:
+                return ContextCompat.getColor(getContext(), R.color.activity_club);
+        }
+        return 0;
+    }
 
     @Override
     public int getItemCount() {

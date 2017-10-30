@@ -38,7 +38,7 @@ public class GBActivityContentActivity extends CommonActivity implements View.On
         tv_title = findViewById(R.id.tv_gb_activity_content_title);
         tv_create_date = findViewById(R.id.tv_gb_activity_content_create_date);
         tv_expiration_date = findViewById(R.id.tv_gb_activity_content_expiration_date);
-        wv = findViewById(R.id.wv_announcement_content);
+        wv = findViewById(R.id.wv_gb_activity_content);
         wv.getSettings().setUseWideViewPort(true);
         wv.getSettings().setLoadWithOverviewMode(true);
         tv_title.setOnClickListener(this);
