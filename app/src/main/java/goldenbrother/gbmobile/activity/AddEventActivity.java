@@ -34,7 +34,6 @@ import java.util.HashMap;
 public class AddEventActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
-    private View iv_done, fab_add_event;
     private RecyclerView rv;
     // extra
     private String userID;
@@ -46,27 +45,25 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+
         // ui reference
-        iv_done = findViewById(R.id.iv_add_event_done);
-        fab_add_event = findViewById(R.id.fab_add_event);
+        findViewById(R.id.iv_add_event_done).setOnClickListener(this);
+        findViewById(R.id.fab_add_event).setOnClickListener(this);
         rv = findViewById(R.id.rv_add_event);
-        // listener
-        iv_done.setOnClickListener(this);
-        fab_add_event.setOnClickListener(this);
+
         // extra
         userID = getIntent().getStringExtra("userID");
-        // init AddEventList
+
+        // init
         list_add_event = new ArrayList<>();
-        // init EventKind
         list_area1 = new ArrayList<>();
         list_area2 = new ArrayList<>();
         list_kind = new ArrayList<>();
         list_detail = new ArrayList<>();
         list_detail_show = new ArrayList<>();
-        // init RecyclerView
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new AddEventKindRVAdapter(this, list_add_event));
-        // load area
+
         getRepairArea();
     }
 

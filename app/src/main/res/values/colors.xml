@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Theme -->
-    <color name="colorPrimary">#16afce</color>
-    <color name="colorPrimaryDark">#16afce</color>
-    <color name="colorAccent">#282e40</color>
+    <color name="colorPrimary">#16AFCE</color>
+    <color name="colorPrimaryDark">#16AFCE</color>
+    <color name="colorAccent">#282E40</color>
 
-    <color name="main_background">#282e40</color>
+    <color name="main_background">#282E40</color>
     <color name="main_background2">#535866</color>
     <color name="main_edit_background">#616776</color>
     <color name="main_light_blue">#16AFCE</color>
@@ -19,8 +19,8 @@
     <color name="tab_selected">#616776</color>
     <color name="tab_not_selected">#535866</color>
 
-    <color name="main_right_top">#40b5c9</color>
-    <color name="main_left_bottom">#b1ce1c</color>
+    <color name="main_right_top">#40B5C9</color>
+    <color name="main_left_bottom">#B1CE1C</color>
 
     <!-- Status -->
     <color name="status_green">#009944</color>

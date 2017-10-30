@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f4d376"
+        android:background="#16afce"
         android:gravity="center"
         android:padding="10dp"
         android:text="Add Event"
@@ -17,15 +17,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/main_background2"
         android:orientation="vertical"
         android:padding="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/quick_repair_area" />
+            android:text="@string/quick_repair_area"
+            android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/tv_dialog_service_add_event_area"
@@ -42,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:text="@string/quick_repair_kind" />
+            android:text="@string/quick_repair_kind"
+            android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/tv_dialog_service_add_event_type"
@@ -59,9 +60,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/quick_repair_item" />
+            android:text="@string/quick_repair_item"
+            android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/tv_dialog_service_add_event_item"
@@ -77,14 +78,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Description" />
+            android:layout_marginTop="10dp"
+            android:text="@string/description"
+            android:textColor="#FFF" />
 
         <EditText
             android:id="@+id/et_dialog_service_add_event_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_add_event" />
 
     </LinearLayout>
 
@@ -98,11 +101,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#F6EDD0"
+            android:background="#16afce"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Cancel"
-            android:textColor="#F0D576"
+            android:text="@string/cancel"
+            android:textColor="#FFF"
             android:textSize="24sp" />
 
         <TextView
@@ -110,11 +113,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#F6EDD0"
+            android:background="#16afce"
             android:gravity="center"
             android:padding="10dp"
-            android:text="OK"
-            android:textColor="#F0D576"
+            android:text="@string/confirm"
+            android:textColor="#FFF"
             android:textSize="24sp" />
     </LinearLayout>
 
