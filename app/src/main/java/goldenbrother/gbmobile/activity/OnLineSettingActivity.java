@@ -4,19 +4,18 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.OnCallManagerListAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.OnCallManagerModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -84,7 +83,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
-                        ToastHelper.t(OnLineSettingActivity.this, "empty");
+                        t(R.string.empty);
                     }
                     break;
             }
@@ -129,12 +128,12 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         if (onCallStatus.equals("0")) { // offline
-                            ToastHelper.t(OnLineSettingActivity.this, "off line");
+                            Toast.makeText(OnLineSettingActivity.this, "Off Line", Toast.LENGTH_SHORT).show();
                         } else if (onCallStatus.equals("1")) { // online
-                            ToastHelper.t(OnLineSettingActivity.this, "on line");
+                            Toast.makeText(OnLineSettingActivity.this, "On Line", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        ToastHelper.t(OnLineSettingActivity.this, "Change Status Fail");
+                        t(R.string.fail);
                     }
                     break;
             }
@@ -149,14 +148,14 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             new AlertDialog.Builder(this)
                     .setTitle("OnLine")
                     .setMessage("Turn to OnLine ?")
-                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // online
                             changeOnCallStatus("", "1");
                         }
                     })
-                    .setNegativeButton("CANCEL", null)
+                    .setNegativeButton(R.string.can_not_be_empty, null)
                     .show();
         } else {
             ll.setVisibility(View.VISIBLE);

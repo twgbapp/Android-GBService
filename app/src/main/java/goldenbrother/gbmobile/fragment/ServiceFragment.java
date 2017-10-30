@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +21,6 @@ import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.TimeHelper;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 import goldenbrother.gbmobile.model.ServiceTimePointModel;
@@ -163,7 +160,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
                         // push message
                         pushMessage(content);
                     } else {
-                        ToastHelper.t(activity, "Add Chat Fail");
+                        t(R.string.fail);
                     }
                     break;
             }

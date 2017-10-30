@@ -11,7 +11,6 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.EventUserListAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.EventUserModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -83,7 +82,7 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
-                        ToastHelper.t(AddEventUserActivity.this, "empty");
+                        t(R.string.empty);
                     }
                     break;
             }
@@ -121,10 +120,10 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        ToastHelper.t(AddEventUserActivity.this, "Add User Success");
+                        t(R.string.success);
                         finish();
                     } else {
-                        ToastHelper.t(AddEventUserActivity.this, "Add User Fail");
+                        t(R.string.fail);
                     }
                     break;
             }

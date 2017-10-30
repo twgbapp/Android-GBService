@@ -10,7 +10,6 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.SatisfactionIssueRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.SatisfactionIssueModel;

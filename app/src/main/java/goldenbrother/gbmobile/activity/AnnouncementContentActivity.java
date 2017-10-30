@@ -10,7 +10,6 @@ import android.widget.TextView;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.AnnouncementModel;
 import goldenbrother.gbmobile.model.LaborModel;

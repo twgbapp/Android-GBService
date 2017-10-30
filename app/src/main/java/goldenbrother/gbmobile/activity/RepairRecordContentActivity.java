@@ -9,7 +9,6 @@ import android.widget.TextView;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RepairRecordModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -73,7 +72,7 @@ public class RepairRecordContentActivity extends CommonActivity {
                     if (result == ApiResultHelper.SUCCESS) {
                         tv_proc_result.setText(repairRecordModel.getProcResult());
                     } else {
-                        ToastHelper.t(RepairRecordContentActivity.this, "empty");
+                        t(R.string.empty);
                     }
                     break;
             }

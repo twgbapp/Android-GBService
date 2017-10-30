@@ -4,27 +4,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.PackageListRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
-import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.EnvironmentHelper;
-import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.PackageModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -32,8 +22,6 @@ import goldenbrother.gbmobile.model.RoleInfo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class PackageListActivity extends CommonActivity implements View.OnClickListener {
@@ -58,7 +46,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         list_package = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PackageListRVAdapter(this, list_package));
-        loadPackageList("","",true);
+        loadPackageList("", "", true);
     }
 
     private void showSearchDialog() {
@@ -93,7 +81,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
                 EnvironmentHelper.hideKeyBoard(PackageListActivity.this, et);
                 String keyword = et.getText().toString();
                 if (keyword.isEmpty()) {
-                    ToastHelper.t(PackageListActivity.this, "Can't be empty");
+                    t(R.string.can_not_be_empty);
                     return;
                 }
                 loadPackageList(keyword, "", true);
@@ -151,7 +139,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
                         }
                         updateAdapter();
                     } else {
-                        ToastHelper.t(PackageListActivity.this, "No Match Package");
+                        t("No Match Package");
                     }
                     break;
             }

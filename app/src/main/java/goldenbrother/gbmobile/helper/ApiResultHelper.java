@@ -1,6 +1,7 @@
 package goldenbrother.gbmobile.helper;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.model.AnnouncementModel;
@@ -67,7 +68,7 @@ public class ApiResultHelper {
     // common
     public static int common(Context context, String response) {
         if (response == null) {
-            ToastHelper.t(context, R.string.server_error);
+            Toast.makeText(context, R.string.server_error, Toast.LENGTH_SHORT).show();
             return NO_RESPONSE;
         }
         try {
@@ -75,16 +76,16 @@ public class ApiResultHelper {
             int result = j.getInt("success");
             switch (result) {
                 case NO_NETWORK:
-                    ToastHelper.t(context, R.string.no_network);
+                    Toast.makeText(context, R.string.no_network, Toast.LENGTH_SHORT).show();
                     break;
                 case TIME_OUT:
-                    ToastHelper.t(context, R.string.time_out);
+                    Toast.makeText(context, R.string.time_out, Toast.LENGTH_SHORT).show();
                     break;
             }
             return result;
         } catch (JSONException e) {
             e.printStackTrace();
-            ToastHelper.t(context, R.string.parse_error_json);
+            Toast.makeText(context, R.string.parse_error_json, Toast.LENGTH_SHORT).show();
             return PARSER_ERROR;
         }
     }

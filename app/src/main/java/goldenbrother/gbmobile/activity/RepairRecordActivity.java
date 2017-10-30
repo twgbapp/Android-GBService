@@ -9,7 +9,6 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.RepairRecordRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.RepairRecordModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -70,7 +69,7 @@ public class RepairRecordActivity extends CommonActivity {
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
-                        ToastHelper.t(RepairRecordActivity.this, "empty");
+                        t(R.string.empty);
                     }
                     break;
             }

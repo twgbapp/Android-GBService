@@ -7,17 +7,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.AddEventKindRVAdapter;
-import goldenbrother.gbmobile.adapter.RepairKindListAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.AddEventModel;
 import goldenbrother.gbmobile.model.RepairKindModel;
@@ -28,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 // add multi event
 public class AddEventActivity extends CommonActivity implements View.OnClickListener {

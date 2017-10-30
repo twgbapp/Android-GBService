@@ -6,15 +6,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.activity.AddEventActivity;
-import goldenbrother.gbmobile.helper.ToastHelper;
 import goldenbrother.gbmobile.model.AddEventModel;
-import goldenbrother.gbmobile.model.ClubPostMediaModel;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
