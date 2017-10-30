@@ -399,7 +399,16 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             JSONObject j = new JSONObject();
             j.put("action", "updateMedicalRecord");
             j.put("mtrsno", medical.getMtrsno());
-            j.put("bloodType", medical.getPatient().getBloodType());
+            if(tv_blood_type.getText().equals("A")){
+                j.put("bloodType", "0");
+            }else if(tv_blood_type.getText().equals("B")){
+                j.put("bloodType", "1");
+            }else if(tv_blood_type.getText().equals("O")){
+                j.put("bloodType", "2");
+            }else{
+                j.put("bloodType", "3");
+            }
+            //j.put("bloodType", medical.getPatient().getBloodType());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("diagnosticCertificate", medical.getDiagnosticCertificatePath());
             j.put("serviceRecord", medical.getServiceRecordPath());
