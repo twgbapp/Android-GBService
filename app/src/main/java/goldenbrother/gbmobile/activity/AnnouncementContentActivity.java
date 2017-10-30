@@ -46,6 +46,7 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
         // extra
         announcementID = getIntent().getExtras().getInt("announcementID", -1);
 
+        announcement = new AnnouncementModel();
         loadAnnouncement();
     }
 

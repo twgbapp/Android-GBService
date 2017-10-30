@@ -625,7 +625,6 @@ public class ApiResultHelper {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                announcement = new AnnouncementModel();
                 announcement.setAnnouncementID(j.getInt("announcementID"));
                 announcement.setTitle(j.getString("title"));
                 announcement.setContent(j.getString("content"));
@@ -1102,7 +1101,6 @@ public class ApiResultHelper {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                gbActivity = new GBActivity();
                 gbActivity.setActivityID(j.getInt("activityID"));
                 gbActivity.setTitle(j.getString("title"));
                 gbActivity.setContent(j.getString("content"));

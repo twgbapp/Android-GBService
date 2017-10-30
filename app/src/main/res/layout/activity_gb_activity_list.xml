@@ -35,7 +35,7 @@
                         android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:background="@color/announcement_gov" />
+                        android:background="@color/activity_com" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                         android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:background="@color/announcement_dorm" />
+                        android:background="@color/activity_club" />
 
                     <TextView
                         android:layout_width="wrap_content"

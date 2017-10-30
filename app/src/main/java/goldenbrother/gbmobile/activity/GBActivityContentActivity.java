@@ -28,12 +28,13 @@ public class GBActivityContentActivity extends CommonActivity implements View.On
     private int activityID;
     // data
     private GBActivity gbActivity;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gb_activity_content);
         setUpBackToolbar(R.id.toolbar, R.string.activity);
+
         // ui reference
         tv_title = findViewById(R.id.tv_gb_activity_content_title);
         tv_create_date = findViewById(R.id.tv_gb_activity_content_create_date);
@@ -46,6 +47,8 @@ public class GBActivityContentActivity extends CommonActivity implements View.On
         // extra
         activityID = getIntent().getExtras().getInt("activityID", -1);
 
+        // init
+        gbActivity = new GBActivity();
         getActivity();
     }
 
