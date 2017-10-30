@@ -152,12 +152,10 @@ public class CommonActivity extends AppCompatActivity {
     }
 
     protected void t(int id) {
-        //Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
+        View layout = LayoutInflater.from(this).inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
         TextView text = layout.findViewById(R.id.text);
         text.setText(id);
-        Toast toast = new Toast(getApplicationContext());
+        Toast toast = new Toast(this);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);

@@ -267,4 +267,7 @@
     <string name="activity">活動</string>
     <string name="empty">空的</string>
     <string name="delete">刪除</string>
+    <string name="registered">已註冊</string>
+    <string name="arc_no_can_not_register">此ARCNo無法註冊</string>
+    <string name="can_not_register">無法註冊</string>
 </resources>

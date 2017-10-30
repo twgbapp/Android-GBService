@@ -394,24 +394,26 @@ public class ApiResultHelper {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                JSONObject o = j.getJSONObject("userData");
-                map.put("userName", o.getString("userName"));
-                map.put("userSex", o.getString("userSex"));
-                map.put("userBirthday", o.getString("userBirthday"));
-                map.put("userEmail", o.getString("userEmail"));
-                //map.put("userPhone", o.getString("userPhone"));
-                map.put("userNationCode", o.getString("userNationCode"));
-                map.put("areaNum", o.getString("areaNum"));
-
                 int userType = j.getInt("userType");
                 map.put("userType", userType + "");
-                if (userType == 2) {
-                    map.put("customerNo", o.getString("customerNo"));
-                    map.put("flaborNo", o.getString("flaborNo"));
-                    map.put("workerNo", o.getString("workerNo"));
+                switch (userType){
+                    case 0: // 已註冊
+                        break;
+                    case 1: // 非鎵興
+                        break;
+                    case 2: // 鎵興外勞
+                        JSONObject o = j.getJSONObject("userData");
+                        map.put("userName", o.getString("userName"));
+                        map.put("userSex", o.getString("userSex"));
+                        map.put("userBirthday", o.getString("userBirthday"));
+                        map.put("userEmail", o.getString("userEmail"));
+                        map.put("userNationCode", o.getString("userNationCode"));
+                        map.put("areaNum", o.getString("areaNum"));
+                        map.put("customerNo", o.getString("customerNo"));
+                        map.put("flaborNo", o.getString("flaborNo"));
+                        map.put("workerNo", o.getString("workerNo"));
+                        break;
                 }
-                // userType = 3
-                //map.put("title", o.getString("title"));
             }
             return success;
         } catch (JSONException e) {

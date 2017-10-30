@@ -58,7 +58,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
             j.put("customerNo", LaborModel.getInstance().getCustomerNo());
             j.put("nationCode", LaborModel.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", true);
+            j.put("logStatus", false);
             new GetActivityList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

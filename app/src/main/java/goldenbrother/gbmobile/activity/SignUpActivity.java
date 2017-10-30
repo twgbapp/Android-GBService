@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -30,7 +29,6 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
     private String[] nation_name;
     private String[] nation_code;
     private HashMap<String, String> userData;
-    private  Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,40 +105,12 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         return nation_code[0];
     }
 
-    private void doSignUp() {
-        int userType = getUserData("userType").isEmpty() ? 1 : Integer.valueOf(getUserData("userType"));
-        String account = et_account.getText().toString();
-        String confirm_password = et_confirm_password.getText().toString();
-        String password = et_password.getText().toString();
-        String nationCode = getNationCode(tv_nation.getText().toString());
-        String idNumber = et_id_number.getText().toString();
-        String name = et_name.getText().toString();
-        String sex = tv_sex.getText().toString().equals(getString(R.string.male)) ? "0" : "1";
-        String birthday = tv_birthday.getText().toString();
-        String email = et_email.getText().toString();
-        String phone = et_phone.getText().toString();
-//        idNumber.isEmpty() ||
-        // check empty
-        if (account.isEmpty() || confirm_password.isEmpty() || password.isEmpty() ||
-                nationCode.isEmpty() || name.isEmpty() ||
-                sex.isEmpty() || birthday.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-            t(R.string.can_not_be_empty);
-            return;
-        }
-
-
-        // check password
-        if (!confirm_password.equals(password)) {
-            t(R.string.error_confirm_password);
-            return;
-        }
-
-        // do sign up
+    private void doSignUp(int userType, String userID, String password, String idNumber, String name, String sex, String birthday, String email, String phone, String nationCode) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "signUp");
             j.put("userType", userType);
-            j.put("userID", account);
+            j.put("userID", userID);
             j.put("userPassword", EncryptHelper.md5(password));
             j.put("userIDNumber", idNumber);
             j.put("userName", name);
@@ -154,8 +124,6 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                 j.put("flaborNo", getUserData("flaborNo"));
                 j.put("customerNo", getUserData("customerNo"));
                 j.put("workerNo", getUserData("workerNo"));
-            } else if (userType == 3) {
-                j.put("title", getUserData("title"));
             }
             j.put("logStatus", false);
             new DoSignUp(this, j, URLHelper.HOST).execute();
@@ -182,20 +150,6 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                         finish();
                     } else {
                         t(R.string.fail);
-                        //toast = Toast.makeText(getApplicationContext(), R.string.fail, Toast.LENGTH_LONG);
-                        //toast.setGravity(Gravity.CENTER, 0, 0);
-                        //toast.show();
-
-                        /*LayoutInflater inflater = getLayoutInflater();
-                        View layout = inflater.inflate(R.layout.custom_toast,
-                                (ViewGroup) findViewById(R.id.custom_toast_container));
-                        TextView text = (TextView) layout.findViewById(R.id.text);
-                        text.setText(R.string.fail);
-                        Toast toast = new Toast(getApplicationContext());
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setView(layout);
-                        toast.show();*/
                     }
                     break;
             }
@@ -233,30 +187,23 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                     if (result == ApiResultHelper.SUCCESS) {
                         switch (Integer.parseInt(userData.get("userType"))) {
                             case 0:
-                                t(R.string.sign_up_id_number_can_not_sign_up);
+                                t(R.string.registered);
                                 break;
                             case 1:
-                                t(R.string.sign_up_id_number_can_sign_up);
+                                t(R.string.arc_no_can_not_register);
                                 break;
                             case 2:
                                 t(R.string.sign_up_id_number_can_sign_up);
-                                // move to target nation
-                                int position = nation_code.length - 1;
                                 for (int i = 0; i < nation_code.length; i++) {
                                     if (userData.get("userNationCode").equals(nation_code[i])) {
                                         tv_nation.setText(nation_name[i]);
                                         break;
                                     }
                                 }
-                                // set name
                                 et_name.setText(userData.get("userName"));
-                                // set sex
                                 tv_sex.setText(userData.get("userSex").equals("男") ? getString(R.string.male) : getString(R.string.female));
-                                // set birthday
                                 tv_birthday.setText(userData.get("userBirthday"));
-                                // set email
                                 et_email.setText(userData.get("userEmail"));
-                                // set phone
                                 et_phone.setText(userData.get("userPhone"));
                                 break;
                         }
@@ -265,6 +212,17 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                     }
                     break;
             }
+        }
+    }
+
+    private int getUserType() {
+        if (userData == null) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(userData.get("userType"));
+        } catch (NumberFormatException e) {
+            return 0;
         }
     }
 
@@ -290,7 +248,39 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                 showDatePickerDialog();
                 break;
             case R.id.tv_sign_up_do_sign_up:
-                doSignUp();
+                String userID = et_account.getText().toString();
+                String confirm_password = et_confirm_password.getText().toString();
+                String password = et_password.getText().toString();
+                String idNumber = et_id_number.getText().toString();
+                String nationCode = getNationCode(tv_nation.getText().toString());
+                String name = et_name.getText().toString();
+                String sex = tv_sex.getText().toString().equals(getString(R.string.male)) ? "0" : "1";
+                String birthday = tv_birthday.getText().toString();
+                String email = et_email.getText().toString();
+                String phone = et_phone.getText().toString();
+
+                // check empty
+                if (userID.isEmpty() || confirm_password.isEmpty() || password.isEmpty() ||
+                        nationCode.isEmpty() || name.isEmpty() || sex.isEmpty() ||
+                        birthday.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+                    t(R.string.can_not_be_empty);
+                    return;
+                }
+
+                // check password
+                if (!confirm_password.equals(password)) {
+                    t(R.string.error_confirm_password);
+                    return;
+                }
+
+                // check userType
+                int userType = getUserType();
+                if (userType != 2) {
+                    t(R.string.can_not_register);
+                    break;
+                }
+
+                doSignUp(userType, userID, password, idNumber, name, sex, birthday, email, phone, nationCode);
                 break;
         }
     }

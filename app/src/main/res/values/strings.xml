@@ -290,4 +290,7 @@
     <string name="content_main_satisfaction_survey">Happiness\n使用度評分</string>
     <string name="discussion_update_discussion">Update Discussion</string>
     <string name="activity">Activity</string>
+    <string name="registered">Registered</string>
+    <string name="arc_no_can_not_register">ARCNo can not reigster</string>
+    <string name="can_not_register">Can not register</string>
 </resources>
