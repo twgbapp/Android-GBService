@@ -13,7 +13,7 @@
         <item>ไทย</item>
     </string-array>
     <!-- Common -->
-    <string name="allow_word">0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM</string>
+    <string name="allow_word" translatable="false">0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="account">Account</string>
     <string name="password">Password</string>
     <string name="id_number">ARC No.</string>
@@ -99,7 +99,7 @@
         <item>@string/thailand</item>
         <item>@string/vietnam</item>
     </string-array>
-    <string-array name="nation_code">
+    <string-array name="nation_code" translatable="false">
         <item>000</item>
         <item>009</item>
         <item>024</item>
@@ -114,7 +114,7 @@
     <!-- Child -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
-    <string name="main_drawer_chat">@string/chat</string>
+    <string name="main_drawer_chat" translatable="false">@string/chat</string>
 
     <string name="main_drawer_announcement">Announcement</string>
     <string name="main_drawer_club">@string/club</string>
@@ -171,13 +171,13 @@
         <item>@string/medical_track_process_4</item>
     </string-array>
 
-    <string-array name="blood_type_name">
+    <string-array name="blood_type_name" translatable="false">
         <item>A</item>
         <item>B</item>
         <item>O</item>
         <item>AB</item>
     </string-array>
-    <string-array name="blood_type_code">
+    <string-array name="blood_type_code" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>

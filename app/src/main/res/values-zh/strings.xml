@@ -78,13 +78,7 @@
         <item>@string/thailand</item>
         <item>@string/vietnam</item>
     </string-array>
-    <string-array name="nation_code">
-        <item>000</item>
-        <item>009</item>
-        <item>024</item>
-        <item>030</item>
-        <item>033</item>
-    </string-array>
+
     <!-- Main -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
@@ -144,18 +138,6 @@
         <item>@string/medical_track_process_4</item>
     </string-array>
 
-    <string-array name="blood_type_name">
-        <item>A</item>
-        <item>B</item>
-        <item>O</item>
-        <item>AB</item>
-    </string-array>
-    <string-array name="blood_type_code">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
 
     <!-- Club -->
     <string name="club_title">@string/club</string>
@@ -270,4 +252,7 @@
     <string name="registered">已註冊</string>
     <string name="arc_no_can_not_register">此ARCNo無法註冊</string>
     <string name="can_not_register">無法註冊</string>
+    <string name="confirm_delete">你確定要刪除?</string>
+    <string name="page_start">Page Start</string>
+    <string name="page_end">Page End</string>
 </resources>

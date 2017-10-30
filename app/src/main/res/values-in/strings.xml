@@ -78,13 +78,7 @@
         <item>@string/thailand</item>
         <item>@string/vietnam</item>
     </string-array>
-    <string-array name="nation_code">
-        <item>000</item>
-        <item>009</item>
-        <item>024</item>
-        <item>030</item>
-        <item>033</item>
-    </string-array>
+
     <!-- Main -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>
@@ -141,19 +135,6 @@
         <item>@string/medical_track_process_2</item>
         <item>@string/medical_track_process_3</item>
         <item>@string/medical_track_process_4</item>
-    </string-array>
-
-    <string-array name="blood_type_name">
-        <item>A</item>
-        <item>B</item>
-        <item>O</item>
-        <item>AB</item>
-    </string-array>
-    <string-array name="blood_type_code">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
     </string-array>
 
     <!-- Club -->
@@ -223,9 +204,9 @@
     <string name="staff">personil</string>
     <string name="edit">Edit</string>
     <string name="thailand">Thailand</string>
-    <string name="hockeyapp_update_button"></string>
+    <string name="hockeyapp_update_button">Update</string>
     <string name="am">Pagi hari</string>
-    <string name="can_not_get_patient"></string>
+    <string name="can_not_get_patient">Can not get patient</string>
     <string name="place">Lokasi</string>
     <string name="description">deskripsi</string>
     <string name="file_upload">Upload lampiran</string>
@@ -235,4 +216,42 @@
     <string name="content_main_life_information">Lifestyle\nInformasi sponsor</string>
     <string name="content_main_mobile_service">Service\npelayanan service</string>
     <string name="content_main_satisfaction_survey">Happiness\nAngket pertanyaan</string>
+    <string name="can_not_register">Can not register</string>
+    <string name="arc_no_can_not_register">ARCNo can not reigster</string>
+    <string name="registered">Registered</string>
+    <string name="activity">Activity</string>
+    <string name="discussion_update_discussion">Update Discussion</string>
+    <string name="page_end">page end</string>
+    <string name="page_start">page start</string>
+    <string name="main_version">Version</string>
+    <string name="empty">Empty</string>
+    <string name="confirm_delete">Are you sure to delete?</string>
+    <string name="delete">Delete</string>
+    <string name="department">Department</string>
+    <string name="date">Date</string>
+    <string name="reason">Reason</string>
+    <string name="workerNo">WorkerNo</string>
+    <string name="discussion">Discussion</string>
+    <string name="customer">Customer</string>
+    <string name="manager_center">Center</string>
+    <string name="discussion_profile">Profile</string>
+    <string name="discussion_add_discussion">Add Discussion</string>
+    <string name="discussion_list">Discussion List</string>
+    <string name="support">support</string>
+    <string name="send">send</string>
+    <string name="comment">comment</string>
+    <string name="can_not_get_symptom">Can not get symptom</string>
+    <string name="hockeyapp_update_dialog_positive_button">Show</string>
+    <string name="hockeyapp_update_dialog_negative_button">Ignore</string>
+    <string name="hockeyapp_update_dialog_message">Show information about the new update?</string>
+    <string name="hockeyapp_update_dialog_title">Update Available</string>
+    <string name="language_alert">When the language is switched, the system will reopen</string>
+    <string name="language">Language</string>
+    <string name="member_login">MEMBER LOGIN</string>
+    <string name="room_id">RoomId</string>
+    <string name="end_date">EndDate</string>
+    <string name="start_date">StartDate</string>
+    <string name="chat">Chat</string>
+    <string name="title">Title</string>
+    <string name="medical_list">Medical List</string>
 </resources>

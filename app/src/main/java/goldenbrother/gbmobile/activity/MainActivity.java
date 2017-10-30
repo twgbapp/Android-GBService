@@ -122,7 +122,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     private void checkForUpdates() {
         // Remove this for store builds!
-        UpdateManager.register(this);
+//        UpdateManager.register(this);
     }
 
     private void unregisterManagers() {
