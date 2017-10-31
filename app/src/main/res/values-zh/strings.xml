@@ -255,4 +255,5 @@
     <string name="confirm_delete">你確定要刪除?</string>
     <string name="page_start">Page Start</string>
     <string name="page_end">Page End</string>
+    <string name="last_news">最新消息</string>
 </resources>

@@ -18,71 +18,76 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-
-            <LinearLayout
+            <HorizontalScrollView
+                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:id="@+id/ll_announcement_list_com"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="88dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/bg_com" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/company"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/ll_announcement_list_gov"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp">
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="88dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/bg_gov" />
+                    <RelativeLayout
+                        android:id="@+id/ll_announcement_list_com"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/bg_com" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/company"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/ll_announcement_list_gov"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/government"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
-                </RelativeLayout>
+                        android:layout_marginLeft="5dp">
 
-                <RelativeLayout
-                    android:id="@+id/ll_announcement_list_dorm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/bg_gov" />
 
-                    <ImageView
-                        android:layout_width="88dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/bg_dorm" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/government"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
 
-                    <TextView
+                    <RelativeLayout
+                        android:id="@+id/ll_announcement_list_dorm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/dorm"
-                        android:textColor="#FFF"
-                        android:textSize="16sp" />
-                </RelativeLayout>
-            </LinearLayout>
+                        android:layout_marginLeft="5dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/bg_dorm" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/dorm"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_announcement_list"

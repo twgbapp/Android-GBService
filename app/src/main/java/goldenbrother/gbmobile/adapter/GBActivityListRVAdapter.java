@@ -55,9 +55,11 @@ public class GBActivityListRVAdapter extends SampleRVAdapter {
 
     private int getTypeColor(int type) {
         switch (type) {
-            case 1:
+            case GBActivityListActivity.NEWS:
+                return ContextCompat.getColor(getContext(), R.color.activity_news);
+            case GBActivityListActivity.COM:
                 return ContextCompat.getColor(getContext(), R.color.activity_com);
-            case 2:
+            case GBActivityListActivity.CLUB:
                 return ContextCompat.getColor(getContext(), R.color.activity_club);
         }
         return 0;

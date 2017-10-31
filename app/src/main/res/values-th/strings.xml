@@ -214,4 +214,5 @@
     <string name="title">Title</string>
     <string name="medical_list">Medical List</string>
     <string name="can_not_get_patient">Can not get patient</string>
+    <string name="last_news">News</string>
 </resources>
