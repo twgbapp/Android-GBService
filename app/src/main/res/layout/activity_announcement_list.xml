@@ -19,73 +19,85 @@
             android:padding="16dp">
 
             <HorizontalScrollView
-                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/ll_announcement_list_com"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:background="@color/announcement_com"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/bg_com" />
+                            android:src="@drawable/ic_com" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:text="@string/company"
                             android:textColor="#FFF"
                             android:textSize="16sp" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/ll_announcement_list_gov"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp">
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/announcement_gov"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/bg_gov" />
+                            android:src="@drawable/ic_gov" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:text="@string/government"
                             android:textColor="#FFF"
                             android:textSize="16sp" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/ll_announcement_list_dorm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp">
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/announcement_dorm"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/bg_dorm" />
+                            android:src="@drawable/ic_dorm" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:text="@string/dorm"
                             android:textColor="#FFF"
                             android:textSize="16sp" />
-                    </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
 

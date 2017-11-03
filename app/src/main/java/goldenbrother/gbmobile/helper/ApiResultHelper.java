@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.model.AnnouncementModel;
+import goldenbrother.gbmobile.model.BasicUser;
 import goldenbrother.gbmobile.model.Center;
 import goldenbrother.gbmobile.model.ClubModel;
 import goldenbrother.gbmobile.model.ClubPostMediaModel;
@@ -26,7 +27,7 @@ import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.model.MedicalProcessStatusModel;
 import goldenbrother.gbmobile.model.MedicalSymptomModel;
 import goldenbrother.gbmobile.model.MedicalTrackProcessModel;
-import goldenbrother.gbmobile.model.OnCallManagerModel;
+import goldenbrother.gbmobile.model.BasicUser;
 import goldenbrother.gbmobile.model.PackageModel;
 import goldenbrother.gbmobile.model.PersonalPickUpModel;
 import goldenbrother.gbmobile.model.RepairKindModel;
@@ -423,16 +424,16 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadOnCallManager(String response, ArrayList<OnCallManagerModel> list_on_call_manager) {
+    public static int loadOnCallManager(String response, ArrayList<BasicUser> list_on_call_manager) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
-                ArrayList<OnCallManagerModel> list = new ArrayList<>();
+                ArrayList<BasicUser> list = new ArrayList<>();
                 JSONArray arr = j.getJSONArray("chat");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
-                    OnCallManagerModel ocm = new OnCallManagerModel();
+                    BasicUser ocm = new BasicUser();
                     ocm.setUserID(o.getString("userID"));
                     String pic = "";
                     try {

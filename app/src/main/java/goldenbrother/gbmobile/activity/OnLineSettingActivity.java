@@ -17,7 +17,7 @@ import goldenbrother.gbmobile.adapter.OnCallManagerListAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
-import goldenbrother.gbmobile.model.OnCallManagerModel;
+import goldenbrother.gbmobile.model.BasicUser;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
@@ -27,31 +27,33 @@ import java.util.ArrayList;
 
 public class OnLineSettingActivity extends CommonActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
+    // onCallStatus
+    private static final String ON_LINE = "1";
+    private static final String OFF_LINE = "0";
     // ui
     private Switch sw_online;
     private LinearLayout ll;
     private ListView lv_staff;
-    private TextView tv_confirm;
-    //
-    private ArrayList<OnCallManagerModel> list_on_call_manager;
+    // data
+    private ArrayList<BasicUser> list_on_call_manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_line_setting);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_online_setting);
+
         // ui reference
-        sw_online = (Switch) findViewById(R.id.sw_on_line_setting);
-        ll = (LinearLayout) findViewById(R.id.ll_on_line_setting);
-        lv_staff = (ListView) findViewById(R.id.lv_on_line_setting_staff);
-        tv_confirm = (TextView) findViewById(R.id.tv_on_line_setting_confirm);
-        // listener
+        sw_online = findViewById(R.id.sw_on_line_setting);
+        ll = findViewById(R.id.ll_on_line_setting);
+        lv_staff = findViewById(R.id.lv_on_line_setting_staff);
+        findViewById(R.id.tv_on_line_setting_confirm).setOnClickListener(this);
         sw_online.setOnCheckedChangeListener(this);
-        tv_confirm.setOnClickListener(this);
-        // initListView
+
+        // init
         list_on_call_manager = new ArrayList<>();
         lv_staff.setAdapter(new OnCallManagerListAdapter(this, list_on_call_manager));
-        // loadOnCallManager
+
         loadOnCallManager();
     }
 
@@ -91,10 +93,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
     }
 
     private void updateAdapter() {
-        OnCallManagerListAdapter adapter = (OnCallManagerListAdapter) lv_staff.getAdapter();
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
+            ((OnCallManagerListAdapter) lv_staff.getAdapter()).notifyDataSetChanged();
     }
 
     private void changeOnCallStatus(String staffID, String onCallStatus) {
@@ -127,10 +126,10 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        if (onCallStatus.equals("0")) { // offline
-                            Toast.makeText(OnLineSettingActivity.this, "Off Line", Toast.LENGTH_SHORT).show();
-                        } else if (onCallStatus.equals("1")) { // online
-                            Toast.makeText(OnLineSettingActivity.this, "On Line", Toast.LENGTH_SHORT).show();
+                        if (onCallStatus.equals(OFF_LINE)) {
+                            Toast.makeText(OnLineSettingActivity.this, R.string.offline, Toast.LENGTH_SHORT).show();
+                        } else if (onCallStatus.equals(ON_LINE)) {
+                            Toast.makeText(OnLineSettingActivity.this, R.string.online, Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         t(R.string.fail);
@@ -142,39 +141,34 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        // show or not show staff list
         if (isChecked) {
             ll.setVisibility(View.GONE);
             new AlertDialog.Builder(this)
-                    .setTitle("OnLine")
-                    .setMessage("Turn to OnLine ?")
+                    .setTitle(R.string.online)
+                    .setMessage(R.string.turn_to_online)
                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // online
-                            changeOnCallStatus("", "1");
+                            changeOnCallStatus("", ON_LINE);
                         }
                     })
-                    .setNegativeButton(R.string.can_not_be_empty, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
         } else {
             ll.setVisibility(View.VISIBLE);
         }
     }
 
-
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
+        switch (v.getId()) {
             case R.id.tv_on_line_setting_confirm:
-                // get selected
-                OnCallManagerListAdapter adapter = (OnCallManagerListAdapter) lv_staff.getAdapter();
-                if (adapter != null) {
-                    // params
-                    String staffID = adapter.getSelectedUserID();
-                    // offline
-                    changeOnCallStatus(staffID, "0");
+                int selectedPosition = ((OnCallManagerListAdapter) lv_staff.getAdapter()).getSelectedPosition();
+                if (selectedPosition != -1) {
+                    changeOnCallStatus(list_on_call_manager.get(selectedPosition).getUserID(), OFF_LINE);
+                } else {
+                    t(R.string.select_nothing);
                 }
                 break;
         }

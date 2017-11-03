@@ -209,15 +209,10 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void setLanguage(int i) {
-        Locale locale = new Locale(new String[]{"en", "zh", "in", "vi", "th"}[i]);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = locale;
-        res.updateConfiguration(conf, dm);
+        String[] languages = {"en", "zh", "in", "vi", "th"};
+        SPHelper.setLanguage(this, languages[i]);
         // restart
-        Bundle b = new Bundle();
-        openActivity(SplashActivity.class, b);
+        openActivity(SplashActivity.class, new Bundle());
         finish();
     }
 
