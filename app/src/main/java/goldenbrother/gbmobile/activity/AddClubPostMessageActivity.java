@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,6 +18,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.ClubPostMessageRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ClubPostMediaModel;
 import goldenbrother.gbmobile.model.ClubPostMessageModel;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 public class AddClubPostMessageActivity extends CommonActivity implements View.OnClickListener {
 
     // ui
+    private NestedScrollView nsv;
     private ImageView iv_user_picture, iv_thumbnail_pic, iv_video_play;
     private TextView tv_user_name, tv_create_date, tv_content;
     private RecyclerView rv;
@@ -45,7 +48,9 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_club_post_message);
         setUpBackToolbar(R.id.toolbar, R.string.comment);
+
         // ui reference
+        nsv=findViewById(R.id.nsv_add_club_post_message);
         iv_user_picture = findViewById(R.id.iv_add_club_post_message_user_picture);
         iv_thumbnail_pic = findViewById(R.id.iv_add_club_post_message_thumbnail_pic);
         iv_video_play = findViewById(R.id.iv_add_club_post_message_video_play);
@@ -55,16 +60,19 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
         rv = findViewById(R.id.rv_add_club_post_message_comment);
         et_message = findViewById(R.id.et_add_club_post_message_message);
         findViewById(R.id.iv_add_club_post_message_send).setOnClickListener(this);
-        // init ListView
+
+        // extra
+        Intent intent = getIntent();
+        clubPost = intent.getParcelableExtra("clubPost");
+
+        // init
         list_message = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new ClubPostMessageRVAdapter(this, list_message));
-        // get extra
-        Intent intent = getIntent();
-        clubPost = intent.getParcelableExtra("clubPost");
+
+        //
         showClub();
-        // load message
-        loadClubPostMessage();
+        loadClubPostMessage(false);
     }
 
     private void showClub() {
@@ -73,7 +81,11 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
         // set user picture
         if (clubPost.getPostUserPicture() != null && !clubPost.getPostUserPicture().isEmpty()) {
             int w = (int) getResources().getDimension(R.dimen.imageview_picture_in_list_width);
-            Picasso.with(this).load(clubPost.getPostUserPicture()).resize(w, w).centerCrop().into(iv_user_picture);
+            Picasso.with(this)
+                    .load(clubPost.getPostUserPicture())
+                    .resize(w, w)
+                    .centerCrop()
+                    .into(iv_user_picture);
         }
         // set user name
         tv_user_name.setText(clubPost.getPostUserName());
@@ -154,30 +166,32 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         et_message.setText("");
-                        loadClubPostMessage();
+                        loadClubPostMessage(true);
                     }
                     break;
             }
         }
     }
 
-    public void loadClubPostMessage() {
+    public void loadClubPostMessage(boolean scrollToBottom) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getClubPostMessage");
             j.put("clubPostID", clubPost.getClubPostID());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadClubPostMessage(this, j, URLHelper.HOST).execute();
+            new LoadClubPostMessage(this, j, URLHelper.HOST, scrollToBottom).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     private class LoadClubPostMessage extends IAsyncTask {
+        private boolean scrollToBottom;
 
-        LoadClubPostMessage(Context context, JSONObject json, String url) {
+        LoadClubPostMessage(Context context, JSONObject json, String url, boolean scrollToBottom) {
             super(context, json, url);
+            this.scrollToBottom = scrollToBottom;
         }
 
         @Override
@@ -188,18 +202,32 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.loadClubPostMessage(response, list_message);
                     if (result == ApiResultHelper.SUCCESS) {
+                        saveMessageCount(list_message.size());
                         updateAdapter();
-                        rv.scrollToPosition(list_message.size() - 1);
-                    } else {
-
+                        if (scrollToBottom){
+                            nsv.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    nsv.fullScroll(View.FOCUS_DOWN);
+                                }
+                            });
+                        }
                     }
                     break;
             }
         }
     }
 
+    private void saveMessageCount(int count) {
+        Intent intent = new Intent();
+        intent.putExtra("clubPostId", clubPost.getClubPostID());
+        intent.putExtra("messageCount", count);
+        setResult(RESULT_OK, intent);
+    }
+
     @Override
     public void onClick(View v) {
+        hideKeyBoard(v);
         switch (v.getId()) {
             case R.id.iv_add_club_post_message_send:
                 String msg = et_message.getText().toString();
