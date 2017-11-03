@@ -46,11 +46,14 @@
     <string name="company">Company</string>
     <string name="government">Government</string>
     <string name="dorm">Dormitory</string>
-    <string name="online">Online</string>
+    <string name="online">On Line</string>
+    <string name="offline">Off Line</string>
+    <string name="turn_to_online">Turn to On Line ?</string>
     <string name="choose_a_staff">Choose an employee</string>
     <string name="all">All</string>
     <string name="processing">Processing</string>
     <string name="finish">Complete</string>
+    <string name="select_nothing">Select Nothing</string>
     <!-- Server -->
     <string name="server_error">Server no respond</string>
     <string name="no_network">No connection detected</string>
