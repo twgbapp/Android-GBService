@@ -2,18 +2,13 @@ package goldenbrother.gbmobile.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import org.json.JSONObject;
 
-/**
- * Created by asus on 2016/12/10.
- */
 
 public class SPHelper {
 
     // fcm
-
     private static final String FILE_FCM = "fcm";
     private static final String KEY_FCM_TOKEN = "key_fcm_token";
 
@@ -85,5 +80,20 @@ public class SPHelper {
     public static void clearUnReadCount(Context context) {
         SharedPreferences sp = context.getSharedPreferences(FILE_UNREAD, Context.MODE_PRIVATE);
         sp.edit().clear().apply();
+    }
+
+    /*
+     *  Language
+     */
+    private static final String FILE_SETTING = "setting";
+    private static final String KEY_SETTING_LANGUAGE = "key_setting_language";
+
+    public static void setLanguage(Context context, String language){
+        SharedPreferences sp = context.getSharedPreferences(FILE_SETTING, Context.MODE_PRIVATE);
+        sp.edit().putString(KEY_SETTING_LANGUAGE, language).apply();
+    }
+
+    public static String getLanguage(Context context){
+        return context.getSharedPreferences(FILE_SETTING, Context.MODE_PRIVATE).getString(KEY_SETTING_LANGUAGE, "");
     }
 }
