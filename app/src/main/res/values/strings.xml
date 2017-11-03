@@ -38,7 +38,7 @@
     <string name="permission_denied">Permission denied</string>
     <string name="error_confirm_password">Incorrect password</string>
     <string name="press_again_to_exit">Press again to leave</string>
-    <string name="mobile_service">Mobile Service</string>
+    <string name="mobile_service">Service</string>
     <string name="event_list">List</string>
     <string name="quick_repair">Repair</string>
     <string name="repair_record">Repair records</string>
@@ -108,9 +108,9 @@
     </string-array>
     <!-- Main -->
     <!-- Group -->
-    <string name="main_drawer_life_information">Life Information</string>
-    <string name="main_drawer_e_commerce">E-commerce</string>
-    <string name="main_drawer_satisfaction_survey">Satisfaction Survey</string>
+    <string name="main_drawer_life_information">LifeStyle</string>
+    <string name="main_drawer_e_commerce">Shopping</string>
+    <string name="main_drawer_satisfaction_survey">Happiness</string>
     <!-- Child -->
     <string name="main_drawer_event_list">@string/event_list</string>
     <string name="main_drawer_quick_repair">@string/quick_repair</string>

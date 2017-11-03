@@ -33,7 +33,7 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_service);
-        setUpBackToolbar(R.id.toolbar_service, R.id.tv_mobile_service_title, R.string.mobile_service);
+        setUpBackToolbar(R.id.toolbar_service, R.id.tv_mobile_service_title, R.string.chat);
         // ui reference
         iv_search = findViewById(R.id.tv_mobile_service_search);
         iv_close = findViewById(R.id.tv_mobile_service_close);
@@ -64,8 +64,7 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
             @Override
             public void onPageSelected(int position) {
                 if (position == POSITION_GROUP) {
-//                    tv_title.setText(RoleInfo.getInstance().isLabor() ? R.string.mobile_service : R.string.mobile_service);
-                    tv_title.setText(R.string.mobile_service);
+                    tv_title.setText(R.string.chat);
                 } else if (position == POSITION_EVENT) {
                     tv_title.setText(R.string.event_list);
                 }
