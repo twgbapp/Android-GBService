@@ -37,8 +37,8 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
         // ui reference
         iv_search = findViewById(R.id.tv_mobile_service_search);
         iv_close = findViewById(R.id.tv_mobile_service_close);
-        tv_title = (TextView) findViewById(R.id.tv_mobile_service_title);
-        viewPager = (ViewPager) findViewById(R.id.vp_service);
+        tv_title = findViewById(R.id.tv_mobile_service_title);
+        viewPager = findViewById(R.id.vp_service);
         // listener
         iv_search.setOnClickListener(this);
         iv_close.setOnClickListener(this);

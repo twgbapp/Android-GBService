@@ -41,10 +41,10 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
         setContentView(R.layout.activity_on_line_setting);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_online_setting);
         // ui reference
-        sw_online = (Switch) findViewById(R.id.sw_on_line_setting);
-        ll = (LinearLayout) findViewById(R.id.ll_on_line_setting);
-        lv_staff = (ListView) findViewById(R.id.lv_on_line_setting_staff);
-        tv_confirm = (TextView) findViewById(R.id.tv_on_line_setting_confirm);
+        sw_online = findViewById(R.id.sw_on_line_setting);
+        ll = findViewById(R.id.ll_on_line_setting);
+        lv_staff = findViewById(R.id.lv_on_line_setting_staff);
+        tv_confirm = findViewById(R.id.tv_on_line_setting_confirm);
         // listener
         sw_online.setOnCheckedChangeListener(this);
         tv_confirm.setOnClickListener(this);

@@ -28,13 +28,13 @@ public class MedicalTrackProcessActivity extends CommonActivity implements View.
         setContentView(R.layout.activity_medical_track_process);
         setUpBackToolbar(R.id.toolbar, R.string.medical_track);
         // ui reference
-        cb_1 = (CheckBox) findViewById(R.id.cb_medical_track_process_1);
-        cb_2 = (CheckBox) findViewById(R.id.cb_medical_track_process_2);
-        cb_3 = (CheckBox) findViewById(R.id.cb_medical_track_process_3);
-        cb_4 = (CheckBox) findViewById(R.id.cb_medical_track_process_4);
-        et_1 = (EditText) findViewById(R.id.et_medical_track_process_1);
-        et_2 = (EditText) findViewById(R.id.et_medical_track_process_2);
-        et_3 = (EditText) findViewById(R.id.et_medical_track_process_3);
+        cb_1 = findViewById(R.id.cb_medical_track_process_1);
+        cb_2 = findViewById(R.id.cb_medical_track_process_2);
+        cb_3 = findViewById(R.id.cb_medical_track_process_3);
+        cb_4 = findViewById(R.id.cb_medical_track_process_4);
+        et_1 = findViewById(R.id.et_medical_track_process_1);
+        et_2 = findViewById(R.id.et_medical_track_process_2);
+        et_3 = findViewById(R.id.et_medical_track_process_3);
         findViewById(R.id.tv_medical_track_process_done).setOnClickListener(this);
 
         // extra
