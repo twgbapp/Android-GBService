@@ -31,11 +31,12 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
         setUpBackToolbar(R.id.toolbar, R.string.club_title);
         // ui reference
         gv = findViewById(R.id.gv_club);
-        // init GridView
+
+        // init
         list_club = new ArrayList<>();
         gv.setAdapter(new ClubGridAdapter(this, list_club));
         gv.setOnItemClickListener(this);
-        // load Club List
+
         loadClubList();
     }
 

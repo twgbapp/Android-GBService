@@ -13,6 +13,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -97,9 +101,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.success);
-                        Intent intent = new Intent();
-                        intent.putExtra("package", mPackage);
-                        setResult(RESULT_OK, intent);
+                        setResult(RESULT_OK);
                         finish();
                     } else {
                         t(R.string.fail);
@@ -168,7 +170,8 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(CropActivity.class, REQUEST_TAKE_CROP, b);
                 break;
             case REQUEST_TAKE_CROP:
-                Bitmap bitmap = BitmapHelper.file2Bitmap((File) data.getSerializableExtra("file"));
+                Bitmap bitmap = BitmapHelper.file2Bitmap(new File(data.getStringExtra("path")));
+                bitmap = BitmapHelper.resize(bitmap, 1024, 1024);
                 iv_picture.setImageBitmap(bitmap);
                 mPackage.setBaseStr(BitmapHelper.bitmap2JPGBase64(bitmap));
                 rl_take_picture.setVisibility(View.GONE);

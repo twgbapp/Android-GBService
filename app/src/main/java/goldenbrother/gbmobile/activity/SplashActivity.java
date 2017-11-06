@@ -1,13 +1,18 @@
 package goldenbrother.gbmobile.activity;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Locale;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.PackageHelper;
@@ -24,10 +29,22 @@ public class SplashActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        // ani
+
+        initLanguage();
+
         Message msg = new Message();
         msg.what = getIntent().getExtras().getBoolean("isLogout", false) ? LOG_OUT : LOG_IN;
         handler.sendMessageDelayed(msg, 1000);
+    }
+
+    private void initLanguage(){
+        String lang = SPHelper.getLanguage(this);
+        Locale locale = new Locale(lang.isEmpty()?"en":lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = locale;
+        res.updateConfiguration(conf, dm);
     }
 
     @SuppressLint("HandlerLeak")

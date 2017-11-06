@@ -7,31 +7,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.model.OnCallManagerModel;
+import goldenbrother.gbmobile.model.BasicUser;
+import goldenbrother.gbmobile.model.BasicUser;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by asus on 2016/11/16.
- */
-
 public class OnCallManagerListAdapter extends SampleBaseAdapter {
 
-    private ArrayList<OnCallManagerModel> list;
-    private OnCallManagerModel selected;
+    private ArrayList<BasicUser> list;
+    private int selectedPosition = -1;
 
-    public OnCallManagerListAdapter(Context context, ArrayList<OnCallManagerModel> list) {
+    public OnCallManagerListAdapter(Context context, ArrayList<BasicUser> list) {
         super(context);
         this.list = list;
     }
 
-    public String getSelectedUserID() {
-        if(selected==null)
-            return "";
-        return selected.getUserID();
+    public int getSelectedPosition() {
+        return selectedPosition;
     }
 
     @Override
@@ -50,7 +46,7 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
     }
 
     @Override
-    public View getView(int position, View v, ViewGroup parent) {
+    public View getView(final int position, View v, ViewGroup parent) {
         ViewHolder tag;
         if (v == null) {
             v = getInflater().inflate(R.layout.item_list_on_call_manager, null);
@@ -59,22 +55,31 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
         } else {
             tag = (ViewHolder) v.getTag();
         }
-        final OnCallManagerModel item = (OnCallManagerModel) getItem(position);
+        final BasicUser item = (BasicUser) getItem(position);
         // set picture
         int wp = (int) getResources().getDimension(R.dimen.imageview_picture_in_list_width);
         if (item.getUserPicture() != null && !item.getUserPicture().isEmpty()) {
-            Picasso.with(getContext()).load(item.getUserPicture()).placeholder(R.drawable.ic_person_replace).resize(wp, wp).centerCrop().into(tag.picture);
+            Picasso.with(getContext())
+                    .load(item.getUserPicture())
+                    .placeholder(R.drawable.ic_person_replace)
+                    .resize(wp, wp)
+                    .centerCrop()
+                    .into(tag.picture);
         } else {
-            Picasso.with(getContext()).load(R.drawable.ic_person_replace).resize(wp, wp).centerCrop().into(tag.picture);
+            Picasso.with(getContext())
+                    .load(R.drawable.ic_person_replace)
+                    .resize(wp, wp)
+                    .centerCrop()
+                    .into(tag.picture);
         }
         // set name
         tag.name.setText(item.getUserID());
         // set check
-        tag.check.setVisibility(selected != null ? (selected.equals(item) ? View.VISIBLE : View.GONE) : View.GONE);
+        tag.check.setVisibility(selectedPosition == position ? View.VISIBLE : View.GONE);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selected = item;
+                selectedPosition = position;
                 notifyDataSetChanged();
             }
         });

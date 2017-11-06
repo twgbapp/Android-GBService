@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ClubPostActivity extends CommonActivity {
+
     // request
     public static final int REQUEST_ADD_POST = 0;
     public static final int REQUEST_ADD_POST_MESSAGE = 1;
@@ -95,18 +96,15 @@ public class ClubPostActivity extends CommonActivity {
         rv.getAdapter().notifyDataSetChanged();
     }
 
-    private void setMessageCount(int clubPostID, ArrayList<ClubPostMessageModel> list, int messageCount) {
+    private void setMessageCount(int clubPostID, int messageCount) {
         for (ClubPostModel m : list_club_post) {
             if (m.getClubPostID() == clubPostID) {
-                m.getMessages().clear();
-                m.getMessages().addAll(list);
                 m.setMessageCount(messageCount);
                 break;
             }
         }
         updateAdapter();
     }
-
 
     private void loadAllClubPostID() {
         try {
@@ -237,10 +235,11 @@ public class ClubPostActivity extends CommonActivity {
                     loadAllClubPostID();
                     break;
                 case REQUEST_ADD_POST_MESSAGE:
-                    int clubPostID = data.getIntExtra("clubPostID", -1);
-                    ArrayList<ClubPostMessageModel> list_message = data.getParcelableArrayListExtra("lastMessage");
+                    int clubPostID = data.getIntExtra("clubPostId", -1);
                     int messageCount = data.getIntExtra("messageCount", -1);
-                    setMessageCount(clubPostID, list_message, messageCount);
+
+
+                    setMessageCount(clubPostID, messageCount);
                     break;
             }
         }

@@ -208,7 +208,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                                 break;
                         }
                     } else {
-                        t(R.string.server_error);
+                        t(R.string.arc_no_can_not_register);
                     }
                     break;
             }

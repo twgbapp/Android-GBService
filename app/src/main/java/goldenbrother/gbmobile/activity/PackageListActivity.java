@@ -46,6 +46,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         list_package = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PackageListRVAdapter(this, list_package));
+
         loadPackageList("", "", true);
     }
 
@@ -171,9 +172,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_PACKAGE_RESULT:
-                    PackageModel mPackage = data.getParcelableExtra("package");
-                    list_package.remove(mPackage);
-                    updateAdapter();
+                    loadPackageList("", "", true);
                     break;
                 case REQUEST_QR_CODE:
                     String text = data.getStringExtra("text");
