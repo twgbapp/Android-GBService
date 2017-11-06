@@ -5,7 +5,7 @@ import android.util.Log;
 
 public class LogHelper {
     private static final String TAG = "GBMLOG";
-    private static boolean isDebuggable = true;
+    private static boolean isDebuggable = false;
 
     public static void d(String msg) {
         d(TAG, msg);
