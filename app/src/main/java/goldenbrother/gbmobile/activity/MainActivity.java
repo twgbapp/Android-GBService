@@ -82,7 +82,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     // banner
     private Handler handler;
     private ArrayList<Integer> list_banner;
-    private boolean allowShowing = false;
+    private boolean isBannerShowing = false;
     // data
     public static final String E_COMMERCE = "https://www.gbtake.com/";
 
@@ -90,9 +90,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Hockey for APP Update Check
-        checkForUpdates();
 
         // ui reference
         iv_picture = findViewById(R.id.iv_item_rv_main_drawer_head_picture);
@@ -118,21 +115,6 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                 openActivity(MobileServiceActivity.class, b);
             }
         }
-    }
-
-    private void checkForUpdates() {
-        // Remove this for store builds!
-//        UpdateManager.register(this);
-    }
-
-    private void unregisterManagers() {
-        UpdateManager.unregister();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unregisterManagers();
     }
 
     private void initToolbar() {
@@ -283,15 +265,13 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void initBanner() {
-        // init Data
+        // init
+        handler = new Handler();
         list_banner = new ArrayList<>();
         list_banner.add(R.drawable.banner1);
         list_banner.add(R.drawable.banner2);
         list_banner.add(R.drawable.banner3);
-        // show
-        allowShowing = true;
-        handler = new Handler();
-        handler.post(r);
+        startShowAdvertising();
     }
 
     private static final long REFRESH_BANNER_TIME = 4000;
@@ -300,7 +280,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     final Runnable r = new Runnable() {
         @Override
         public void run() {
-            if (allowShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
+            if (isBannerShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
                 int w = getResources().getDisplayMetrics().widthPixels;
                 int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
                 Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
@@ -313,12 +293,14 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     };
 
     private void stopShowAdvertising() {
-        allowShowing = false;
+        isBannerShowing = false;
+        if (handler != null)
+            handler.removeCallbacks(r);
     }
 
     private void startShowAdvertising() {
-        if (list_banner != null && !list_banner.isEmpty() && handler != null) {
-            allowShowing = true;
+        if (list_banner != null && !list_banner.isEmpty() && handler != null && !isBannerShowing) {
+            isBannerShowing = true;
             handler.post(r);
         }
     }
@@ -341,7 +323,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void showLifeInformationDialog() {
-        String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.activity),getString(R.string.main_drawer_club)};
+        String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.activity), getString(R.string.main_drawer_club)};
         String[] items_manager = {getString(R.string.main_drawer_club)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_life_information_big, getString(R.string.main_drawer_life_information), items, new AdapterView.OnItemClickListener() {
@@ -577,11 +559,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     @Override
     public void onPause() {
-        stopShowAdvertising();
-        if (handler != null)
-            handler.removeCallbacks(r);
-        unregisterManagers();//for Hockey(APP Update)
         super.onPause();
+        stopShowAdvertising();
     }
 
     @Override
