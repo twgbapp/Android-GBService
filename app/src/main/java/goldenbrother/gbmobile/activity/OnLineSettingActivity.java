@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OnLineSettingActivity extends CommonActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
@@ -54,24 +56,71 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
         list_on_call_manager = new ArrayList<>();
         lv_staff.setAdapter(new OnCallManagerListAdapter(this, list_on_call_manager));
 
-        loadOnCallManager();
+        getOnCallManage();
+//        getOnCallStatus();
+        viewToOnLine();
     }
 
-    private void loadOnCallManager() {
+    private void getOnCallStatus() {
         try {
             JSONObject j = new JSONObject();
-            j.put("action", "getOnCallManage");
+            j.put("action", "getOnCallStatus");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadOnCallManager(this, j, URLHelper.HOST).execute();
+            new getOnCallStatus(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private class LoadOnCallManager extends IAsyncTask {
+    private class getOnCallStatus extends IAsyncTask {
 
-        LoadOnCallManager(Context context, JSONObject json, String url) {
+        private Map<String, String> map;
+
+        getOnCallStatus(Context context, JSONObject json, String url) {
+            super(context, json, url);
+            this.map = new HashMap<>();
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.EMPTY:
+                    int result = ApiResultHelper.getOnCallStatus(response, map);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        switch (map.get("onCallStatus")) {
+                            case ON_LINE:
+                                viewToOnLine();
+                                break;
+                            case OFF_LINE:
+                                viewToOffLine();
+                                break;
+                        }
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void getOnCallManage() {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "getOnCallManage");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
+            new GetOnCallManage(this, j, URLHelper.HOST).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class GetOnCallManage extends IAsyncTask {
+
+        GetOnCallManage(Context context, JSONObject json, String url) {
             super(context, json, url);
         }
 
@@ -81,7 +130,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.loadOnCallManager(response, list_on_call_manager);
+                    int result = ApiResultHelper.getOnCallManage(response, list_on_call_manager);
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {
@@ -93,7 +142,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
     }
 
     private void updateAdapter() {
-            ((OnCallManagerListAdapter) lv_staff.getAdapter()).notifyDataSetChanged();
+        ((OnCallManagerListAdapter) lv_staff.getAdapter()).notifyDataSetChanged();
     }
 
     private void changeOnCallStatus(String staffID, String onCallStatus) {
@@ -127,9 +176,9 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         if (onCallStatus.equals(OFF_LINE)) {
-                            Toast.makeText(OnLineSettingActivity.this, R.string.offline, Toast.LENGTH_SHORT).show();
+                            viewToOffLine();
                         } else if (onCallStatus.equals(ON_LINE)) {
-                            Toast.makeText(OnLineSettingActivity.this, R.string.online, Toast.LENGTH_SHORT).show();
+                            viewToOnLine();
                         }
                     } else {
                         t(R.string.fail);
@@ -139,13 +188,26 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
         }
     }
 
+    private void viewToOnLine(){
+        sw_online.setChecked(true);
+        sw_online.setText(R.string.online);
+        ll.setVisibility(View.GONE);
+    }
+
+    private void viewToOffLine(){
+        sw_online.setChecked(false);
+        sw_online.setText(R.string.offline);
+        ll.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            ll.setVisibility(View.GONE);
+            viewToOnLine();
             new AlertDialog.Builder(this)
                     .setTitle(R.string.online)
                     .setMessage(R.string.turn_to_online)
+                    .setCancelable(false)
                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -153,10 +215,15 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                             changeOnCallStatus("", ON_LINE);
                         }
                     })
-                    .setNegativeButton(R.string.cancel, null)
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            viewToOffLine();
+                        }
+                    })
                     .show();
         } else {
-            ll.setVisibility(View.VISIBLE);
+            viewToOffLine();
         }
     }
 

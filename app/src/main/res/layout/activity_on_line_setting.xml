@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:switchPadding="16dp"
-            android:text="@string/online"
             android:textColor="#FFF"
             android:textSize="24sp" />
 
