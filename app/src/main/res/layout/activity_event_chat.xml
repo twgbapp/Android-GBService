@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/edittext_chat"
+            android:background="@drawable/input_circle_white"
             android:maxLines="1" />
         <TextView
             android:id="@+id/tv_event_chat_send"
