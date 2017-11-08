@@ -222,14 +222,14 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(GBActivityListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
             new DAOEvent(this).deleteAll();
-            new DAOEventChat(this).deleteAll();
-            new DAOEventTimePoint(this).deleteAll();
+//            new DAOEventChat(this).deleteAll();
+//            new DAOEventTimePoint(this).deleteAll();
             new DAOService(this).deleteAll();
-            new DAOServiceChat(this).deleteAll();
-            new DAOServiceTimePoint(this).deleteAll();
+//            new DAOServiceChat(this).deleteAll();
+//            new DAOServiceTimePoint(this).deleteAll();
             SPHelper.clearUser(this);
-            SPHelper.clearUnReadCount(this);
-            PackageHelper.setBadge(this, SPHelper.getUnReadCount(this));
+//            SPHelper.clearUnReadCount(this);
+//            PackageHelper.setBadge(this, SPHelper.getUnReadCount(this));
             FileHelper.deletePicturesDirAllFile(this);
             b.putBoolean("isLogout", true);
             openActivity(SplashActivity.class, b);
