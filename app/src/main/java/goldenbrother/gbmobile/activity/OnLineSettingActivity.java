@@ -176,11 +176,11 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
                         if (onCallStatus.equals(OFF_LINE)) {
+                            t(R.string.offline);
                             viewToOffLine();
-                            t(R.string.online);
                         } else if (onCallStatus.equals(ON_LINE)) {
                             viewToOnLine();
-                            t(R.string.offline);
+                            t(R.string.online);
                         }
                     } else {
                         t(R.string.fail);
