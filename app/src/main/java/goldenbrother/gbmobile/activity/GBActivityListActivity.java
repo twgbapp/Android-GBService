@@ -2,7 +2,6 @@ package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -124,9 +123,9 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         // init
         handler = new Handler();
         list_banner = new ArrayList<>();
-        list_banner.add(R.drawable.activity1);
-        list_banner.add(R.drawable.activity2);
-        list_banner.add(R.drawable.activity3);
+        list_banner.add(R.drawable.banner_activity1);
+        list_banner.add(R.drawable.banner_activity2);
+        list_banner.add(R.drawable.banner_activity3);
         startShowAdvertising();
     }
 

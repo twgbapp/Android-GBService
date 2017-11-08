@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
@@ -18,7 +16,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,16 +23,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-
-import net.hockeyapp.android.UpdateManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
 import goldenbrother.gbmobile.fcm.GBFirebaseMessagingService;
@@ -45,26 +37,17 @@ import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
-import goldenbrother.gbmobile.model.Discussion;
 import goldenbrother.gbmobile.model.DrawerItem;
-import goldenbrother.gbmobile.model.GBActivity;
-import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOEvent;
-import goldenbrother.gbmobile.sqlite.DAOEventChat;
-import goldenbrother.gbmobile.sqlite.DAOEventTimePoint;
 import goldenbrother.gbmobile.sqlite.DAOService;
-import goldenbrother.gbmobile.sqlite.DAOServiceChat;
-import goldenbrother.gbmobile.sqlite.DAOServiceTimePoint;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class MainActivity extends CommonActivity implements View.OnClickListener {
 
@@ -268,9 +251,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         // init
         handler = new Handler();
         list_banner = new ArrayList<>();
-        list_banner.add(R.drawable.banner1);
-        list_banner.add(R.drawable.banner2);
-        list_banner.add(R.drawable.banner3);
+        list_banner.add(R.drawable.banner_main1);
+        list_banner.add(R.drawable.banner_main2);
+        list_banner.add(R.drawable.banner_main3);
         startShowAdvertising();
     }
 

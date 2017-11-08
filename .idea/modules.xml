@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android-GBMobile.iml" filepath="$PROJECT_DIR$/Android-GBMobile.iml" />
       <module fileurl="file://C:\Users\rin84\Documents\AndroidProjects\AndroidStudioProjects\GBMobile\Android-GBMobile.iml" filepath="C:\Users\rin84\Documents\AndroidProjects\AndroidStudioProjects\GBMobile\Android-GBMobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GBMobile.iml" filepath="$PROJECT_DIR$/GBMobile.iml" />
       <module fileurl="file://D:\Android\Android-GBMobile\GBMobile.iml" filepath="D:\Android\Android-GBMobile\GBMobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
