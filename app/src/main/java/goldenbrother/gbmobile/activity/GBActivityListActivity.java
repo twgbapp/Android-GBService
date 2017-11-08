@@ -124,9 +124,9 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         // init
         handler = new Handler();
         list_banner = new ArrayList<>();
-        list_banner.add(R.drawable.banner1);
-        list_banner.add(R.drawable.banner2);
-        list_banner.add(R.drawable.banner3);
+        list_banner.add(R.drawable.activity1);
+        list_banner.add(R.drawable.activity2);
+        list_banner.add(R.drawable.activity3);
         startShowAdvertising();
     }
 
