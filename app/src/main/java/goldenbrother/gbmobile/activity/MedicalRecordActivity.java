@@ -627,7 +627,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             case R.id.iv_medical_record_symptoms: // 症狀列表
                 b.putParcelable("medical", medical);
                 openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT, b);
-                LogHelper.d(medical.getSymptom().size() + "");
                 break;
             case R.id.iv_medical_record_processing_status: // 處理狀況
                 b.putParcelable("medical", medical);
@@ -711,7 +710,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 break;
             case REQUEST_TREATMENT:
                 medical = data.getParcelableExtra("medical");
-                LogHelper.d(medical.getSymptom().size() + "");
                 showSymptom();
                 break;
             case REQUEST_PROCESS_STATUS:

@@ -60,6 +60,10 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
 
         // loadMedicalTreatmentCodeList
         getMedicalTreatmentCode();
+
+        for (MedicalSymptomModel m : medical.getSymptom()) {
+            LogHelper.d("SYM:" + m.getCode() + " " + m.getValue());
+        }
     }
 
 
@@ -108,7 +112,6 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                     if (result == ApiResultHelper.SUCCESS) {
                         sortSymptoms();
                         initSelected();
-//                        updateAdapter();
                     } else {
                         t(R.string.fail);
                     }
@@ -147,7 +150,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                 ArrayList<MedicalSymptomModel> lists = new ArrayList<>();
                 lists.addAll(set);
                 // other
-                if (otherChecked && et_other.getText().toString().isEmpty()){
+                if (otherChecked && et_other.getText().toString().isEmpty()) {
                     t("其它欄位未填寫");
                     return;
                 }
@@ -158,7 +161,6 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
                     m.setValue(other.isEmpty() ? "" : other);
                     lists.add(m);
                 }
-                LogHelper.d(lists.size() + "");
                 medical.getSymptom().clear();
                 medical.getSymptom().addAll(lists);
                 Intent intent = new Intent();

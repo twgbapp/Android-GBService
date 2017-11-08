@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.model.MedicalSymptomModel;
 
 public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
@@ -65,13 +66,6 @@ public class MedicalTreatmentCodeRVAdapter extends SampleRVAdapter {
             final ChildViewHolder h = (ChildViewHolder) holder;
             h.name.setText(item.getValue());
             h.check.setImageResource(set.contains(item) ? R.drawable.ic_radio_button_checked_w : R.drawable.ic_radio_button_unchecked_w);
-//            h.check.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-////                    notifyDataSetChanged();
-//                }
-//            });
             h.name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
