@@ -41,7 +41,7 @@
                         android:id="@+id/et_medical_patient_info_arc_id_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edittext_signup"
+                        android:background="@drawable/input_rect_gray"
                         android:hint="@string/medical_id_number"
                         android:inputType="text"
                         android:maxLines="1"
@@ -96,7 +96,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edittext_signup"
+                        android:background="@drawable/input_rect_gray"
                         android:text="@string/male"
                         android:textColor="#FFF"
                         android:textSize="20sp" />
@@ -115,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edittext_signup"
+                        android:background="@drawable/input_rect_gray"
                         android:textColor="#FFF"
                         android:textColorHint="#FFF"
                         android:textSize="18sp" />
@@ -134,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edittext_signup"
+                        android:background="@drawable/input_rect_gray"
                         android:textColor="#FFF"
                         android:textColorHint="#FFF"
                         android:textSize="18sp" />
@@ -153,7 +153,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/edittext_signup"
+                        android:background="@drawable/input_rect_gray"
                         android:textColor="#FFF"
                         android:textColorHint="#FFF"
                         android:textSize="18sp" />

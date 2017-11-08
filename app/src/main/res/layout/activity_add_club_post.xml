@@ -62,7 +62,7 @@
                     android:id="@+id/et_add_club_post_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_club_post_content"
+                    android:background="@drawable/input_rect_white"
                     android:hint="@string/club_content"
                     android:padding="16dp" />
 

@@ -49,6 +49,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by asus on 2016/12/8.
@@ -424,7 +425,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadOnCallManager(String response, ArrayList<BasicUser> list_on_call_manager) {
+    public static int getOnCallManage(String response, ArrayList<BasicUser> list_on_call_manager) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -1173,6 +1174,20 @@ public class ApiResultHelper {
                     item.setCreateDate(o.getString("createDate"));
                     list_gb_activity.add(item);
                 }
+            }
+            return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getOnCallStatus(String response, Map<String, String> map) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int success = j.getInt("success");
+            if (success == 1) {
+                map.put("onCallStatus", j.getString("onCallStatus"));
             }
             return success;
         } catch (JSONException e) {

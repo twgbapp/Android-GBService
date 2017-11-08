@@ -59,8 +59,8 @@ public class GBActivityListRVAdapter extends SampleRVAdapter {
                 return ContextCompat.getColor(getContext(), R.color.activity_news);
             case GBActivityListActivity.COM:
                 return ContextCompat.getColor(getContext(), R.color.activity_com);
-            case GBActivityListActivity.CLUB:
-                return ContextCompat.getColor(getContext(), R.color.activity_club);
+            case GBActivityListActivity.DORM:
+                return ContextCompat.getColor(getContext(), R.color.activity_dorm);
         }
         return 0;
     }

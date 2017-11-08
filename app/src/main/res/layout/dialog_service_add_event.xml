@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittext_signup"
+            android:background="@drawable/input_rect_gray"
             android:hint="@string/select"
             android:padding="10dp"
             android:textColor="#FFF"
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittext_signup"
+            android:background="@drawable/input_rect_gray"
             android:hint="@string/select"
             android:padding="10dp"
             android:textColor="#FFF"
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittext_signup"
+            android:background="@drawable/input_rect_gray"
             android:hint="@string/select"
             android:padding="10dp"
             android:textColor="#FFF"
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittext_add_event" />
+            android:background="@drawable/input_rect_gray" />
 
     </LinearLayout>
 

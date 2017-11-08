@@ -373,12 +373,12 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
 
                 break;
             case R.id.iv_discussion_record_service_record:
-                if (discussion.getServiceRecordPath().endsWith(".pdf")){
+                if (discussion.getServiceRecordPath() != null && discussion.getServiceRecordPath().endsWith(".pdf")) {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(discussion.getServiceRecordPath()));
                     startActivity(intent);
-                }else{
+                } else {
                     iv_clicked = (ImageView) v;
                     choosePicture();
                 }

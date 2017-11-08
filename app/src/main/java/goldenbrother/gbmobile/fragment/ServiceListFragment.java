@@ -38,7 +38,6 @@ import java.util.ArrayList;
 public class ServiceListFragment extends CommonFragment {
     // activity
     private MobileServiceActivity activity;
-    public static ServiceListFragment f;
     // ui
     private SwipeRefreshLayout srl;
     private RecyclerView rv;
@@ -47,12 +46,7 @@ public class ServiceListFragment extends CommonFragment {
     private ArrayList<ServiceChatModel> list_service_chat;
 
     public static ServiceListFragment createInstance() {
-        f = new ServiceListFragment();
-        return f;
-    }
-
-    public static ServiceListFragment getInstance() {
-        return f;
+        return new ServiceListFragment();
     }
 
     @Override
@@ -63,8 +57,8 @@ public class ServiceListFragment extends CommonFragment {
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        srl = (SwipeRefreshLayout) v.findViewById(R.id.srl_service_list);
-        rv = (RecyclerView) v.findViewById(R.id.rv_service_list);
+        srl = v.findViewById(R.id.srl_service_list);
+        rv = v.findViewById(R.id.rv_service_list);
     }
 
     @Override
