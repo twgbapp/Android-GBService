@@ -57,7 +57,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
         lv_staff.setAdapter(new OnCallManagerListAdapter(this, list_on_call_manager));
 
         getOnCallManage();
-//        getOnCallStatus();
+        getOnCallStatus();
         viewToOnLine();
     }
 
@@ -177,8 +177,10 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                     if (result == ApiResultHelper.SUCCESS) {
                         if (onCallStatus.equals(OFF_LINE)) {
                             viewToOffLine();
+                            t(R.string.online);
                         } else if (onCallStatus.equals(ON_LINE)) {
                             viewToOnLine();
+                            t(R.string.offline);
                         }
                     } else {
                         t(R.string.fail);
