@@ -18,7 +18,7 @@
 
     <color name="activity_news">#65C8D0</color>
     <color name="activity_com">#F8EC00</color>
-    <color name="activity_club">#D979B1</color>
+    <color name="activity_dorm">#D979B1</color>
 
     <color name="tab_selected">#616776</color>
     <color name="tab_not_selected">#535866</color>

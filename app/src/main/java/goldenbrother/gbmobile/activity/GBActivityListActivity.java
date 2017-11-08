@@ -1,11 +1,15 @@
 package goldenbrother.gbmobile.activity;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,9 +30,14 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
     // gb activity type
     public static final int NEWS = 1;
     public static final int COM = 2;
-    public static final int CLUB = 3;
+    public static final int DORM = 3;
     // ui
+    private ImageView iv_banner;
     private RecyclerView rv;
+    // banner
+    private Handler handler;
+    private ArrayList<Integer> list_banner;
+    private boolean isBannerShowing = false;
     // data
     private ArrayList<GBActivity> list_gb_activity, list_gb_activity_show;
 
@@ -39,10 +48,11 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         setUpBackToolbar(R.id.toolbar, R.string.activity);
 
         // ui reference
+        iv_banner = findViewById(R.id.iv_activity_list_banner);
         rv = findViewById(R.id.rv_activity_list);
         findViewById(R.id.ll_activity_list_news).setOnClickListener(this);
         findViewById(R.id.ll_activity_list_com).setOnClickListener(this);
-        findViewById(R.id.ll_activity_list_club).setOnClickListener(this);
+        findViewById(R.id.ll_activity_list_dorm).setOnClickListener(this);
 
         // init
         list_gb_activity = new ArrayList<>();
@@ -50,6 +60,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new GBActivityListRVAdapter(this, list_gb_activity_show));
 
+        initBanner();
         getActivityList();
     }
 
@@ -109,6 +120,53 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         rv.getAdapter().notifyDataSetChanged();
     }
 
+    private void initBanner() {
+        // init
+        handler = new Handler();
+        list_banner = new ArrayList<>();
+        list_banner.add(R.drawable.banner1);
+        list_banner.add(R.drawable.banner2);
+        list_banner.add(R.drawable.banner3);
+        startShowAdvertising();
+    }
+
+    private static final long REFRESH_BANNER_TIME = 4000;
+    private int indexOfBanner = 0;
+
+    final Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            if (isBannerShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
+                int w = getResources().getDisplayMetrics().widthPixels;
+                int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
+                Picasso.with(GBActivityListActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
+                indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
+                handler.postDelayed(r, REFRESH_BANNER_TIME);
+            } else {
+                indexOfBanner = 0;
+            }
+        }
+    };
+
+    private void stopShowAdvertising() {
+        isBannerShowing = false;
+        if (handler != null)
+            handler.removeCallbacks(r);
+    }
+
+    private void startShowAdvertising() {
+        if (list_banner != null && !list_banner.isEmpty() && handler != null && !isBannerShowing) {
+            isBannerShowing = true;
+            handler.post(r);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopShowAdvertising();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -118,8 +176,8 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
             case R.id.ll_activity_list_com:
                 filter(COM);
                 break;
-            case R.id.ll_activity_list_club:
-                filter(CLUB);
+            case R.id.ll_activity_list_dorm:
+                filter(DORM);
                 break;
         }
     }
