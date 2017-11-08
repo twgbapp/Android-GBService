@@ -43,6 +43,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_symptom);
         setUpBackToolbar(R.id.toolbar_medical_symptom, R.id.tv_medical_symptom_title, R.string.medical_symptoms);
+
         // ui reference
         findViewById(R.id.iv_medical_symptom_done).setOnClickListener(this);
         findViewById(R.id.ll_medical_symptom_other).setOnClickListener(this);

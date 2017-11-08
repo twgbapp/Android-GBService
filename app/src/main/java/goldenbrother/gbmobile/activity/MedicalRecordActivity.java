@@ -82,6 +82,20 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         iv_medical = findViewById(R.id.iv_medical_record_medical_path);
         iv_diagnosis = findViewById(R.id.iv_medical_record_diagnosis_path);
         iv_service = findViewById(R.id.iv_medical_record_service_path);
+        findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
+        findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
+        findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
+        tv_name.setOnClickListener(this);
+        tv_room_id.setOnClickListener(this);
+        tv_blood_type.setOnClickListener(this);
+        tv_date.setOnClickListener(this);
+        iv_signature.setOnClickListener(this);
+        iv_medical.setOnClickListener(this);
+        iv_diagnosis.setOnClickListener(this);
+        iv_service.setOnClickListener(this);
 
         // extra
         medical = getIntent().getExtras().getParcelable("medical");
@@ -90,21 +104,6 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         if (medical != null && medical.getMtrsno() != 0) { // update
             getMedicalTreatmentCode();
         } else { // add
-            findViewById(R.id.iv_medical_record_info).setOnClickListener(this);
-            findViewById(R.id.iv_medical_record_symptoms).setOnClickListener(this);
-            findViewById(R.id.iv_medical_record_processing_status).setOnClickListener(this);
-            findViewById(R.id.iv_medical_record_tracking_processing).setOnClickListener(this);
-            findViewById(R.id.iv_medical_record_file_upload).setOnClickListener(this);
-            findViewById(R.id.tv_medical_record_save).setOnClickListener(this);
-            tv_name.setOnClickListener(this);
-            tv_room_id.setOnClickListener(this);
-            tv_blood_type.setOnClickListener(this);
-            tv_date.setOnClickListener(this);
-            iv_signature.setOnClickListener(this);
-            iv_medical.setOnClickListener(this);
-            iv_diagnosis.setOnClickListener(this);
-            iv_service.setOnClickListener(this);
-            findViewById(R.id.tv_medical_record_save).setVisibility(View.VISIBLE);
             medical = new Medical();
             medical.getPatient().setBloodType("0"); // A
             medical.getPatient().setRecordDate(TimeHelper.date());
@@ -628,6 +627,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             case R.id.iv_medical_record_symptoms: // 症狀列表
                 b.putParcelable("medical", medical);
                 openActivityForResult(MedicalSymptomActivity.class, REQUEST_TREATMENT, b);
+                LogHelper.d(medical.getSymptom().size() + "");
                 break;
             case R.id.iv_medical_record_processing_status: // 處理狀況
                 b.putParcelable("medical", medical);
@@ -711,6 +711,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 break;
             case REQUEST_TREATMENT:
                 medical = data.getParcelableExtra("medical");
+                LogHelper.d(medical.getSymptom().size() + "");
                 showSymptom();
                 break;
             case REQUEST_PROCESS_STATUS:

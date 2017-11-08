@@ -142,7 +142,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                 chooseImage();
                 break;
             case R.id.tv_package_result_receive:
-                if (uriTakePicture == null) {
+                if (mPackage.getBaseStr() == null) {
                     t("No Picture");
                     return;
                 }
