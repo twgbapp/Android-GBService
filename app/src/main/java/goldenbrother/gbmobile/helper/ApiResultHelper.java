@@ -129,33 +129,21 @@ public class ApiResultHelper {
                     u.setUserEmail(ji.getString("userEmail"));
                     u.setUserNationCode(ji.getString("userNationCode"));
                     u.setUserBirthday(ji.getString("userBirthday"));
-                    String pic = "";
-                    try {
-                        pic = ji.getString("userPicture");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    u.setUserPicture(pic);
+                    u.setUserPicture(ji.optString("userPicture", ""));
                 } else if (roleID == 0) { // labor
                     LaborModel l = LaborModel.getInstance();
                     l.setUserID(ji.getString("userID"));
                     l.setUserName(ji.getString("userName"));
                     l.setUserIDNumber(ji.getString("userIDNumber"));
                     l.setServiceGroupID(ji.getInt("serviceGroupID"));
-                    String pic = "";
-                    try {
-                        pic = ji.getString("userPicture");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    l.setUserPicture(pic);
+                    l.setUserPicture(ji.optString("userPicture", ""));
                     l.setUserSex(ji.getString("userSex"));
                     l.setUserPhone(ji.getString("userPhone"));
                     l.setUserEmail(ji.getString("userEmail"));
                     l.setUserNationCode(ji.getString("userNationCode"));
                     l.setUserBirthday(ji.getString("userBirthday"));
-                    l.setDormID(ji.getString("dormID"));
-                    l.setCenterID(ji.getString("centerID"));
+                    l.setDormID(ji.optString("dormID", ""));
+                    l.setCenterID(ji.optString("centerID", ""));
 
                     l.setFlaborNo(ji.getString("flaborNo"));
                     l.setCustomerNo(ji.getString("customerNo"));
@@ -165,14 +153,14 @@ public class ApiResultHelper {
                     m.setUserID(ji.getString("userID"));
                     m.setUserName(ji.getString("userName"));
                     m.setUserIDNumber(ji.getString("userIDNumber"));
-                    m.setUserPicture(tryGetString(ji, "userPicture"));
+                    m.setUserPicture(ji.optString("userPicture", ""));
                     m.setUserSex(ji.getString("userSex"));
                     m.setUserPhone(ji.getString("userPhone"));
                     m.setUserEmail(ji.getString("userEmail"));
                     m.setUserNationCode(ji.getString("userNationCode"));
                     m.setUserBirthday(ji.getString("userBirthday"));
-                    m.setDormID(ji.getString("dormID"));
-                    m.setCenterID(ji.getString("centerID"));
+                    m.setDormID(ji.optString("dormID",""));
+                    m.setCenterID(ji.optString("centerID",""));
 
                     m.setTitle(ji.getString("title"));
                 }
