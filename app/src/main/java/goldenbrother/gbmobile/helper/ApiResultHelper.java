@@ -154,8 +154,8 @@ public class ApiResultHelper {
                     l.setUserEmail(ji.getString("userEmail"));
                     l.setUserNationCode(ji.getString("userNationCode"));
                     l.setUserBirthday(ji.getString("userBirthday"));
-//                    l.setDormID(j.getString("dormID"));
-//                    l.setCenterID(j.getString("centerID"));
+                    l.setDormID(ji.getString("dormID"));
+                    l.setCenterID(ji.getString("centerID"));
 
                     l.setFlaborNo(ji.getString("flaborNo"));
                     l.setCustomerNo(ji.getString("customerNo"));
@@ -171,8 +171,8 @@ public class ApiResultHelper {
                     m.setUserEmail(ji.getString("userEmail"));
                     m.setUserNationCode(ji.getString("userNationCode"));
                     m.setUserBirthday(ji.getString("userBirthday"));
-//                    m.setDormID(ji.getString("dormID"));
-//                    m.setCenterID(ji.getString("centerID"));
+                    m.setDormID(ji.getString("dormID"));
+                    m.setCenterID(ji.getString("centerID"));
 
                     m.setTitle(ji.getString("title"));
                 }
@@ -1211,7 +1211,7 @@ public class ApiResultHelper {
             int success = j.getInt("success");
             if (success == 1) {
                 list_travel.clear();
-                JSONArray arr = j.getJSONArray("activity");
+                JSONArray arr = j.getJSONArray("travelList");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
                     Travel item = new Travel();

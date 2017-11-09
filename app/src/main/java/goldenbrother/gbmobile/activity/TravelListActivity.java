@@ -20,6 +20,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.TravelListRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -60,7 +61,7 @@ public class TravelListActivity extends CommonActivity {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getTravelList");
-            j.put("dormID", LaborModel.getInstance().getDormID());
+            j.put("dormID", RoleInfo.getInstance().getDormID());
             j.put("nationCode", LaborModel.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);

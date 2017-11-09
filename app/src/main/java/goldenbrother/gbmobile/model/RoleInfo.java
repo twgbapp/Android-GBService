@@ -146,6 +146,26 @@ public class RoleInfo {
         return null;
     }
 
+    public String getDormID() {
+        switch (roleID) {
+            case LABOR:
+                return LaborModel.getInstance().getDormID();
+            case MANAGER:
+                return ManagerModel.getInstance().getDormID();
+        }
+        return null;
+    }
+
+    public String getCenterID() {
+        switch (roleID) {
+            case LABOR:
+                return LaborModel.getInstance().getCenterID();
+            case MANAGER:
+                return ManagerModel.getInstance().getCenterID();
+        }
+        return null;
+    }
+
     public void setJSONObject(JSONObject j) {
         switch (roleID) {
             case USER:
