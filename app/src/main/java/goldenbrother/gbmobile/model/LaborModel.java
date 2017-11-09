@@ -3,10 +3,6 @@ package goldenbrother.gbmobile.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by asus on 2016/12/8.
- */
-
 public class LaborModel extends UserModel {
     private static LaborModel laborModel;
     private int ServiceGroupID;

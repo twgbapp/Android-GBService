@@ -3,10 +3,6 @@ package goldenbrother.gbmobile.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by asus on 2016/12/8.
- */
-
 public class UserModel {
     private static UserModel user = new UserModel();
     private String UserID;
@@ -19,6 +15,8 @@ public class UserModel {
     private String UserEmail;
     private String UserPhone;
     private String UserPicture;
+    private String dormID;
+    private String centerID;
     private int roleID;
 
     public static UserModel getInstance(){
@@ -105,6 +103,22 @@ public class UserModel {
         UserPicture = userPicture;
     }
 
+    public String getDormID() {
+        return dormID;
+    }
+
+    public void setDormID(String dormID) {
+        this.dormID = dormID;
+    }
+
+    public String getCenterID() {
+        return centerID;
+    }
+
+    public void setCenterID(String centerID) {
+        this.centerID = centerID;
+    }
+
     public int getRoleID() {
         return roleID;
     }
@@ -126,6 +140,8 @@ public class UserModel {
             j.put("userNationCode", getUserNationCode());
             j.put("userName", getUserName());
             j.put("userBirthday", getUserBirthday());
+            j.put("dormID", getDormID());
+            j.put("centerID", getCenterID());
             return j;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -145,6 +161,8 @@ public class UserModel {
             setUserNationCode(j.getString("userNationCode"));
             setUserName(j.getString("userName"));
             setUserBirthday(j.getString("userBirthday"));
+            setDormID(j.getString("dormID"));
+            setCenterID(j.getString("centerID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

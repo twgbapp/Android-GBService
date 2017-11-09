@@ -256,7 +256,9 @@
     <string name="medical_list">Medical List</string>
     <string name="can_not_get_patient">Can not get patient</string>
     <string name="last_news">News</string>
-    <string name="offline">離線</string>
-    <string name="turn_to_online">切換為上線？</string>
-    <string name="select_nothing">未選擇</string>
+    <string name="travel">Travel</string>
+    <string name="offline">Off Line</string>
+    <string name="turn_to_online">Turn to On Line ?</string>
+    <string name="select_nothing">Select Nothing</string>
+>>>>>>> haojun/master
 </resources>

@@ -37,10 +37,12 @@ import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.DrawerItem;
+import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOEvent;
 import goldenbrother.gbmobile.sqlite.DAOService;
@@ -130,6 +132,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.travel, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_satisfaction_survey, R.string.main_drawer_satisfaction_survey, DrawerItem.GROUP));
@@ -203,6 +206,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(AnnouncementListActivity.class);
         } else if (str.equals(getString(R.string.activity))) {
             openActivity(GBActivityListActivity.class);
+        } else if (str.equals(getString(R.string.travel))) {
+            openActivity(TravelListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
             new DAOEvent(this).deleteAll();
 //            new DAOEventChat(this).deleteAll();
@@ -306,7 +311,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void showLifeInformationDialog() {
-        String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.activity), getString(R.string.main_drawer_club)};
+        String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.activity), getString(R.string.travel), getString(R.string.main_drawer_club)};
         String[] items_manager = {getString(R.string.main_drawer_club)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_life_information_big, getString(R.string.main_drawer_life_information), items, new AdapterView.OnItemClickListener() {

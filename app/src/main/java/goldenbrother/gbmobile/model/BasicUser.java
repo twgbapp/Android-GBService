@@ -10,10 +10,8 @@ public class BasicUser {
 
     }
 
-    public BasicUser(String userID, String userPicture, String userName) {
+    public BasicUser(String userID) {
         this.userID = userID;
-        this.userPicture = userPicture;
-        this.userName = userName;
     }
 
     public String getUserID() {

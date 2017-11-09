@@ -1,5 +1,6 @@
 package goldenbrother.gbmobile.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
@@ -7,6 +8,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
 import goldenbrother.gbmobile.R;
@@ -19,8 +21,6 @@ import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Locale;
 
 public class LoginActivity extends CommonActivity implements View.OnClickListener {
 
@@ -136,44 +136,29 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         }
     }
 
-    private void showChangeLanguageDialog() {
+    private AlertDialog ad;
+
+    private void showLanguageDialog() {
         String[] items = getResources().getStringArray(R.array.language);
-        alertWithItems(items, new DialogInterface.OnClickListener() {
+        ad = alertCustomItems(0, null, items, new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                setLanguage(i);
+            public void onItemClick(AdapterView<?> adapterView, View view, final int position, long l) {
+                ad.dismiss();
+                alertWithView(null, getString(R.string.language_alert), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        setLanguage(position);
+                    }
+                }, null);
             }
         });
     }
 
     private void setLanguage(int i) {
-        String lang = "";
-        switch (i) {
-            case 0:
-                lang = "en";
-                break;
-            case 1:
-                lang = "zh";
-                break;
-            case 2:
-                lang = "in";
-                break;
-            case 3:
-                lang = "vi";
-                break;
-            case 4:
-                lang = "th";
-                break;
-        }
-        Locale locale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = locale;
-        res.updateConfiguration(conf, dm);
+        String[] languages = {"en", "zh", "in", "vi", "th"};
+        SPHelper.setLanguage(this, languages[i]);
         // restart
-        Bundle b = new Bundle();
-        openActivity(LoginActivity.class, b);
+        openActivity(SplashActivity.class, new Bundle());
         finish();
     }
 
@@ -182,7 +167,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         hideKeyBoard(v);
         switch (v.getId()) {
             case R.id.iv_login_change_language:
-                showChangeLanguageDialog();
+                showLanguageDialog();
                 break;
             case R.id.tv_login_dologn:
                 doLogin();

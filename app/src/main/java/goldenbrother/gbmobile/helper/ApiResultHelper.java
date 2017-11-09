@@ -38,6 +38,7 @@ import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.SatisfactionIssueModel;
 import goldenbrother.gbmobile.model.SatisfactionQuestionModel;
 import goldenbrother.gbmobile.model.ServiceChatModel;
+import goldenbrother.gbmobile.model.Travel;
 import goldenbrother.gbmobile.model.UserModel;
 
 import org.json.JSONArray;
@@ -113,6 +114,7 @@ public class ApiResultHelper {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
+            LogHelper.d(success + "");
             if (success == 1) {
                 JSONObject ji = j.getJSONObject("userInfo");
                 int roleID = ji.getInt("roleID");
@@ -152,6 +154,9 @@ public class ApiResultHelper {
                     l.setUserEmail(ji.getString("userEmail"));
                     l.setUserNationCode(ji.getString("userNationCode"));
                     l.setUserBirthday(ji.getString("userBirthday"));
+                    l.setDormID(ji.getString("dormID"));
+                    l.setCenterID(ji.getString("centerID"));
+
                     l.setFlaborNo(ji.getString("flaborNo"));
                     l.setCustomerNo(ji.getString("customerNo"));
                     l.setWorkerNo(ji.getString("workerNo"));
@@ -166,6 +171,9 @@ public class ApiResultHelper {
                     m.setUserEmail(ji.getString("userEmail"));
                     m.setUserNationCode(ji.getString("userNationCode"));
                     m.setUserBirthday(ji.getString("userBirthday"));
+                    m.setDormID(ji.getString("dormID"));
+                    m.setCenterID(ji.getString("centerID"));
+
                     m.setTitle(ji.getString("title"));
                 }
             }
@@ -399,7 +407,7 @@ public class ApiResultHelper {
             if (success == 1) {
                 int userType = j.getInt("userType");
                 map.put("userType", userType + "");
-                switch (userType){
+                switch (userType) {
                     case 0: // 已註冊
                         break;
                     case 1: // 非鎵興
@@ -1188,6 +1196,48 @@ public class ApiResultHelper {
             int success = j.getInt("success");
             if (success == 1) {
                 map.put("onCallStatus", j.getString("onCallStatus"));
+                map.put("deprtyID", j.getString("DeprtyID"));
+            }
+            return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getTravelList(String response, ArrayList<Travel> list_travel) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int success = j.getInt("success");
+            if (success == 1) {
+                list_travel.clear();
+                JSONArray arr = j.getJSONArray("travelList");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    Travel item = new Travel();
+                    item.setTravelID(o.getInt("travelID"));
+                    item.setTitle(o.getString("title"));
+                    item.setCreateDate(o.getString("createDate"));
+                    list_travel.add(item);
+                }
+            }
+            return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getTravel(String response, Travel travel) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int success = j.getInt("success");
+            if (success == 1) {
+                travel.setTravelID(j.getInt("travelID"));
+                travel.setTitle(j.getString("title"));
+                travel.setContent(j.getString("content"));
+                travel.setCreateDate(j.getString("createDate"));
+                travel.setExpirationDate(j.getString("expirationDate"));
             }
             return success;
         } catch (JSONException e) {

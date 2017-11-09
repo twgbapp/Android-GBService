@@ -57,7 +57,6 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
         lv_staff.setAdapter(new OnCallManagerListAdapter(this, list_on_call_manager));
 
         getOnCallManage();
-        getOnCallStatus();
         viewToOnLine();
     }
 
@@ -96,6 +95,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                                 break;
                             case OFF_LINE:
                                 viewToOffLine();
+                                ((OnCallManagerListAdapter) lv_staff.getAdapter()).setSelected(new BasicUser(map.get("deprtyID")));
                                 break;
                         }
                     } else {
@@ -133,6 +133,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                     int result = ApiResultHelper.getOnCallManage(response, list_on_call_manager);
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
+                        getOnCallStatus();
                     } else {
                         t(R.string.empty);
                     }
@@ -233,9 +234,9 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_on_line_setting_confirm:
-                int selectedPosition = ((OnCallManagerListAdapter) lv_staff.getAdapter()).getSelectedPosition();
-                if (selectedPosition != -1) {
-                    changeOnCallStatus(list_on_call_manager.get(selectedPosition).getUserID(), OFF_LINE);
+                BasicUser selected = ((OnCallManagerListAdapter) lv_staff.getAdapter()).getSelected();
+                if (selected != null) {
+                    changeOnCallStatus(selected.getUserID(), OFF_LINE);
                 } else {
                     t(R.string.select_nothing);
                 }
