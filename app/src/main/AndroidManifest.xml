@@ -182,7 +182,9 @@
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.GBActivityListActivity" />
-        <activity android:name=".activity.GBActivityContentActivity"></activity>
+        <activity android:name=".activity.GBActivityContentActivity" />
+        <activity android:name=".activity.TravelListActivity" />
+        <activity android:name=".activity.TravelContentActivity"></activity>
     </application>
 
 </manifest>

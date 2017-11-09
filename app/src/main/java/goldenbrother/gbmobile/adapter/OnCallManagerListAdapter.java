@@ -19,15 +19,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class OnCallManagerListAdapter extends SampleBaseAdapter {
 
     private ArrayList<BasicUser> list;
-    private int selectedPosition = -1;
+    private BasicUser selected;
 
     public OnCallManagerListAdapter(Context context, ArrayList<BasicUser> list) {
         super(context);
         this.list = list;
     }
 
-    public int getSelectedPosition() {
-        return selectedPosition;
+    public BasicUser getSelected() {
+        return selected;
+    }
+
+    public void setSelected(BasicUser selected) {
+        this.selected = selected;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -75,11 +80,11 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
         // set name
         tag.name.setText(item.getUserID());
         // set check
-        tag.check.setVisibility(selectedPosition == position ? View.VISIBLE : View.GONE);
+        tag.check.setVisibility(selected != null && selected.getUserID().equals(item.getUserID()) ? View.VISIBLE : View.GONE);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectedPosition = position;
+                selected = item;
                 notifyDataSetChanged();
             }
         });
