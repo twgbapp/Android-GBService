@@ -255,4 +255,7 @@
     <string name="title">Title</string>
     <string name="medical_list">Medical List</string>
     <string name="last_news">News</string>
+    <string name="offline">Off Line</string>
+    <string name="turn_to_online">Turn to On Line ?</string>
+    <string name="select_nothing">Select Nothing</string>
 </resources>

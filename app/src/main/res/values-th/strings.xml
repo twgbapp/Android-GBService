@@ -215,4 +215,7 @@
     <string name="medical_list">Medical List</string>
     <string name="can_not_get_patient">Can not get patient</string>
     <string name="last_news">News</string>
+    <string name="offline">Off Line</string>
+    <string name="turn_to_online">Turn to On Line ?</string>
+    <string name="select_nothing">Select Nothing</string>
 </resources>
