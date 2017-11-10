@@ -20,9 +20,6 @@ import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.AddEventModel;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 
-/**
- * Created by asus on 2016/6/22.
- */
 public class ServiceGroupRVAdapter extends SampleRVAdapter {
 
     private ArrayList<ServiceChatModel> list;
@@ -32,6 +29,11 @@ public class ServiceGroupRVAdapter extends SampleRVAdapter {
         super(context);
         this.list = list;
         this.callBack = callBack;
+    }
+
+    public void setServiceChatList(ArrayList<ServiceChatModel> list){
+        this.list=list;
+        notifyDataSetChanged();
     }
 
     @Override

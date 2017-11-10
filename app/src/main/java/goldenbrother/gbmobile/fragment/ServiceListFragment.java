@@ -22,6 +22,7 @@ import goldenbrother.gbmobile.adapter.ServiceGroupRVAdapter;
 import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -173,16 +174,26 @@ public class ServiceListFragment extends CommonFragment {
     }
 
     private void getLocalGroupList() {
-
         // find all your ServiceGroupID
         List<ServiceGroupMember> members = new DAOServiceGroupMember(activity).filterByUserId(RoleInfo.getInstance().getUserID());
-        List<Integer> serviceGroupIds = new ArrayList<>();
-        for (ServiceGroupMember item : members){
-            serviceGroupIds.add(item.getServiceGroupID());
+        LogHelper.d("UserID:" + RoleInfo.getInstance().getUserID());
+        if (!members.isEmpty()) {
+            List<Integer> serviceGroupIds = new ArrayList<>();
+            for (ServiceGroupMember item : members) {
+                LogHelper.d("ID:" + item.getServiceGroupID());
+                serviceGroupIds.add(item.getServiceGroupID());
+            }
+            list_service_chat.clear();
+            list_service_chat.addAll(new DAOServiceChat(activity).getLastChatList(serviceGroupIds));
+            if (!list_service_chat.isEmpty()) {
+                for (ServiceChatModel item : list_service_chat) {
+                    LogHelper.d("ITEM:" + item.getContent());
+                }
+            } else {
+                LogHelper.d("EMPTY");
+            }
+            updateAdapter();
         }
-        list_service_chat.clear();
-        list_service_chat.addAll(new DAOServiceChat(activity).getLastChatList(serviceGroupIds));
-        updateAdapter();
     }
 
     private void getGroupListNos() {
@@ -205,14 +216,6 @@ public class ServiceListFragment extends CommonFragment {
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            list_service_group_id.clear();
-            list_service_chat.clear();
-            updateAdapter();
-        }
-
-        @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
             srl.setRefreshing(false);
@@ -222,6 +225,8 @@ public class ServiceListFragment extends CommonFragment {
                     int result = ApiResultHelper.getGroupListNos(response, list_service_group_id);
                     if (result == ApiResultHelper.SUCCESS) {
                         index = -1;
+                        list_service_chat.clear();
+                        updateAdapter();
                         getGroupList();
                     } else {
                         t(R.string.empty);

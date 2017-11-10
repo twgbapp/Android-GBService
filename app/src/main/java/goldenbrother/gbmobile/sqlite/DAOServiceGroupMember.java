@@ -94,9 +94,10 @@ public class DAOServiceGroupMember {
 
     public List<ServiceGroupMember> filterByUserId(String userId) {
         List<ServiceGroupMember> result = new ArrayList<>();
-        String where = USER_ID + "=" + userId;
+        String where = USER_ID + "=?";
+        String[] args = {userId};
         Cursor cursor = db.query(
-                TABLE_NAME, null, where, null, null, null, null, null);
+                TABLE_NAME, null, where, args, null, null, null, null);
 
         while (cursor.moveToNext()) {
             result.add(getRecord(cursor));

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 
 import java.util.ArrayList;
@@ -141,7 +142,8 @@ public class DAOServiceChat {
             }
             String sql = "SELECT * FROM " + TABLE_NAME
                     + " WHERE " + SERVICE_GROUP_ID + " IN(" + args + ")"
-                    + " GROUP BY " + SERVICE_GROUP_ID + " ORDER BY " + CHAT_DATE + " DESC";
+                    + " GROUP BY " + SERVICE_GROUP_ID
+                    + " ORDER BY " + CHAT_DATE + " DESC;";
             Cursor cursor = db.rawQuery(sql, null);
             while (cursor.moveToNext()) {
                 result.add(getRecord(cursor));
