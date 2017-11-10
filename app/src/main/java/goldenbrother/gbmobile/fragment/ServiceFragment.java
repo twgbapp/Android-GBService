@@ -23,25 +23,25 @@ import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
+import goldenbrother.gbmobile.model.ServiceGroupMember;
 import goldenbrother.gbmobile.model.ServiceTimePointModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOServiceChat;
+import goldenbrother.gbmobile.sqlite.DAOServiceGroupMember;
 import goldenbrother.gbmobile.sqlite.DAOServiceTimePoint;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-
-/**
- * Created by asus on 2016/10/3.
- */
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ServiceFragment extends CommonFragment implements View.OnClickListener {
+
     // instance
     private FragmentActivity activity;
-    public static ServiceFragment f;
     // ui
     private RecyclerView rv;
     private EditText et_content;
@@ -50,14 +50,10 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     private ArrayList<ServiceChatModel> list_group_chat;
 
     public static ServiceFragment getInstance(int serviceGroupID) {
-        f = new ServiceFragment();
+        ServiceFragment f = new ServiceFragment();
         Bundle b = new Bundle();
         b.putInt("serviceGroupID", serviceGroupID);
         f.setArguments(b);
-        return f;
-    }
-
-    public static ServiceFragment getInstance() {
         return f;
     }
 
@@ -120,7 +116,10 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             j.put("content", content);
             j.put("chatDate", TimeHelper.getStandard());
             j.put("logStatus", true);
-            new AddServiceChat(activity, j, URLHelper.HOST, content).execute();
+            if (!isSending) {
+                isSending = true;
+                new AddServiceChat(activity, j, URLHelper.HOST, content).execute();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -135,13 +134,6 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
         AddServiceChat(Context context, JSONObject json, String url, String content) {
             super(context, json, url);
             this.content = content;
-        }
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            isSending = true;
         }
 
         @Override
@@ -190,7 +182,6 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     }
 
     private void loadCloudChat() {
-
         try {
             DAOServiceTimePoint daoGroupTimePoint = new DAOServiceTimePoint(activity);
             ServiceTimePointModel gtp = daoGroupTimePoint.get(serviceGroupID);
@@ -229,40 +220,56 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
                     int result = ApiResultHelper.getServiceChat(response, list);
                     if (result == ApiResultHelper.SUCCESS) {
                         if (!list.isEmpty()) {
-                            // save chat to local
-                            DAOServiceChat daoGroupChat = new DAOServiceChat(activity);
-                            for (ServiceChatModel gc : list) {
-                                daoGroupChat.insert(gc);
-                            }
-                            // save GroupTimePoint
-                            try {
-                                DAOServiceTimePoint daoGroupTimePoint = new DAOServiceTimePoint(activity);
-                                ServiceTimePointModel gtp = daoGroupTimePoint.get(serviceGroupID);
-                                gtp.setTimePoint(TimeHelper.addMinute(getJSONObject().getString("endChatDate"), -10));
-                                daoGroupTimePoint.insertOrUpdate(gtp);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            // reload
+                            insertServiceChat(list);
+                            insertServiceGroupMember(list);
+                            updateServiceTimePoint();
                             loadLocalChat();
                         }
                     }
                     break;
             }
         }
+
+        private void insertServiceChat(ArrayList<ServiceChatModel> list) {
+            DAOServiceChat daoGroupChat = new DAOServiceChat(activity);
+            for (ServiceChatModel gc : list) {
+                daoGroupChat.insert(gc);
+            }
+        }
+
+        private void insertServiceGroupMember(ArrayList<ServiceChatModel> list) {
+            Set<String> userIds = new HashSet<>();
+            for (ServiceChatModel item : list) {
+                userIds.add(item.getUserID());
+            }
+            DAOServiceGroupMember daoServiceGroupMember = new DAOServiceGroupMember(activity);
+            for (String userId : userIds) {
+                daoServiceGroupMember.get(serviceGroupID, userId);
+                daoServiceGroupMember.insert(new ServiceGroupMember(serviceGroupID, userId));
+            }
+        }
+
+        private void updateServiceTimePoint() {
+            try {
+                DAOServiceTimePoint daoGroupTimePoint = new DAOServiceTimePoint(activity);
+                ServiceTimePointModel item = daoGroupTimePoint.get(serviceGroupID);
+                item.setTimePoint(TimeHelper.addMinute(getJSONObject().getString("endChatDate"), -10));
+                daoGroupTimePoint.insertOrUpdate(item);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void loadLocalChat() {
-        DAOServiceChat daoServiceChat = new DAOServiceChat(activity);
         list_group_chat.clear();
-        list_group_chat.addAll(daoServiceChat.get(serviceGroupID));
+        list_group_chat.addAll(new DAOServiceChat(activity).get(serviceGroupID));
         if (!RoleInfo.getInstance().isLabor() && !list_group_chat.isEmpty()) {
             Intent intent = new Intent();
             intent.putExtra("serviceGroupID", serviceGroupID);
             intent.putExtra("lastChat", list_group_chat.get(list_group_chat.size() - 1).getContent());
             activity.setResult(Activity.RESULT_OK, intent);
         }
-
         updateAdapter();
     }
 
@@ -279,24 +286,9 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
                 if (!isSending) {
                     addGroupChat();
                 } else {
-                    t("Sending...");
+                    t(R.string.sending);
                 }
                 break;
         }
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (f == null)
-            f = this;
-    }
-
-    @Override
-    public void onPause() {
-        if (f != null)
-            f = null;
-        super.onPause();
     }
 }

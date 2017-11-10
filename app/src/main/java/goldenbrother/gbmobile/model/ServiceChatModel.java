@@ -100,4 +100,6 @@ public class ServiceChatModel{
     public void setCustomerNo(String customerNo) {
         this.customerNo = customerNo;
     }
+
+
 }

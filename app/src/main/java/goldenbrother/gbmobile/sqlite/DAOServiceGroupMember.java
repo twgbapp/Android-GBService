@@ -52,6 +52,19 @@ public class DAOServiceGroupMember {
         return db.delete(TABLE_NAME, where, null) > 0;
     }
 
+    public ServiceGroupMember get(int serviceGroupID, String userId) {
+        ServiceGroupMember item = null;
+        String where = SERVICE_GROUP_ID + "=? and " + USER_ID + "=?";
+        String[] args = {serviceGroupID + "", userId};
+        Cursor result = db.query(TABLE_NAME, null, where, args, null, null, null, null);
+        if (result.moveToFirst()) {
+            item = getRecord(result);
+        }
+        result.close();
+        return item;
+    }
+
+
     public List<ServiceGroupMember> getAll() {
         List<ServiceGroupMember> result = new ArrayList<>();
         Cursor cursor = db.query(

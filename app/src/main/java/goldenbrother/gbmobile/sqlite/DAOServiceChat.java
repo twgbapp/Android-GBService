@@ -12,31 +12,31 @@ import java.util.List;
 
 public class DAOServiceChat {
 
-    static final String TABLENAME = "ServiceGroupChat";
+    static final String TABLE_NAME = "ServiceGroupChat";
     // PK
-    private static final String COL_SGCNo = "SGCNo";
+    private static final String SGC_NO = "SGCNo";
     // COLUMN
-    private static final String COL_ServiceGroupID = "ServiceGroupID";
-    private static final String COL_WriterID = "WriterID";
-    private static final String COL_WriterName = "WriterName";
-    private static final String COL_WriterPicture = "WriterPicture";
-    private static final String COL_Content = "Content";
-    private static final String COL_ChatDate = "ChatDate";
-    private static final String COL_WorkerNo = "WorkerNo";
-    private static final String COL_CustomerNo = "CustomerNo";
+    private static final String SERVICE_GROUP_ID = "ServiceGroupID";
+    private static final String WRITER_ID = "WriterID";
+    private static final String WRITER_NAME = "WriterName";
+    private static final String WRITER_PICTURE = "WriterPicture";
+    private static final String CONTENT = "Content";
+    private static final String CHAT_DATE = "ChatDate";
+    private static final String WORKER_NO = "WorkerNo";
+    private static final String CUSTOMER_NO = "CustomerNo";
 
     public static String createTable() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Create Table " + TABLENAME + " ( ");
-        sb.append(COL_SGCNo + " INTEGER PRIMARY KEY AUTOINCREMENT , ");
-        sb.append(COL_ServiceGroupID + " INTEGER NOT NULL, ");
-        sb.append(COL_WriterID + " TEXT NOT NULL, ");
-        sb.append(COL_WriterName + " TEXT NOT NULL, ");
-        sb.append(COL_WriterPicture + " TEXT NOT NULL, ");
-        sb.append(COL_Content + " TEXT NOT NULL, ");
-        sb.append(COL_ChatDate + " TEXT NOT NULL, ");
-        sb.append(COL_WorkerNo + " TEXT NOT NULL, ");
-        sb.append(COL_CustomerNo + " TEXT NOT NULL) ");
+        sb.append("Create Table " + TABLE_NAME + " ( ");
+        sb.append(SGC_NO + " INTEGER PRIMARY KEY AUTOINCREMENT , ");
+        sb.append(SERVICE_GROUP_ID + " INTEGER NOT NULL, ");
+        sb.append(WRITER_ID + " TEXT NOT NULL, ");
+        sb.append(WRITER_NAME + " TEXT NOT NULL, ");
+        sb.append(WRITER_PICTURE + " TEXT NOT NULL, ");
+        sb.append(CONTENT + " TEXT NOT NULL, ");
+        sb.append(CHAT_DATE + " TEXT NOT NULL, ");
+        sb.append(WORKER_NO + " TEXT NOT NULL, ");
+        sb.append(CUSTOMER_NO + " TEXT NOT NULL) ");
         return sb.toString();
     }
 
@@ -51,51 +51,51 @@ public class DAOServiceChat {
             return false;
         }
         ContentValues cv = new ContentValues();
-        cv.put(COL_SGCNo, gc.getSGCNo());
-        cv.put(COL_ServiceGroupID, gc.getServiceGroupID());
-        cv.put(COL_WriterID, gc.getUserID());
-        cv.put(COL_WriterName, gc.getUserName());
-        cv.put(COL_WriterPicture, gc.getUserPicture());
-        cv.put(COL_Content, gc.getContent());
-        cv.put(COL_ChatDate, gc.getChatDate());
-        cv.put(COL_WorkerNo, gc.getWorkerNo());
-        cv.put(COL_CustomerNo, gc.getCustomerNo());
-        return db.insert(TABLENAME, null, cv) > 0;
+        cv.put(SGC_NO, gc.getSGCNo());
+        cv.put(SERVICE_GROUP_ID, gc.getServiceGroupID());
+        cv.put(WRITER_ID, gc.getUserID());
+        cv.put(WRITER_NAME, gc.getUserName());
+        cv.put(WRITER_PICTURE, gc.getUserPicture());
+        cv.put(CONTENT, gc.getContent());
+        cv.put(CHAT_DATE, gc.getChatDate());
+        cv.put(WORKER_NO, gc.getWorkerNo());
+        cv.put(CUSTOMER_NO, gc.getCustomerNo());
+        return db.insert(TABLE_NAME, null, cv) > 0;
     }
 
     public boolean update(ServiceChatModel gc) {
         ContentValues cv = new ContentValues();
-        cv.put(COL_SGCNo, gc.getSGCNo());
-        cv.put(COL_ServiceGroupID, gc.getServiceGroupID());
-        cv.put(COL_WriterID, gc.getUserID());
-        cv.put(COL_WriterName, gc.getUserName());
-        cv.put(COL_WriterPicture, gc.getUserPicture());
-        cv.put(COL_Content, gc.getContent());
-        cv.put(COL_ChatDate, gc.getChatDate());
-        cv.put(COL_WorkerNo, gc.getWorkerNo());
-        cv.put(COL_CustomerNo, gc.getCustomerNo());
+        cv.put(SGC_NO, gc.getSGCNo());
+        cv.put(SERVICE_GROUP_ID, gc.getServiceGroupID());
+        cv.put(WRITER_ID, gc.getUserID());
+        cv.put(WRITER_NAME, gc.getUserName());
+        cv.put(WRITER_PICTURE, gc.getUserPicture());
+        cv.put(CONTENT, gc.getContent());
+        cv.put(CHAT_DATE, gc.getChatDate());
+        cv.put(WORKER_NO, gc.getWorkerNo());
+        cv.put(CUSTOMER_NO, gc.getCustomerNo());
 
-        String where = COL_SGCNo + "=" + gc.getSGCNo();
+        String where = SGC_NO + "=" + gc.getSGCNo();
 
-        return db.update(TABLENAME, cv, where, null) > 0;
+        return db.update(TABLE_NAME, cv, where, null) > 0;
     }
 
 
     public boolean delete(int id) {
-        String where = COL_SGCNo + "=" + id;
-        return db.delete(TABLENAME, where, null) > 0;
+        String where = SGC_NO + "=" + id;
+        return db.delete(TABLE_NAME, where, null) > 0;
     }
 
     public boolean deleteAll() {
-        String where = COL_SGCNo + ">" + 0;
-        return db.delete(TABLENAME, where, null) > 0;
+        String where = SGC_NO + ">" + 0;
+        return db.delete(TABLE_NAME, where, null) > 0;
     }
 
 
     public List<ServiceChatModel> get(int ServiceGroupID) {
         List<ServiceChatModel> result = new ArrayList<>();
-        String where = COL_ServiceGroupID + "=" + ServiceGroupID;
-        Cursor cursor = db.query(TABLENAME, null, where, null, null, null, COL_ChatDate + " asc", null);
+        String where = SERVICE_GROUP_ID + "=" + ServiceGroupID;
+        Cursor cursor = db.query(TABLE_NAME, null, where, null, null, null, CHAT_DATE + " asc", null);
 
         while (cursor.moveToNext()) {
             result.add(getRecord(cursor));
@@ -107,8 +107,8 @@ public class DAOServiceChat {
 
     public ServiceChatModel getBySGCNo(int SGCNo) {
         ServiceChatModel item = null;
-        String where = COL_SGCNo + "=" + SGCNo;
-        Cursor result = db.query(TABLENAME, null, where, null, null, null, null, null);
+        String where = SGC_NO + "=" + SGCNo;
+        Cursor result = db.query(TABLE_NAME, null, where, null, null, null, null, null);
         if (result.moveToFirst()) {
             item = getRecord(result);
         }
@@ -133,21 +133,29 @@ public class DAOServiceChat {
 
     public List<ServiceChatModel> getLastChatList(List<Integer> serviceGroupIds) {
         List<ServiceChatModel> result = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLENAME
-                + " GROUP BY " + COL_ServiceGroupID + " ORDER BY " + COL_ChatDate + " DESC", null);
-
-        while (cursor.moveToNext()) {
-            result.add(getRecord(cursor));
+        if (!serviceGroupIds.isEmpty()) {
+            StringBuilder args = new StringBuilder();
+            for (Integer serviceGroupId : serviceGroupIds) {
+                args.append((args.length() == 0) ? "" : ",");
+                args.append(serviceGroupId);
+            }
+            String sql = "SELECT * FROM " + TABLE_NAME
+                    + " WHERE " + SERVICE_GROUP_ID + " IN(" + args + ")"
+                    + " GROUP BY " + SERVICE_GROUP_ID + " ORDER BY " + CHAT_DATE + " DESC";
+            Cursor cursor = db.rawQuery(sql, null);
+            while (cursor.moveToNext()) {
+                result.add(getRecord(cursor));
+            }
+            cursor.close();
         }
 
-        cursor.close();
         return result;
     }
 
     public int getCount(int ServiceGroupID) {
         int result = 0;
-        String where = COL_ServiceGroupID + "=" + ServiceGroupID;
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLENAME + " where " + where, null);
+        String where = SERVICE_GROUP_ID + "=" + ServiceGroupID;
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " where " + where, null);
         if (cursor.moveToNext()) {
             result = cursor.getInt(0);
         }
@@ -157,7 +165,7 @@ public class DAOServiceChat {
 
     public int getCount() {
         int result = 0;
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLENAME, null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, null);
         if (cursor.moveToNext()) {
             result = cursor.getInt(0);
         }
