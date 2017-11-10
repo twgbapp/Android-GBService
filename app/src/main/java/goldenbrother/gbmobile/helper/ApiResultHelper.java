@@ -411,6 +411,8 @@ public class ApiResultHelper {
                         map.put("customerNo", o.getString("customerNo"));
                         map.put("flaborNo", o.getString("flaborNo"));
                         map.put("workerNo", o.getString("workerNo"));
+                        map.put("dormID", o.getString("dormID"));
+                        map.put("centerID", o.getString("centerID"));
                         break;
                 }
             }
