@@ -288,7 +288,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        t(R.string.success);
+                        //t(R.string.success);
+                        t(R.string.quick_repair_success);
                         finish();
                     } else {
                         t(R.string.fail);
