@@ -5,7 +5,7 @@
     android:background="@color/main_background2"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_web_view"/>
 
     <WebView
         android:id="@+id/wv_web_view"
