@@ -143,7 +143,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chat, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_online_setting, DrawerItem.CHILD));
             //list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chart, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
+            //list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_repair_record, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_medical, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_package, DrawerItem.CHILD));
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.discussion, DrawerItem.CHILD));
@@ -299,7 +299,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         String[] items_manager = {getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_chat),
                 getString(R.string.main_drawer_online_setting),
                 //getString(R.string.main_drawer_chart),
-                getString(R.string.main_drawer_repair_record),
+                //getString(R.string.main_drawer_repair_record),
                 getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package), getString(R.string.discussion)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {
