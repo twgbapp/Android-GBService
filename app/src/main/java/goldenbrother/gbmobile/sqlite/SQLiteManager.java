@@ -4,18 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by asus on 2016/5/8.
- */
 public class SQLiteManager extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "gb.db";
+    private static final String DATABASE_NAME = "gb.db";
 
-    public static final int VERSION = 5;
+    private static final int VERSION = 6;
 
     private static SQLiteDatabase database;
 
-    public SQLiteManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    private SQLiteManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -39,8 +36,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceGroupMember.TABLENAME);
-        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceChat.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceGroupMember.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceChat.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOServiceTimePoint.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOEvent.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOEventChat.TABLENAME);

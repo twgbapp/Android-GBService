@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DAOServiceGroupMember {
 
-    private static final String TABLE_NAME = "ServiceGroupMembers";
+    public static final String TABLE_NAME = "ServiceGroupMembers";
 
     private static final String SERVICE_GROUP_ID = "ServiceGroupID";
     private static final String USER_ID = "UserID";
