@@ -78,11 +78,11 @@ public class EventListFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        srl = (SwipeRefreshLayout) v.findViewById(R.id.srl_event_list);
-        lv_event = (ListView) v.findViewById(R.id.lv_service_event_list);
-        ll_all = (LinearLayout) v.findViewById(R.id.ll_service_event_list_all);
-        ll_processing = (LinearLayout) v.findViewById(R.id.ll_service_event_list_processing);
-        ll_finish = (LinearLayout) v.findViewById(R.id.ll_service_event_list_finish);
+        srl = v.findViewById(R.id.srl_event_list);
+        lv_event = v.findViewById(R.id.lv_service_event_list);
+        ll_all = v.findViewById(R.id.ll_service_event_list_all);
+        ll_processing = v.findViewById(R.id.ll_service_event_list_processing);
+        ll_finish = v.findViewById(R.id.ll_service_event_list_finish);
 
         ll_all.setOnClickListener(this);
         ll_processing.setOnClickListener(this);

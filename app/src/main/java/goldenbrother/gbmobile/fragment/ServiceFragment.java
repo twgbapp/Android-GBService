@@ -65,8 +65,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        rv = (RecyclerView) v.findViewById(R.id.rv_service_chat);
-        et_content = (EditText) v.findViewById(R.id.et_service_chat_content);
+        rv = v.findViewById(R.id.rv_service_chat);
+        et_content = v.findViewById(R.id.et_service_chat_content);
         v.findViewById(R.id.tv_service_chat_send).setOnClickListener(this);
     }
 
