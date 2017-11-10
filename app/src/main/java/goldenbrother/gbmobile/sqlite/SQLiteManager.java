@@ -29,7 +29,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DAOService.createTable());
+        db.execSQL(DAOServiceGroupMember.createTable());
         db.execSQL(DAOServiceChat.createTable());
         db.execSQL(DAOServiceTimePoint.createTable());
         db.execSQL(DAOEvent.createTable());
@@ -39,7 +39,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DAOService.TABLENAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DAOServiceGroupMember.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOServiceChat.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOServiceTimePoint.TABLENAME);
         db.execSQL("DROP TABLE IF EXISTS " + DAOEvent.TABLENAME);

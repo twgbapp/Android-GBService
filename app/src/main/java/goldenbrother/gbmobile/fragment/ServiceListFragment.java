@@ -27,13 +27,16 @@ import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 import goldenbrother.gbmobile.model.RoleInfo;
+import goldenbrother.gbmobile.model.ServiceGroupMember;
 import goldenbrother.gbmobile.sqlite.DAOServiceChat;
+import goldenbrother.gbmobile.sqlite.DAOServiceGroupMember;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceListFragment extends CommonFragment {
     // activity
@@ -112,9 +115,7 @@ public class ServiceListFragment extends CommonFragment {
                 }
             }
         });
-        // load local group list
-        loadLocalGroupList();
-        // load cloud group list
+        getLocalGroupList();
         getGroupListNos();
     }
 
@@ -171,9 +172,16 @@ public class ServiceListFragment extends CommonFragment {
         rv.getAdapter().notifyDataSetChanged();
     }
 
-    private void loadLocalGroupList() {
+    private void getLocalGroupList() {
+
+        // find all your ServiceGroupID
+        List<ServiceGroupMember> members = new DAOServiceGroupMember(activity).filterByUserId(RoleInfo.getInstance().getUserID());
+        List<Integer> serviceGroupIds = new ArrayList<>();
+        for (ServiceGroupMember item : members){
+            serviceGroupIds.add(item.getServiceGroupID());
+        }
         list_service_chat.clear();
-        list_service_chat.addAll(new DAOServiceChat(activity).getAllGroupBy());
+        list_service_chat.addAll(new DAOServiceChat(activity).getLastChatList(serviceGroupIds));
         updateAdapter();
     }
 

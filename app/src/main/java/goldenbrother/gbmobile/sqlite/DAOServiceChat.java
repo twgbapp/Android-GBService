@@ -10,15 +10,12 @@ import goldenbrother.gbmobile.model.ServiceChatModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by asus on 2016/5/8.
- */
 public class DAOServiceChat {
-    // table name
-    public static final String TABLENAME = "ServiceGroupChat";
-    // pk
+
+    static final String TABLENAME = "ServiceGroupChat";
+    // PK
     private static final String COL_SGCNo = "SGCNo";
-    // other column
+    // COLUMN
     private static final String COL_ServiceGroupID = "ServiceGroupID";
     private static final String COL_WriterID = "WriterID";
     private static final String COL_WriterName = "WriterName";
@@ -134,7 +131,7 @@ public class DAOServiceChat {
         return result;
     }
 
-    public List<ServiceChatModel> getAllGroupBy() {
+    public List<ServiceChatModel> getLastChatList(List<Integer> serviceGroupIds) {
         List<ServiceChatModel> result = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLENAME
                 + " GROUP BY " + COL_ServiceGroupID + " ORDER BY " + COL_ChatDate + " DESC", null);

@@ -37,15 +37,13 @@ import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
-import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.DrawerItem;
-import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.sqlite.DAOEvent;
-import goldenbrother.gbmobile.sqlite.DAOService;
+import goldenbrother.gbmobile.sqlite.DAOServiceGroupMember;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -212,7 +210,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             new DAOEvent(this).deleteAll();
 //            new DAOEventChat(this).deleteAll();
 //            new DAOEventTimePoint(this).deleteAll();
-            new DAOService(this).deleteAll();
+            new DAOServiceGroupMember(this).deleteAll();
 //            new DAOServiceChat(this).deleteAll();
 //            new DAOServiceTimePoint(this).deleteAll();
             SPHelper.clearUser(this);
