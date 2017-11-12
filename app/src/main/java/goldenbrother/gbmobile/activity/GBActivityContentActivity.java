@@ -57,7 +57,8 @@ public class GBActivityContentActivity extends CommonActivity implements View.On
             JSONObject j = new JSONObject();
             j.put("action", "getActivity");
             j.put("activityID", activityID);
-            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+//            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             new GetActivity(this, j, URLHelper.HOST).execute();

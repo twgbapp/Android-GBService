@@ -67,8 +67,10 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getActivityList");
-            j.put("customerNo", LaborModel.getInstance().getCustomerNo());
-            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+//            j.put("customerNo", LaborModel.getInstance().getCustomerNo());
+//            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            j.put("customerNo", "F04135");
+            j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
             new GetActivityList(this, j, URLHelper.HOST).execute();

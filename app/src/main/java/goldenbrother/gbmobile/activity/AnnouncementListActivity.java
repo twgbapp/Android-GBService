@@ -68,9 +68,12 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
             JSONObject j = new JSONObject();
             j.put("action", "getAnnouncementList");
             j.put("type", 0);
-            j.put("customerNo", LaborModel.getInstance().getCustomerNo());
-            j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
-            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+//            j.put("customerNo", LaborModel.getInstance().getCustomerNo());
+//            j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
+//            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            j.put("customerNo", "F04135");
+            j.put("flaborNo", "N9998");
+            j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             new LoadAnnouncementList(this, j, URLHelper.HOST).execute();

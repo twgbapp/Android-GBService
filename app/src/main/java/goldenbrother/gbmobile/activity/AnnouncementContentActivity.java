@@ -55,7 +55,8 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
             JSONObject j = new JSONObject();
             j.put("action", "getAnnouncement");
             j.put("announcementId", announcementID);
-            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+//            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             new LoadAnnouncement(this, j, URLHelper.HOST).execute();
