@@ -270,9 +270,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         @Override
         public void run() {
             if (isBannerShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
-                int w = getResources().getDisplayMetrics().widthPixels;
-                int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
-                Picasso.with(MainActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
+                Picasso.with(MainActivity.this)
+                        .load(list_banner.get(indexOfBanner))
+                        .into(iv_banner);
                 indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
                 handler.postDelayed(r, REFRESH_BANNER_TIME);
             } else {
