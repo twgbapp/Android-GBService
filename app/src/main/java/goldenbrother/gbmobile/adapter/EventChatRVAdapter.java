@@ -25,10 +25,6 @@ import goldenbrother.gbmobile.model.EventChatModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 
-/**
- * Created by asus on 2017/1/21.
- */
-
 public class EventChatRVAdapter extends SampleRVAdapter {
 
     // type
@@ -74,7 +70,13 @@ public class EventChatRVAdapter extends SampleRVAdapter {
             final OtherViewHolder h = (OtherViewHolder) holder;
             String picturePath = item.getWriterPicture();
             if (picturePath != null && !picturePath.isEmpty()) {
-                Picasso.with(getContext()).load(picturePath).into(h.picture);
+                Picasso.with(getContext())
+                        .load(picturePath)
+                        .into(h.picture);
+            } else {
+                Picasso.with(getContext())
+                        .load(R.drawable.ic_person_replace)
+                        .into(h.picture);
             }
             h.picture.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,7 +113,7 @@ public class EventChatRVAdapter extends SampleRVAdapter {
                 .show();
     }
 
-    private void setContent(EventChatModel item, TextView date,final TextView content, View rating) {
+    private void setContent(EventChatModel item, TextView date, final TextView content, View rating) {
         date.setText(TimeHelper.getTodayTime(item.getChatDate(), am, pm));
         content.setText(item.getContent());
         if (item.getContent().contains(Constant.RATING)) {
@@ -137,7 +139,7 @@ public class EventChatRVAdapter extends SampleRVAdapter {
         });
     }
 
-    private void setContent(EventChatModel item, TextView date,final TextView content, View rating ,TextView title) {
+    private void setContent(EventChatModel item, TextView date, final TextView content, View rating, TextView title) {
         date.setText(TimeHelper.getTodayTime(item.getChatDate(), am, pm));
         content.setText(item.getContent());
         title.setText(item.getWriterName());
