@@ -129,7 +129,6 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
         handler = new Handler();
         list_banner = new ArrayList<>();
         list_banner.add(R.drawable.banner_announcement1);
-        startShowAdvertising();
     }
 
     private static final long REFRESH_BANNER_TIME = 4000;
@@ -150,13 +149,13 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
         }
     };
 
-    private void stopShowAdvertising() {
+    private void stopPlayBanner() {
         isBannerShowing = false;
         if (handler != null)
             handler.removeCallbacks(r);
     }
 
-    private void startShowAdvertising() {
+    private void startPlayBanner() {
         if (list_banner != null && !list_banner.isEmpty() && handler != null && !isBannerShowing) {
             isBannerShowing = true;
             handler.post(r);
@@ -164,9 +163,15 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        startPlayBanner();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
-        stopShowAdvertising();
+        stopPlayBanner();
     }
 
     @Override

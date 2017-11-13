@@ -116,7 +116,6 @@ public class TravelListActivity extends CommonActivity {
         list_banner.add(R.drawable.banner_travel_8);
         list_banner.add(R.drawable.banner_travel_9);
         list_banner.add(R.drawable.banner_travel_10);
-        startShowAdvertising();
     }
 
     private static final long REFRESH_BANNER_TIME = 4000;
@@ -137,13 +136,13 @@ public class TravelListActivity extends CommonActivity {
         }
     };
 
-    private void stopShowAdvertising() {
+    private void stopPlayBanner() {
         isBannerShowing = false;
         if (handler != null)
             handler.removeCallbacks(r);
     }
 
-    private void startShowAdvertising() {
+    private void startPlayBanner() {
         if (list_banner != null && !list_banner.isEmpty() && handler != null && !isBannerShowing) {
             isBannerShowing = true;
             handler.post(r);
@@ -151,8 +150,14 @@ public class TravelListActivity extends CommonActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        startPlayBanner();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
-        stopShowAdvertising();
+        stopPlayBanner();
     }
 }

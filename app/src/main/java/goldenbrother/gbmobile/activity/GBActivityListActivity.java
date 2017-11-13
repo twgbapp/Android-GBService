@@ -128,7 +128,6 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         list_banner.add(R.drawable.banner_activity1);
         list_banner.add(R.drawable.banner_activity2);
         list_banner.add(R.drawable.banner_activity3);
-        startShowAdvertising();
     }
 
     private static final long REFRESH_BANNER_TIME = 4000;
@@ -140,7 +139,11 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
             if (isBannerShowing && list_banner != null && !list_banner.isEmpty() && indexOfBanner < list_banner.size()) {
                 int w = getResources().getDisplayMetrics().widthPixels;
                 int h = (int) getResources().getDimension(R.dimen.imageview_main_top_height);
-                Picasso.with(GBActivityListActivity.this).load(list_banner.get(indexOfBanner)).resize(w, h).centerCrop().into(iv_banner);
+                Picasso.with(GBActivityListActivity.this)
+                        .load(list_banner.get(indexOfBanner))
+                        .resize(w, h)
+                        .centerCrop()
+                        .into(iv_banner);
                 indexOfBanner = indexOfBanner + 1 >= list_banner.size() ? 0 : indexOfBanner + 1;
                 handler.postDelayed(r, REFRESH_BANNER_TIME);
             } else {
@@ -149,13 +152,13 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         }
     };
 
-    private void stopShowAdvertising() {
+    private void stopPlayBanner() {
         isBannerShowing = false;
         if (handler != null)
             handler.removeCallbacks(r);
     }
 
-    private void startShowAdvertising() {
+    private void startPlayBanner() {
         if (list_banner != null && !list_banner.isEmpty() && handler != null && !isBannerShowing) {
             isBannerShowing = true;
             handler.post(r);
@@ -163,9 +166,15 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        startPlayBanner();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
-        stopShowAdvertising();
+        stopPlayBanner();
     }
 
     @Override
