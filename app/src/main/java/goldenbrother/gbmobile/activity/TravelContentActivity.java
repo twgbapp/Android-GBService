@@ -26,7 +26,7 @@ public class TravelContentActivity extends CommonActivity implements View.OnClic
     private TextView tv_title, tv_expiration_date, tv_create_date;
     private WebView wv;
     // extra
-    private int activityID;
+    private int travelID;
     // data
     private Travel travel;
 
@@ -34,7 +34,7 @@ public class TravelContentActivity extends CommonActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_content);
-        setUpBackToolbar(R.id.toolbar, R.string.activity);
+        setUpBackToolbar(R.id.toolbar, R.string.travel);
 
         // ui reference
         tv_title = findViewById(R.id.tv_travel_content_title);
@@ -46,7 +46,7 @@ public class TravelContentActivity extends CommonActivity implements View.OnClic
         tv_title.setOnClickListener(this);
 
         // extra
-        activityID = getIntent().getExtras().getInt("activityID", -1);
+        travelID = getIntent().getExtras().getInt("travelID", -1);
 
         // init
         travel = new Travel();
@@ -57,8 +57,9 @@ public class TravelContentActivity extends CommonActivity implements View.OnClic
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getTravel");
-            j.put("activityID", activityID);
-            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            j.put("travelID", travelID);
+//            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             new GetTravel(this, j, URLHelper.HOST).execute();
