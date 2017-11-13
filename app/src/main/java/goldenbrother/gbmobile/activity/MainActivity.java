@@ -67,7 +67,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     private ArrayList<Integer> list_banner;
     private boolean isBannerShowing = false;
     // data
-    public static final String E_COMMERCE = "https://www.gbtake.com/";
+    public static final String E_COMMERCE = "http://61.221.12.26/~gbtake/index.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
