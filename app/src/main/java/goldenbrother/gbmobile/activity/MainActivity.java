@@ -405,10 +405,10 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             JSONObject j = new JSONObject();
             j.put("action", "uploadImg");
             j.put("fileName", RoleInfo.getInstance().getUserID());
-            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
             j.put("url", URLHelper.HOST);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
+            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
