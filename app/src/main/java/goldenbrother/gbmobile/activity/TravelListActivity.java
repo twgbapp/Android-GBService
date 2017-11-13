@@ -45,7 +45,7 @@ public class TravelListActivity extends CommonActivity {
         setUpBackToolbar(R.id.toolbar, R.string.travel);
 
         // ui reference
-//        iv_banner = findViewById(R.id.iv_travel_list_banner);
+        iv_banner = findViewById(R.id.iv_travel_list_banner);
         rv = findViewById(R.id.rv_travel_list);
 
         // init
@@ -53,7 +53,7 @@ public class TravelListActivity extends CommonActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new TravelListRVAdapter(this, list_travel));
 
-//        initBanner();
+        initBanner();
         getTravelList();
     }
 
@@ -106,9 +106,16 @@ public class TravelListActivity extends CommonActivity {
         // init
         handler = new Handler();
         list_banner = new ArrayList<>();
-        list_banner.add(R.drawable.banner_activity1);
-        list_banner.add(R.drawable.banner_activity2);
-        list_banner.add(R.drawable.banner_activity3);
+        list_banner.add(R.drawable.banner_travel_1);
+        list_banner.add(R.drawable.banner_travel_2);
+        list_banner.add(R.drawable.banner_travel_3);
+        list_banner.add(R.drawable.banner_travel_4);
+        list_banner.add(R.drawable.banner_travel_5);
+        list_banner.add(R.drawable.banner_travel_6);
+        list_banner.add(R.drawable.banner_travel_7);
+        list_banner.add(R.drawable.banner_travel_8);
+        list_banner.add(R.drawable.banner_travel_9);
+        list_banner.add(R.drawable.banner_travel_10);
         startShowAdvertising();
     }
 
@@ -146,6 +153,6 @@ public class TravelListActivity extends CommonActivity {
     @Override
     public void onPause() {
         super.onPause();
-//        stopShowAdvertising();
+        stopShowAdvertising();
     }
 }
