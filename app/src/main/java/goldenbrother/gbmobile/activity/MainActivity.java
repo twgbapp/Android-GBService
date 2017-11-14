@@ -67,7 +67,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     private ArrayList<Integer> list_banner;
     private boolean isBannerShowing = false;
     // data
-    public static final String E_COMMERCE = "https://www.gbtake.com/";
+    public static final String E_COMMERCE = "http://61.221.12.26/~gbtake/index.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -405,10 +405,10 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             JSONObject j = new JSONObject();
             j.put("action", "uploadImg");
             j.put("fileName", RoleInfo.getInstance().getUserID());
-            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
             j.put("url", URLHelper.HOST);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
+            j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
             new UploadImageTask(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();

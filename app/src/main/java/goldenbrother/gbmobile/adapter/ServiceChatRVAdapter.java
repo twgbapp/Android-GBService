@@ -29,10 +29,6 @@ import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.model.RoleInfo;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 
-/**
- * Created by asus on 2017/1/21.
- */
-
 public class ServiceChatRVAdapter extends SampleRVAdapter {
 
     // type
@@ -80,6 +76,10 @@ public class ServiceChatRVAdapter extends SampleRVAdapter {
             if (picturePath != null && !picturePath.isEmpty()) {
                 Picasso.with(getContext())
                         .load(picturePath)
+                        .into(h.picture);
+            } else {
+                Picasso.with(getContext())
+                        .load(R.drawable.ic_person_replace)
                         .into(h.picture);
             }
             h.picture.setOnClickListener(new View.OnClickListener() {

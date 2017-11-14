@@ -23,12 +23,14 @@ public class WebViewActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_e_commerce);
+
         // ui reference
         wv = findViewById(R.id.wv_web_view);
 
         // extra
         String url = getIntent().getStringExtra("url");
-        // init WebView
+
+        // init
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
@@ -36,6 +38,7 @@ public class WebViewActivity extends CommonActivity {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
         wv.setWebViewClient(new MyWebViewClient());
+
         // load
         wv.loadUrl(url);
     }
@@ -45,11 +48,10 @@ public class WebViewActivity extends CommonActivity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //            view.loadUrl(url);
 //            return true;
-            if(url.startsWith("mailto:")){
+            if (url.startsWith("mailto:")) {
                 Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse(url));
                 startActivity(i);
-            }
-            else{
+            } else {
                 view.loadUrl(url);
             }
             return true;
