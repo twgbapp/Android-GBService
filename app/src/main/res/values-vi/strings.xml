@@ -261,5 +261,7 @@
     <string name="turn_to_online">Turn to On Line ?</string>
     <string name="select_nothing">Select Nothing</string>
     <string name="quick_repair_success">Thank you very much for your return.\nLet us serve you as soon as possible!</string>
+    <string name="keyword">Keyword</string>
+    <string name="qr_code">QRCode</string>
     >>>>>>> haojun/master
 </resources>
