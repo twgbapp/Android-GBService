@@ -36,7 +36,8 @@ public class SatisfactionIssueActivity extends CommonActivity {
         // ui reference
         srl = findViewById(R.id.srl_satisfaction_issue);
         rv = findViewById(R.id.rv_satisfaction_issue);
-        // init Swipe Refresh Layout
+
+        // init
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -49,9 +50,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
                 android.R.color.holo_blue_light,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light);
-        // init RecyclerView
         list_issue = new ArrayList<>();
-//        list_issue.addAll(getData());
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(new SatisfactionIssueRVAdapter(this, list_issue));
@@ -67,20 +66,8 @@ public class SatisfactionIssueActivity extends CommonActivity {
                 }
             }
         });
-        // getSatisfactionIssueList
-        getSatisfactionIssueList();
-    }
 
-    private ArrayList<SatisfactionIssueModel> getData() {
-        ArrayList<SatisfactionIssueModel> list = new ArrayList<>();
-        SatisfactionIssueModel si = new SatisfactionIssueModel();
-        si.setName("Room");
-        si.setCreateDate("2017-01-01 00:00:00");
-        si.getQuestions().add(new SatisfactionQuestionModel("Light"));
-        si.getQuestions().add(new SatisfactionQuestionModel("Air"));
-        si.getQuestions().add(new SatisfactionQuestionModel("Bed"));
-        list.add(si);
-        return list;
+        getSatisfactionIssueList();
     }
 
     private void getSatisfactionIssueList() {
