@@ -75,6 +75,17 @@ public class CommonActivity extends AppCompatActivity {
         return b.show();
     }
 
+    protected AlertDialog alert(String title, String message, DialogInterface.OnClickListener posi, DialogInterface.OnClickListener nega) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        if (title != null) b.setTitle(title);
+        if (message != null) b.setMessage(message);
+        if (posi != null || nega != null) {
+            b.setPositiveButton(R.string.confirm, posi);
+            b.setNegativeButton(R.string.cancel, nega);
+        }
+        return b.show();
+    }
+
     protected AlertDialog alertCustomItems(int icon, String title, String[] items, AdapterView.OnItemClickListener onItemClickListener) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         final View v = getLayoutInflater().inflate(R.layout.dialog_custom_items, null);

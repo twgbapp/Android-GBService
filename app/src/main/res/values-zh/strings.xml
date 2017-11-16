@@ -263,4 +263,5 @@
     <string name="quick_repair_success">非常感謝您的回報，\n讓我們能盡速為您服務！</string>
     <string name="keyword">關鍵字</string>
     <string name="qr_code">QRCode</string>
+    <string name="new_version">新版本</string>
 </resources>
