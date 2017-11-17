@@ -34,17 +34,18 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_service);
         setUpBackToolbar(R.id.toolbar_service, R.id.tv_mobile_service_title, R.string.chat);
+
         // ui reference
         iv_search = findViewById(R.id.tv_mobile_service_search);
         iv_close = findViewById(R.id.tv_mobile_service_close);
         tv_title = findViewById(R.id.tv_mobile_service_title);
         viewPager = findViewById(R.id.vp_service);
-        // listener
         iv_search.setOnClickListener(this);
         iv_close.setOnClickListener(this);
-        // visibility of search icon
+
+        // init
         iv_search.setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
-        // init viewpager
+
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 
         if (RoleInfo.getInstance().isLabor()) {
@@ -109,7 +110,7 @@ public class MobileServiceActivity extends CommonActivity implements View.OnClic
             case R.id.tv_mobile_service_search:
                 switch (viewPager.getCurrentItem()) {
                     case POSITION_GROUP:
-//                        ((ServiceListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_GROUP)).showSearchDialog();
+                        ((ServiceListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_GROUP)).showSearchDialog();
                         break;
                     case POSITION_EVENT:
                         ((EventListFragment) ((PagerAdapter) viewPager.getAdapter()).getItem(POSITION_EVENT)).showSearchDialog();

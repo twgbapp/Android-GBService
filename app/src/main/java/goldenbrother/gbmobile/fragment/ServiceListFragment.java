@@ -1,6 +1,5 @@
 package goldenbrother.gbmobile.fragment;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,8 +16,9 @@ import android.widget.EditText;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.MobileServiceActivity;
+import goldenbrother.gbmobile.activity.SearchServiceListActivity;
 import goldenbrother.gbmobile.activity.ServiceChatActivity;
-import goldenbrother.gbmobile.adapter.ServiceGroupRVAdapter;
+import goldenbrother.gbmobile.adapter.ServiceListRVAdapter;
 import goldenbrother.gbmobile.fcm.FCMNotice;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
@@ -94,7 +94,7 @@ public class ServiceListFragment extends CommonFragment {
         list_service_chat = new ArrayList<>();
         final LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         rv.setLayoutManager(layoutManager);
-        rv.setAdapter(new ServiceGroupRVAdapter(activity, list_service_chat, this));
+        rv.setAdapter(new ServiceListRVAdapter(activity, list_service_chat, this));
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -176,22 +176,13 @@ public class ServiceListFragment extends CommonFragment {
     private void getLocalGroupList() {
         // find all your ServiceGroupID
         List<ServiceGroupMember> members = new DAOServiceGroupMember(activity).filterByUserId(RoleInfo.getInstance().getUserID());
-        LogHelper.d("UserID:" + RoleInfo.getInstance().getUserID());
         if (!members.isEmpty()) {
             List<Integer> serviceGroupIds = new ArrayList<>();
             for (ServiceGroupMember item : members) {
-                LogHelper.d("ID:" + item.getServiceGroupID());
                 serviceGroupIds.add(item.getServiceGroupID());
             }
             list_service_chat.clear();
             list_service_chat.addAll(new DAOServiceChat(activity).getLastChatList(serviceGroupIds));
-            if (!list_service_chat.isEmpty()) {
-                for (ServiceChatModel item : list_service_chat) {
-                    LogHelper.d("ITEM:" + item.getContent());
-                }
-            } else {
-                LogHelper.d("EMPTY");
-            }
             updateAdapter();
         }
     }
@@ -286,35 +277,18 @@ public class ServiceListFragment extends CommonFragment {
     }
 
     public void showSearchDialog() {
-        AlertDialog.Builder b = new AlertDialog.Builder(activity);
-        b.setTitle(R.string.search);
         final EditText et = new EditText(activity);
-        b.setView(et);
-        b.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+        alertWithView(et, getString(R.string.search), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                // keyword
-//                String keyword = et.getText().toString();
-//                if (keyword.isEmpty()) {
-//                    Toast.makeText(activity, R.string.can_not_be_empty, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                // list of contain 'keyword'
-//                ArrayList<ServiceChatModel> list = new ArrayList<>();
-//                for (ServiceChatModel gm : list_service_chat) {
-//                    if (gm.getWorkerNo().contains(keyword) || gm.getUserName().contains(keyword)) {
-//                        list.add(gm);
-//                    }
-//                }
-//                list_service_chat_show.clear();
-//                list_service_chat_show.addAll(list);
-//                updateAdapter();
-//                // change title
-//                activity.changeSearchTitle(keyword);
+                String keyword = et.getText().toString();
+                if (keyword.isEmpty()) {
+                    t(R.string.can_not_be_empty);
+                    return;
+                }
+                activity.startActivity(new Intent(activity, SearchServiceListActivity.class).putExtra("keyword", keyword));
             }
-        });
-        b.setNegativeButton(R.string.cancel, null);
-        b.show();
+        }, null);
     }
 
     // load more

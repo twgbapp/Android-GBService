@@ -179,7 +179,8 @@
         <activity android:name=".activity.GBActivityListActivity" />
         <activity android:name=".activity.GBActivityContentActivity" />
         <activity android:name=".activity.TravelListActivity" />
-        <activity android:name=".activity.TravelContentActivity"></activity>
+        <activity android:name=".activity.TravelContentActivity" />
+        <activity android:name=".activity.SearchServiceListActivity"></activity>
     </application>
 
 </manifest>
