@@ -98,6 +98,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
                                 ((OnCallManagerListAdapter) lv_staff.getAdapter()).setSelected(new BasicUser(map.get("deprtyID")));
                                 break;
                         }
+                        findViewById(R.id.ll_on_line_setting_background).setVisibility(View.VISIBLE);
                     } else {
                         t(R.string.fail);
                     }
@@ -191,13 +192,13 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
         }
     }
 
-    private void viewToOnLine(){
+    private void viewToOnLine() {
         sw_online.setChecked(true);
         sw_online.setText(R.string.online);
         ll.setVisibility(View.GONE);
     }
 
-    private void viewToOffLine(){
+    private void viewToOffLine() {
         sw_online.setChecked(false);
         sw_online.setText(R.string.offline);
         ll.setVisibility(View.VISIBLE);
