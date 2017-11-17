@@ -97,7 +97,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
                         list_gb_activity_show.addAll(list_gb_activity);
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
-                        t(R.string.fail);
+                        t(R.string.no_announcement);
                     }
                     break;
                 default:
