@@ -299,4 +299,7 @@
     <string name="last_news">News</string>
     <string name="travel">Travel</string>
     <string name="quick_repair_success">Thank you very much for your return.\nLet us serve you as soon as possible!</string>
+    <string name="keyword">Keyword</string>
+    <string name="qr_code">QRCode</string>
+    <string name="new_version">New Version</string>
 </resources>

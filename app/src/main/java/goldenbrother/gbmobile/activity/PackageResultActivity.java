@@ -52,6 +52,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_result);
         setUpBackToolbar(R.id.toolbar, R.string.main_drawer_package);
+
         // ui reference
         tv_name = findViewById(R.id.tv_package_result_name);
         tv_arrive_date = findViewById(R.id.tv_package_result_arrive_date);
@@ -60,14 +61,13 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         findViewById(R.id.tv_package_result_receive).setOnClickListener(this);
         rl_take_picture.setOnClickListener(this);
         iv_picture.setOnClickListener(this);
+
         // extra
         mPackage = getIntent().getExtras().getParcelable("package");
 
         // init
-        if (mPackage != null) {
-            tv_name.setText(mPackage.getDescription());
-            tv_arrive_date.setText(mPackage.getArriveDate());
-        }
+        tv_name.setText(mPackage.getDescription());
+        tv_arrive_date.setText(mPackage.getArriveDate());
 
     }
 
@@ -112,8 +112,7 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
     }
 
     private void chooseImage() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setItems(R.array.choose_picture, new DialogInterface.OnClickListener() {
+        alertWithItems(getResources().getStringArray(R.array.choose_picture), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
@@ -128,7 +127,6 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
                 }
             }
         });
-        b.show();
     }
 
 

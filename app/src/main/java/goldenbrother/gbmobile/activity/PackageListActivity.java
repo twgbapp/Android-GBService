@@ -39,31 +39,31 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_list);
         setUpBackToolbar(R.id.toolbar_package_list, R.id.tv_package_list_title, R.string.main_drawer_package);
+
         // ui reference
         findViewById(R.id.iv_package_list_search).setOnClickListener(this);
         rv = findViewById(R.id.rv_package_list);
-        // init RecyclerView
+
+        // init
         list_package = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new PackageListRVAdapter(this, list_package));
 
-        loadPackageList("", "", true);
+        loadPackageList("", "");
     }
 
     private void showSearchDialog() {
-        final String[] items = {"Description", "PickNumber"};
+        final String[] items = {getString(R.string.keyword), getString(R.string.qr_code)};
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        showSearchByDescription();
+                        inputKeywordDialog();
                         break;
                     case 1:
-                        Intent intent = new Intent();
-                        intent.setClass(PackageListActivity.this, QRReaderActivity.class);
-                        startActivityForResult(intent, REQUEST_QR_CODE);
+                        openActivityForResult(QRReaderActivity.class, REQUEST_QR_CODE);
                         break;
                 }
             }
@@ -71,28 +71,24 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         b.show();
     }
 
-    private void showSearchByDescription() {
-        AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("Description");
-        final EditText et = new EditText(this);
-        b.setView(et);
-        b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    private void inputKeywordDialog() {
+        final EditText et_keyword = new EditText(this);
+
+        alertWithView(et_keyword, getString(R.string.keyword), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                EnvironmentHelper.hideKeyBoard(PackageListActivity.this, et);
-                String keyword = et.getText().toString();
+                EnvironmentHelper.hideKeyBoard(PackageListActivity.this, et_keyword);
+                String keyword = et_keyword.getText().toString();
                 if (keyword.isEmpty()) {
                     t(R.string.can_not_be_empty);
                     return;
                 }
-                loadPackageList(keyword, "", true);
+                loadPackageList(keyword, "");
             }
-        });
-        b.setNegativeButton("CANCEL", null);
-        b.show();
+        }, null);
     }
 
-    private void loadPackageList(String description, String pickNumber, boolean byDescription) {
+    private void loadPackageList(String description, String pickNumber) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getPackageList");
@@ -140,7 +136,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
                         }
                         updateAdapter();
                     } else {
-                        t("No Match Package");
+                        t(R.string.empty);
                     }
                     break;
             }
@@ -172,17 +168,17 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_PACKAGE_RESULT:
-                    loadPackageList("", "", true);
+                    loadPackageList("", "");
                     break;
                 case REQUEST_QR_CODE:
-                    String text = data.getStringExtra("text");
+                    String code = data.getStringExtra("text");
 
-                    if (text.length() != 6) {
-                        t("Error:" + text);
+                    if (code.length() != 6) {
+                        t("Error : " + code);
                         return;
                     }
 
-                    loadPackageList("", text, false);
+                    loadPackageList("", code);
                     break;
             }
         }

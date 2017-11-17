@@ -42,5 +42,6 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile "me.leolin:ShortcutBadger:1.1.18@aar"
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'org.jsoup:jsoup:1.11.1'
 }
 apply plugin: 'com.google.gms.google-services'

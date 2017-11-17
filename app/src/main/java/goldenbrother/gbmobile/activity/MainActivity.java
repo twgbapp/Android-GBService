@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +30,8 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MainDrawerRVAdapter;
@@ -37,6 +42,7 @@ import goldenbrother.gbmobile.helper.EncryptHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.PackageHelper;
 import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
@@ -67,6 +73,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     private ArrayList<Integer> list_banner;
     private boolean isBannerShowing = false;
     // data
+    private static final String PLAY_URL = "https://play.google.com/store/apps/details?id=goldenbrother.gbmobile&hl=zh-TW";
     public static final String E_COMMERCE = "http://61.221.12.26/~gbtake/index.php";
 
     @Override
@@ -86,6 +93,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         initDrawer();
         initBanner();
         isOriginFromNotification();
+        new GetLastVersion().execute();
     }
 
     private void isOriginFromNotification() {
@@ -485,6 +493,40 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
                     break;
             }
         }
+    }
+
+    private class GetLastVersion extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                Document doc = Jsoup.connect(PLAY_URL).get();
+                return doc.select("div[itemprop=softwareVersion]").text();
+            } catch (Exception e) {
+                LogHelper.d(e.toString());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String str) {
+            super.onPostExecute(str);
+            if (str != null && !str.isEmpty()) {
+                LogHelper.d("v:" + str);
+                if (!str.equals(PackageHelper.getVersionName(MainActivity.this))) {
+                    newVersionDialog();
+                }
+            }
+        }
+    }
+
+    private void newVersionDialog() {
+        alert(null, getString(R.string.new_version), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PLAY_URL)));
+            }
+        }, null);
     }
 
     public void choosePicture() {
