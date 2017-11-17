@@ -381,7 +381,6 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                     b.putBoolean("isFLabor", true);
                     openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 }
-
                 break;
             case R.id.iv_discussion_record_service_record:
                 if (isPDF(discussion.getServiceRecordPath())) {
