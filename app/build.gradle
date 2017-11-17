@@ -6,8 +6,8 @@ android {
         applicationId "goldenbrother.gbmobile"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 37
-        versionName "2.0.37"
+        versionCode 38
+        versionName "2.0.38"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
