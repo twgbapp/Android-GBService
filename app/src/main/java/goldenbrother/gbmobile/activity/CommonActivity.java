@@ -26,7 +26,6 @@ import goldenbrother.gbmobile.adapter.CommonItemListAdapter;
 import goldenbrother.gbmobile.exception.ExceptionHandler;
 import goldenbrother.gbmobile.helper.Config;
 
-
 public class CommonActivity extends AppCompatActivity {
 
     private ProgressDialog pd;

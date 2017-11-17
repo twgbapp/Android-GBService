@@ -602,6 +602,12 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         }
     }
 
+
+
+    private boolean isPDF(String path) {
+        return path != null && path.toLowerCase().endsWith("pdf");
+    }
+
     private void openPDF(String url) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
@@ -648,7 +654,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 openActivityForResult(SignatureActivity.class, REQUEST_SIGNATURE);
                 break;
             case R.id.iv_medical_record_medical_path:
-                if (medical.getMedicalCertificatePath().endsWith(".pdf")) {
+                if (isPDF(medical.getMedicalCertificatePath())) {
                     openPDF(medical.getMedicalCertificatePath());
                 } else {
                     iv_clicked = (ImageView) v;
@@ -656,7 +662,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 }
                 break;
             case R.id.iv_medical_record_diagnosis_path:
-                if (medical.getDiagnosticCertificatePath().endsWith(".pdf")) {
+                if (isPDF(medical.getDiagnosticCertificatePath())) {
                     openPDF(medical.getDiagnosticCertificatePath());
                 } else {
                     iv_clicked = (ImageView) v;
@@ -664,7 +670,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
                 }
                 break;
             case R.id.iv_medical_record_service_path:
-                if (medical.getServiceRecordPath().endsWith(".pdf")) {
+                if (isPDF(medical.getServiceRecordPath())) {
                     openPDF(medical.getServiceRecordPath());
                 } else {
                     iv_clicked = (ImageView) v;

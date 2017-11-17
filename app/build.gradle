@@ -6,8 +6,8 @@ android {
         applicationId "goldenbrother.gbmobile"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 37
-        versionName "2.0.37"
+        versionCode 38
+        versionName "2.0.38"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -38,7 +38,7 @@ dependencies {
     compile 'com.dlazaro66.qrcodereaderview:qrcodereaderview:1.0.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
     compile 'com.github.gcacace:signature-pad:1.2.1'
-    compile 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.5.1'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile "me.leolin:ShortcutBadger:1.1.18@aar"
     compile 'de.hdodenhof:circleimageview:2.1.0'
