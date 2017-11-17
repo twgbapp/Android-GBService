@@ -97,10 +97,9 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getCenterInfo(response, list_center);
                     if (result == ApiResultHelper.SUCCESS) {
-//                        t(R.string.success);
+
                     } else {
-                        t(R.string.fail);
-                        finish();
+                        t(R.string.no_data);
                     }
                     break;
             }
@@ -132,10 +131,10 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getDormInfo(response, list_dorm);
                     if (result == ApiResultHelper.SUCCESS) {
-//                        t(R.string.success);
+
                     } else {
-                        t(R.string.fail);
-                        finish();
+                        t(R.string.no_data);
+
                     }
                     break;
             }
@@ -167,10 +166,9 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.getCustomerInfo(response, list_customer);
                     if (result == ApiResultHelper.SUCCESS) {
-//                        t(R.string.success);
+
                     } else {
-                        t(R.string.fail);
-                        finish();
+                        t(R.string.no_data);
                     }
                     break;
             }
