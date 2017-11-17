@@ -183,13 +183,6 @@ public class ServiceListFragment extends CommonFragment {
             }
             list_service_chat.clear();
             list_service_chat.addAll(new DAOServiceChat(activity).getLastChatList(serviceGroupIds));
-            if (!list_service_chat.isEmpty()) {
-                for (ServiceChatModel item : list_service_chat) {
-                    LogHelper.d("ITEM:" + item.getContent());
-                }
-            } else {
-                LogHelper.d("EMPTY");
-            }
             updateAdapter();
         }
     }
@@ -293,7 +286,7 @@ public class ServiceListFragment extends CommonFragment {
                     t(R.string.can_not_be_empty);
                     return;
                 }
-                activity.startActivity(new Intent(activity, SearchServiceListActivity.class).putExtra("keyword",keyword));
+                activity.startActivity(new Intent(activity, SearchServiceListActivity.class).putExtra("keyword", keyword));
             }
         }, null);
     }

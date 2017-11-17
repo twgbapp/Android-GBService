@@ -31,8 +31,9 @@ public class ServiceListRVAdapter extends SampleRVAdapter {
         this.callBack = callBack;
     }
 
-    public void setServiceChatList(ArrayList<ServiceChatModel> list){
-        this.list=list;
+    public void setServiceChatList(ArrayList<ServiceChatModel> list) {
+        this.list.clear();
+        this.list.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -62,7 +63,7 @@ public class ServiceListRVAdapter extends SampleRVAdapter {
             // set user name
             String workerNo = item.getWorkerNo();
             if (workerNo != null && !workerNo.isEmpty()) {
-                h.userName.setText("(" + workerNo + ")" + item.getUserName());
+                h.userName.setText(String.format("(%s)%s", workerNo, item.getUserName()));
             } else {
                 h.userName.setText(item.getUserName());
             }
@@ -90,7 +91,7 @@ public class ServiceListRVAdapter extends SampleRVAdapter {
 
     private CharSequence getContent(String content) {
         if (content.contains(Constant.QR)) {
-            return "You have a package.";
+            return getResources().getString(R.string.package_request);
         }
         return content;
     }

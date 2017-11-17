@@ -24,6 +24,7 @@ import android.widget.Toast;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.CommonItemListAdapter;
 import goldenbrother.gbmobile.exception.ExceptionHandler;
+import goldenbrother.gbmobile.helper.Config;
 
 
 public class CommonActivity extends AppCompatActivity {
@@ -32,7 +33,8 @@ public class CommonActivity extends AppCompatActivity {
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+        if (!Config.DEBUG)
+            Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
     }
 
     protected void setUpBackToolbar(int viewId, int strId) {
