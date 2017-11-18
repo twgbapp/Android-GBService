@@ -266,5 +266,6 @@
     <string name="no_data">không có dữ liệu</string>
     <string name="no_announcement">không có thông báo</string>
     <string name="update_available">có phiên bản mới có thể nâng cấp</string>
+    <string name="confirm_password">Xác nhận mật mã</string>
     >>>>>>> haojun/master
 </resources>

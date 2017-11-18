@@ -265,4 +265,5 @@
     <string name="no_data">tidak ada data</string>
     <string name="no_announcement">tidak ada pengumuman</string>
     <string name="update_available">ada versi baru blh diperbarui</string>
+    <string name="confirm_password">Cocokkan pin</string>
 </resources>

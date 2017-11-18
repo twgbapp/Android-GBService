@@ -16,6 +16,7 @@
     <string name="allow_word" translatable="false">0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="account">Account</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="id_number">ARC No.</string>
     <string name="check">Check</string>
     <string name="name">Name</string>

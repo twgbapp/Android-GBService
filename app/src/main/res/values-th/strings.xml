@@ -225,4 +225,5 @@
     <string name="no_data">ตรวจไม่มีข้อมูล</string>
     <string name="no_announcement">ไม่มีประกาศ</string>
     <string name="update_available">สามารถอัปเดตเวอร์ชันใหม่ได้</string>
+    <string name="confirm_password">ยืนยันระหัส</string>
 </resources>
