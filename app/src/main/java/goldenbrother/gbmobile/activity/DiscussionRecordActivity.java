@@ -355,6 +355,17 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         }, null);
     }
 
+    private boolean isPDF(String path) {
+        return path != null && path.toLowerCase().endsWith("pdf");
+    }
+
+    private void openPDF(String url) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         Bundle b = new Bundle();
@@ -370,14 +381,10 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
                     b.putBoolean("isFLabor", true);
                     openActivityForResult(SearchActivity.class, REQUEST_SEARCH, b);
                 }
-
                 break;
             case R.id.iv_discussion_record_service_record:
-                if (discussion.getServiceRecordPath() != null && discussion.getServiceRecordPath().endsWith(".pdf")) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(discussion.getServiceRecordPath()));
-                    startActivity(intent);
+                if (isPDF(discussion.getServiceRecordPath())) {
+                    openPDF(discussion.getServiceRecordPath());
                 } else {
                     iv_clicked = (ImageView) v;
                     choosePicture();

@@ -59,31 +59,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ll_announcement_list_gov"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:background="@color/announcement_gov"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_gov" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:text="@string/government"
-                            android:textColor="#FFF"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/ll_announcement_list_dorm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -104,6 +79,31 @@
                             android:layout_gravity="center"
                             android:layout_margin="5dp"
                             android:text="@string/dorm"
+                            android:textColor="#FFF"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_announcement_list_gov"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/announcement_gov"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_gov" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:text="@string/government"
                             android:textColor="#FFF"
                             android:textSize="16sp" />
                     </LinearLayout>

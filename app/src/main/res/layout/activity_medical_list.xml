@@ -41,7 +41,7 @@
                     android:layout_height="@dimen/imageview_toolbar_width"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="16dp"
                     android:src="@drawable/ic_add" />
 
                 <ImageView
@@ -49,7 +49,7 @@
                     android:layout_width="@dimen/imageview_toolbar_width"
                     android:layout_height="@dimen/imageview_toolbar_width"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="16dp"
                     android:layout_toLeftOf="@+id/iv_medical_list_add"
                     android:layout_toStartOf="@+id/iv_medical_list_add"
                     android:src="@drawable/ic_search" />
