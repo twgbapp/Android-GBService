@@ -223,4 +223,6 @@
     <string name="keyword">Keyword</string>
     <string name="qr_code">QRCode</string>
     <string name="new_version">New Version</string>
+    <string name="no_data">No Data</string>
+    <string name="no_announcement">No Announcement</string>
 </resources>

@@ -100,7 +100,7 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
                         list_announcement_show.addAll(list_announcement);
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
-                        t(R.string.fail);
+                        t(R.string.no_announcement);
                     }
                     break;
                 default:

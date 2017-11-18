@@ -87,7 +87,7 @@ public class TravelListActivity extends CommonActivity {
                     if (result == ApiResultHelper.SUCCESS) {
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
-                        t(R.string.fail);
+                        t(R.string.no_announcement);
                     }
                     break;
                 default:
