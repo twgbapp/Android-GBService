@@ -521,7 +521,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void newVersionDialog() {
-        alert(null, getString(R.string.new_version), new DialogInterface.OnClickListener() {
+        alert(null, getString(R.string.update_available), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PLAY_URL)));
