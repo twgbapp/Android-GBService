@@ -26,8 +26,10 @@
             android:id="@+id/et_apply_account_user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/password"
+            android:inputType="textPassword"
             android:textColor="#FFF"
             android:textColorHint="#FFF" />
 
@@ -35,15 +37,18 @@
             android:id="@+id/et_apply_account_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/confirm_password"
+            android:inputType="textPassword"
             android:textColor="#FFF"
             android:textColorHint="#FFF" />
 
         <TextView
-            android:id="@+id/tv_apply_account_nation_code"
+            android:id="@+id/tv_apply_account_nation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/sign_up_nation"
             android:textColor="#FFF"
@@ -53,6 +58,7 @@
             android:id="@+id/et_apply_account_user_id_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/id_number"
             android:textColor="#FFF"
@@ -62,6 +68,7 @@
             android:id="@+id/et_apply_account_company_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/company"
             android:textColor="#FFF"
@@ -71,6 +78,7 @@
             android:id="@+id/et_apply_account_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/name"
             android:textColor="#FFF"
@@ -80,15 +88,17 @@
             android:id="@+id/tv_apply_account_user_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/sex"
             android:textColor="#FFF"
             android:textColorHint="#FFF" />
 
-        <EditText
-            android:id="@+id/et_apply_account_user_birthday"
+        <TextView
+            android:id="@+id/tv_apply_account_user_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/birthday"
             android:textColor="#FFF"
@@ -98,8 +108,10 @@
             android:id="@+id/et_apply_account_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/email"
+            android:inputType="textEmailAddress"
             android:textColor="#FFF"
             android:textColorHint="#FFF" />
 
@@ -107,8 +119,10 @@
             android:id="@+id/et_apply_account_user_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/input_rect_gray"
             android:hint="@string/phone"
+            android:inputType="phone"
             android:textColor="#FFF"
             android:textColorHint="#FFF" />
 

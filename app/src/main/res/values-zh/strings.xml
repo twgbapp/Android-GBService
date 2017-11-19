@@ -267,4 +267,15 @@
     <string name="no_announcement">沒有公告</string>
     <string name="update_available">有新版本可更新</string>
     <string name="confirm_password">確認密碼</string>
+    <string name="publicize_announcement">宣傳公告</string>
+    <string name="com_announcement">公司公告</string>
+    <string name="dorm_announcement">宿舍公告</string>
+    <string name="gov_announcement">政府公告</string>
+    <string name="activity_information">活動資訊</string>
+    <string name="latest_activity">最新活動</string>
+    <string name="com_activity">公司活動</string>
+    <string name="club_activity">社團活動</string>
+    <string name="dorm_activity">宿舍活動</string>
+    <string name="place_discount">景點優惠</string>
+    <string name="travel_news">旅遊快報</string>
 </resources>
