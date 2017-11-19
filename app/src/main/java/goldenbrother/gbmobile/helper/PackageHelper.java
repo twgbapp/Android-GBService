@@ -25,7 +25,6 @@ public class PackageHelper {
     }
 
     public static void setBadge(Context context, int count) {
-        LogHelper.d("Manufacturer : " + Build.MANUFACTURER);
         ShortcutBadger.applyCount(context, count);
     }
 }

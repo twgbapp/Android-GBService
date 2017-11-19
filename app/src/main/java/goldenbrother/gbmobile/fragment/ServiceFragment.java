@@ -234,7 +234,6 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             DAOServiceChat daoGroupChat = new DAOServiceChat(activity);
             for (ServiceChatModel gc : list) {
                 daoGroupChat.insert(gc);
-                LogHelper.d("CHAT:" + gc.getContent());
             }
         }
 
@@ -243,13 +242,11 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             userIds.add(RoleInfo.getInstance().getUserID());
             for (ServiceChatModel item : list) {
                 userIds.add(item.getUserID());
-                LogHelper.d("MEMBER:" + item.getUserID());
             }
             DAOServiceGroupMember daoServiceGroupMember = new DAOServiceGroupMember(activity);
             for (String userId : userIds) {
                 if (daoServiceGroupMember.get(serviceGroupID, userId) == null) {
                     boolean su = daoServiceGroupMember.insert(new ServiceGroupMember(serviceGroupID, userId));
-                    LogHelper.d("MEMBER2:" + su + "-" + serviceGroupID + "-" + userId);
                 }
             }
         }
@@ -259,7 +256,6 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
                 DAOServiceTimePoint daoGroupTimePoint = new DAOServiceTimePoint(activity);
                 ServiceTimePointModel item = daoGroupTimePoint.get(serviceGroupID);
                 item.setTimePoint(TimeHelper.addMinute(getJSONObject().getString("endChatDate"), -10));
-                LogHelper.d("TIME:" + item.getServiceGroupID() + "-" + item.getTimePoint());
                 daoGroupTimePoint.insertOrUpdate(item);
             } catch (JSONException e) {
                 e.printStackTrace();

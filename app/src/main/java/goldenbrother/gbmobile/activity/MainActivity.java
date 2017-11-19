@@ -512,7 +512,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         protected void onPostExecute(String str) {
             super.onPostExecute(str);
             if (str != null && !str.isEmpty()) {
-                LogHelper.d("v:" + str);
+                LogHelper.d("play version:" + str);
+                LogHelper.d("local version:" + PackageHelper.getVersionName(MainActivity.this));
                 if (!str.equals(PackageHelper.getVersionName(MainActivity.this))) {
                     newVersionDialog();
                 }

@@ -60,10 +60,6 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
 
         // loadMedicalTreatmentCodeList
         getMedicalTreatmentCode();
-
-        for (MedicalSymptomModel m : medical.getSymptom()) {
-            LogHelper.d("SYM:" + m.getCode() + " " + m.getValue());
-        }
     }
 
 
