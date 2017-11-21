@@ -44,7 +44,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gb_activity_list);
-        setUpBackToolbar(R.id.toolbar, R.string.activity);
+        setUpBackToolbar(R.id.toolbar, R.string.activity_information);
 
         // ui reference
         iv_banner = findViewById(R.id.iv_activity_list_banner);

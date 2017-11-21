@@ -44,7 +44,7 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_announcement_list);
-        setUpBackToolbar(R.id.toolbar, R.string.main_drawer_announcement);
+        setUpBackToolbar(R.id.toolbar, R.string.publicize_announcement);
 
         // ui reference
         iv_banner = findViewById(R.id.iv_announcement_list_banner);

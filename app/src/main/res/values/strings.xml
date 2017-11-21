@@ -305,4 +305,16 @@
     <string name="no_data">Search no data</string>
     <string name="no_announcement">No Announcement</string>
     <string name="update_available">Update Available</string>
+    <string name="publicize_announcement">Announcement</string>
+    <string name="com_announcement">Company Announcement</string>
+    <string name="dorm_announcement">Dorm Announcement</string>
+    <string name="gov_announcement">Government Announcement</string>
+    <string name="activity_information">Activity</string>
+    <string name="latest_activity">Latest Activity</string>
+    <string name="com_activity">Company Activity</string>
+    <string name="club_activity">Club Activity</string>
+    <string name="dorm_activity">Dorm Activity</string>
+    <string name="place_discount">Place Discount</string>
+    <string name="travel_news">Travel News</string>
+    <string name="apply_account">Apply Account</string>
 </resources>
