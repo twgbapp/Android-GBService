@@ -114,9 +114,13 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
 
     private void filter(int type) {
         list_gb_activity_show.clear();
-        for (GBActivity item : list_gb_activity) {
-            if (item.getType() == type)
-                list_gb_activity_show.add(item);
+        if (type == NEWS) {
+            list_gb_activity_show.addAll(list_gb_activity);
+        } else {
+            for (GBActivity item : list_gb_activity) {
+                if (item.getType() == type)
+                    list_gb_activity_show.add(item);
+            }
         }
         rv.getAdapter().notifyDataSetChanged();
     }
