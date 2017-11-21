@@ -14,6 +14,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -57,7 +59,8 @@
                 android:background="@drawable/input_rect_gray"
                 android:hint="@string/sign_up_nation"
                 android:textColor="#FFF"
-                android:textColorHint="#FFF" />
+                android:textColorHint="#FFF"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/et_apply_account_user_id_number"
@@ -97,7 +100,8 @@
                 android:background="@drawable/input_rect_gray"
                 android:hint="@string/sex"
                 android:textColor="#FFF"
-                android:textColorHint="#FFF" />
+                android:textColorHint="#FFF"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_apply_account_user_birthday"
@@ -107,7 +111,8 @@
                 android:background="@drawable/input_rect_gray"
                 android:hint="@string/birthday"
                 android:textColor="#FFF"
-                android:textColorHint="#FFF" />
+                android:textColorHint="#FFF"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/et_apply_account_user_email"
@@ -141,7 +146,7 @@
                 android:background="@color/main_light_blue"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/sign_up_sign_up"
+                android:text="@string/apply_account"
                 android:textColor="#FFF"
                 android:textSize="20sp"
                 android:textStyle="bold" />

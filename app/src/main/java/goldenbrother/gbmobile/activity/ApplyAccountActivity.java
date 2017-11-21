@@ -39,7 +39,7 @@ public class ApplyAccountActivity extends CommonActivity implements View.OnClick
                               String userPhone) {
         try {
             JSONObject j = new JSONObject();
-            j.put("action", "signUp");
+            j.put("action", "applyAccount");
             j.put("userID", userID);
             j.put("userPassword", EncryptHelper.md5(userPassword));
             j.put("userNationCode", nationCode);

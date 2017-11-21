@@ -26,7 +26,7 @@
     <string name="sending">訊息傳送中</string>
     <string name="select">請選擇</string>
     <string name="permission_denied">權限不足</string>
-    <string name="error_confirm_password">can_not_be_empty</string>
+    <string name="error_confirm_password">確認密碼錯誤</string>
     <string name="press_again_to_exit">再按一次返回鍵離開</string>
     <string name="event_list">服務清單</string>
     <string name="quick_repair">快速報修</string>
