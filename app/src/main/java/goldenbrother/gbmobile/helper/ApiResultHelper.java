@@ -430,14 +430,8 @@ public class ApiResultHelper {
                     JSONObject o = arr.getJSONObject(i);
                     BasicUser ocm = new BasicUser();
                     ocm.setUserID(o.getString("userID"));
-                    String pic = "";
-                    try {
-                        pic = o.getString("userPicture");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    ocm.setUserPicture(pic);
                     ocm.setUserName(o.getString("userName"));
+                    ocm.setUserPicture(o.optString("userPicture", ""));
                     list.add(ocm);
                 }
                 list_on_call_manager.clear();

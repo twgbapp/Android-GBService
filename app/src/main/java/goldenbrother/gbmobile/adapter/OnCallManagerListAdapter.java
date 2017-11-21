@@ -20,10 +20,12 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
 
     private ArrayList<BasicUser> list;
     private BasicUser selected;
+    private int pictureWidth;
 
     public OnCallManagerListAdapter(Context context, ArrayList<BasicUser> list) {
         super(context);
         this.list = list;
+        this.pictureWidth = (int) getResources().getDimension(R.dimen.imageview_picture_in_list_width);
     }
 
     public BasicUser getSelected() {
@@ -62,23 +64,23 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
         }
         final BasicUser item = (BasicUser) getItem(position);
         // set picture
-        int wp = (int) getResources().getDimension(R.dimen.imageview_picture_in_list_width);
+
         if (item.getUserPicture() != null && !item.getUserPicture().isEmpty()) {
             Picasso.with(getContext())
                     .load(item.getUserPicture())
                     .placeholder(R.drawable.ic_person_replace)
-                    .resize(wp, wp)
+                    .resize(pictureWidth, pictureWidth)
                     .centerCrop()
                     .into(tag.picture);
         } else {
             Picasso.with(getContext())
                     .load(R.drawable.ic_person_replace)
-                    .resize(wp, wp)
+                    .resize(pictureWidth, pictureWidth)
                     .centerCrop()
                     .into(tag.picture);
         }
         // set name
-        tag.name.setText(item.getUserID());
+        tag.name.setText(item.getUserName());
         // set check
         tag.check.setVisibility(selected != null && selected.getUserID().equals(item.getUserID()) ? View.VISIBLE : View.GONE);
         v.setOnClickListener(new View.OnClickListener() {
