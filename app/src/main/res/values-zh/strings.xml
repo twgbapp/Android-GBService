@@ -264,7 +264,6 @@
     <string name="keyword">關鍵字</string>
     <string name="qr_code">QRCode</string>
     <string name="no_data">查無資料</string>
-    <string name="no_announcement">沒有公告</string>
     <string name="update_available">有新版本可更新</string>
     <string name="confirm_password">確認密碼</string>
     <string name="publicize_announcement">宣傳公告</string>
@@ -276,7 +275,11 @@
     <string name="com_activity">公司活動</string>
     <string name="club_activity">社團活動</string>
     <string name="dorm_activity">宿舍活動</string>
+    <string name="travel_information">旅遊資訊</string>
     <string name="place_discount">景點優惠</string>
     <string name="travel_news">旅遊快報</string>
     <string name="apply_account">帳號申請</string>
+    <string name="no_announcement">目前沒有公告</string>
+    <string name="no_activity">目前沒有活動</string>
+    <string name="no_travel">目前沒有旅遊</string>
 </resources>

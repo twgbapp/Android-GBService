@@ -317,4 +317,7 @@
     <string name="place_discount">Place Discount</string>
     <string name="travel_news">Travel News</string>
     <string name="apply_account">Apply Account</string>
+    <string name="travel_information">Travel Information</string>
+    <string name="no_activity">No Activity</string>
+    <string name="no_travel">No Travel</string>
 </resources>

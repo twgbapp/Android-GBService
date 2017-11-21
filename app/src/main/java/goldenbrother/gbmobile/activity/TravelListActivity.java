@@ -42,7 +42,7 @@ public class TravelListActivity extends CommonActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_list);
-        setUpBackToolbar(R.id.toolbar, R.string.place_discount);
+        setUpBackToolbar(R.id.toolbar, R.string.travel_information);
 
         // ui reference
         iv_banner = findViewById(R.id.iv_travel_list_banner);
@@ -87,11 +87,9 @@ public class TravelListActivity extends CommonActivity {
                     if (result == ApiResultHelper.SUCCESS) {
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
-                        t(R.string.no_announcement);
+                        t(R.string.no_travel);
                     }
                     break;
-                default:
-                    finish();
             }
         }
     }
