@@ -46,11 +46,8 @@ public class WebViewActivity extends CommonActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            view.loadUrl(url);
-//            return true;
             if (url.startsWith("mailto:")) {
-                Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse(url));
-                startActivity(i);
+                startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse(url)));
             } else {
                 view.loadUrl(url);
             }
