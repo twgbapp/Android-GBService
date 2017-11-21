@@ -63,8 +63,6 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
             tag = (ViewHolder) v.getTag();
         }
         final BasicUser item = (BasicUser) getItem(position);
-        // set picture
-
         if (item.getUserPicture() != null && !item.getUserPicture().isEmpty()) {
             Picasso.with(getContext())
                     .load(item.getUserPicture())
@@ -79,9 +77,7 @@ public class OnCallManagerListAdapter extends SampleBaseAdapter {
                     .centerCrop()
                     .into(tag.picture);
         }
-        // set name
-        tag.name.setText(item.getUserName());
-        // set check
+        tag.name.setText(String.format("%s(%s)", item.getUserName(), item.getUserID()));
         tag.check.setVisibility(selected != null && selected.getUserID().equals(item.getUserID()) ? View.VISIBLE : View.GONE);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
