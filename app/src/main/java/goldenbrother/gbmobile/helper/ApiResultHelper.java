@@ -159,8 +159,8 @@ public class ApiResultHelper {
                     m.setUserEmail(ji.getString("userEmail"));
                     m.setUserNationCode(ji.getString("userNationCode"));
                     m.setUserBirthday(ji.getString("userBirthday"));
-                    m.setDormID(ji.optString("dormID",""));
-                    m.setCenterID(ji.optString("centerID",""));
+                    m.setDormID(ji.optString("dormID", ""));
+                    m.setCenterID(ji.optString("centerID", ""));
 
                     m.setTitle(ji.getString("title"));
                 }
@@ -303,7 +303,7 @@ public class ApiResultHelper {
         }
     }
 
-    public static int loadEventUserList(String response, ArrayList<EventUserModel> list_event_user) {
+    public static int getEventUserList(String response, ArrayList<EventUserModel> list_event_user) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
@@ -314,12 +314,8 @@ public class ApiResultHelper {
                     JSONObject o = arr.getJSONObject(i);
                     EventUserModel eu = new EventUserModel();
                     eu.setUserID(o.getString("userID"));
-                    String pic = "";
-                    try {
-                        pic = o.getString("userPicture");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    eu.setUserName(o.getString("userName"));
+                    eu.setUserPicture(o.optString("userPicture"));
                     list.add(eu);
                 }
                 list_event_user.clear();

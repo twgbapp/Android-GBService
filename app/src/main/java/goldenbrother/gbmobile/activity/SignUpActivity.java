@@ -124,7 +124,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
             j.put("userNationCode", nationCode);
             j.put("areaNum", getUserData("areaNum"));
             j.put("dormID", getUserData("dormID"));
-            j.put("centerId", getUserData("centerID"));
+            j.put("centerID", getUserData("centerID"));
             if (userType == 2) {
                 j.put("flaborNo", getUserData("flaborNo"));
                 j.put("customerNo", getUserData("customerNo"));

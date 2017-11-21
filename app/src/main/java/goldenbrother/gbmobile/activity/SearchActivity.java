@@ -110,7 +110,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getDormInfo");
-            j.put("centerId", centerId);
+            j.put("centerID", centerId);
             new GetDormInfo(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
