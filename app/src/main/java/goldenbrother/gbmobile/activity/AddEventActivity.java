@@ -102,10 +102,12 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     }
 
     private void updateAdapter() {
-        AddEventKindRVAdapter adapter = (AddEventKindRVAdapter) rv.getAdapter();
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
+        rv.getAdapter().notifyDataSetChanged();
+    }
+
+    public void onItemClick(AddEventModel item) {
+        list_add_event.remove(item);
+        updateAdapter();
     }
 
     // add event dialog

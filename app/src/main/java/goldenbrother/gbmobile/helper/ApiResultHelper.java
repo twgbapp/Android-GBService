@@ -114,7 +114,6 @@ public class ApiResultHelper {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
-            LogHelper.d(success + "");
             if (success == 1) {
                 JSONObject ji = j.getJSONObject("userInfo");
                 int roleID = ji.getInt("roleID");
@@ -161,6 +160,7 @@ public class ApiResultHelper {
                     m.setUserBirthday(ji.getString("userBirthday"));
                     m.setDormID(ji.optString("dormID", ""));
                     m.setCenterID(ji.optString("centerID", ""));
+                    LogHelper.d("api:" + m.getCenterID());
 
                     m.setTitle(ji.getString("title"));
                 }

@@ -269,7 +269,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("dormID", RoleInfo.getInstance().getDormID());
             j.put("centerID", RoleInfo.getInstance().getCenterID());
             if (RoleInfo.getInstance().isLabor()) {
-                j.put("customerID", LaborModel.getInstance().getCustomerNo());
+                j.put("customerNo", LaborModel.getInstance().getCustomerNo());
                 j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
             }
             j.put("userID", RoleInfo.getInstance().getUserID());

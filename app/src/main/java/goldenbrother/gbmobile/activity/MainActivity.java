@@ -136,9 +136,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chat, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.travel, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.publicize_announcement, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity_information, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.place_discount, DrawerItem.CHILD));
             //list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
@@ -158,9 +158,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
             //list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.travel, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.publicize_announcement, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity_information, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.place_discount, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_language_w, R.string.language, DrawerItem.GROUP));
@@ -211,11 +211,11 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(SatisfactionIssueActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_club))) {
             openActivity(ClubListActivity.class);
-        } else if (str.equals(getString(R.string.main_drawer_announcement))) {
+        } else if (str.equals(getString(R.string.publicize_announcement))) {
             openActivity(AnnouncementListActivity.class);
-        } else if (str.equals(getString(R.string.activity))) {
+        } else if (str.equals(getString(R.string.activity_information))) {
             openActivity(GBActivityListActivity.class);
-        } else if (str.equals(getString(R.string.travel))) {
+        } else if (str.equals(getString(R.string.place_discount))) {
             openActivity(TravelListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
             new DAOEvent(this).deleteAll();
@@ -324,8 +324,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         ad = alertCustomItems(R.drawable.ic_life_information_big, getString(R.string.main_drawer_life_information), items, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ad.dismiss();
                 onFunctionClick(items[i]);
+                ad.dismiss();
             }
         });
     }

@@ -69,6 +69,8 @@ public class LaborModel extends UserModel {
             j.put("flaborNo", getFlaborNo());
             j.put("customerNo", getCustomerNo());
             j.put("workerNo", getWorkerNo());
+            j.put("dormID", getDormID());
+            j.put("centerID", getCenterID());
             return j;
         } catch (JSONException e) {
             e.printStackTrace();
