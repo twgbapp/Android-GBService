@@ -22,7 +22,7 @@ import goldenbrother.gbmobile.model.RoleInfo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends CommonActivity implements View.OnClickListener {
+public class LoginActivity extends CommonActivity implements View.OnClickListener, View.OnLongClickListener {
 
     // ui
     private EditText et_account, et_password;
@@ -41,6 +41,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         findViewById(R.id.iv_login_change_language).setOnClickListener(this);
         findViewById(R.id.tv_login_dologn).setOnClickListener(this);
         findViewById(R.id.cv_login_signup).setOnClickListener(this);
+        findViewById(R.id.cv_login_signup).setOnLongClickListener(this);
     }
 
     private void doLogin() {
@@ -70,6 +71,12 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        openActivity(ApplyAccountActivity.class);
+        return false;
     }
 
     private class DoLogin extends IAsyncTask {

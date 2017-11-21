@@ -24,6 +24,7 @@ public class ApplyAccountActivity extends CommonActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_account);
+        setUpBackToolbar(R.id.toolbar, R.string.apply_account);
 
         // ui reference
         findViewById(R.id.tv_apply_account_apply).setOnClickListener(this);
@@ -149,7 +150,7 @@ public class ApplyAccountActivity extends CommonActivity implements View.OnClick
                 String companyName = ((EditText) findViewById(R.id.et_apply_account_company_name)).getText().toString();
                 String userName = ((EditText) findViewById(R.id.et_apply_account_user_name)).getText().toString();
                 String userSex = ((TextView) findViewById(R.id.tv_apply_account_user_sex)).getText().toString();
-                String userBirthday = ((EditText) findViewById(R.id.et_apply_account_user_birthday)).getText().toString();
+                String userBirthday = ((TextView) findViewById(R.id.tv_apply_account_user_birthday)).getText().toString();
                 String userEmail = ((EditText) findViewById(R.id.et_apply_account_user_email)).getText().toString();
                 String userPhone = ((EditText) findViewById(R.id.et_apply_account_user_phone)).getText().toString();
 
