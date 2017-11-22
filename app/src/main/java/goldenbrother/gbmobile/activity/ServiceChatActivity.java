@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.fragment.ServiceFragment;
+import goldenbrother.gbmobile.model.ManagerModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import java.util.ArrayList;
@@ -26,25 +27,27 @@ public class ServiceChatActivity extends CommonActivity implements View.OnClickL
     private int serviceGroupID;
     private String userID;
     private String userName;
+    private String staffID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_chat);
+
         // extra
         serviceGroupID = getIntent().getIntExtra("serviceGroupID", -1);
         userID = getIntent().getStringExtra("userID");
         userName = getIntent().getStringExtra("userName");
+        staffID = getIntent().getStringExtra("staffID");
+
         // ui reference
         tv_title = findViewById(R.id.tv_service_chat_title);
         iv_add_event = findViewById(R.id.iv_service_chat_add_event);
         viewPager = findViewById(R.id.vp_service_chat);
-        // initTitle
+        // init
         setUpBackToolbar(R.id.toolbar_service_chat, R.id.tv_service_chat_title, userName);
-        // initImageView
         iv_add_event.setOnClickListener(this);
-        iv_add_event.setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : View.VISIBLE);
-        // init viewpager
+        iv_add_event.setVisibility(RoleInfo.getInstance().isLabor() ? View.GONE : (staffID.equals(RoleInfo.getInstance().getUserID()) ? View.VISIBLE : View.GONE));
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(ServiceFragment.getInstance(serviceGroupID), getString(R.string.mobile_service_tab_chat));
         viewPager.setAdapter(pagerAdapter);
@@ -52,9 +55,8 @@ public class ServiceChatActivity extends CommonActivity implements View.OnClickL
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.iv_service_chat_add_event:
                 Intent intent = new Intent();
                 intent.setClass(this, AddEventActivity.class);

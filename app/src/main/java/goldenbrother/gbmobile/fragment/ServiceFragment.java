@@ -45,8 +45,9 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     // ui
     private RecyclerView rv;
     private EditText et_content;
-    // data
+    // extra
     private int serviceGroupID;
+    // data
     private ArrayList<ServiceChatModel> list_group_chat;
 
     public static ServiceFragment getInstance(int serviceGroupID) {

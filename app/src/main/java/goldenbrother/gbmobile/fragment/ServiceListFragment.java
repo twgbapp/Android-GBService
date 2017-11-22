@@ -135,6 +135,7 @@ public class ServiceListFragment extends CommonFragment {
         intent.putExtra("serviceGroupID", item.getServiceGroupID());
         intent.putExtra("userID", item.getUserID());
         intent.putExtra("userName", item.getUserName());
+        intent.putExtra("staffID", item.getStaffID());
         activity.startActivityForResult(intent, MobileServiceActivity.REQUEST_SERVICE_CHAT);
         // set read
         int chatUnReadCount = SPHelper.getChatUnReadCount(activity) - item.getChatCount();

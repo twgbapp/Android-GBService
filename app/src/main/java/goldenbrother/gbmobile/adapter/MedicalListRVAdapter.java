@@ -12,12 +12,8 @@ import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.MedicalListActivity;
-import goldenbrother.gbmobile.model.AddEventModel;
 import goldenbrother.gbmobile.model.Medical;
 
-/**
- * Created by asus on 2016/6/22.
- */
 public class MedicalListRVAdapter extends SampleRVAdapter {
 
     private ArrayList<Medical> list;

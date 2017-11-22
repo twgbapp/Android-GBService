@@ -280,12 +280,7 @@ public class ApiResultHelper {
                     gc.setServiceGroupID(o.getInt("serviceGroupID"));
                     gc.setUserID(o.getString("userID"));
                     gc.setWorkerNo(o.getString("workerNo"));
-                    gc.setUserPicture("");
-                    try {
-                        gc.setUserPicture(o.getString("userPicture"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    gc.setUserPicture(o.optString("userPicture", ""));
                     gc.setUserName(o.getString("userName"));
                     gc.setContent(o.getString("content"));
                     gc.setChatDate(o.getString("chatDate"));
@@ -1218,6 +1213,25 @@ public class ApiResultHelper {
                 travel.setContent(j.getString("content"));
                 travel.setCreateDate(j.getString("createDate"));
                 travel.setExpirationDate(j.getString("expirationDate"));
+            }
+            return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getEventKind(String response, ArrayList<EventKindModel> list_event_kind) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int success = j.getInt("success");
+            if (success == 1) {
+                list_event_kind.clear();
+                JSONArray arr = j.getJSONArray("eventKind");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    list_event_kind.add(new EventKindModel(o.getString("code"), o.getString("value")));
+                }
             }
             return success;
         } catch (JSONException e) {

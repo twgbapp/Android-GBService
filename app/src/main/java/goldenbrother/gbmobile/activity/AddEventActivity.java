@@ -11,12 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
-import goldenbrother.gbmobile.adapter.AddEventKindRVAdapter;
+import goldenbrother.gbmobile.adapter.AddEventRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
-import goldenbrother.gbmobile.model.AddEventModel;
-import goldenbrother.gbmobile.model.RepairKindModel;
+import goldenbrother.gbmobile.model.EventKindModel;
+import goldenbrother.gbmobile.model.EventModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
 import org.json.JSONArray;
@@ -33,8 +33,8 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
     // extra
     private String userID;
     // data
-    private ArrayList<AddEventModel> list_add_event;
-    private ArrayList<RepairKindModel> list_area1, list_area2, list_kind, list_detail, list_detail_show;
+    private ArrayList<EventModel> list_event;
+    private ArrayList<EventKindModel> list_event_kind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,33 +50,29 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         userID = getIntent().getStringExtra("userID");
 
         // init
-        list_add_event = new ArrayList<>();
-        list_area1 = new ArrayList<>();
-        list_area2 = new ArrayList<>();
-        list_kind = new ArrayList<>();
-        list_detail = new ArrayList<>();
-        list_detail_show = new ArrayList<>();
+        list_event = new ArrayList<>();
+        list_event_kind = new ArrayList<>();
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new AddEventKindRVAdapter(this, list_add_event));
+        rv.setAdapter(new AddEventRVAdapter(this, list_event));
 
-        getRepairArea();
+        getEventKind();
     }
 
-    private void getRepairArea() {
+    private void getEventKind() {
         try {
             JSONObject j = new JSONObject();
-            j.put("action", "getRepairArea");
+            j.put("action", "getEventKind");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetRepairArea(this, j, URLHelper.HOST).execute();
+            new GetEventKind(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private class GetRepairArea extends IAsyncTask {
+    private class GetEventKind extends IAsyncTask {
 
-        GetRepairArea(Context context, JSONObject json, String url) {
+        GetEventKind(Context context, JSONObject json, String url) {
             super(context, json, url);
         }
 
@@ -86,12 +82,9 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.getRepairArea(response, list_area1, list_area2);
+                    int result = ApiResultHelper.getEventKind(response, list_event_kind);
                     if (result == ApiResultHelper.SUCCESS) {
-                        if (list_area1.size() != 2 || list_area2.size() != 2) {
-                            t(R.string.fail);
-                            finish();
-                        }
+
                     } else {
                         t(R.string.fail);
                         finish();
@@ -105,25 +98,16 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         rv.getAdapter().notifyDataSetChanged();
     }
 
-    public void onItemClick(AddEventModel item) {
-        list_add_event.remove(item);
-        updateAdapter();
-    }
-
     // add event dialog
     private AlertDialog ad;
     // dialog ui
-    private TextView tv_area, tv_type, tv_item;
+    private TextView tv_type;
 
     private void showAddEventDialog() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         final View v = getLayoutInflater().inflate(R.layout.dialog_service_add_event, null);
-        tv_area = v.findViewById(R.id.tv_dialog_service_add_event_area);
         tv_type = v.findViewById(R.id.tv_dialog_service_add_event_type);
-        tv_item = v.findViewById(R.id.tv_dialog_service_add_event_item);
-        tv_area.setOnClickListener(this);
         tv_type.setOnClickListener(this);
-        tv_item.setOnClickListener(this);
         final EditText et_description = v.findViewById(R.id.et_dialog_service_add_event_description);
         // cancel listener
         v.findViewById(R.id.tv_dialog_service_add_event_cancel).setOnClickListener(new View.OnClickListener() {
@@ -138,22 +122,21 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             public void onClick(View v) {
                 // get data
                 String description = et_description.getText().toString();
-                int areaNum = getAreaId(tv_area.getText().toString());
-                int kind = getItemId(tv_item.getText().toString());
-                String kindContent = tv_area.getText().toString() + "-" + tv_type.getText().toString() + "-" + tv_item.getText().toString();
+                String eventKindValue = getEventKindValue();
+                String eventKindCode = getEventKindCode(eventKindValue);
                 // check
-                if (description.isEmpty() || kind == -1) {
+                if (description.isEmpty() || eventKindCode.isEmpty()) {
                     t(R.string.can_not_be_empty);
                     return;
                 }
                 // add model
-                AddEventModel m = new AddEventModel();
-                m.setUserID(userID);
-                m.setEventKind(kind);
-                m.setKindContent(kindContent);
-                m.setEventDescription(description);
-                m.setStaffID(RoleInfo.getInstance().getUserID());
-                list_add_event.add(m);
+                EventModel item = new EventModel();
+                item.setUserID(userID);
+                item.setEventDescription(description);
+                item.setEventKindValue(eventKindValue);
+                item.setEventKind(eventKindCode);
+                item.setStaffID(RoleInfo.getInstance().getUserID());
+                list_event.add(item);
                 // update
                 updateAdapter();
                 // dismiss
@@ -164,129 +147,21 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         ad = b.show();
     }
 
-    private int getAreaId(String content) {
-        for (RepairKindModel rk : list_area1) {
-            if (rk.getContent().equals(content)) {
-                return rk.getId();
-            }
-        }
-        for (RepairKindModel rk : list_area2) {
-            if (rk.getContent().equals(content)) {
-                return rk.getId();
-            }
-        }
-        return -1;
+    private String getEventKindValue() {
+        if (tv_type == null) return "";
+        String str = tv_type.getText().toString();
+        if (str.isEmpty()) return "";
+        return str;
     }
 
-    private void showAreaDialog(final int stage) { // 1 or 2
-        if (list_area1.size() != 2 || list_area2.size() != 2) return;
-        final String[] items1 = {list_area1.get(0).getContent(), list_area1.get(1).getContent()};
-        final String[] items2 = {list_area2.get(0).getContent(), list_area2.get(1).getContent()};
-        final String[] items = stage == 1 ? items1 : items2;
-        alertWithItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (stage == 1 && i == 0) {
-                    showAreaDialog(2);
-                } else {
-                    tv_area.setText(items[i]);
-                    tv_type.setText("");
-                    tv_item.setText("");
-                    getRepairKind(getAreaId(items[i]));
-                }
-            }
-        });
-    }
-
-    private int getTypeId(String content) {
-        for (RepairKindModel rk : list_kind) {
-            if (rk.getContent().equals(content)) {
-                return rk.getId();
+    private String getEventKindCode(String value) {
+        if (value.isEmpty()) return "";
+        for (EventKindModel item : list_event_kind) {
+            if (value.equals(item.getValue())) {
+                return item.getCode();
             }
         }
-        return -1;
-    }
-
-    private void showTypeDialog() {
-        final String[] items = new String[list_kind.size()];
-        for (int i = 0; i < list_kind.size(); i++) {
-            items[i] = list_kind.get(i).getContent();
-        }
-        alertWithItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                tv_type.setText(items[i]);
-                tv_item.setText("");
-            }
-        });
-    }
-
-    private int getItemId(String content) {
-        for (RepairKindModel rk : list_detail_show) {
-            if (rk.getContent().equals(content)) {
-                return rk.getId();
-            }
-        }
-        return -1;
-    }
-
-    private void showItemDialog(String type) {
-        int parentId = getTypeId(type);
-        list_detail_show.clear();
-        for (RepairKindModel rm_detail : list_detail) {
-            if (rm_detail.getParentId() == parentId) {
-                list_detail_show.add(rm_detail);
-            }
-        }
-        final String[] items = new String[list_detail_show.size()];
-        for (int i = 0; i < list_detail_show.size(); i++) {
-            items[i] = list_detail_show.get(i).getContent();
-        }
-
-        alertWithItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                tv_item.setText(items[i]);
-            }
-        });
-    }
-
-    private void getRepairKind(int areaNum) {
-        try {
-            JSONObject j = new JSONObject();
-            j.put("action", "getRepairKind");
-            j.put("areaNum", areaNum);
-            j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
-            j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
-            new GetRepairKind(this, j, URLHelper.HOST).execute();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private class GetRepairKind extends IAsyncTask {
-
-        GetRepairKind(Context context, JSONObject json, String url) {
-            super(context, json, url);
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            super.onPostExecute(response);
-            switch (getResult()) {
-                case ApiResultHelper.SUCCESS:
-                case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.getRepairKind(response, list_kind, list_detail);
-                    if (result == ApiResultHelper.SUCCESS) {
-
-                    } else {
-                        t(String.format(getString(R.string.fail) + "(%s)", "GetRepairKind"));
-                        finish();
-                    }
-                    break;
-            }
-        }
+        return "";
     }
 
     private void showConfirmAddEventDialog() {
@@ -309,12 +184,12 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             j.put("action", "addEvent");
             // add to array
             JSONArray arr = new JSONArray();
-            for (AddEventModel m : list_add_event) {
+            for (EventModel item : list_event) {
                 JSONObject jo = new JSONObject();
-                jo.put("userID", m.getUserID());
-                jo.put("eventDescription", m.getEventDescription());
-                jo.put("eventKind", m.getEventKind());
-                jo.put("staffID", m.getStaffID());
+                jo.put("userID", item.getUserID());
+                jo.put("eventDescription", item.getEventDescription());
+                jo.put("eventKind", item.getEventKind());
+                jo.put("staffID", item.getStaffID());
                 arr.put(jo);
             }
             j.put("events", arr.toString());
@@ -350,20 +225,27 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         }
     }
 
+    private void showTypeDialog() {
+        final String[] items = new String[list_event_kind.size()];
+        for (int i = 0; i < items.length; i++) {
+            items[i] = list_event_kind.get(i).getValue();
+        }
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                tv_type.setText(items[which]);
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_dialog_service_add_event_area:
-                showAreaDialog(1);
-                break;
             case R.id.tv_dialog_service_add_event_type:
                 showTypeDialog();
                 break;
-            case R.id.tv_dialog_service_add_event_item:
-                showItemDialog(tv_type.getText().toString());
-                break;
             case R.id.iv_add_event_done:
-                if (list_add_event.isEmpty()) {
+                if (list_event.isEmpty()) {
                     t(R.string.can_not_be_empty);
                     break;
                 }

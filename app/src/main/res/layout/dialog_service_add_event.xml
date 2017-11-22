@@ -25,47 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/quick_repair_area"
-            android:textColor="#FFF" />
-
-        <TextView
-            android:id="@+id/tv_dialog_service_add_event_area"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/input_rect_gray"
-            android:hint="@string/select"
-            android:padding="10dp"
-            android:textColor="#FFF"
-            android:textColorHint="#FFF" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="@string/quick_repair_kind"
             android:textColor="#FFF" />
 
         <TextView
             android:id="@+id/tv_dialog_service_add_event_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/input_rect_gray"
-            android:hint="@string/select"
-            android:padding="10dp"
-            android:textColor="#FFF"
-            android:textColorHint="#FFF" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/quick_repair_item"
-            android:textColor="#FFF" />
-
-        <TextView
-            android:id="@+id/tv_dialog_service_add_event_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

@@ -12,12 +12,8 @@ import java.util.ArrayList;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.PackageListActivity;
-import goldenbrother.gbmobile.model.AddEventModel;
 import goldenbrother.gbmobile.model.PackageModel;
 
-/**
- * Created by asus on 2016/6/22.
- */
 public class PackageListRVAdapter extends SampleRVAdapter {
 
     private ArrayList<PackageModel> list;
