@@ -58,7 +58,7 @@ public class SatisfactionQuestionActivity extends CommonActivity {
             j.put("rating", rating);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new AddSatisfactionIssueRecord(this, j, URLHelper.HOST).execute();
+            new AddSatisfactionIssueRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -66,8 +66,8 @@ public class SatisfactionQuestionActivity extends CommonActivity {
 
     private class AddSatisfactionIssueRecord extends IAsyncTask {
 
-        AddSatisfactionIssueRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddSatisfactionIssueRecord(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

@@ -76,7 +76,7 @@ public class SatisfactionIssueActivity extends CommonActivity {
             j.put("action", "getSatisfactionIssueList");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new GetSatisfactionIssueList(this, j, URLHelper.HOST).execute();
+            new GetSatisfactionIssueList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -84,8 +84,8 @@ public class SatisfactionIssueActivity extends CommonActivity {
 
     private class GetSatisfactionIssueList extends IAsyncTask {
 
-        GetSatisfactionIssueList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetSatisfactionIssueList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

@@ -62,7 +62,7 @@ public class TravelContentActivity extends CommonActivity implements View.OnClic
             j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new GetTravel(this, j, URLHelper.HOST).execute();
+            new GetTravel(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,8 +70,8 @@ public class TravelContentActivity extends CommonActivity implements View.OnClic
 
     private class GetTravel extends IAsyncTask {
 
-        GetTravel(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetTravel(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

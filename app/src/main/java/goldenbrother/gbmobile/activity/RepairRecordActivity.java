@@ -46,7 +46,7 @@ public class RepairRecordActivity extends CommonActivity {
             j.put("action", "getRepairRecordList");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetRepairRecordList(this, j, URLHelper.HOST).execute();
+            new GetRepairRecordList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -55,8 +55,8 @@ public class RepairRecordActivity extends CommonActivity {
     private class GetRepairRecordList extends IAsyncTask {
 
 
-        GetRepairRecordList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetRepairRecordList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
