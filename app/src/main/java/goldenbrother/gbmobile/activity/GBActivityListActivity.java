@@ -70,7 +70,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
             if (RoleInfo.getInstance().isLabor()) {
                 j.put("customerNo", LaborModel.getInstance().getCustomerNo());
             }
-            j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
+            j.put("nationCode", RoleInfo.getInstance().isLabor() ? RoleInfo.getInstance().getUserNationCode() : "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
             new GetActivityList(this, j, URLHelper.HOST).execute();

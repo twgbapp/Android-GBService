@@ -61,8 +61,10 @@ public class TravelListActivity extends CommonActivity {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getTravelList");
-            j.put("dormID", RoleInfo.getInstance().getDormID());
-            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            if (RoleInfo.getInstance().isLabor()) {
+                j.put("dormID", RoleInfo.getInstance().getDormID());
+            }
+            j.put("nationCode", RoleInfo.getInstance().isLabor() ? LaborModel.getInstance().getUserNationCode() : "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
             new GetTravelList(this, j, URLHelper.HOST).execute();

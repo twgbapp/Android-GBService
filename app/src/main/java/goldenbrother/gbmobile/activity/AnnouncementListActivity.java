@@ -72,9 +72,9 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
                 j.put("customerNo", LaborModel.getInstance().getCustomerNo());
                 j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
             }
-            j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
+            j.put("nationCode", RoleInfo.getInstance().isLabor() ? RoleInfo.getInstance().getUserNationCode() : "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", true);
+            j.put("logStatus", false);
             new LoadAnnouncementList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
