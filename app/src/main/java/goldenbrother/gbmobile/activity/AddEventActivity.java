@@ -98,9 +98,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         rv.getAdapter().notifyDataSetChanged();
     }
 
-    // add event dialog
     private AlertDialog ad;
-    // dialog ui
     private TextView tv_type;
 
     private void showAddEventDialog() {
@@ -187,7 +185,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
                 JSONObject jo = new JSONObject();
                 jo.put("userID", item.getUserID());
                 jo.put("eventDescription", item.getEventDescription());
-                jo.put("eventKind", item.getEventKind());
+                jo.put("eventKind", Integer.valueOf(item.getEventKind()));
                 jo.put("staffID", item.getStaffID());
                 arr.put(jo);
             }
