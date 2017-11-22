@@ -182,7 +182,6 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addEvent");
-            // add to array
             JSONArray arr = new JSONArray();
             for (EventModel item : list_event) {
                 JSONObject jo = new JSONObject();

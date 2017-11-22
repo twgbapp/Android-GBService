@@ -59,7 +59,8 @@ public class AddEventRVAdapter extends SampleRVAdapter {
                         notifyDataSetChanged();
                     }
                 })
-                .setNegativeButton(R.string.cancel, null);
+                .setNegativeButton(R.string.cancel, null)
+                .show();
 
     }
 
