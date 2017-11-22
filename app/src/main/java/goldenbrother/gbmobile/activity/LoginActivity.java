@@ -61,7 +61,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         private String userPassword;
 
         DoLogin(Context context, JSONObject json, String userID, String userPassword) {
-            super(context, json);
+            super(context, json, URLHelper.HOST_GB);
             this.userID = userID;
             this.userPassword = userPassword;
         }
@@ -79,6 +79,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                         if (dormID.equals(SUM_MOON_DORM_ID) && centerID.equals(SUM_MOON_CENTER_ID)) {
                             loginToSunMoon(userID, userPassword);
                         } else {
+                            SPHelper.setUrl(LoginActivity.this, URLHelper.HOST_GB);
                             registerGCMID();
                         }
                     } else {

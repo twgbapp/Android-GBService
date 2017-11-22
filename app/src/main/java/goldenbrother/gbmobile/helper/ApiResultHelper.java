@@ -134,7 +134,7 @@ public class ApiResultHelper {
                     l.setUserID(ji.getString("userID"));
                     l.setUserName(ji.getString("userName"));
                     l.setUserIDNumber(ji.getString("userIDNumber"));
-                    l.setServiceGroupID(ji.getInt("serviceGroupID"));
+                    l.setServiceGroupID(ji.optInt("serviceGroupID", 0));
                     l.setUserPicture(ji.optString("userPicture", ""));
                     l.setUserSex(ji.getString("userSex"));
                     l.setUserPhone(ji.getString("userPhone"));
@@ -724,27 +724,20 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getRepairArea(String response, ArrayList<RepairKindModel> list_area1, ArrayList<RepairKindModel> list_area2) {
+    public static int getRepairArea(String response, ArrayList<RepairKindModel> list_area) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
+                list_area.clear();
                 JSONArray arr = j.getJSONArray("areas");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
-                    RepairKindModel rk = new RepairKindModel();
-                    rk.setId(o.getInt("id"));
-                    rk.setParentId(0);
-                    rk.setContent(o.getString("content"));
-                    if (rk.getId() == 3 || rk.getId() == 4) {
-                        list_area1.add(rk);
-                    } else if (rk.getId() == 2 || rk.getId() == 1) {
-                        list_area2.add(rk);
-                    }
-                }
-                // swap id=4 to first
-                if (list_area1.size() == 2 && list_area1.get(0).getId() != 4) {
-                    Collections.swap(list_area1, 0, 1);
+                    RepairKindModel item = new RepairKindModel();
+                    item.setParentId(0);
+                    item.setId(o.getInt("id"));
+                    item.setContent(o.getString("content"));
+                    list_area.add(item);
                 }
             }
             return success;

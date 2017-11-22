@@ -38,6 +38,7 @@ public abstract class IAsyncTask extends AsyncTask<JSONObject, Integer, String> 
         this.json = json;
         this.url = url;
         this.msg = context.getString(R.string.loading);
+        LogHelper.d("URL:" + url);
     }
 
     public IAsyncTask(Context context, JSONObject json, boolean common) {
