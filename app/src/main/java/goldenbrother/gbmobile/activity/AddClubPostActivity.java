@@ -24,6 +24,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.model.ClubPostMediaModel;
 import goldenbrother.gbmobile.adapter.AddClubPostMediaRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
@@ -103,7 +104,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
             j.put("clubID", clubID);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("content", content);
-            j.put("url", URLHelper.HOST);
+            j.put("url", SPHelper.getUrl(this));
             JSONArray arr = new JSONArray();
             for (ClubPostMediaModel m : list_media) {
                 JSONObject o = new JSONObject();
@@ -123,7 +124,7 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
             }
             j.put("media", arr.toString());
             j.put("logStatus", true);
-            new AddClubPost(this, j, URLHelper.HOST).execute();
+            new AddClubPost(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -131,8 +132,8 @@ public class AddClubPostActivity extends CommonActivity implements View.OnClickL
 
     private class AddClubPost extends IAsyncTask {
 
-        AddClubPost(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddClubPost(Context context, JSONObject json) {
+            super(context, json);
         }
 
         private ArrayList<String> getFileNames() {

@@ -64,7 +64,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             j.put("action", "getEventKind");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetEventKind(this, j, URLHelper.HOST).execute();
+            new GetEventKind(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -72,8 +72,8 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
 
     private class GetEventKind extends IAsyncTask {
 
-        GetEventKind(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetEventKind(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -192,7 +192,7 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
             j.put("events", arr.toString());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new AddEvent(this, j, URLHelper.HOST).execute();
+            new AddEvent(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -200,8 +200,8 @@ public class AddEventActivity extends CommonActivity implements View.OnClickList
 
     private class AddEvent extends IAsyncTask {
 
-        AddEvent(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddEvent(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

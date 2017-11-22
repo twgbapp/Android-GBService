@@ -141,12 +141,11 @@ public class ApiResultHelper {
                     l.setUserEmail(ji.getString("userEmail"));
                     l.setUserNationCode(ji.getString("userNationCode"));
                     l.setUserBirthday(ji.getString("userBirthday"));
-                    l.setDormID(ji.optString("dormID", ""));
-                    l.setCenterID(ji.optString("centerID", ""));
-
                     l.setFlaborNo(ji.getString("flaborNo"));
                     l.setCustomerNo(ji.getString("customerNo"));
                     l.setWorkerNo(ji.getString("workerNo"));
+                    l.setDormID(ji.optString("dormID", ""));
+                    l.setCenterID(ji.optString("centerID", ""));
                 } else if (roleID == 1) { // manager
                     ManagerModel m = ManagerModel.getInstance();
                     m.setUserID(ji.getString("userID"));
@@ -158,11 +157,9 @@ public class ApiResultHelper {
                     m.setUserEmail(ji.getString("userEmail"));
                     m.setUserNationCode(ji.getString("userNationCode"));
                     m.setUserBirthday(ji.getString("userBirthday"));
+                    m.setTitle(ji.getString("title"));
                     m.setDormID(ji.optString("dormID", ""));
                     m.setCenterID(ji.optString("centerID", ""));
-                    LogHelper.d("api:" + m.getCenterID());
-
-                    m.setTitle(ji.getString("title"));
                 }
             }
             return success;

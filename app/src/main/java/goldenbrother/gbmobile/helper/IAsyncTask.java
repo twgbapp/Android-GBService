@@ -29,6 +29,10 @@ public abstract class IAsyncTask extends AsyncTask<JSONObject, Integer, String> 
     // result code
     private int result;
 
+    public IAsyncTask(Context context, JSONObject json) {
+        this(context, json, SPHelper.getUrl(context));
+    }
+
     public IAsyncTask(Context context, JSONObject json, String url) {
         this.context = context;
         this.json = json;
@@ -36,8 +40,8 @@ public abstract class IAsyncTask extends AsyncTask<JSONObject, Integer, String> 
         this.msg = context.getString(R.string.loading);
     }
 
-    public IAsyncTask(Context context, JSONObject json, String url, boolean common) {
-        this(context, json, url);
+    public IAsyncTask(Context context, JSONObject json, boolean common) {
+        this(context, json);
         this.common = common;
     }
 

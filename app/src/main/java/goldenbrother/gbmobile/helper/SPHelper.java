@@ -87,6 +87,7 @@ public class SPHelper {
      */
     private static final String FILE_SETTING = "setting";
     private static final String KEY_SETTING_LANGUAGE = "key_setting_language";
+    private static final String KEY_SETTING_URL = "key_setting_url";
 
     public static void setLanguage(Context context, String language){
         SharedPreferences sp = context.getSharedPreferences(FILE_SETTING, Context.MODE_PRIVATE);
@@ -95,5 +96,14 @@ public class SPHelper {
 
     public static String getLanguage(Context context){
         return context.getSharedPreferences(FILE_SETTING, Context.MODE_PRIVATE).getString(KEY_SETTING_LANGUAGE, "");
+    }
+
+    public static void setUrl(Context context, String url){
+        SharedPreferences sp = context.getSharedPreferences(FILE_SETTING, Context.MODE_PRIVATE);
+        sp.edit().putString(KEY_SETTING_URL, url).apply();
+    }
+
+    public static String getUrl(Context context){
+        return context.getSharedPreferences(FILE_SETTING, Context.MODE_PRIVATE).getString(KEY_SETTING_URL, URLHelper.HOST);
     }
 }

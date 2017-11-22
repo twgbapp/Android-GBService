@@ -24,20 +24,20 @@ import org.json.JSONObject;
 
 public class LoginActivity extends CommonActivity implements View.OnClickListener {
 
+    // sum moon dormID, centerID
+    public static final String SUM_MOON_DORM_ID = "2013";
+    public static final String SUM_MOON_CENTER_ID = "88";
     // ui
     private EditText et_account, et_password;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // ui reference
         et_account = findViewById(R.id.et_login_account);
-        //MaterialEditText et_account = (MaterialEditText) findViewById(R.id.et_login_account);
-        //et_account.addValidator(new RegexpValidator("Only Integer Valid!", "\\d+"));
         et_password = findViewById(R.id.et_login_password);
-        // listener
         findViewById(R.id.iv_login_change_language).setOnClickListener(this);
         findViewById(R.id.tv_login_dologn).setOnClickListener(this);
         findViewById(R.id.cv_login_signup).setOnClickListener(this);
@@ -50,16 +50,20 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             j.put("userID", userID);
             j.put("userPassword", EncryptHelper.md5(userPassword));
             j.put("logStatus", true);
-            new DoLogin(this, j, URLHelper.HOST).execute();
+            new DoLogin(this, j, userID, userPassword).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     private class DoLogin extends IAsyncTask {
+        private String userID;
+        private String userPassword;
 
-        DoLogin(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        DoLogin(Context context, JSONObject json, String userID, String userPassword) {
+            super(context, json, URLHelper.HOST);
+            this.userID = userID;
+            this.userPassword = userPassword;
         }
 
         @Override
@@ -70,6 +74,49 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.login(response);
                     if (result == ApiResultHelper.SUCCESS) {
+                        String dormID = RoleInfo.getInstance().getDormID();
+                        String centerID = RoleInfo.getInstance().getCenterID();
+                        if (dormID.equals(SUM_MOON_DORM_ID) && centerID.equals(SUM_MOON_CENTER_ID)) {
+                            loginToSunMoon(userID, userPassword);
+                        } else {
+                            registerGCMID();
+                        }
+                    } else {
+                        t(R.string.login_error_account_or_password_not_exist);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void loginToSunMoon(String userID, String userPassword) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "login");
+            j.put("userID", userID);
+            j.put("userPassword", EncryptHelper.md5(userPassword));
+            j.put("logStatus", true);
+            new LoginToSunMoon(this, j).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class LoginToSunMoon extends IAsyncTask {
+
+        LoginToSunMoon(Context context, JSONObject json) {
+            super(context, json, URLHelper.HOST_SUN_MOON);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.FAIL:
+                    int result = ApiResultHelper.login(response);
+                    if (result == ApiResultHelper.SUCCESS) {
+                        SPHelper.setUrl(LoginActivity.this, URLHelper.HOST_SUN_MOON);
                         registerGCMID();
                     } else {
                         t(R.string.login_error_account_or_password_not_exist);
@@ -79,6 +126,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         }
     }
 
+
     private void registerGCMID() {
         try {
             JSONObject j = new JSONObject();
@@ -87,7 +135,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             j.put("registerID", SPHelper.getFcmToken(this));
             j.put("status", 1);
             j.put("logStatus", true);
-            new RegisterGCMID(this, j, URLHelper.HOST).execute();
+            new RegisterGCMID(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -95,8 +143,8 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
     private class RegisterGCMID extends IAsyncTask {
 
-        RegisterGCMID(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        RegisterGCMID(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
