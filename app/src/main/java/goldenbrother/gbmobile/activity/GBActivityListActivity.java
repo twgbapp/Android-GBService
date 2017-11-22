@@ -92,7 +92,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getActivityList(response, list_gb_activity);
-                    if (result == ApiResultHelper.SUCCESS) {
+                    if (result == ApiResultHelper.SUCCESS && !list_gb_activity.isEmpty()) {
                         list_gb_activity_show.clear();
                         list_gb_activity_show.addAll(list_gb_activity);
                         rv.getAdapter().notifyDataSetChanged();

@@ -94,6 +94,8 @@ public class LaborModel extends UserModel {
             setFlaborNo(j.getString("flaborNo"));
             setCustomerNo(j.getString("customerNo"));
             setWorkerNo(j.getString("workerNo"));
+            setDormID(j.getString("dormID"));
+            setCenterID(j.getString("centerID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

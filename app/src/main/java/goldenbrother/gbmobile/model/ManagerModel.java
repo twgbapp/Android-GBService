@@ -114,6 +114,8 @@ public class ManagerModel extends UserModel {
             setUserName(j.getString("userName"));
             setUserBirthday(j.getString("userBirthday"));
             setTitle(j.getString("title"));
+            setDormID(j.getString("dormID"));
+            setCenterID(j.getString("centerID"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
