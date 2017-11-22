@@ -73,7 +73,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
             j.put("dormID", RoleInfo.getInstance().getDormID());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new GetMedicalFlaborList(this, j, URLHelper.HOST).execute();
+            new GetMedicalFlaborList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -81,8 +81,8 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
 
     private class GetMedicalFlaborList extends IAsyncTask {
 
-        GetMedicalFlaborList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetMedicalFlaborList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

@@ -101,7 +101,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             j.put("content", content);
             j.put("chatDate", TimeHelper.getStandard());
             j.put("logStatus", true);
-            new AddEventChat(this, j, URLHelper.HOST, content).execute();
+            new AddEventChat(this, j, content).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -113,8 +113,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
     private class AddEventChat extends IAsyncTask {
         private String content;
 
-        AddEventChat(Context context, JSONObject json, String url, String content) {
-            super(context, json, url);
+        AddEventChat(Context context, JSONObject json, String content) {
+            super(context, json);
             this.content = content;
             setShow(content.equals(Constant.RATING));
         }
@@ -156,7 +156,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             j.put("content", content);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new PushEventMessage(this, j, URLHelper.HOST).execute();
+            new PushEventMessage(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -164,8 +164,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
 
     private class PushEventMessage extends IAsyncTask {
 
-        PushEventMessage(Context context, JSONObject json, String url) {
-            super(context, json, url, false);
+        PushEventMessage(Context context, JSONObject json) {
+            super(context, json, false);
             setShow(false);
         }
     }
@@ -187,7 +187,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             j.put("endChatDate", TimeHelper.addMinute(TimeHelper.getStandard(), 10));
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadCloudChat(this, j, URLHelper.HOST).execute();
+            new LoadCloudChat(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -196,8 +196,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
     private class LoadCloudChat extends IAsyncTask {
         private ArrayList<EventChatModel> list;
 
-        LoadCloudChat(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadCloudChat(Context context, JSONObject json) {
+            super(context, json);
             this.list = new ArrayList<>();
             setShow(false);
         }
@@ -252,7 +252,7 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
             j.put("score", score);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new RatingEvent(this, j, URLHelper.HOST).execute();
+            new RatingEvent(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -260,8 +260,8 @@ public class EventChatActivity extends CommonActivity implements View.OnClickLis
 
     private class RatingEvent extends IAsyncTask {
 
-        RatingEvent(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        RatingEvent(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

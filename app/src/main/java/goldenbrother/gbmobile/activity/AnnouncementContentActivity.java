@@ -59,7 +59,7 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
             j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new LoadAnnouncement(this, j, URLHelper.HOST).execute();
+            new LoadAnnouncement(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,8 +67,8 @@ public class AnnouncementContentActivity extends CommonActivity implements View.
 
     private class LoadAnnouncement extends IAsyncTask {
 
-        LoadAnnouncement(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadAnnouncement(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

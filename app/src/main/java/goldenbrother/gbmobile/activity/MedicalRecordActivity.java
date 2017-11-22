@@ -25,6 +25,7 @@ import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.LogHelper;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.model.Medical;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
@@ -118,7 +119,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("action", "getMedicalTreatmentCode");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetMedicalTreatmentCode(this, j, URLHelper.HOST).execute();
+            new GetMedicalTreatmentCode(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -129,8 +130,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
         private ArrayList<MedicalSymptomModel> list_first;
         private ArrayList<MedicalSymptomModel> list_second;
 
-        GetMedicalTreatmentCode(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetMedicalTreatmentCode(Context context, JSONObject json) {
+            super(context, json);
             if (list_symptoms == null) list_symptoms = new ArrayList<>();
             list_first = new ArrayList<>();
             list_second = new ArrayList<>();
@@ -178,7 +179,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("mtrsno", mtrsNo);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new GetMedicalRecord(this, j, URLHelper.HOST).execute();
+            new GetMedicalRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -186,8 +187,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
     private class GetMedicalRecord extends IAsyncTask {
 
-        GetMedicalRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetMedicalRecord(Context context, JSONObject json) {
+            super(context, json);
         }
 
         private void syncMedicalSymptom() {
@@ -360,7 +361,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
             j.put("logStatus", true);
 
-            new AddMedicalRecord(this, j, URLHelper.HOST).execute();
+            new AddMedicalRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -368,8 +369,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
     private class AddMedicalRecord extends IAsyncTask {
 
-        AddMedicalRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddMedicalRecord(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -436,7 +437,7 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
             j.put("logStatus", true);
 
-            new UpdateMedicalRecord(this, j, URLHelper.HOST).execute();
+            new UpdateMedicalRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -444,8 +445,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
 
     private class UpdateMedicalRecord extends IAsyncTask {
 
-        UpdateMedicalRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        UpdateMedicalRecord(Context context, JSONObject json) {
+            super(context, json);
         }
 
 
@@ -475,9 +476,9 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             j.put("fileName", UUID.randomUUID().toString());
-            j.put("url", URLHelper.HOST);
+            j.put("url", SPHelper.getUrl(this));
             j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
-            new UploadImageTask(this, j, URLHelper.HOST).execute();
+            new UploadImageTask(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -486,8 +487,8 @@ public class MedicalRecordActivity extends CommonActivity implements View.OnClic
     private class UploadImageTask extends IAsyncTask {
         private HashMap<String, String> map;
 
-        UploadImageTask(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        UploadImageTask(Context context, JSONObject json) {
+            super(context, json);
             map = new HashMap<>();
         }
 

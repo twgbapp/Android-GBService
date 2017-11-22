@@ -98,10 +98,10 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             j.put("action", "uploadImg");
             j.put("fileName", RoleInfo.getInstance().getUserID());
             j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
-            j.put("url", URLHelper.HOST);
+            j.put("url", SPHelper.getUrl(this));
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new UploadImageTask(this, j, URLHelper.HOST).execute();
+            new UploadImageTask(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -110,8 +110,8 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
     private class UploadImageTask extends IAsyncTask {
         private HashMap<String, String> map;
 
-        UploadImageTask(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        UploadImageTask(Context context, JSONObject json) {
+            super(context, json);
             map = new HashMap<>();
         }
 
@@ -139,7 +139,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("path", path);
             j.put("logStatus", true);
-            new UpdatePicture(this, j, URLHelper.HOST, path).execute();
+            new UpdatePicture(this, j, path).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -149,8 +149,8 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
 
         private String path;
 
-        UpdatePicture(Context context, JSONObject json, String url, String path) {
-            super(context, json, url);
+        UpdatePicture(Context context, JSONObject json, String path) {
+            super(context, json);
             this.path = path;
         }
 
@@ -218,7 +218,7 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
             j.put("oldUserPassword", EncryptHelper.md5(oldUserPassword));
             j.put("newUserPassword", EncryptHelper.md5(newUserPassword));
             j.put("logStatus", true);
-            new ChangePassword(this, j, URLHelper.HOST).execute();
+            new ChangePassword(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -226,8 +226,8 @@ public class ProfileActivity extends CommonActivity implements View.OnClickListe
 
     private class ChangePassword extends IAsyncTask {
 
-        ChangePassword(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        ChangePassword(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

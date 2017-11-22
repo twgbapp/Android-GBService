@@ -28,6 +28,7 @@ import goldenbrother.gbmobile.helper.BitmapHelper;
 import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.PackageModel;
 import goldenbrother.gbmobile.model.RoleInfo;
@@ -75,12 +76,12 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
         try {
             JSONObject j = new JSONObject();
             j.put("action", "receivePackage");
-            j.put("url", URLHelper.HOST);
+            j.put("url", SPHelper.getUrl(this));
             j.put("packageID", mPackage.getPackageID());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("baseStr", mPackage.getBaseStr());
             j.put("logStatus", true);
-            new ReceivePackage(this, j, URLHelper.HOST, mPackage).execute();
+            new ReceivePackage(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -88,8 +89,8 @@ public class PackageResultActivity extends CommonActivity implements View.OnClic
 
     private class ReceivePackage extends IAsyncTask {
 
-        ReceivePackage(Context context, JSONObject json, String url, PackageModel p) {
-            super(context, json, url);
+        ReceivePackage(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

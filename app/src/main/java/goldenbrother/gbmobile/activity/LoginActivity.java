@@ -61,7 +61,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         private String userPassword;
 
         DoLogin(Context context, JSONObject json, String userID, String userPassword) {
-            super(context, json, URLHelper.HOST);
+            super(context, json);
             this.userID = userID;
             this.userPassword = userPassword;
         }

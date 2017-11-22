@@ -61,7 +61,7 @@ public class GBActivityContentActivity extends CommonActivity implements View.On
             j.put("nationCode", "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new GetActivity(this, j, URLHelper.HOST).execute();
+            new GetActivity(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -69,8 +69,8 @@ public class GBActivityContentActivity extends CommonActivity implements View.On
 
     private class GetActivity extends IAsyncTask {
 
-        GetActivity(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetActivity(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

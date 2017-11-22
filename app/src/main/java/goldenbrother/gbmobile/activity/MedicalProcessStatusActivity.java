@@ -89,7 +89,7 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
             j.put("customerNo", medical.getPatient().getCustomerNo());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetHospitalPickUp(this, j, URLHelper.HOST, showHospital).execute();
+            new GetHospitalPickUp(this, j, showHospital).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -99,8 +99,8 @@ public class MedicalProcessStatusActivity extends CommonActivity implements View
 
         private boolean showHospital;
 
-        GetHospitalPickUp(Context context, JSONObject json, String url, boolean showHospital) {
-            super(context, json, url);
+        GetHospitalPickUp(Context context, JSONObject json, boolean showHospital) {
+            super(context, json);
             this.showHospital = showHospital;
         }
 

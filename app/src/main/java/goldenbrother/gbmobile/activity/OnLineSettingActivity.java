@@ -66,7 +66,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             j.put("action", "getOnCallStatus");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new getOnCallStatus(this, j, URLHelper.HOST).execute();
+            new getOnCallStatus(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -76,8 +76,8 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
 
         private Map<String, String> map;
 
-        getOnCallStatus(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        getOnCallStatus(Context context, JSONObject json) {
+            super(context, json);
             this.map = new HashMap<>();
         }
 
@@ -113,7 +113,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             j.put("action", "getOnCallManage");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetOnCallManage(this, j, URLHelper.HOST).execute();
+            new GetOnCallManage(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -121,8 +121,8 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
 
     private class GetOnCallManage extends IAsyncTask {
 
-        GetOnCallManage(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetOnCallManage(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -155,7 +155,7 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
             j.put("staffID", staffID);
             j.put("onCallStatus", onCallStatus);
             j.put("logStatus", true);
-            new ChangeOnCallStatus(this, j, URLHelper.HOST, onCallStatus).execute();
+            new ChangeOnCallStatus(this, j, onCallStatus).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -164,8 +164,8 @@ public class OnLineSettingActivity extends CommonActivity implements CompoundBut
     private class ChangeOnCallStatus extends IAsyncTask {
         private String onCallStatus;
 
-        ChangeOnCallStatus(Context context, JSONObject json, String url, String onCallStatus) {
-            super(context, json, url);
+        ChangeOnCallStatus(Context context, JSONObject json, String onCallStatus) {
+            super(context, json);
             this.onCallStatus = onCallStatus;
         }
 

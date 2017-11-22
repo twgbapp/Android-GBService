@@ -74,7 +74,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("action", "getRepairArea");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetRepairArea(this, j, URLHelper.HOST).execute();
+            new GetRepairArea(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -82,8 +82,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
 
     private class GetRepairArea extends IAsyncTask {
 
-        GetRepairArea(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetRepairArea(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -224,7 +224,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetRepairKind(this, j, URLHelper.HOST).execute();
+            new GetRepairKind(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -232,8 +232,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
 
     private class GetRepairKind extends IAsyncTask {
 
-        GetRepairKind(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetRepairKind(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -275,7 +275,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             j.put("title", title);
-            new AddRepair(this, j, URLHelper.HOST).execute();
+            new AddRepair(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -283,8 +283,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
 
     private class AddRepair extends IAsyncTask {
 
-        AddRepair(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddRepair(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -295,7 +295,6 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        //t(R.string.success);
                         t(R.string.quick_repair_success);
                         finish();
                     } else {

@@ -171,9 +171,6 @@
             android:name=".activity.DiscussionRecordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DiscussionFlaborInfoActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.GBActivityListActivity" />

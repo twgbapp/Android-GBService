@@ -96,7 +96,7 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
             j.put("pickNumber", pickNumber);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadPackageList(this, j, URLHelper.HOST, description.isEmpty()).execute();
+            new LoadPackageList(this, j, description.isEmpty()).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -107,8 +107,8 @@ public class PackageListActivity extends CommonActivity implements View.OnClickL
 
         private boolean byDescription;
 
-        LoadPackageList(Context context, JSONObject json, String url, boolean byDescription) {
-            super(context, json, url);
+        LoadPackageList(Context context, JSONObject json, boolean byDescription) {
+            super(context, json);
             this.byDescription = byDescription;
         }
 

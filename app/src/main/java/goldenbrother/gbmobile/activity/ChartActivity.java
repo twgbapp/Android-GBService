@@ -62,7 +62,7 @@ public class ChartActivity extends CommonActivity {
             j.put("repairKindIDs", arr.toString());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadRepairList(this, j, URLHelper.HOST).execute();//t
+            new LoadRepairList(this, j).execute();//t
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,8 +70,8 @@ public class ChartActivity extends CommonActivity {
 
     private class LoadRepairList extends IAsyncTask {
 
-        LoadRepairList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadRepairList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

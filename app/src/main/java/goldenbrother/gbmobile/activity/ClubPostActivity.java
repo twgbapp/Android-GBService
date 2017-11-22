@@ -113,7 +113,7 @@ public class ClubPostActivity extends CommonActivity {
             j.put("clubID", club.getClubID());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new LoadAllClubPostID(this, j, URLHelper.HOST).execute();
+            new LoadAllClubPostID(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -121,8 +121,8 @@ public class ClubPostActivity extends CommonActivity {
 
     private class LoadAllClubPostID extends IAsyncTask {
 
-        LoadAllClubPostID(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadAllClubPostID(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -166,7 +166,7 @@ public class ClubPostActivity extends CommonActivity {
             j.put("logStatus", false);
             if (!nos.isEmpty()) {
                 loading = true;
-                new LoadClubPostList(this, j, URLHelper.HOST).execute();
+                new LoadClubPostList(this, j).execute();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -175,8 +175,8 @@ public class ClubPostActivity extends CommonActivity {
 
     private class LoadClubPostList extends IAsyncTask {
 
-        LoadClubPostList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadClubPostList(Context context, JSONObject json) {
+            super(context, json);
             setShow(false);
         }
 

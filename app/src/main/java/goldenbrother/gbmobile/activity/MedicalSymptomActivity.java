@@ -69,7 +69,7 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
             j.put("action", "getMedicalTreatmentCode");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetMedicalTreatmentCode(this, j, URLHelper.HOST).execute();
+            new GetMedicalTreatmentCode(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -80,8 +80,8 @@ public class MedicalSymptomActivity extends CommonActivity implements View.OnCli
         private ArrayList<MedicalSymptomModel> list_first;
         private ArrayList<MedicalSymptomModel> list_second;
 
-        GetMedicalTreatmentCode(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetMedicalTreatmentCode(Context context, JSONObject json) {
+            super(context, json);
             list_first = new ArrayList<>();
             list_second = new ArrayList<>();
         }
