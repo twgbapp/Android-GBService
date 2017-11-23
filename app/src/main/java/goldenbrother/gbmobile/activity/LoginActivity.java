@@ -43,28 +43,12 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         findViewById(R.id.cv_login_signup).setOnClickListener(this);
     }
 
-    private void doLogin() {
-        String account = et_account.getText().toString();
-        String password = et_password.getText().toString();
-        /*if (account.isEmpty() || password.isEmpty()) {
-            t(R.string.can_not_be_empty);
-            return;
-        }*/
-        if (account.isEmpty()) {
-            et_account.setError("");
-            return;
-        }
-
-        if (password.isEmpty()) {
-            et_password.setError("");
-            return;
-        }
-
+    private void doLogin(String userID, String userPassword) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "login");
-            j.put("userID", account);
-            j.put("userPassword", EncryptHelper.md5(password));
+            j.put("userID", userID);
+            j.put("userPassword", EncryptHelper.md5(userPassword));
             j.put("logStatus", true);
             new DoLogin(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
@@ -162,6 +146,21 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         finish();
     }
 
+    private void signUpAndApplyAccountDialog() {
+        final String[] items = {getString(R.string.sign_up), getString(R.string.apply_account)};
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    openActivity(SignUpActivity.class);
+                } else {
+                    openActivity(ApplyAccountActivity.class);
+                }
+            }
+        });
+
+    }
+
     @Override
     public void onClick(View v) {
         hideKeyBoard(v);
@@ -170,10 +169,22 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                 showLanguageDialog();
                 break;
             case R.id.tv_login_dologn:
-                doLogin();
+                String userID = et_account.getText().toString();
+                String userPassword = et_password.getText().toString();
+
+                if (userID.isEmpty()) {
+                    et_account.setError("");
+                    return;
+                }
+
+                if (userPassword.isEmpty()) {
+                    et_password.setError("");
+                    return;
+                }
+                doLogin(userID, userPassword);
                 break;
             case R.id.cv_login_signup:
-                openActivity(SignUpActivity.class);
+                signUpAndApplyAccountDialog();
                 break;
         }
     }

@@ -2,6 +2,8 @@ package goldenbrother.gbmobile.model;
 
 import org.json.JSONObject;
 
+import goldenbrother.gbmobile.helper.LogHelper;
+
 /**
  * Created by asus on 2016/12/8.
  */

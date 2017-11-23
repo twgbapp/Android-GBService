@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import goldenbrother.gbmobile.R;
+import goldenbrother.gbmobile.activity.AddEventActivity;
 import goldenbrother.gbmobile.model.AddEventModel;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class AddEventKindRVAdapter extends SampleRVAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(getInflater().inflate(R.layout.item_list_add_event,parent, false));
+        return new ViewHolder(getInflater().inflate(R.layout.item_list_add_event, parent, false));
     }
 
     @Override
@@ -48,22 +49,7 @@ public class AddEventKindRVAdapter extends SampleRVAdapter {
             h.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Delete")
-                            .setMessage("Delete it ?")
-                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    int position = h.getAdapterPosition();
-                                    // remove
-                                    list.remove(position);
-                                    notifyItemRemoved(position);
-                                    notifyItemRangeChanged(position, getItemCount());
-                                }
-                            })
-                            .setNegativeButton("CANCEL", null)
-                            .show();
-
+                    ((AddEventActivity) getContext()).onItemClick(item);
                 }
             });
         }

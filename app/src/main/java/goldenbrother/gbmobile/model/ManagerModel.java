@@ -17,6 +17,7 @@ public class ManagerModel extends UserModel {
     private int OnCallStatus;
     private int ChatCount;
     private int EventCount;
+
     private ManagerModel() {
 
     }
@@ -90,13 +91,16 @@ public class ManagerModel extends UserModel {
             j.put("userNationCode", getUserNationCode());
             j.put("userName", getUserName());
             j.put("userBirthday", getUserBirthday());
-            j.put("title",getTitle());
+            j.put("title", getTitle());
+            j.put("dormID", getDormID());
+            j.put("centerID", getCenterID());
             return j;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public void setJSONObject(JSONObject j) {
         try {
             setUserID(j.getString("userID"));

@@ -44,7 +44,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gb_activity_list);
-        setUpBackToolbar(R.id.toolbar, R.string.activity);
+        setUpBackToolbar(R.id.toolbar, R.string.activity_information);
 
         // ui reference
         iv_banner = findViewById(R.id.iv_activity_list_banner);
@@ -67,10 +67,10 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getActivityList");
-//            j.put("customerNo", RoleInfo.getInstance().isLabor() ? LaborModel.getInstance().getCustomerNo() : "");
-//            j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
-            j.put("customerNo", "F04135");
-            j.put("nationCode", "024");
+            if (RoleInfo.getInstance().isLabor()) {
+                j.put("customerNo", LaborModel.getInstance().getCustomerNo());
+            }
+            j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
             new GetActivityList(this, j, URLHelper.HOST).execute();
@@ -97,7 +97,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
                         list_gb_activity_show.addAll(list_gb_activity);
                         rv.getAdapter().notifyDataSetChanged();
                     } else {
-                        t(R.string.no_announcement);
+                        t(R.string.no_activity);
                     }
                     break;
                 default:
@@ -114,9 +114,13 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
 
     private void filter(int type) {
         list_gb_activity_show.clear();
-        for (GBActivity item : list_gb_activity) {
-            if (item.getType() == type)
-                list_gb_activity_show.add(item);
+        if (type == NEWS) {
+            list_gb_activity_show.addAll(list_gb_activity);
+        } else {
+            for (GBActivity item : list_gb_activity) {
+                if (item.getType() == type)
+                    list_gb_activity_show.add(item);
+            }
         }
         rv.getAdapter().notifyDataSetChanged();
     }

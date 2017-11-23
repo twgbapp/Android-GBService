@@ -48,27 +48,28 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
         Intent intent = getIntent();
         ServiceEventID = intent.getIntExtra("serviceEventID", -1);
         // load user
-        loadEventUserList();
+        getEventUserList();
     }
 
-    private void loadEventUserList() {
+    private void getEventUserList() {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getEventUserList");
             j.put("serviceEventID", ServiceEventID);
-            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("dormID", RoleInfo.getInstance().getDormID());
+            j.put("centerID", RoleInfo.getInstance().getCenterID());
             j.put("logStatus", false);
-            new LoadEventUserList(this, j, URLHelper.HOST).execute();
+            new GetEventUserList(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
 
-    private class LoadEventUserList extends IAsyncTask {
+    private class GetEventUserList extends IAsyncTask {
 
 
-        LoadEventUserList(Context context, JSONObject json, String url) {
+        GetEventUserList(Context context, JSONObject json, String url) {
             super(context, json, url);
         }
 
@@ -78,7 +79,7 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.loadEventUserList(response, list_event_user);
+                    int result = ApiResultHelper.getEventUserList(response, list_event_user);
                     if (result == ApiResultHelper.SUCCESS) {
                         updateAdapter();
                     } else {

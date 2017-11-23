@@ -159,7 +159,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
         try {
             JSONObject j = new JSONObject();
             j.put("action", "addDiscussionRecord");
-            j.put("centerId", discussion.getCenterId());
+            j.put("centerID", discussion.getCenterId());
             j.put("dormID", discussion.getDormId());
             j.put("customerNo", discussion.getCustomerNo());
             j.put("flaborNo", discussion.getfLaborNo());

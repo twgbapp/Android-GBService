@@ -35,6 +35,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         setUpBackToolbar(R.id.toolbar, R.string.sign_up_create_account);
+
         // ui reference
         et_account = findViewById(R.id.et_sign_up_account);
         et_password = findViewById(R.id.et_sign_up_password);
@@ -48,7 +49,6 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         tv_birthday = findViewById(R.id.tv_sign_up_birthday);
         findViewById(R.id.tv_sign_up_do_sign_up).setOnClickListener(this);
         findViewById(R.id.tv_sign_up_check).setOnClickListener(this);
-        // listener
         tv_sex.setOnClickListener(this);
         tv_nation.setOnClickListener(this);
         tv_birthday.setOnClickListener(this);
@@ -105,7 +105,10 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
         return nation_code[0];
     }
 
-    private void doSignUp(int userType, String userID, String password, String idNumber, String name, String sex, String birthday, String email, String phone, String nationCode) {
+    private void doSignUp(int userType, String userID, String password,
+                          String idNumber, String name, String sex,
+                          String birthday, String email, String phone,
+                          String nationCode) {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "signUp");
@@ -121,7 +124,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
             j.put("userNationCode", nationCode);
             j.put("areaNum", getUserData("areaNum"));
             j.put("dormID", getUserData("dormID"));
-            j.put("centerId", getUserData("centerID"));
+            j.put("centerID", getUserData("centerID"));
             if (userType == 2) {
                 j.put("flaborNo", getUserData("flaborNo"));
                 j.put("customerNo", getUserData("customerNo"));

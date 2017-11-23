@@ -12,6 +12,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.URLHelper;
+import goldenbrother.gbmobile.model.LaborModel;
 import goldenbrother.gbmobile.model.RepairKindModel;
 import goldenbrother.gbmobile.model.RoleInfo;
 
@@ -36,9 +37,9 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         setContentView(R.layout.activity_quick_repair);
         // extra
         isSupport = getIntent().getExtras().getBoolean("support", false);
-        if(isSupport){
+        if (isSupport) {
             setUpBackToolbar(R.id.toolbar, R.string.support);
-        }else{
+        } else {
             setUpBackToolbar(R.id.toolbar, R.string.quick_repair);
         }
         // ui reference
@@ -261,13 +262,19 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("serviceEventID", "");
             j.put("writerID", RoleInfo.getInstance().getUserID());
             j.put("repairID", RoleInfo.getInstance().getUserID());
-            j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("eventKind", kind);
-            j.put("place", place);
-            j.put("title", title);
             j.put("description", description);
+            j.put("place", place);
+            j.put("eventKind", kind);
             j.put("areaNum", areaNum);
+            j.put("dormID", RoleInfo.getInstance().getDormID());
+            j.put("centerID", RoleInfo.getInstance().getCenterID());
+            if (RoleInfo.getInstance().isLabor()) {
+                j.put("customerNo", LaborModel.getInstance().getCustomerNo());
+                j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
+            }
+            j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
+            j.put("title", title);
             new AddRepair(this, j, URLHelper.HOST).execute();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -301,8 +308,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
+        switch (v.getId()) {
             case R.id.tv_quick_repair_area:
                 if (isSupport) {
 

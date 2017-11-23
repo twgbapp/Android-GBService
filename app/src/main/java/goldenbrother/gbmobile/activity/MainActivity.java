@@ -136,9 +136,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_chat, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.travel, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.publicize_announcement, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity_information, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.travel_information, DrawerItem.CHILD));
             //list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_club, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
@@ -158,9 +158,9 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
             list.add(new DrawerItem(R.drawable.ic_life_information, R.string.main_drawer_life_information, DrawerItem.GROUP));
             //list.add(new DrawerItem(R.drawable.ic_club, R.string.main_drawer_club, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.main_drawer_announcement, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity, DrawerItem.CHILD));
-            list.add(new DrawerItem(R.drawable.ic_logout, R.string.travel, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.publicize_announcement, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.activity_information, DrawerItem.CHILD));
+            list.add(new DrawerItem(R.drawable.ic_logout, R.string.travel_information, DrawerItem.CHILD));
 
             list.add(new DrawerItem(R.drawable.ic_e_commerce_big, R.string.main_drawer_e_commerce, DrawerItem.GROUP));
             list.add(new DrawerItem(R.drawable.ic_language_w, R.string.language, DrawerItem.GROUP));
@@ -211,11 +211,11 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
             openActivity(SatisfactionIssueActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_club))) {
             openActivity(ClubListActivity.class);
-        } else if (str.equals(getString(R.string.main_drawer_announcement))) {
+        } else if (str.equals(getString(R.string.publicize_announcement))) {
             openActivity(AnnouncementListActivity.class);
-        } else if (str.equals(getString(R.string.activity))) {
+        } else if (str.equals(getString(R.string.activity_information))) {
             openActivity(GBActivityListActivity.class);
-        } else if (str.equals(getString(R.string.travel))) {
+        } else if (str.equals(getString(R.string.travel_information))) {
             openActivity(TravelListActivity.class);
         } else if (str.equals(getString(R.string.main_drawer_logout))) {
             new DAOEvent(this).deleteAll();
@@ -304,11 +304,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
 
     private void showMobileServiceDialog() {
         String[] items_flabor = {getString(R.string.main_drawer_quick_repair), getString(R.string.support), getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_chat)};
-        String[] items_manager = {getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_chat),
-                getString(R.string.main_drawer_online_setting),
-                //getString(R.string.main_drawer_chart),
-                //getString(R.string.main_drawer_repair_record),
-                getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package), getString(R.string.discussion)};
+        String[] items_manager = {getString(R.string.main_drawer_event_list), getString(R.string.main_drawer_chat), getString(R.string.main_drawer_online_setting), getString(R.string.main_drawer_medical), getString(R.string.main_drawer_package), getString(R.string.discussion)};
         final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
         ad = alertCustomItems(R.drawable.ic_mobile_service_big, getString(R.string.mobile_service), items, new AdapterView.OnItemClickListener() {
             @Override
@@ -320,16 +316,12 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void showLifeInformationDialog() {
-        //String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.activity), getString(R.string.travel), getString(R.string.main_drawer_club)};
-        String[] items_flabor = {getString(R.string.main_drawer_announcement), getString(R.string.activity), getString(R.string.travel)};
-        //String[] items_manager = {getString(R.string.main_drawer_club)};
-        String[] items_manager = {getString(R.string.main_drawer_announcement), getString(R.string.activity), getString(R.string.travel)};
-        final String[] items = RoleInfo.getInstance().isLabor() ? items_flabor : items_manager;
+        final String[] items = {getString(R.string.publicize_announcement), getString(R.string.activity_information), getString(R.string.travel_information)};
         ad = alertCustomItems(R.drawable.ic_life_information_big, getString(R.string.main_drawer_life_information), items, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ad.dismiss();
                 onFunctionClick(items[i]);
+                ad.dismiss();
             }
         });
     }
@@ -512,7 +504,8 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
         protected void onPostExecute(String str) {
             super.onPostExecute(str);
             if (str != null && !str.isEmpty()) {
-                LogHelper.d("v:" + str);
+                LogHelper.d("play version:" + str);
+                LogHelper.d("local version:" + PackageHelper.getVersionName(MainActivity.this));
                 if (!str.equals(PackageHelper.getVersionName(MainActivity.this))) {
                     newVersionDialog();
                 }
@@ -521,7 +514,7 @@ public class MainActivity extends CommonActivity implements View.OnClickListener
     }
 
     private void newVersionDialog() {
-        alert(null, getString(R.string.new_version), new DialogInterface.OnClickListener() {
+        alert(null, getString(R.string.update_available), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PLAY_URL)));

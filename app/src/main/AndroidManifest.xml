@@ -180,7 +180,8 @@
         <activity android:name=".activity.GBActivityContentActivity" />
         <activity android:name=".activity.TravelListActivity" />
         <activity android:name=".activity.TravelContentActivity" />
-        <activity android:name=".activity.SearchServiceListActivity"></activity>
+        <activity android:name=".activity.SearchServiceListActivity" />
+        <activity android:name=".activity.ApplyAccountActivity"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@
         android:background="#16afce"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Add Event"
+        android:text="@string/add_event_add_event"
         android:textColor="#FFF"
         android:textSize="24sp" />
 
@@ -87,7 +87,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_rect_gray" />
+            android:background="@drawable/input_rect_gray"
+            android:textColor="#FFF" />
 
     </LinearLayout>
 
