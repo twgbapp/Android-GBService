@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.activity.AnnouncementListActivity;
 import goldenbrother.gbmobile.helper.TimeHelper;
-import goldenbrother.gbmobile.model.AddEventModel;
 import goldenbrother.gbmobile.model.AnnouncementModel;
 
 /**

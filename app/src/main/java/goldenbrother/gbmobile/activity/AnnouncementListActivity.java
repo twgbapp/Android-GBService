@@ -72,10 +72,10 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
                 j.put("customerNo", LaborModel.getInstance().getCustomerNo());
                 j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
             }
-            j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
+            j.put("nationCode", RoleInfo.getInstance().isLabor() ? RoleInfo.getInstance().getUserNationCode() : "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", true);
-            new LoadAnnouncementList(this, j, URLHelper.HOST).execute();
+            j.put("logStatus", false);
+            new LoadAnnouncementList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -83,8 +83,8 @@ public class AnnouncementListActivity extends CommonActivity implements View.OnC
 
     private class LoadAnnouncementList extends IAsyncTask {
 
-        LoadAnnouncementList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadAnnouncementList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

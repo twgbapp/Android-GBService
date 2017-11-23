@@ -27,21 +27,18 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
     private EditText et_applicant, et_title, et_place, et_description;
     private TextView tv_area, tv_type, tv_item, tv_send;
     // extra
-    private boolean isSupport;
+    private boolean isSupport; // 是否為需求支援
     // data
-    private ArrayList<RepairKindModel> list_area1, list_area2, list_kind, list_detail, list_detail_show;
+    private ArrayList<RepairKindModel> list_area, list_kind, list_detail, list_detail_show;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_repair);
+
         // extra
         isSupport = getIntent().getExtras().getBoolean("support", false);
-        if (isSupport) {
-            setUpBackToolbar(R.id.toolbar, R.string.support);
-        } else {
-            setUpBackToolbar(R.id.toolbar, R.string.quick_repair);
-        }
+
         // ui reference
         et_applicant = findViewById(R.id.et_quick_repair_applicant);
         et_title = findViewById(R.id.et_quick_repair_title);
@@ -51,20 +48,18 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
         tv_type = findViewById(R.id.tv_quick_repair_type);
         tv_item = findViewById(R.id.tv_quick_repair_item);
         tv_send = findViewById(R.id.tv_quick_repair_send);
-        // listener
         tv_area.setOnClickListener(this);
         tv_type.setOnClickListener(this);
         tv_item.setOnClickListener(this);
         tv_send.setOnClickListener(this);
-        // init Spinner
-        list_area1 = new ArrayList<>();
-        list_area2 = new ArrayList<>();
+
+        // init
+        setUpBackToolbar(R.id.toolbar, isSupport ? R.string.support : R.string.quick_repair);
+        list_area = new ArrayList<>();
         list_kind = new ArrayList<>();
         list_detail = new ArrayList<>();
         list_detail_show = new ArrayList<>();
-        // set applicant
         et_applicant.setText(RoleInfo.getInstance().getUserName());
-        // load area
         getRepairArea();
     }
 
@@ -74,7 +69,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("action", "getRepairArea");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetRepairArea(this, j, URLHelper.HOST).execute();
+            new GetRepairArea(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -82,8 +77,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
 
     private class GetRepairArea extends IAsyncTask {
 
-        GetRepairArea(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetRepairArea(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -92,16 +87,12 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             switch (getResult()) {
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
-                    int result = ApiResultHelper.getRepairArea(response, list_area1, list_area2);
+                    int result = ApiResultHelper.getRepairArea(response, list_area);
                     if (result == ApiResultHelper.SUCCESS) {
-                        if (list_area1.size() != 2 || list_area2.size() != 2) {
-                            t(R.string.fail);
-                            finish();
-                        } else {
-                            if (isSupport) {
-                                tv_area.setText(list_area1.get(1).getContent());
-                                getRepairKind(getAreaId(list_area1.get(1).getContent()));
-                            }
+                        if (list_area.size() >= 3) {
+                            String area = isSupport ? list_area.get(2).getContent() : list_area.get(0).getContent();
+                            tv_area.setText(area);
+                            getRepairKind(getAreaId(area));
                         }
                     } else {
                         t(R.string.fail);
@@ -113,54 +104,27 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
     }
 
     private int getAreaId(String content) {
-        for (RepairKindModel rk : list_area1) {
-            if (rk.getContent().equals(content)) {
-                return rk.getId();
-            }
-        }
-        for (RepairKindModel rk : list_area2) {
-            if (rk.getContent().equals(content)) {
-                return rk.getId();
+        for (RepairKindModel item : list_area) {
+            if (item.getContent().equals(content)) {
+                return item.getId();
             }
         }
         return -1;
     }
 
-    private AlertDialog ad;
-
-    private void showAreaDialog(final int stage) { // 1 or 2
-        if (list_area1.size() != 2 || list_area2.size() != 2) return;
-        final String[] items1 = {list_area1.get(0).getContent(), list_area1.get(1).getContent()};
-        final String[] items2 = {list_area2.get(0).getContent(), list_area2.get(1).getContent()};
-        final String[] items = stage == 1 ? items1 : items2;
-        if (items.length != 0)
-            alertWithItems(items, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    if (stage == 1 && i == 0) {
-                        showAreaDialog(2);
-                    } else {
-                        tv_area.setText(items[i]);
-                        tv_type.setText("");
-                        tv_item.setText("");
-                        getRepairKind(getAreaId(items[i]));
-                    }
-                }
-            });
-//            ad = alertCustomItems(0, null, items, new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                    ad.dismiss();
-//                    if (stage == 1 && i == 0) {
-//                        showAreaDialog(2);
-//                    } else {
-//                        tv_area.setText(items[i]);
-//                        tv_type.setText("");
-//                        tv_item.setText("");
-//                        getRepairKind(getAreaId(items[i]));
-//                    }
-//                }
-//            });
+    private void showAreaDialog() {
+        String[] items_repair = {list_area.get(0).getContent(), list_area.get(1).getContent()};
+        String[] items_support = {list_area.get(2).getContent()};
+        final String[] items = isSupport ? items_support : items_repair;
+        alertWithItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                tv_area.setText(items[i]);
+                tv_type.setText("");
+                tv_item.setText("");
+                getRepairKind(getAreaId(items[i]));
+            }
+        });
     }
 
     private int getTypeId(String content) {
@@ -224,7 +188,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetRepairKind(this, j, URLHelper.HOST).execute();
+            new GetRepairKind(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -232,8 +196,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
 
     private class GetRepairKind extends IAsyncTask {
 
-        GetRepairKind(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetRepairKind(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -275,7 +239,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             j.put("title", title);
-            new AddRepair(this, j, URLHelper.HOST).execute();
+            new AddRepair(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -283,8 +247,8 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
 
     private class AddRepair extends IAsyncTask {
 
-        AddRepair(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddRepair(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -295,7 +259,53 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                 case ApiResultHelper.FAIL:
                     int result = ApiResultHelper.commonCreate(response);
                     if (result == ApiResultHelper.SUCCESS) {
-                        //t(R.string.success);
+                        t(R.string.quick_repair_success);
+                        finish();
+                    } else {
+                        t(R.string.fail);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void addDemandSupport(int kind, String place, String title, String description, int areaNum) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "addDemandSupport");
+            j.put("centerID", RoleInfo.getInstance().getCenterID());
+            j.put("dormID", RoleInfo.getInstance().getDormID());
+            j.put("place", place);
+            j.put("eventKind", kind);
+            j.put("customerNo", LaborModel.getInstance().getCustomerNo());
+            j.put("flaborNo", LaborModel.getInstance().getFlaborNo());
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("description", description);
+            j.put("areaNum", areaNum);
+            j.put("writerID", RoleInfo.getInstance().getUserID());
+            j.put("repairID", RoleInfo.getInstance().getUserID());
+            j.put("title", title);
+            j.put("logStatus", true);
+            new AddDemandSupport(this, j).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class AddDemandSupport extends IAsyncTask {
+
+        AddDemandSupport(Context context, JSONObject json) {
+            super(context, json);
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            switch (getResult()) {
+                case ApiResultHelper.SUCCESS:
+                case ApiResultHelper.FAIL:
+                    int result = ApiResultHelper.commonCreate(response);
+                    if (result == ApiResultHelper.SUCCESS) {
                         t(R.string.quick_repair_success);
                         finish();
                     } else {
@@ -310,11 +320,7 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_quick_repair_area:
-                if (isSupport) {
-
-                } else {
-                    showAreaDialog(2);
-                }
+                showAreaDialog();
                 break;
             case R.id.tv_quick_repair_type:
                 showTypeDialog();
@@ -332,8 +338,11 @@ public class QuickRepairActivity extends CommonActivity implements View.OnClickL
                     t(R.string.can_not_be_empty);
                     break;
                 }
-                // add repair
-                addRepair(kind, place, title, description, areaNum);
+                if (isSupport) {
+                    addDemandSupport(kind, place, title, description, 3);
+                } else {
+                    addRepair(kind, place, title, description, areaNum);
+                }
                 break;
         }
     }

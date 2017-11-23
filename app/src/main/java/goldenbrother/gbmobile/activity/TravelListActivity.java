@@ -61,11 +61,13 @@ public class TravelListActivity extends CommonActivity {
         try {
             JSONObject j = new JSONObject();
             j.put("action", "getTravelList");
-            j.put("dormID", RoleInfo.getInstance().getDormID());
-            j.put("nationCode", LaborModel.getInstance().getUserNationCode());
+            if (RoleInfo.getInstance().isLabor()) {
+                j.put("dormID", RoleInfo.getInstance().getDormID());
+            }
+            j.put("nationCode", RoleInfo.getInstance().isLabor() ? LaborModel.getInstance().getUserNationCode() : "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetTravelList(this, j, URLHelper.HOST).execute();
+            new GetTravelList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -73,8 +75,8 @@ public class TravelListActivity extends CommonActivity {
 
     private class GetTravelList extends IAsyncTask {
 
-        GetTravelList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetTravelList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

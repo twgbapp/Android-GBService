@@ -131,7 +131,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
                 j.put("workerNo", getUserData("workerNo"));
             }
             j.put("logStatus", false);
-            new DoSignUp(this, j, URLHelper.HOST).execute();
+            new DoSignUp(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -139,8 +139,8 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
 
     private class DoSignUp extends IAsyncTask {
 
-        DoSignUp(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        DoSignUp(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -166,7 +166,7 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
             JSONObject j = new JSONObject();
             j.put("action", "checkUserIDNumber");
             j.put("userIDNumber", userIDNumber);
-            new CheckIDNumber(this, j, URLHelper.HOST).execute();
+            new CheckIDNumber(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -175,8 +175,8 @@ public class SignUpActivity extends CommonActivity implements View.OnClickListen
     private class CheckIDNumber extends IAsyncTask {
 
 
-        CheckIDNumber(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        CheckIDNumber(Context context, JSONObject json) {
+            super(context, json);
             if (userData == null)
                 userData = new HashMap<>();
             userData.clear();

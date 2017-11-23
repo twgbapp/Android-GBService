@@ -70,10 +70,10 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
             if (RoleInfo.getInstance().isLabor()) {
                 j.put("customerNo", LaborModel.getInstance().getCustomerNo());
             }
-            j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
+            j.put("nationCode", RoleInfo.getInstance().isLabor() ? RoleInfo.getInstance().getUserNationCode() : "024");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetActivityList(this, j, URLHelper.HOST).execute();
+            new GetActivityList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -81,8 +81,8 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
 
     private class GetActivityList extends IAsyncTask {
 
-        GetActivityList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetActivityList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -92,7 +92,7 @@ public class GBActivityListActivity extends CommonActivity implements View.OnCli
                 case ApiResultHelper.SUCCESS:
                 case ApiResultHelper.EMPTY:
                     int result = ApiResultHelper.getActivityList(response, list_gb_activity);
-                    if (result == ApiResultHelper.SUCCESS) {
+                    if (result == ApiResultHelper.SUCCESS && !list_gb_activity.isEmpty()) {
                         list_gb_activity_show.clear();
                         list_gb_activity_show.addAll(list_gb_activity);
                         rv.getAdapter().notifyDataSetChanged();

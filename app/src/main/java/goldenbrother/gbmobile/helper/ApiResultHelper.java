@@ -134,19 +134,18 @@ public class ApiResultHelper {
                     l.setUserID(ji.getString("userID"));
                     l.setUserName(ji.getString("userName"));
                     l.setUserIDNumber(ji.getString("userIDNumber"));
-                    l.setServiceGroupID(ji.getInt("serviceGroupID"));
+                    l.setServiceGroupID(ji.optInt("serviceGroupID", 0));
                     l.setUserPicture(ji.optString("userPicture", ""));
                     l.setUserSex(ji.getString("userSex"));
                     l.setUserPhone(ji.getString("userPhone"));
                     l.setUserEmail(ji.getString("userEmail"));
                     l.setUserNationCode(ji.getString("userNationCode"));
                     l.setUserBirthday(ji.getString("userBirthday"));
-                    l.setDormID(ji.optString("dormID", ""));
-                    l.setCenterID(ji.optString("centerID", ""));
-
                     l.setFlaborNo(ji.getString("flaborNo"));
                     l.setCustomerNo(ji.getString("customerNo"));
                     l.setWorkerNo(ji.getString("workerNo"));
+                    l.setDormID(ji.optString("dormID", ""));
+                    l.setCenterID(ji.optString("centerID", ""));
                 } else if (roleID == 1) { // manager
                     ManagerModel m = ManagerModel.getInstance();
                     m.setUserID(ji.getString("userID"));
@@ -158,11 +157,9 @@ public class ApiResultHelper {
                     m.setUserEmail(ji.getString("userEmail"));
                     m.setUserNationCode(ji.getString("userNationCode"));
                     m.setUserBirthday(ji.getString("userBirthday"));
+                    m.setTitle(ji.getString("title"));
                     m.setDormID(ji.optString("dormID", ""));
                     m.setCenterID(ji.optString("centerID", ""));
-                    LogHelper.d("api:" + m.getCenterID());
-
-                    m.setTitle(ji.getString("title"));
                 }
             }
             return success;
@@ -280,12 +277,7 @@ public class ApiResultHelper {
                     gc.setServiceGroupID(o.getInt("serviceGroupID"));
                     gc.setUserID(o.getString("userID"));
                     gc.setWorkerNo(o.getString("workerNo"));
-                    gc.setUserPicture("");
-                    try {
-                        gc.setUserPicture(o.getString("userPicture"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    gc.setUserPicture(o.optString("userPicture", ""));
                     gc.setUserName(o.getString("userName"));
                     gc.setContent(o.getString("content"));
                     gc.setChatDate(o.getString("chatDate"));
@@ -732,27 +724,20 @@ public class ApiResultHelper {
         }
     }
 
-    public static int getRepairArea(String response, ArrayList<RepairKindModel> list_area1, ArrayList<RepairKindModel> list_area2) {
+    public static int getRepairArea(String response, ArrayList<RepairKindModel> list_area) {
         try {
             JSONObject j = new JSONObject(response);
             int success = j.getInt("success");
             if (success == 1) {
+                list_area.clear();
                 JSONArray arr = j.getJSONArray("areas");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject o = arr.getJSONObject(i);
-                    RepairKindModel rk = new RepairKindModel();
-                    rk.setId(o.getInt("id"));
-                    rk.setParentId(0);
-                    rk.setContent(o.getString("content"));
-                    if (rk.getId() == 3 || rk.getId() == 4) {
-                        list_area1.add(rk);
-                    } else if (rk.getId() == 2 || rk.getId() == 1) {
-                        list_area2.add(rk);
-                    }
-                }
-                // swap id=4 to first
-                if (list_area1.size() == 2 && list_area1.get(0).getId() != 4) {
-                    Collections.swap(list_area1, 0, 1);
+                    RepairKindModel item = new RepairKindModel();
+                    item.setParentId(0);
+                    item.setId(o.getInt("id"));
+                    item.setContent(o.getString("content"));
+                    list_area.add(item);
                 }
             }
             return success;
@@ -1218,6 +1203,25 @@ public class ApiResultHelper {
                 travel.setContent(j.getString("content"));
                 travel.setCreateDate(j.getString("createDate"));
                 travel.setExpirationDate(j.getString("expirationDate"));
+            }
+            return success;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return PARSER_ERROR;
+        }
+    }
+
+    public static int getEventKind(String response, ArrayList<EventKindModel> list_event_kind) {
+        try {
+            JSONObject j = new JSONObject(response);
+            int success = j.getInt("success");
+            if (success == 1) {
+                list_event_kind.clear();
+                JSONArray arr = j.getJSONArray("eventKind");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject o = arr.getJSONObject(i);
+                    list_event_kind.add(new EventKindModel(o.getString("code"), o.getString("value")));
+                }
             }
             return success;
         } catch (JSONException e) {

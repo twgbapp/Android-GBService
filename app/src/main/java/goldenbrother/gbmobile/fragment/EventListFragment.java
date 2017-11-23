@@ -196,27 +196,6 @@ public class EventListFragment extends Fragment implements View.OnClickListener,
         updateAdapter();
     }
 
-    private void loadLocalEventList() {
-        DAOEvent daoEvent = new DAOEvent(activity);
-        list_event.clear();
-        list_event.addAll(daoEvent.getAll());
-        list_event_show.clear();
-        list_event_show.addAll(list_event);
-        updateAdapter();
-    }
-
-    public void loadCloudEventList(int serviceGroupID) {
-        try {
-            JSONObject j = new JSONObject();
-            j.put("action", "getEventList");
-            j.put("userID", RoleInfo.getInstance().getUserID());
-            j.put("logStatus", false);
-            new LoadCloudEventList(activity, j, URLHelper.HOST, serviceGroupID).execute();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         EventModel item = list_event_show.get(position);
@@ -233,12 +212,33 @@ public class EventListFragment extends Fragment implements View.OnClickListener,
         updateAdapter();
     }
 
+    private void loadLocalEventList() {
+        DAOEvent daoEvent = new DAOEvent(activity);
+        list_event.clear();
+        list_event.addAll(daoEvent.getAll());
+        list_event_show.clear();
+        list_event_show.addAll(list_event);
+        updateAdapter();
+    }
+
+    public void loadCloudEventList(int serviceGroupID) {
+        try {
+            JSONObject j = new JSONObject();
+            j.put("action", "getEventList");
+            j.put("userID", RoleInfo.getInstance().getUserID());
+            j.put("logStatus", false);
+            new LoadCloudEventList(activity, j, serviceGroupID).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     private class LoadCloudEventList extends IAsyncTask {
 
         private int serviceGroupID = 0;
 
-        LoadCloudEventList(Context context, JSONObject json, String url, int serviceGroupID) {
-            super(context, json, url);
+        LoadCloudEventList(Context context, JSONObject json, int serviceGroupID) {
+            super(context, json);
             setShow(false);
             this.serviceGroupID = serviceGroupID;
         }

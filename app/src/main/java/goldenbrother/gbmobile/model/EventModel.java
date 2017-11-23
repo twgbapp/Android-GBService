@@ -1,21 +1,75 @@
 package goldenbrother.gbmobile.model;
 
-import android.util.Log;
-
-/**
- * Created by asus on 2016/12/8.
- */
-
 public class EventModel {
-    private int ServiceEventID;
+    private int serviceEventID;
+    private String userID;
+    private String eventDescription;
+    private String eventKind;
+    private String staffID;
+    //
+    private String userName;
     private String UserPicture;
-    private int EventScore;
-    private int chatCount;
-    private String EventDescription;
-    private String UserName;
     private String workerNo;
-    private String UserID;
-    private int RoleID;
+    private String eventKindValue;
+    private int eventScore;
+    private int chatCount;
+    private int roleID;
+
+    public String getEventKindValue() {
+        return eventKindValue;
+    }
+
+    public void setEventKindValue(String eventKindValue) {
+        this.eventKindValue = eventKindValue;
+    }
+
+    public int getServiceEventID() {
+        return serviceEventID;
+    }
+
+    public void setServiceEventID(int serviceEventID) {
+        this.serviceEventID = serviceEventID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
+    public String getEventKind() {
+        return eventKind;
+    }
+
+    public void setEventKind(String eventKind) {
+        this.eventKind = eventKind;
+    }
+
+    public String getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(String staffID) {
+        this.staffID = staffID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getUserPicture() {
         return UserPicture;
@@ -25,20 +79,12 @@ public class EventModel {
         UserPicture = userPicture;
     }
 
-    public int getServiceEventID() {
-        return ServiceEventID;
-    }
-
-    public void setServiceEventID(int serviceEventID) {
-        ServiceEventID = serviceEventID;
-    }
-
     public int getEventScore() {
-        return EventScore;
+        return eventScore;
     }
 
     public void setEventScore(int eventScore) {
-        EventScore = eventScore;
+        this.eventScore = eventScore;
     }
 
     public int getChatCount() {
@@ -49,22 +95,6 @@ public class EventModel {
         this.chatCount = chatCount;
     }
 
-    public String getEventDescription() {
-        return EventDescription;
-    }
-
-    public void setEventDescription(String eventDescription) {
-        EventDescription = eventDescription;
-    }
-
-    public String getUserName() {
-        return UserName;
-    }
-
-    public void setUserName(String userName) {
-        UserName = userName;
-    }
-
     public String getWorkerNo() {
         return workerNo;
     }
@@ -73,21 +103,11 @@ public class EventModel {
         this.workerNo = workerNo;
     }
 
-    public String getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(String userID) {
-        UserID = userID;
-    }
-
     public int getRoleID() {
-        return RoleID;
+        return roleID;
     }
 
     public void setRoleID(int roleID) {
-        RoleID = roleID;
+        this.roleID = roleID;
     }
-
-
 }

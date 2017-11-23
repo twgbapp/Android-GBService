@@ -46,7 +46,7 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
             j.put("action", "getClubList");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new LoadClubList(this, j, URLHelper.HOST).execute();
+            new LoadClubList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -54,8 +54,8 @@ public class ClubListActivity extends CommonActivity implements AdapterView.OnIt
 
     private class LoadClubList extends IAsyncTask {
 
-        LoadClubList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadClubList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

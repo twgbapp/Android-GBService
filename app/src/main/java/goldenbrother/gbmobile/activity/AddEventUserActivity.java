@@ -59,7 +59,7 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
             j.put("dormID", RoleInfo.getInstance().getDormID());
             j.put("centerID", RoleInfo.getInstance().getCenterID());
             j.put("logStatus", false);
-            new GetEventUserList(this, j, URLHelper.HOST).execute();
+            new GetEventUserList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -69,8 +69,8 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
     private class GetEventUserList extends IAsyncTask {
 
 
-        GetEventUserList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetEventUserList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -101,7 +101,7 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
             }
             j.put("userIDs", arr);
             j.put("logStatus", true);
-            new AddEventGroup(this, j, URLHelper.HOST).execute();
+            new AddEventGroup(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -109,8 +109,8 @@ public class AddEventUserActivity extends CommonActivity implements View.OnClick
 
     private class AddEventGroup extends IAsyncTask {
 
-        AddEventGroup(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddEventGroup(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

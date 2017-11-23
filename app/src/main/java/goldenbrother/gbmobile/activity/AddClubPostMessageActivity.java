@@ -50,7 +50,7 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
         setUpBackToolbar(R.id.toolbar, R.string.comment);
 
         // ui reference
-        nsv=findViewById(R.id.nsv_add_club_post_message);
+        nsv = findViewById(R.id.nsv_add_club_post_message);
         iv_user_picture = findViewById(R.id.iv_add_club_post_message_user_picture);
         iv_thumbnail_pic = findViewById(R.id.iv_add_club_post_message_thumbnail_pic);
         iv_video_play = findViewById(R.id.iv_add_club_post_message_video_play);
@@ -141,7 +141,7 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
             j.put("logStatus", true);
             if (!sending) {
                 sending = true;
-                new AddClubPostMessage(this, j, URLHelper.HOST).execute();
+                new AddClubPostMessage(this, j).execute();
             } else {
                 t(R.string.sending);
             }
@@ -152,8 +152,8 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
 
     private class AddClubPostMessage extends IAsyncTask {
 
-        AddClubPostMessage(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddClubPostMessage(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -180,7 +180,7 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
             j.put("clubPostID", clubPost.getClubPostID());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadClubPostMessage(this, j, URLHelper.HOST, scrollToBottom).execute();
+            new LoadClubPostMessage(this, j, scrollToBottom).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -189,8 +189,8 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
     private class LoadClubPostMessage extends IAsyncTask {
         private boolean scrollToBottom;
 
-        LoadClubPostMessage(Context context, JSONObject json, String url, boolean scrollToBottom) {
-            super(context, json, url);
+        LoadClubPostMessage(Context context, JSONObject json, boolean scrollToBottom) {
+            super(context, json);
             this.scrollToBottom = scrollToBottom;
         }
 
@@ -204,7 +204,7 @@ public class AddClubPostMessageActivity extends CommonActivity implements View.O
                     if (result == ApiResultHelper.SUCCESS) {
                         saveMessageCount(list_message.size());
                         updateAdapter();
-                        if (scrollToBottom){
+                        if (scrollToBottom) {
                             nsv.post(new Runnable() {
                                 @Override
                                 public void run() {

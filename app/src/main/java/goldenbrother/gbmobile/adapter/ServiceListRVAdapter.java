@@ -17,7 +17,6 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.fragment.ServiceListFragment;
 import goldenbrother.gbmobile.helper.Constant;
 import goldenbrother.gbmobile.helper.TimeHelper;
-import goldenbrother.gbmobile.model.AddEventModel;
 import goldenbrother.gbmobile.model.ServiceChatModel;
 
 public class ServiceListRVAdapter extends SampleRVAdapter {

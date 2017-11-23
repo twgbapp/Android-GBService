@@ -51,7 +51,7 @@ public class ApplyAccountActivity extends CommonActivity implements View.OnClick
             j.put("userEmail", userEmail);
             j.put("userPhone", userPhone);
             j.put("logStatus", false);
-            new ApplyAccount(this, j, URLHelper.HOST).execute();
+            new ApplyAccount(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -59,8 +59,8 @@ public class ApplyAccountActivity extends CommonActivity implements View.OnClick
 
     private class ApplyAccount extends IAsyncTask {
 
-        ApplyAccount(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        ApplyAccount(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

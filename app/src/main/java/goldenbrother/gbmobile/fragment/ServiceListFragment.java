@@ -135,6 +135,7 @@ public class ServiceListFragment extends CommonFragment {
         intent.putExtra("serviceGroupID", item.getServiceGroupID());
         intent.putExtra("userID", item.getUserID());
         intent.putExtra("userName", item.getUserName());
+        intent.putExtra("staffID", item.getStaffID());
         activity.startActivityForResult(intent, MobileServiceActivity.REQUEST_SERVICE_CHAT);
         // set read
         int chatUnReadCount = SPHelper.getChatUnReadCount(activity) - item.getChatCount();
@@ -193,7 +194,7 @@ public class ServiceListFragment extends CommonFragment {
             j.put("action", "getGroupListNos");
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetGroupListNos(activity, j, URLHelper.HOST).execute();
+            new GetGroupListNos(activity, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -201,8 +202,8 @@ public class ServiceListFragment extends CommonFragment {
 
     private class GetGroupListNos extends IAsyncTask {
 
-        GetGroupListNos(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetGroupListNos(Context context, JSONObject json) {
+            super(context, json);
             setShow(false);
         }
 
@@ -241,7 +242,7 @@ public class ServiceListFragment extends CommonFragment {
             j.put("logStatus", false);
             if (!nos.isEmpty()) {
                 loading = true;
-                new GetGroupList(activity, j, URLHelper.HOST).execute();
+                new GetGroupList(activity, j).execute();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -250,8 +251,8 @@ public class ServiceListFragment extends CommonFragment {
 
     private class GetGroupList extends IAsyncTask {
 
-        GetGroupList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetGroupList(Context context, JSONObject json) {
+            super(context, json);
             setShow(false);
         }
 

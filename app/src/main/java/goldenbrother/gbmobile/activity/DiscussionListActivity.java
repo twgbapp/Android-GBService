@@ -59,7 +59,7 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
             if (flaborNo != null)
                 j.put("flaborNo", flaborNo);
 
-            new GetDiscussionFlaborList(this, j, URLHelper.HOST).execute();
+            new GetDiscussionFlaborList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -67,8 +67,8 @@ public class DiscussionListActivity extends CommonActivity implements View.OnCli
 
     private class GetDiscussionFlaborList extends IAsyncTask {
 
-        GetDiscussionFlaborList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetDiscussionFlaborList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

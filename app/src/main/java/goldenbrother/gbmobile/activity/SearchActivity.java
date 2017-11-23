@@ -77,7 +77,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
             JSONObject j = new JSONObject();
             j.put("action", "getCenterInfo");
             j.put("userID", RoleInfo.getInstance().getUserID());
-            new GetCenterInfo(this, j, URLHelper.HOST).execute();
+            new GetCenterInfo(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -85,8 +85,8 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
 
     private class GetCenterInfo extends IAsyncTask {
 
-        GetCenterInfo(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetCenterInfo(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -111,7 +111,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
             JSONObject j = new JSONObject();
             j.put("action", "getDormInfo");
             j.put("centerID", centerId);
-            new GetDormInfo(this, j, URLHelper.HOST).execute();
+            new GetDormInfo(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -119,8 +119,8 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
 
     private class GetDormInfo extends IAsyncTask {
 
-        GetDormInfo(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetDormInfo(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -146,7 +146,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
             JSONObject j = new JSONObject();
             j.put("action", "getCustomerInfo");
             j.put("dormID", dormId);
-            new GetCustomerInfo(this, j, URLHelper.HOST).execute();
+            new GetCustomerInfo(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -154,8 +154,8 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
 
     private class GetCustomerInfo extends IAsyncTask {
 
-        GetCustomerInfo(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetCustomerInfo(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -254,7 +254,7 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
             j.put("workerNo", workerNo);
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetDormUserInfo(this, j, URLHelper.HOST).execute();
+            new GetDormUserInfo(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -262,8 +262,8 @@ public class SearchActivity extends CommonActivity implements View.OnClickListen
 
     private class GetDormUserInfo extends IAsyncTask {
 
-        GetDormUserInfo(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetDormUserInfo(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

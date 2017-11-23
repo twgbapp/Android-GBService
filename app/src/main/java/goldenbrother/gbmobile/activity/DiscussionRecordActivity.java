@@ -32,6 +32,7 @@ import goldenbrother.gbmobile.helper.FileHelper;
 import goldenbrother.gbmobile.helper.GenericFileProvider;
 import goldenbrother.gbmobile.helper.IAsyncTask;
 import goldenbrother.gbmobile.helper.LogHelper;
+import goldenbrother.gbmobile.helper.SPHelper;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Discussion;
@@ -102,7 +103,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
             JSONObject j = new JSONObject();
             j.put("action", "getDiscussionRecord");
             j.put("drsno", drsno);
-            new GetDiscussionRecord(this, j, URLHelper.HOST).execute();
+            new GetDiscussionRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -110,8 +111,8 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
 
     private class GetDiscussionRecord extends IAsyncTask {
 
-        GetDiscussionRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetDiscussionRecord(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -172,7 +173,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
             j.put("serviceRecord", discussion.getServiceRecordPath());
             j.put("signature", discussion.getSignaturePath());
 
-            new AddDiscussionRecord(this, j, URLHelper.HOST).execute();
+            new AddDiscussionRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -180,8 +181,8 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
 
     private class AddDiscussionRecord extends IAsyncTask {
 
-        AddDiscussionRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        AddDiscussionRecord(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -214,7 +215,7 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
             j.put("serviceRecord", discussion.getServiceRecordPath());
             j.put("signature", discussion.getSignaturePath());
 
-            new UpdateDiscussionRecord(this, j, URLHelper.HOST).execute();
+            new UpdateDiscussionRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -222,8 +223,8 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
 
     private class UpdateDiscussionRecord extends IAsyncTask {
 
-        UpdateDiscussionRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        UpdateDiscussionRecord(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override
@@ -251,9 +252,9 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
             j.put("fileName", UUID.randomUUID().toString());
-            j.put("url", URLHelper.HOST);
+            j.put("url", SPHelper.getUrl(this));
             j.put("baseStr", BitmapHelper.bitmap2JPGBase64(bmp));
-            new UploadImageTask(this, j, URLHelper.HOST).execute();
+            new UploadImageTask(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -262,8 +263,8 @@ public class DiscussionRecordActivity extends CommonActivity implements View.OnC
     private class UploadImageTask extends IAsyncTask {
         private HashMap<String, String> map;
 
-        UploadImageTask(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        UploadImageTask(Context context, JSONObject json) {
+            super(context, json);
             map = new HashMap<>();
         }
 

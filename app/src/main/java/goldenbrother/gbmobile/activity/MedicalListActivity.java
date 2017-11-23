@@ -22,6 +22,7 @@ import goldenbrother.gbmobile.R;
 import goldenbrother.gbmobile.adapter.MedicalListRVAdapter;
 import goldenbrother.gbmobile.helper.ApiResultHelper;
 import goldenbrother.gbmobile.helper.IAsyncTask;
+import goldenbrother.gbmobile.helper.LogHelper;
 import goldenbrother.gbmobile.helper.TimeHelper;
 import goldenbrother.gbmobile.helper.URLHelper;
 import goldenbrother.gbmobile.model.Medical;
@@ -53,6 +54,7 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
         rv.setAdapter(new MedicalListRVAdapter(this, list_medical));
 
         getRecentMedicalFlaborList();
+        LogHelper.d("D:" + RoleInfo.getInstance().getDormID());
     }
 
     private void getRecentMedicalFlaborList() {
@@ -68,9 +70,10 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
             j.put("action", "getMedicalFlaborList");
             j.put("startRecordDate", startRecordDate);
             j.put("endRecordDate", endRecordDate);
+            j.put("dormID", RoleInfo.getInstance().getDormID());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", true);
-            new GetMedicalFlaborList(this, j, URLHelper.HOST).execute();
+            new GetMedicalFlaborList(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -78,8 +81,8 @@ public class MedicalListActivity extends CommonActivity implements View.OnClickL
 
     private class GetMedicalFlaborList extends IAsyncTask {
 
-        GetMedicalFlaborList(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetMedicalFlaborList(Context context, JSONObject json) {
+            super(context, json);
         }
 
         @Override

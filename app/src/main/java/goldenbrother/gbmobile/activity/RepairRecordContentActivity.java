@@ -49,7 +49,7 @@ public class RepairRecordContentActivity extends CommonActivity {
             j.put("nationCode", RoleInfo.getInstance().getUserNationCode());
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new GetRepairRecord(this, j, URLHelper.HOST).execute();
+            new GetRepairRecord(this, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -57,8 +57,8 @@ public class RepairRecordContentActivity extends CommonActivity {
 
     private class GetRepairRecord extends IAsyncTask {
 
-        GetRepairRecord(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        GetRepairRecord(Context context, JSONObject json) {
+            super(context, json);
             repairRecordModel = new RepairRecordModel();
         }
 

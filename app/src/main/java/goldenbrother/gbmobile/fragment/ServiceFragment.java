@@ -45,8 +45,9 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     // ui
     private RecyclerView rv;
     private EditText et_content;
-    // data
+    // extra
     private int serviceGroupID;
+    // data
     private ArrayList<ServiceChatModel> list_group_chat;
 
     public static ServiceFragment getInstance(int serviceGroupID) {
@@ -118,7 +119,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             j.put("logStatus", true);
             if (!isSending) {
                 isSending = true;
-                new AddServiceChat(activity, j, URLHelper.HOST, content).execute();
+                new AddServiceChat(activity, j, content).execute();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -131,8 +132,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
 
         private String content;
 
-        AddServiceChat(Context context, JSONObject json, String url, String content) {
-            super(context, json, url);
+        AddServiceChat(Context context, JSONObject json, String content) {
+            super(context, json);
             this.content = content;
         }
 
@@ -167,7 +168,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             j.put("serviceGroupID", serviceGroupID);
             j.put("content", content);
             j.put("logStatus", true);
-            new PushMessage(activity, j, URLHelper.HOST).execute();
+            new PushMessage(activity, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -175,8 +176,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
 
     private class PushMessage extends IAsyncTask {
 
-        PushMessage(Context context, JSONObject json, String url) {
-            super(context, json, url, false);
+        PushMessage(Context context, JSONObject json) {
+            super(context, json, false);
             setShow(false);
         }
     }
@@ -196,7 +197,7 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
             j.put("endChatDate", TimeHelper.addMinute(TimeHelper.getStandard(), 10));
             j.put("userID", RoleInfo.getInstance().getUserID());
             j.put("logStatus", false);
-            new LoadCloudChat(activity, j, URLHelper.HOST).execute();
+            new LoadCloudChat(activity, j).execute();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -205,8 +206,8 @@ public class ServiceFragment extends CommonFragment implements View.OnClickListe
     private class LoadCloudChat extends IAsyncTask {
         private ArrayList<ServiceChatModel> list;
 
-        LoadCloudChat(Context context, JSONObject json, String url) {
-            super(context, json, url);
+        LoadCloudChat(Context context, JSONObject json) {
+            super(context, json);
             this.list = new ArrayList<>();
             setShow(false);
         }
